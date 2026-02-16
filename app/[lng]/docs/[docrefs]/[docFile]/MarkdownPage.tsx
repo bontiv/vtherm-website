@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import './markdown.css';
 
 const MarkdownPage: React.FC<{ file: string }> = async ({ file }) => {
-    const githubApi = new GitHubAPI();
+    const githubApi = GitHubAPI.getInstance();
     const page_metadata = await githubApi.getGitTreePath(file);
     const fileContent = await githubApi.getGitBlob(page_metadata!.sha);
 

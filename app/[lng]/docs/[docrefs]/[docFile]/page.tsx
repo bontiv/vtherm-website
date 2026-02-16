@@ -16,7 +16,7 @@ export default DocPage;
 
 export async function generateStaticParams({ params }: any) {
     const { lng, docrefs }: { lng: string, docrefs: string } = params;
-    const githubApi = new GitHubAPI();
+    const githubApi = GitHubAPI.getInstance();
 
     const rootDir = await githubApi.getGitTree(docrefs);
     const docSha = rootDir.tree.find((item: any) => item.path === 'documentation')?.sha;

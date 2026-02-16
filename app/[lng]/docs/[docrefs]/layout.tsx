@@ -1,7 +1,7 @@
 import { GitHubAPI } from '@/lib/github';
 
 export async function generateStaticParams() {
-    const githubApi = new GitHubAPI();
+    const githubApi = GitHubAPI.getInstance();
     const releases = await githubApi.getReleases().then(data => data.filter(x => !x.prerelease).map((release: any) => ({ docrefs: release.tag_name })));
     return releases.slice(0, 3);
 }

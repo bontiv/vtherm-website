@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 }
 
 export default async function Layout({ children, params }: { children: React.ReactNode, params: Promise<{ lng: string }> }) {
-    const githubapi = new GitHubAPI();
+    const githubapi = GitHubAPI.getInstance();
     const { lng } = await params;
     const release: string = (await githubapi.getReleases()).filter(x => !x.prerelease)[0].tag_name ?? '8.6.0';
     const filesDir = (await githubapi.getGitTreePath(`${release}/documentation/${lng}`))?.sha;
