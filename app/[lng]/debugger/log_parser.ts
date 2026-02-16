@@ -1,0 +1,222 @@
+import type { Op } from 'quill';
+
+const IGNORED_PATTERNS = [
+    /\[custom_components.versatile_thermostat.auto_tpi_manager\]/,
+    /Last_sent_temperature/,
+    /no change in valve_open_percent/,
+    /recalculate the open percent/,
+    /underlying_climate_start_hvac_action_date to calculate energy/,
+    /\[custom_components\.versatile_thermostat\.thermostat_climate\] .+ - usage time_delta:/,
+    /\[custom_components\.versatile_thermostat\.thermostat_climate\] .+ - usage regulation_step:/,
+    /\[custom_components\.versatile_thermostat\.feature_heating_failure_detection_manager\]/,
+    /\[custom_components\.versatile_thermostat\.thermostat_climate\] .+ - Calling ThermostatClimate\._send_regulated_temperature/,
+    /\[custom_components\.versatile_thermostat\.feature_auto_start_stop_manager\] .* - auto start\/stop is /,
+    /\[custom_components\.versatile_thermostat\.base_thermostat\] .+ - last_change_time is now/,
+    /\[custom_components\.versatile_thermostat\.feature_safety_manager\] SafetyManager-.+ - checking safety delta_temp=/,
+    /\[custom_components\.versatile_thermostat\.thermostat_climate_valve\] .+ - last_regulation_change is now/,
+    /\[custom_components\.versatile_thermostat\.feature_window_manager\]/,
+    /\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-.+ - period \([0-9.]+\) min is .+ min -> /,
+    /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - Checking new cycle\./,
+    /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - After setting _last/,
+    /Forget the event/,
+]
+
+class VThermLogParser {
+    private name: string;
+    public underlying_setpoints: { timestamp: Date, value: number }[] = [];
+    public underlying_temps: { timestamp: Date, value: number }[] = [];
+    public room_temps: { timestamp: Date, value: number }[] = [];
+    public ext_temps: { timestamp: Date, value: number }[] = [];
+    public target_temps: { timestamp: Date, value: number }[] = [];
+    public offset_temps: { timestamp: Date, value: number }[] = [];
+    public regulated_temps: { timestamp: Date, value: number }[] = [];
+    public valve_open_percents: { timestamp: Date, value: number }[] = [];
+    public on_percents: { timestamp: Date, value: number }[] = [];
+    public config: any = {};
+
+    public constructor(name: string) {
+        this.name = name;
+    }
+
+    public parseLog(log: string) {
+    }
+
+    public parseState(time: Date, state: string) {
+        let match = state.match(/'ext_current_temperature': ([0-9.]+),/)
+        if (match) {
+            this.ext_temps.push({ timestamp: time, value: parseFloat(match[1]) });
+        }
+
+        match = state.match(/'target_temperature': ([0-9.]+),/)
+        if (match) {
+            this.target_temps.push({ timestamp: time, value: parseFloat(match[1]) });
+        }
+
+        match = state.match(/'on_percent': ([0-9.]+),/)
+        if (match) {
+            this.on_percents.push({ timestamp: time, value: parseFloat(match[1]) * 100 });
+        }
+
+        match = state.match(/'valve_open_percent': ([0-9.]+),/)
+        if (match) {
+            this.valve_open_percents.push({ timestamp: time, value: parseFloat(match[1]) * 100 });
+        }
+
+        try {
+            const config_json = state.replace(/'/g, '"')
+                .replace(/None/g, 'null')
+                .replace(/True/g, 'true')
+                .replace(/False/g, 'false')
+                .replace(/<([^:]*): ([^>]*)>/g, '{"$1": $2}')
+                ;
+            this.config = JSON.parse(config_json);
+        } catch (e) {
+            console.error('Failed to parse config JSON for thermostat', this.name, 'from state:', state, 'error:', e);
+        }
+    }
+}
+
+export class LogParser {
+    private logs: string[];
+    private thermostats: Map<string, VThermLogParser> = new Map();
+    private last_thermo: string | null = null;
+
+    public constructor(logs: string) {
+        this.logs = logs.split('\n');
+        for (const line of this.logs) {
+            this.parseLine(line);
+        }
+
+        console.info(`Parsed log with ${this.logs.length} lines and ${this.thermostats.size} thermostats.`);
+    }
+
+    public getThermostats(): string[] {
+        return Array.from(this.thermostats.keys());
+    }
+
+    public getThermostat(name: string): VThermLogParser | undefined {
+        return this.thermostats.get(name);
+    }
+
+    public getOps(): Op[] {
+        const lineitems: Op[] = [];
+        for (const line of this.logs) {
+            if (line.search(/ERROR|CRITICAL|FATAL/) !== -1) {
+                lineitems.push({ insert: line + '\n', attributes: { color: 'red' } });
+            } else if (line.search(/WARNING/) !== -1) {
+                lineitems.push({ insert: line + '\n', attributes: { color: 'orange' } });
+            } else if (line.search(/INFO/) !== -1) {
+                lineitems.push({ insert: line + '\n', attributes: { color: 'green' } });
+            } else {
+                lineitems.push({ insert: line + '\n' });
+            }
+        }
+
+        return lineitems;
+    }
+
+    private getThermoParser(thermo: string): VThermLogParser {
+        if (thermo.startsWith('VersatileThermostat-')) {
+            console.error('Thermostat name should not start with "VersatileThermostat-", removing prefix for parser key:', thermo);
+            throw new Error('Thermostat name should not start with "VersatileThermostat-", removing prefix for parser key:' + thermo);
+        }
+        if (!this.thermostats.has(thermo)) {
+            this.thermostats.set(thermo, new VThermLogParser(thermo));
+        }
+        return this.thermostats.get(thermo)!;
+    }
+
+    private parseLine(line: string) {
+        for (const pattern of IGNORED_PATTERNS) {
+            if (line.search(pattern) !== -1) {
+                return;
+            }
+        }
+
+        const time = line.substring(0, 19);
+
+        let match = line.match(/NEW EVENT: VersatileThermostat-(.+) - /)
+        if (match) {
+            this.getThermoParser(match[1]).parseLog(line);
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] VersatileThermostat-(.+)-climate\..+ Set setpoint temperature to: ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.prop_algorithm\] (.+) - heating percent calculated for current_temp ([0-9.]+), ext_current_temp ([0-9.]+) and target_temp ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            this.getThermoParser(match[1]).ext_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+). New target is ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[1]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate(_valve)?\] VersatileThermostat-(.+) - Calling update_custom_attributes: (.+)/)
+        if (match) {
+            this.getThermoParser(match[2]).parseState(new Date(time), match[3]);
+            return
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-(.+) - Regulated temp have changed to ([0-9.]+)\. Resend it to underlyings/)
+        if (match) {
+            this.getThermoParser(match[1]).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-(.+) - regulation calculation will be done/)
+        if (match) {
+            this.last_thermo = match[1];
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.pi_algorithm\] PITemperatureRegulator - Error: ([0-9.]+) accumulated_error: ([0-9.]+) \(overheat protection True and delta ([0-9.]+)\) offset: ([0-9.]+) offset_ext: ([0-9.]+) target_tem: ([0-9.]+) regulatedTemp: ([0-9.]+)/)
+        if (match && this.last_thermo) {
+            // this.getThermoParser(this.last_thermo).pi_errors.push({ timestamp: new Date(time), value: parseFloat(match[1]) });
+            // this.getThermoParser(this.last_thermo).pi_accumulated_errors.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            // this.getThermoParser(this.last_thermo).pi_deltas.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(this.last_thermo).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            // this.getThermoParser(this.last_thermo).pi_offset_exts.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
+            this.getThermoParser(this.last_thermo).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[6]) });
+            this.getThermoParser(this.last_thermo).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[7]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-(.+) - Applying new target temperature: ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.ema\] EMA-(.+) - .+ measurement=([0-9.]+) /)
+        if (match) {
+            this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.prop_algorithm\] (.+) - Proportional algorithm: on_percent is forced to 0 cause current_temp \(([0-9.]+)\) /)
+        if (match) {
+            this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-(.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
+        if (match) {
+            this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        console.log('No parse for line:', line);
+    }
+}

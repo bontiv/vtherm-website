@@ -59,6 +59,10 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
                     href="/devices"
                     label="Device compatibility"
                 />
+                <NavItem
+                    href="/debugger"
+                    label="Log analyzer"
+                />
 
                 {/* Separator */}
                 <div className="my-4 border-t border-[#3a3a3a]" />

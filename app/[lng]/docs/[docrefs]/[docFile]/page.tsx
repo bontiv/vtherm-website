@@ -15,7 +15,6 @@ export const DocPage: React.FC<{ params: Promise<any> }> = async ({ params }) =>
 export default DocPage;
 
 export async function generateStaticParams({ params }: any) {
-    return [{ lng: 'fr', docrefs: '8.6.2', docFile: 'quick-start' }];
     const { lng, docrefs }: { lng: string, docrefs: string } = params;
     const githubApi = new GitHubAPI();
 
@@ -34,8 +33,6 @@ export async function generateStaticParams({ params }: any) {
     }
 
     const docFiles = await githubApi.getGitTree(docLangSha);
-    console.log('Fetched documentation directory for tag:', docFiles);
-    console.log('Generating static params for doc page with params:');
     return docFiles.tree.filter(x => x.path.endsWith('.md')).map((file: any) => ({
         lng,
         docrefs,
