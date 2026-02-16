@@ -82,7 +82,7 @@ export class GitHubAPI {
 
             for (const segment of paths) {
                 last_query = await this.getGitTree(sha!);
-                last_item = last_query.tree.find((item) => item.path === segment);
+                last_item = last_query.tree.find((item: any) => item.path === segment);
                 sha = last_item?.sha;
             }
 

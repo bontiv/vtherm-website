@@ -33,7 +33,7 @@ export async function generateStaticParams({ params }: any) {
     }
 
     const docFiles = await githubApi.getGitTree(docLangSha);
-    return docFiles.tree.filter(x => x.path.endsWith('.md')).map((file: any) => ({
+    return docFiles.tree.filter((x: any) => x.path.endsWith('.md')).map((file: any) => ({
         lng,
         docrefs,
         docFile: file.path.slice(0, -3) // remove .md and lowercase first letter
