@@ -77,14 +77,21 @@ class VThermLogParser {
 }
 
 export class LogParser {
-    private logs: string[];
+    private logs: string[] = [];
     private thermostats: Map<string, VThermLogParser> = new Map();
     private last_thermo: string | null = null;
 
     public constructor(logs: string) {
-        this.logs = logs.split('\n');
-        for (const line of this.logs) {
-            this.parseLine(line);
+        const log_lines = logs.split('\n');
+        for (const line of log_lines) {
+            const cleaned_line = line.replaceAll(/\x1b[^m]+m/g, '');
+
+            if (cleaned_line.match(/^[^[]+\[[^]]+\]\s*$/)) {
+                continue;
+            }
+
+            this.parseLine(cleaned_line);
+            this.logs.push(cleaned_line);
         }
 
         console.info(`Parsed log with ${this.logs.length} lines and ${this.thermostats.size} thermostats.`);
@@ -98,9 +105,22 @@ export class LogParser {
         return this.thermostats.get(name);
     }
 
-    public getOps(): Op[] {
+    public getOps(climate: string | undefined = undefined, zoom: { mindate: Date, maxdate: Date } | undefined = undefined): Op[] {
         const lineitems: Op[] = [];
+        const skiped = this.getThermostats().filter(x => x != climate)
+
         for (const line of this.logs) {
+            if (climate && skiped.map(x => line.includes(x)).includes(true)) {
+                continue;
+            }
+
+            if (zoom) {
+                const time = new Date(line.substring(0, 19));
+                if (time < zoom.mindate || time > zoom.maxdate) {
+                    continue;
+                }
+            }
+
             if (line.search(/ERROR|CRITICAL|FATAL/) !== -1) {
                 lineitems.push({ insert: line + '\n', attributes: { color: 'red' } });
             } else if (line.search(/WARNING/) !== -1) {
@@ -217,6 +237,6 @@ export class LogParser {
             return;
         }
 
-        console.log('No parse for line:', line);
+        //console.log('No parse for line:', line);
     }
 }

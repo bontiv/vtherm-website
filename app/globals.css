@@ -53,8 +53,7 @@ html {
 
 /* Styles pour les sélections de texte */
 ::selection {
-  background: var(--color-vtherm-cyan);
-  color: var(--color-vtherm-bg-dark);
+  @apply bg-green-500 text-blue-700;
 }
 
 /* Animation pour les accordéons */
