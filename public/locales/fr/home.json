@@ -1,0 +1,47 @@
+{
+    "subtitle": "Une intégration climatique avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de thermostat existant",
+    "start-guide": "Configuration",
+    "install-guide": "Installation",
+    "easy-install": "Installation facile",
+    "easy-install-explain": "Versatile Thermostat s'installe facilement via HACS (Home Assistant Community Store). Une fois installé, vous pouvez configurer votre premier thermostat en quelques minutes grâce à notre interface intuitive.",
+    "why": "Pourquoi utiliser Versatile Thermostat ?",
+    "why-explain": "Versatile Thermostat a été conçu pour pallier les limitations des thermostats standards dans Home Assistant. Notre objectif est de vous offrir une régulation climatique intelligente et efficace qui s'adapte à vos besoins spécifiques.",
+    "config-guide": "Guide de configuration",
+    "features": {
+        "compatibility": "Compatible avec les PAC, vannes et commutateurs",
+        "algorithms": "Algorithme TPI intelligent",
+        "window": "Gestion des fenêtres ouvertes",
+        "boiler": "Gestion de la chaudière centrale",
+        "presence": "Chauffage suivant la détection de présence"
+    },
+    "cta": {
+        "title": "Prêt à améliorer votre système de chauffage ?",
+        "desc": "Rejoignez des milliers d'utilisateurs qui ont déjà optimisé leur confort et leur consommation énergétique"
+    },
+    "cards": {
+        "algo": {
+            "title": "Puissance Intelligente",
+            "desc": "Algorithmes de calibration avancés pour une précision de température optimale. Ajustement automatique basé sur les conditions réelles."
+        },
+        "flex": {
+            "title": "Configuration Flexible",
+            "desc": "Interface de configuration intuitive avec de nombreuses options personnalisables pour s'adapter à tous les systèmes."
+        },
+        "valve": {
+            "title": "Contrôle de Valve",
+            "desc": "Contrôle précis de l'ouverture des valves TRV avec support du mode boost et anti-freeze."
+        },
+        "presence": {
+            "title": "Détection de présence",
+            "desc": "Détecte la présence des occupants et adapte la température lors des absences."
+        },
+        "boiler": {
+            "title": "Chaudière centrale",
+            "desc": "Support l'activation et désactivation automatique de la chaudière centrale."
+        },
+        "power": {
+            "title": "Delestage de puissance",
+            "desc": "Sur les radiateurs électique, rédcution automatique de la puissance pour éviter un déclenchement du disjoncteur."
+        }
+    }
+}

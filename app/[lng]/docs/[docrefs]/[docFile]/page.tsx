@@ -4,7 +4,7 @@ import MarkDownPage from "./MarkdownPage";
 
 export const DocPage: React.FC<{ params: Promise<any> }> = async ({ params }) => {
     const { lng, docrefs, docFile }: { lng: string, docrefs: string, docFile: string } = await params;
-    console.log('Rendering DocPage with params:', lng, docrefs, docFile);
+
     return (
         <div className="space-y-12">
             <MarkDownPage lng={lng} version={docrefs} file={`/documentation/${lng}/${docFile}.md`} />

@@ -1,5 +1,4 @@
 import { Octokit } from "octokit";
-import { useMemo } from "react";
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods'
 
 export type GithubReleases = RestEndpointMethodTypes['repos']['listReleases']['response']['data']

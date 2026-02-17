@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLDivElement> {
     variant?: 'primary' | 'secondary' | 'outline';
     size?: 'sm' | 'md' | 'lg';
     children: React.ReactNode;
@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
 
     const variantStyles = {
         primary: 'bg-gradient-to-r from-[#00D9FF] to-[#00BCD4] text-white hover:shadow-lg hover:shadow-[#00D9FF]/30 hover:scale-105',
-        secondary: 'border-2 border-[#7CFC00] text-[#7CFC00] hover:bg-[#7CFC00]/10',
+        secondary: 'border-2 border-blue-300 text-blue-300 hover:bg-blue-200/10',
         outline: 'border border-[#3a3a3a] text-[#ffffff] hover:border-[#7CFC00] hover:text-[#7CFC00]',
     };
 
@@ -28,11 +28,11 @@ export const Button: React.FC<ButtonProps> = ({
     };
 
     return (
-        <button
+        <div
             className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
             {...props}
         >
             {children}
-        </button>
+        </div>
     );
 };

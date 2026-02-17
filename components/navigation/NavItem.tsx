@@ -7,7 +7,7 @@ import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
 import { useParams } from 'next/navigation';
 import { fallbackLng, languages } from '@/app/i18n/settings';
-import LinkLocale from '../LinkLocale';
+import { LinkLocale } from '../LinkLocale';
 
 interface NavItemProps {
     href: string;

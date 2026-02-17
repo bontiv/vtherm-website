@@ -24,7 +24,7 @@ function getCurrentLanguage(pathname: string): string {
     return fallbackLng;
 }
 
-const LinkLocale = React.forwardRef<HTMLAnchorElement, LinkLocaleProps>(({ href, children, ...props }, ref) => {
+export const LinkLocale = React.forwardRef<HTMLAnchorElement, LinkLocaleProps>(({ href, children, ...props }, ref) => {
     const pathname = usePathname();
     const lng = getCurrentLanguage(pathname);
 
@@ -35,7 +35,12 @@ const LinkLocale = React.forwardRef<HTMLAnchorElement, LinkLocaleProps>(({ href,
     );
 });
 
+export const LinkDocs = React.forwardRef<HTMLAnchorElement, LinkLocaleProps>(({ href, children, ...props }, ref) => {
+    const release = '9.0.0'
 
-
-export default LinkLocale
-
+    return (
+        <LinkLocale href={`/docs/${release}${href}`} ref={ref} {...props}>
+            {children}
+        </LinkLocale>
+    );
+});

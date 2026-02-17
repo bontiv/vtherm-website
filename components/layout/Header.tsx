@@ -36,8 +36,9 @@ export const Header: React.FC = () => {
                         onSearch={handleSearch}
                     /> */}
                     <select value={i18n.language} onChange={handleLangChange}>
-                        <option value='fr'>FR</option>
                         <option value='en'>EN</option>
+                        <option value='fr'>FR</option>
+                        <option value='de'>DE</option>
                     </select>
                 </div>
 

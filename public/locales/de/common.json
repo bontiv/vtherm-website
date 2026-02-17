@@ -1,1 +1,47 @@
-{}
+{
+    "title": "Versatile Thermostat - Der intelligente Thermostat für Ihr Zuhause",
+    "description": "Versatile Thermostat ist eine fortschrittliche Thermostatintegration für Home Assistant, die mit jeder vorhandenen Klima-, Schalter- oder Ventilentität funktioniert. Es bietet intelligente Kalibrierung, Heizungssteuerung und einen TPI-Algorithmus für optimalen Komfort und Energieeinsparungen.",
+    "menu": {
+        "home": "Startseite",
+        "devices": "Gerätekompatibilität",
+        "log-analyzer": "Log-Analyzer",
+        "github": "GitHub-Repository",
+        "docs": "Dokumentation"
+    },
+    "footer": "Diese Website ist eine Community-Website. Die einzige offizielle Informationsquelle zu Versatile Thermostat ist das GitHub-Repository.",
+    "contribute": "Auf GitHub mitwirken",
+    "on-github": "Versatile Thermostat auf GitHub",
+    "backtotop": "Zurück nach oben",
+    "docs": {
+        "quick-start": "Schnellstart",
+        "additions": "Ergänzungen",
+        "algorithms": "Algorithmen",
+        "base-attributes": "Basisattribute",
+        "creation": "Erstellung",
+        "feature-advanced": "Erweiterte Funktionen",
+        "feature-auto-start-stop": "Auto Start Stop",
+        "feature-autotpi-technical": "AutoTPI Technik",
+        "feature-autotpi": "AutoTPI",
+        "feature-central-boiler": "Zentralheizung",
+        "feature-central-mode": "Zentrale Konfiguration",
+        "feature-heating-failure-detection": "Heizungsausfallserkennung",
+        "feature-lock": "Sperrung",
+        "feature-motion": "Anwesenheitserkennung",
+        "feature-power": "Energieverwaltung",
+        "feature-presets": "Heizmodi",
+        "feature-recalibrate-valves": "Ventilkalibrierung",
+        "feature-sync_device_temp": "Gerätetemperaturen synchronisieren",
+        "feature-timed-preset": "Temporärer Modus",
+        "feature-window": "Verwaltung offener Fenster",
+        "installation": "Installation",
+        "over-climate": "VTherm auf Thermostat",
+        "over-switch": "VTherm auf Schalter",
+        "over-valve": "VTherm auf Ventil",
+        "presentation": "Präsentation",
+        "reference": "Referenz",
+        "releases": "Versionshinweise",
+        "self-regulation": "Selbstregulierung",
+        "troubleshooting": "Fehlerbehebung",
+        "tuning-examples": "Einstellungsbeispiele"
+    }
+}

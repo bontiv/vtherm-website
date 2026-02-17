@@ -1,0 +1,47 @@
+{
+    "subtitle": "Eine fortschrittliche Klimaintegration für Home Assistant, die mit jeder vorhandenen Thermostatentität funktioniert",
+    "start-guide": "Konfiguration",
+    "install-guide": "Installation",
+    "easy-install": "Einfache Installation",
+    "easy-install-explain": "Versatile Thermostat lässt sich einfach über HACS (Home Assistant Community Store) installieren. Nach der Installation können Sie Ihren ersten Thermostat dank unserer intuitiven Benutzeroberfläche in wenigen Minuten konfigurieren.",
+    "why": "Warum Versatile Thermostat verwenden?",
+    "why-explain": "Versatile Thermostat wurde entwickelt, um die Einschränkungen herkömmlicher Thermostate in Home Assistant zu überwinden. Unser Ziel ist es, Ihnen eine intelligente und effiziente Klimaregulierung zu bieten, die sich an Ihre spezifischen Bedürfnisse anpasst.",
+    "config-guide": "Konfigurationshandbuch",
+    "features": {
+        "compatibility": "Kompatibel mit Wärmepumpen, Ventilen und Schaltern",
+        "algorithms": "Intelligenter TPI-Algorithmus",
+        "window": "Verwaltung offener Fenster",
+        "boiler": "Zentralheizungsverwaltung",
+        "presence": "Heizung basierend auf Anwesenheitserkennung"
+    },
+    "cta": {
+        "title": "Bereit, Ihr Heizsystem zu verbessern?",
+        "desc": "Schließen Sie sich Tausenden von Nutzern an, die bereits ihren Komfort und ihren Energieverbrauch optimiert haben"
+    },
+    "cards": {
+        "algo": {
+            "title": "Intelligente Leistung",
+            "desc": "Fortschrittliche Kalibrierungsalgorithmen für optimale Temperaturgenauigkeit. Automatische Anpassung basierend auf realen Bedingungen."
+        },
+        "flex": {
+            "title": "Flexible Konfiguration",
+            "desc": "Intuitive Konfigurationsoberfläche mit zahlreichen anpassbaren Optionen für alle Systeme."
+        },
+        "valve": {
+            "title": "Ventilsteuerung",
+            "desc": "Präzise Steuerung der TRV-Ventilöffnung mit Boost-Modus und Frostschutz-Unterstützung."
+        },
+        "presence": {
+            "title": "Anwesenheitserkennung",
+            "desc": "Erkennt die Anwesenheit von Bewohnern und passt die Temperatur bei Abwesenheit an."
+        },
+        "boiler": {
+            "title": "Zentralheizung",
+            "desc": "Unterstützt die automatische Aktivierung und Deaktivierung der Zentralheizung."
+        },
+        "power": {
+            "title": "Lastverlagerung",
+            "desc": "Bei elektrischen Heizkörpern wird die Leistung automatisch reduziert, um ein Auslösen des Sicherungsautomaten zu verhindern."
+        }
+    }
+}

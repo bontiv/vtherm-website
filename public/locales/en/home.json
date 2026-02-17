@@ -1,0 +1,47 @@
+{
+    "subtitle": "An advanced climate integration for Home Assistant that works with any existing thermostat entity",
+    "start-guide": "Configuration",
+    "install-guide": "Installation",
+    "easy-install": "Easy Installation",
+    "easy-install-explain": "Versatile Thermostat is easily installed via HACS (Home Assistant Community Store). Once installed, you can configure your first thermostat in minutes thanks to our intuitive interface.",
+    "why": "Why use Versatile Thermostat?",
+    "why-explain": "Versatile Thermostat was designed to overcome the limitations of standard thermostats in Home Assistant. Our goal is to provide you with intelligent and efficient climate regulation that adapts to your specific needs.",
+    "config-guide": "Configuration guide",
+    "features": {
+        "compatibility": "Compatible with heat pumps, valves and switches",
+        "algorithms": "Intelligent TPI algorithm",
+        "window": "Open window management",
+        "boiler": "Central boiler management",
+        "presence": "Heating based on presence detection"
+    },
+    "cta": {
+        "title": "Ready to improve your heating system?",
+        "desc": "Join thousands of users who have already optimized their comfort and energy consumption"
+    },
+    "cards": {
+        "algo": {
+            "title": "Smart Power",
+            "desc": "Advanced calibration algorithms for optimal temperature precision. Automatic adjustment based on real conditions."
+        },
+        "flex": {
+            "title": "Flexible Configuration",
+            "desc": "Intuitive configuration interface with many customizable options to adapt to all systems."
+        },
+        "valve": {
+            "title": "Valve Control",
+            "desc": "Precise control of TRV valve opening with boost mode and anti-freeze support."
+        },
+        "presence": {
+            "title": "Presence Detection",
+            "desc": "Detects the presence of occupants and adjusts the temperature during absences."
+        },
+        "boiler": {
+            "title": "Central Boiler",
+            "desc": "Supports automatic activation and deactivation of the central boiler."
+        },
+        "power": {
+            "title": "Power Shedding",
+            "desc": "For electric radiators, automatically reduces power to prevent the circuit breaker from tripping."
+        }
+    }
+}

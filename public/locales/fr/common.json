@@ -1,6 +1,6 @@
 {
-    "title": "VTherm - Le thermostat intelligent pour votre maison",
-    "description": "VTherm est une intégration de thermostat avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de climat, d'interrupteur ou de valve existante. Il offre une calibration intelligente, un contrôle de chaudière et un algorithme TPI pour un confort optimal et des économies d'énergie.",
+    "title": "Versatile Thermostat - Le thermostat intelligent pour votre maison",
+    "description": "Versatile Thermostat est une intégration de thermostat avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de climat, d'interrupteur ou de valve existante. Il offre une calibration intelligente, un contrôle de chaudière et un algorithme TPI pour un confort optimal et des économies d'énergie.",
     "menu": {
         "home": "Accueil",
         "devices": "Compatibilité des appareils",
@@ -11,6 +11,7 @@
     "footer": "Ce site est un site communautaire. La seule source d'information officiel sur Versatile Thermostat est le dépôt GitHub.",
     "contribute": "Contribuer sur GitHub",
     "on-github": "Versatile Thermostat sur GitHub",
+    "backtotop": "Retour en haut",
     "docs": {
         "quick-start": "démarage rapide",
         "additions": "Compléments",
