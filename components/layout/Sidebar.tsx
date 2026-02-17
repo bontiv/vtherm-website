@@ -9,6 +9,7 @@ import { useT } from '@/app/i18n/client';
 
 export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)[] }> = ({ docref, docfiles }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const { t } = useT('common');
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -49,19 +50,19 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
             <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto" aria-label="Main navigation">
                 <NavItem
                     href="/"
-                    label="Home"
+                    label={t('menu.home')}
                 />
                 <NavAccordion
-                    label="Documentation"
+                    label={t('menu.docs')}
                     subItems={qnaSubItems}
                 />
                 <NavItem
                     href="/devices"
-                    label="Device compatibility"
+                    label={t('menu.devices')}
                 />
                 <NavItem
                     href="/debugger"
-                    label="Log analyzer"
+                    label={t('menu.log-analyzer')}
                 />
 
                 {/* Separator */}
@@ -70,7 +71,7 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
                 {/* External Links */}
                 <NavItem
                     href="https://github.com/jmcollin78/versatile_thermostat"
-                    label="GitHub Repository"
+                    label={t('menu.github')}
                     isExternal
                 />
             </nav>

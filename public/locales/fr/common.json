@@ -1,4 +1,46 @@
 {
     "title": "VTherm - Le thermostat intelligent pour votre maison",
-    "description": "VTherm est une intégration de thermostat avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de climat, d'interrupteur ou de valve existante. Il offre une calibration intelligente, un contrôle de chaudière et un algorithme TPI pour un confort optimal et des économies d'énergie."
+    "description": "VTherm est une intégration de thermostat avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de climat, d'interrupteur ou de valve existante. Il offre une calibration intelligente, un contrôle de chaudière et un algorithme TPI pour un confort optimal et des économies d'énergie.",
+    "menu": {
+        "home": "Accueil",
+        "devices": "Compatibilité des appareils",
+        "log-analyzer": "Analyseur de logs",
+        "github": "Dépôt github",
+        "docs": "Documentation"
+    },
+    "footer": "Ce site est un site communautaire. La seule source d'information officiel sur Versatile Thermostat est le dépôt GitHub.",
+    "contribute": "Contribuer sur GitHub",
+    "on-github": "Versatile Thermostat sur GitHub",
+    "docs": {
+        "quick-start": "démarage rapide",
+        "additions": "Compléments",
+        "algorithms": "Algorithmes",
+        "base-attributes": "Attributs de base",
+        "creation": "Création",
+        "feature-advanced": "Fonctionnalités avancés",
+        "feature-auto-start-stop": "Auto start stop",
+        "feature-autotpi-technical": "Technique AutoTPI",
+        "feature-autotpi": "AutoTPI",
+        "feature-central-boiler": "Chaudière centrale",
+        "feature-central-mode": "Configuration centrale",
+        "feature-heating-failure-detection": "Détection de panne",
+        "feature-lock": "Verrouillage",
+        "feature-motion": "Détection de présence",
+        "feature-power": "Gestion énergétique",
+        "feature-presets": "Modes de chauffe",
+        "feature-recalibrate-valves": "Calibration des valves",
+        "feature-sync_device_temp": "Sync températures des appareils",
+        "feature-timed-preset": "Mode temporaire",
+        "feature-window": "Gestion des fenêtres ouvertes",
+        "installation": "Installation",
+        "over-climate": "VTherm sur thermostat",
+        "over-switch": "VTherm sur commutateur",
+        "over-valve": "VTherm sur Valve",
+        "presentation": "Presentation",
+        "reference": "Réference",
+        "releases": "Node de versions",
+        "self-regulation": "Auto régulation",
+        "troubleshooting": "Dépannage",
+        "tuning-examples": "Exemples de réglage"
+    }
 }

@@ -1,4 +1,46 @@
 {
     "title": "VTherm - The smart thermostat for your home",
-    "description": "VTherm is an advanced thermostat integration for Home Assistant that works with any existing climate, switch or valve entity. It offers smart calibration, boiler control and TPI Algorithm for optimal comfort and energy savings."
+    "description": "VTherm is an advanced thermostat integration for Home Assistant that works with any existing climate, switch or valve entity. It offers smart calibration, boiler control and TPI Algorithm for optimal comfort and energy savings.",
+    "menu": {
+        "home": "Home",
+        "devices": "Devices compatibility",
+        "log-analyzer": "Log analyzer",
+        "github": "GitHub Repository",
+        "docs": "Documentation"
+    },
+    "footer": "This website is a community website. The only official source of information about Versatile Thermostat is the GitHub repository.",
+    "contribute": "Contribute on GitHub",
+    "on-github": "Versatile Thermostat on GitHub",
+    "docs": {
+        "quick-start": "Quick start",
+        "additions": "Additons",
+        "algorithms": "Algorithms",
+        "base-attributes": "Base attributes",
+        "creation": "Creation",
+        "feature-advanced": "Advanced feature",
+        "feature-auto-start-stop": "Auto start stop",
+        "feature-autotpi-technical": "AutoTPI technical",
+        "feature-autotpi": "AutoTPI",
+        "feature-central-boiler": "Central boiler",
+        "feature-central-mode": "Central configuration",
+        "feature-heating-failure-detection": "Heating failure dectection",
+        "feature-lock": "Lock feature",
+        "feature-motion": "Motion feature",
+        "feature-power": "Power management",
+        "feature-presets": "Presets",
+        "feature-recalibrate-valves": "Valves recalibration",
+        "feature-sync_device_temp": "Sync device temperature",
+        "feature-timed-preset": "Timed preset",
+        "feature-window": "Window management",
+        "installation": "Installation",
+        "over-climate": "VTherm over climate",
+        "over-switch": "VTherm over switch",
+        "over-valve": "VTherm over valve",
+        "presentation": "Presentation",
+        "reference": "Reference",
+        "releases": "Releases",
+        "self-regulation": "Self regulation",
+        "troubleshooting": "Troubleshooting",
+        "tuning-examples": "Tuning examples"
+    }
 }

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { NavItem } from './NavItem';
+import { useT } from '@/app/i18n/client';
 
 interface SubItem {
     href: string;
@@ -23,6 +24,8 @@ export const NavAccordion: React.FC<NavAccordionProps> = ({
     const toggleAccordion = () => {
         setIsOpen(!isOpen);
     };
+
+    const { t } = useT('common')
 
     const activeStyles = isOpen
         ? 'bg-blue-100/10 text-blue-200 font-medium'
@@ -58,7 +61,7 @@ export const NavAccordion: React.FC<NavAccordionProps> = ({
                         <NavItem
                             key={item.href}
                             href={item.href}
-                            label={item.label}
+                            label={t(`docs.${item.label}`)}
                         />
                     ))}
                 </div>

@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { getT } from '@/app/i18n';
 
-export const Footer: React.FC = () => {
+export const Footer: React.FC = async () => {
     const currentYear = new Date().getFullYear();
+    const { t } = await getT('common');
 
     return (
         <footer className="mt-auto w-full border-t border-[#3a3a3a] bg-blue-400">
@@ -26,11 +28,11 @@ export const Footer: React.FC = () => {
                             rel="noopener noreferrer"
                             className="hover:text-[#7CFC00] transition-colors"
                         >
-                            Contribute on GitHub
+                            {t('contribute')}
                         </Link>
                     </div>
                     <p className="text-xs block mx-auto">
-                        This website is a community website. The only official source of information about Versatile Thermostat is the GitHub repository.
+                        {t('footer')}
                     </p>
                 </div>
             </div>

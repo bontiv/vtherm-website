@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 const runsOnServerSide = typeof window === 'undefined'
 
-export function useT(ns: string, options: {}) {
+export function useT(ns: string, options: {} = {}) {
     const lng = useParams()?.lng
     if (typeof lng !== 'string')
         throw new Error('useT is only available inside /app/[lng]')
