@@ -7,7 +7,7 @@ export const DocPage: React.FC<{ params: Promise<any> }> = async ({ params }) =>
     console.log('Rendering DocPage with params:', lng, docrefs, docFile);
     return (
         <div className="space-y-12">
-            <MarkDownPage file={`${docrefs}/documentation/${lng}/${docFile}.md`} />
+            <MarkDownPage lng={lng} version={docrefs} file={`/documentation/${lng}/${docFile}.md`} />
         </div>
     )
 }
