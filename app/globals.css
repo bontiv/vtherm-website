@@ -30,21 +30,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Scrollbar personnalisée */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-vtherm-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-vtherm-text-secondary);
-}
-
 /* Styles pour les focus accessibles */
 *:focus-visible {
   outline: 2px solid var(--color-vtherm-cyan);
