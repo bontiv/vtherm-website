@@ -1,4 +1,8 @@
 import { Octokit } from "octokit";
+import { useMemo } from "react";
+import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods'
+
+export type GithubReleases = RestEndpointMethodTypes['repos']['listReleases']['response']['data']
 
 async function cachedFetch(input: RequestInfo, init?: RequestInit): Promise<Response | undefined> {
     const response = await fetch(input, {
@@ -15,7 +19,7 @@ export class GitHubAPI {
     private repo: string;
 
     private static instance: GitHubAPI;
-    private releasesCache: any[] | null = null;
+    private releasesCache: GithubReleases | null = null;
     private treeCache: { [key: string]: any } = {};
     private blobCache: { [key: string]: any } = {};
 
@@ -38,7 +42,7 @@ export class GitHubAPI {
         });
     }
 
-    async getReleases() {
+    async getReleases(): Promise<GithubReleases> {
         if (this.releasesCache) {
             return this.releasesCache;
         }
