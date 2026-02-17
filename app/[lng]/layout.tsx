@@ -52,7 +52,7 @@ export default async function Layout({ children, params }: { children: React.Rea
                     </main>
 
                     {/* Footer */}
-                    <Footer />
+                    <Footer lng={lng} />
                 </div>
             </div>
         </body>

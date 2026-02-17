@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import Link from 'next/link';
 import { getT } from '@/app/i18n';
 
-export const Footer: React.FC = async () => {
+export const Footer: React.FC<{ lng: string }> = async ({ lng }) => {
     const currentYear = new Date().getFullYear();
-    const { t } = await getT('common');
+    const { t } = await getT('common', { lng });
 
     return (
         <footer className="mt-auto w-full border-t border-[#3a3a3a] bg-blue-400">
