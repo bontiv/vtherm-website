@@ -1,11 +1,36 @@
+import { LinkLocale } from '@/components/LinkLocale';
 import { GitHubAPI } from '@/lib/github';
+import DocVersionLink from './DocVersionLink';
 
-export async function generateStaticParams() {
+async function getReleases() {
     const githubApi = GitHubAPI.getInstance();
-    const releases = await githubApi.getReleases().then(data => data.filter(x => !x.prerelease).map((release: any) => ({ docrefs: release.tag_name })));
+    const releases = await githubApi.getReleases().then(data => data.filter(x => !x.prerelease));
     return releases.slice(0, 3);
 }
 
-export default async function Layout({ children }: { children: React.ReactNode }) {
-    return children
+export async function generateStaticParams() {
+    const releases = await getReleases()
+    return releases.map((release: any) => ({ docrefs: release.tag_name }))
+}
+
+export default async function Layout({ children, params }: { children: React.ReactNode, params: any }) {
+    const releases = await getReleases();
+    const { docrefs } = await params;
+
+    return <div className=''>
+        <div className='bg-slate-200 w-full rounded-xs px-4 py-2 mb-5'>
+            <span className='underline'>Version :</span>
+            <ul className='inline-block'>
+                {releases.map((x, i) =>
+                    <li key={i} className={'inline ml-3 transition-all duration-300 ' + (docrefs == x.tag_name ? 'font-semibold text-blue-700' : 'hover:text-blue-500 hover:underline')}>
+                        {
+                            docrefs == x.tag_name ? x.tag_name :
+                                <DocVersionLink toVersion={x.tag_name}>{x.tag_name}</DocVersionLink>
+                        }
+                    </li>
+                )}
+            </ul>
+        </div>
+        {children}
+    </div>
 }

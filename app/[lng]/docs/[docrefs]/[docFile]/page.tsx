@@ -4,10 +4,11 @@ import MarkDownPage from "./MarkdownPage";
 
 export const DocPage: React.FC<{ params: Promise<any> }> = async ({ params }) => {
     const { lng, docrefs, docFile }: { lng: string, docrefs: string, docFile: string } = await params;
+    const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)
 
     return (
         <div className="space-y-12">
-            <MarkDownPage lng={lng} version={docrefs} file={`/documentation/${lng}/${docFile}.md`} />
+            <MarkDownPage lng={lng} version={docrefs} file={`/documentation/${lng}/${docFile}.md`} default_page={await content?.text()} />
         </div>
     )
 }
@@ -36,7 +37,7 @@ export async function generateStaticParams({ params }: any) {
     return docFiles.tree.filter((x: any) => x.path.endsWith('.md')).map((file: any) => ({
         lng,
         docrefs,
-        docFile: file.path.slice(0, -3) // remove .md and lowercase first letter
+        docFile: file.path.slice(0, -3), // remove .md and lowercase first letter
     }));
 }
 

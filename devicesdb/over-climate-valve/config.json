@@ -1,0 +1,6 @@
+{
+    "config": {
+        "thermostat_type": "thermostat_over_climate",
+        "auto_regulation_mode": "auto_regulation_valve"
+    }
+}

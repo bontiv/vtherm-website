@@ -1,0 +1,18 @@
+{
+    "manufacturer": "Marque",
+    "model": "Modèle",
+    "all-devices": "Tous les appareils",
+    "all-types": "Tout support",
+    "notice": "Ceci est une liste non exhaustive des appareils conpatibles avec Versatile Thermostat. Si votre appareil n'y figure pas, il n'a peut-être pas encore été ajouté. Consultez la documentation pour savoir comment ajouter votre appareil.",
+    "types": {
+        "electric": "Chauffage électrique",
+        "trv": "Vannes TRV",
+        "climate": "Thermostats et PAC"
+    },
+    "states": {
+        "supported": "Supporté",
+        "unsupported": "Non supporté",
+        "community": "Communautaire",
+        "partially": "Partiel"
+    }
+}

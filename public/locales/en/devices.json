@@ -1,0 +1,18 @@
+{
+    "manufacturer": "Manufacturer",
+    "model": "Model",
+    "all-devices": "All devices",
+    "all-types": "All types",
+    "notice": "This is a non-exhaustive list of devices supported by Versatile Thermostat. If you don't see your device, it may not been added yet. Consult the documentation for instructions how configure your device.",
+    "types": {
+        "electric": "Electric heater",
+        "trv": "Valves TRV",
+        "climate": "PAC and climates"
+    },
+    "states": {
+        "supported": "Supported",
+        "unsupported": "Unsupported",
+        "community": "Community",
+        "partially": "Partially"
+    }
+}

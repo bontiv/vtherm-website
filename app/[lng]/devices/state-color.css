@@ -1,0 +1,17 @@
+@reference '../../globals.css';
+
+.supported.badge {
+    @apply bg-green-500/40;
+}
+
+.unsupported.badge {
+    @apply bg-red-500/40;
+}
+
+.partially.badge {
+    @apply bg-yellow-500/40;
+}
+
+.community.badge {
+    @apply bg-blue-500/40;
+}
