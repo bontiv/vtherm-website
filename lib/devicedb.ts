@@ -10,3 +10,8 @@ export type DeviceConfig = {
     opening_degree_entity_ids?: EntityList,
     closing_degree_entity_ids?: EntityList,
 }
+
+export type DeviceDefinition = {
+    title?: string,
+    config: DeviceConfig,
+}

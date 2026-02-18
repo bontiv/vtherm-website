@@ -1,4 +1,5 @@
 {
+    "title": "climate over switch",
     "config": {
         "thermostat_type": "thermostat_over_switch"
     }

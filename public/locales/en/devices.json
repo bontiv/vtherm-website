@@ -14,5 +14,8 @@
         "unsupported": "Unsupported",
         "community": "Community",
         "partially": "Partially"
+    },
+    "details": {
+        "title": "Configure and use your {{device}}"
     }
 }

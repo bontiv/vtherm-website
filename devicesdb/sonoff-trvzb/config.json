@@ -1,4 +1,5 @@
 {
+    "title": "Sonoff TRVZB",
     "config": {
         "thermostat_type": "thermostat_over_climate",
         "underlying_entity_ids": [

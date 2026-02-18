@@ -73,3 +73,32 @@ html {
 .accordion-exit {
   animation: slideUp 0.2s ease-out;
 }
+
+.main-content {
+  @apply text-slate-900;
+}
+
+.main-content h1 {
+  @apply text-4xl text-blue-900 font-bold py-4;
+}
+
+.main-content h2 {
+  @apply text-3xl text-blue-800 font-semibold py-4;
+}
+
+.main-content h3 {
+  @apply text-2xl text-blue-700 py-4;
+}
+
+.main-content p {
+  @apply py-1.5;
+}
+
+
+.main-content ol {
+  @apply list-decimal ps-11 py-4;
+}
+
+.main-content ol li {
+  @apply py-0.5 ps-2.5;
+}
