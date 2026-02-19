@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import i18n from "@/app/i18n/i18next";
+import { fallbackLng } from "./i18n/settings";
 
 
 export default function Home() {
   useEffect(() => {
-    const browser_lng = i18n.language;
+    const browser_lng = i18n.language ?? fallbackLng;
     console.log("Detected browser language:", browser_lng);
     window.location.href = `/${browser_lng}/`;
   }, []);
