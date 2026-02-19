@@ -1,11 +1,9 @@
 'use client';
 
-import { useEffect, useRef, useState, memo } from "react";
-import 'quill/dist/quill.core.css';
-import 'quill/dist/quill.snow.css';
-import Quill, { Op } from 'quill';
+import { useEffect, useRef, useState, memo, useCallback, ChangeEventHandler, RefObject } from "react";
 import Chart from "react-apexcharts";
 import { LogParser } from "./log_parser";
+import './debugger.css';
 
 interface ZoomRange {
     min: number;
@@ -13,32 +11,40 @@ interface ZoomRange {
 }
 
 type ZoomType = {
-    mindate: Date,
-    maxdate: Date
+    mindate?: Date,
+    maxdate?: Date,
+    enabled: boolean
 }
+
+type LogData = {
+    size: number,
+    read_size: number,
+    climates: string[],
+}
+
+
+const CHUNK_SIZE = 2 * 1024 * 1024; // 2 Mo par chunk
+const LINES_PER_TICK = 500;         // lignes traitées avant de céder le thread + mise à jour de la progression
 
 type ZoomCallback = (datemin: Date, datemax: Date) => void
 
-const Editor: React.FC<{ logfile: LogParser, climate?: string, zoom?: ZoomType } & React.HTMLAttributes<HTMLDivElement>> = ({ logfile, className, climate, zoom, ...props }) => {
-    const editorRef = useRef<HTMLDivElement>(null);
-    useEffect(() => {
-        if (editorRef.current) {
-            const quill = new Quill(editorRef.current, {
-                theme: 'snow',
-                readOnly: true,
-                modules: {
-                    toolbar: false
-                }
-            });
 
-
-            quill.setContents(logfile.getOps(climate, zoom), 'api');
-        }
-    }, [logfile, climate, zoom]);
-    return (
-        <div ref={editorRef} className={`quill-editor ${className || ''}`} {...props} />
-    );
+/** Lit un Blob en texte de façon asynchrone */
+function readBlobAsText(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsText(blob);
+    });
 }
+
+
+/** Cède le contrôle au navigateur (évite le freeze) */
+function yieldToMain(): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 
 const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
     const series = [
@@ -74,6 +80,8 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
         onZoomChange && onZoomChange(dateMin, dateMax);
     }
 
+    console.log("useZoom", zoom, "Series", series)
+
     return (
         <div className="w-full">
             <Chart
@@ -93,8 +101,8 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
                         type: 'datetime',
                         title: { text: 'Time' },
                         labels: { format: 'HH:mm:ss' },
-                        min: zoom?.mindate.getTime(),
-                        max: zoom?.maxdate.getTime()
+                        min: zoom?.enabled ? zoom?.mindate?.getTime() : undefined,
+                        max: zoom?.enabled ? zoom?.maxdate?.getTime() : undefined,
                     },
                     stroke: { curve: 'stepline', width: 2 },
                     title: { text: 'Log Events Over Time', align: 'left' },
@@ -108,62 +116,213 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
     );
 }
 
+const EditorV2: React.FC<{
+    parser: LogParser,
+    climate?: string,
+    file_input: RefObject<HTMLInputElement | null>,
+    zoom: ZoomType
+}> = memo(({ parser, climate, file_input, zoom }) => {
+    const inref = useRef<HTMLDivElement>(null);
+
+    const write_log = useCallback(async (file: File, edit_div: HTMLDivElement) => {
+        let offset = 0;
+        let leftover = "";
+
+        edit_div.innerText = ''
+
+        while (offset < file.size) {
+            const chunk = file.slice(offset, offset + CHUNK_SIZE);
+            const text = await readBlobAsText(chunk);
+            offset += chunk.size;
+
+            // Découper en lignes en conservant le reste incomplet
+            const combined = leftover + text;
+            const lines = combined.split("\n");
+            leftover = lines.pop() ?? ""; // la dernière portion peut être incomplète
+
+
+            // Traiter les lignes par petits lots pour ne pas bloquer le thread
+            for (let i = 0; i < lines.length; i++) {
+
+                //parseLine(lines[i]);
+                const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(lines[i])
+
+                if (log_climate == '' || climate == log_climate) {
+                    if (!zoom.enabled || (zoom.mindate && date > zoom.mindate && zoom.maxdate && date < zoom.maxdate)) {
+                        const pl = document.createElement('p');
+                        pl.appendChild(document.createTextNode(txt));
+                        if (level == 'INFO') pl.className = 'text-green-500 info';
+                        if (level == 'WARNING') pl.className = 'text-yellow-500 warning';
+                        if (level == 'ERROR') pl.className = 'text-red-500 error';
+                        edit_div.appendChild(pl)
+                    } else {
+                        console
+                    }
+                }
+
+                // Cède le contrôle + met à jour la progression tous les LINES_PER_TICK
+                if ((i + 1) % LINES_PER_TICK === 0) {
+                    // TOTO: updateProgress();
+                    await yieldToMain();
+                }
+            }
+
+            console.log('next Chunk Text');
+        }
+    }, [zoom]);
+
+    useEffect(() => {
+        if (!inref.current) return;
+        if (!file_input?.current?.files) return;
+        if (!climate) return;
+        write_log(file_input.current.files[0], inref.current);
+    }, [climate, zoom])
+
+    return <div ref={inref} className="debugger">
+    </div>
+})
+
 const Debugger: React.FC = () => {
-    const [logfile, setLogfile] = useState<LogParser | null>(null);
-    const [zoom, setZoom] = useState<{ mindate: Date, maxdate: Date } | undefined>()
+    const [logData, SetLogData] = useState<LogData>({
+        size: 0,
+        read_size: 0,
+        climates: [],
+    })
+    const parser = useRef(new LogParser());
+    const [zoom, setZoom] = useState<ZoomType>({ enabled: false })
     const [selectedThermostat, setSelectedThermostat] = useState<string | undefined>(undefined);
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const zoom_reset = useRef(false)
+    const isAborted = useRef(false)
 
-    function onZoomChange(mindate: Date, maxdate: Date) {
-        setZoom({
-            mindate,
-            maxdate
+    const onZoomChange = (mindate: Date, maxdate: Date) => {
+        console.log('Zoom change ', mindate, maxdate, String(zoom_reset.current))
+        if (zoom_reset.current) {
+            zoom_reset.current = false
+            setZoom({
+                enabled: false
+            })
+        } else {
+            setZoom({
+                mindate,
+                maxdate,
+                enabled: true
+            })
+        }
+    };
+
+    const onZoomReset = () => {
+        console.log('Zoom RESET')
+        zoom_reset.current = true
+    };
+
+    const fileParser = useCallback(async (file: File) => {
+        let offset = 0;
+        let leftover = "";
+        parser.current = new LogParser();
+
+        // Reset l'annulation
+        isAborted.current = false;
+        SetLogData({
+            size: file.size,
+            read_size: 0,
+            climates: []
         })
+
+        while (offset < file.size) {
+            const chunk = file.slice(offset, offset + CHUNK_SIZE);
+            const text = await readBlobAsText(chunk);
+            offset += chunk.size;
+
+            if (isAborted.current) break;
+
+
+            // Découper en lignes en conservant le reste incomplet
+            const combined = leftover + text;
+            const lines = combined.split("\n");
+            leftover = lines.pop() ?? ""; // la dernière portion peut être incomplète
+
+
+            // Traiter les lignes par petits lots pour ne pas bloquer le thread
+            for (let i = 0; i < lines.length; i++) {
+
+                //parseLine(lines[i]);
+                parser.current.parseLine(lines[i]);
+
+                // Cède le contrôle + met à jour la progression tous les LINES_PER_TICK
+                if ((i + 1) % LINES_PER_TICK === 0) {
+                    // TOTO: updateProgress();
+                    await yieldToMain();
+                }
+            }
+
+            SetLogData(x => ({ ...x, climates: parser.current.getThermostats() }))
+            console.log('next Chunk');
+        }
+    }, []);
+
+    const onChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
+        if (evt.target.files && evt.target.files.length > 0) {
+            if (evt.target.files.length == 1) {
+                fileParser(evt.target.files[0]);
+                return
+            }
+            evt.target.files[0].text().then(content => {
+                const parser = new LogParser(content);
+                //setLogfile(parser);
+                setSelectedThermostat(parser.getThermostats()[0] || undefined);
+                setZoom({ enabled: false })
+            });
+        }
+    };
+
+    const onReset: ChangeEventHandler<HTMLFormElement> = () => {
+        //setLogfile(null);
+        SetLogData({
+            size: 0,
+            read_size: 0,
+            climates: []
+        });
+        setZoom({ enabled: false });
+        isAborted.current = true;
     }
 
-    function onZoomReset() {
-        setZoom(undefined)
+    const onSubmit: ChangeEventHandler<HTMLFormElement> = (evt) => {
+        evt.preventDefault();
+        if (fileInputRef.current?.files)
+            fileParser(fileInputRef.current?.files[0]);
     }
 
     return (
         <div className="p-6 flex flex-col items-start gap-6">
             <form className="flex gap-3"
-                onReset={() => {
-                    setLogfile(null);
-                    setZoom(undefined);
-                }}
+                onReset={onReset}
+                onSubmit={onSubmit}
             >
                 <input
                     type="file"
                     accept=".log,.txt"
                     ref={fileInputRef}
-                    onChange={(e) => {
-                        if (e.target.files && e.target.files.length > 0) {
-                            e.target.files[0].text().then(content => {
-                                const parser = new LogParser(content);
-                                setLogfile(parser);
-                                setSelectedThermostat(parser.getThermostats()[0] || undefined);
-                                setZoom(undefined)
-                            });
-                        }
-                    }}
+                    onChange={onChange}
                     name="logfile"
                     className="block p-4 w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
                 />
-                {logfile && <select
+                {logData.climates.length > 0 && <select
                     value={selectedThermostat || ''}
                     onChange={(e) => setSelectedThermostat(e.target.value)}
                     className="block px-2 w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none"
                 >
-                    <option value="" disabled>Select Thermostat</option>
-                    {logfile?.getThermostats().map(therm => (
+                    <option value="" className="text-gray-400">Select Thermostat</option>
+                    {logData.climates.map(therm => (
                         <option key={therm} value={therm}>{therm}</option>
                     ))}
                 </select>}
-                {logfile && <button type="reset" className="bg-red-100 hover:bg-red-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-red-800 border-red-500 border-solid border-1">Reset</button>}
+                {logData.size > 0 && <button type="reset" className="bg-red-100 hover:bg-red-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-red-800 border-red-500 border-solid border">Reset</button>}
+                {logData.size > 0 && <button type="submit" className="bg-blue-100 hover:bg-blue-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-blue-800 border-blue-500 border-solid border">Reload</button>}
             </form>
-            {logfile && selectedThermostat && <Graph logfile={logfile} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
-            {logfile && <Editor climate={selectedThermostat} className="mt-4 w-full h-full" logfile={logfile} zoom={zoom} />}
+            {logData.size > 0 && selectedThermostat && <Graph logfile={parser.current} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
+            {/* {logData.size > 0 && <Editor climate={selectedThermostat} className="mt-4 w-full h-full" logfile={parser.current} zoom={zoom} />} */}
+            {logData.size > 0 && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser.current} file_input={fileInputRef} zoom={zoom} />}
         </div>
     );
 }

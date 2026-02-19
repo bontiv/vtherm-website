@@ -1,1 +1,18 @@
+@reference '../../globals.css';
 @import url('https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.snow.css');
+
+div.debugger {
+    @apply bg-blue-50 border w-full block p-2 cursor-text font-mono overflow-y-auto text-nowrap;
+}
+
+.debugger .INFO {
+    @apply text-green-600;
+}
+
+.debugger .ERROR {
+    @apply text-red-500;
+}
+
+.debugger .WARNING {
+    @apply text-yellow-500;
+}

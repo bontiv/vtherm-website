@@ -1,5 +1,3 @@
-import type { Op } from 'quill';
-
 const IGNORED_PATTERNS = [
     /\[custom_components.versatile_thermostat.auto_tpi_manager\]/,
     /Last_sent_temperature/,
@@ -20,6 +18,13 @@ const IGNORED_PATTERNS = [
     /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - After setting _last/,
     /Forget the event/,
 ]
+
+export type LogTextInfo = {
+    level: string,
+    climate: string,
+    date: Date,
+    txt: string
+}
 
 class VThermLogParser {
     private name: string;
@@ -71,9 +76,14 @@ class VThermLogParser {
                 ;
             this.config = JSON.parse(config_json);
         } catch (e) {
-            console.error('Failed to parse config JSON for thermostat', this.name, 'from state:', state, 'error:', e);
+            // console.error('Failed to parse config JSON for thermostat', this.name, 'from state:', state, 'error:', e);
         }
     }
+}
+
+function clearLineStr(line: string): string {
+    const txt = line.replaceAll(/\x1b[^m]+m/g, '');
+    return txt
 }
 
 export class LogParser {
@@ -81,20 +91,22 @@ export class LogParser {
     private thermostats: Map<string, VThermLogParser> = new Map();
     private last_thermo: string | null = null;
 
-    public constructor(logs: string) {
-        const log_lines = logs.split('\n');
-        for (const line of log_lines) {
-            const cleaned_line = line.replaceAll(/\x1b[^m]+m/g, '');
+    public constructor(logs?: string) {
+        if (logs) {
+            const log_lines = logs.split('\n');
+            for (const line of log_lines) {
+                const cleaned_line = line.replaceAll(/\x1b[^m]+m/g, '');
 
-            if (cleaned_line.match(/^[^[]+\[[^]]+\]\s*$/)) {
-                continue;
+                if (cleaned_line.match(/^[^[]+\[[^]]+\]\s*$/)) {
+                    continue;
+                }
+
+                this.parseLine(cleaned_line);
+                this.logs.push(cleaned_line);
             }
 
-            this.parseLine(cleaned_line);
-            this.logs.push(cleaned_line);
+            console.info(`Parsed log with ${this.logs.length} lines and ${this.thermostats.size} thermostats.`);
         }
-
-        console.info(`Parsed log with ${this.logs.length} lines and ${this.thermostats.size} thermostats.`);
     }
 
     public getThermostats(): string[] {
@@ -105,34 +117,27 @@ export class LogParser {
         return this.thermostats.get(name);
     }
 
-    public getOps(climate: string | undefined = undefined, zoom: { mindate: Date, maxdate: Date } | undefined = undefined): Op[] {
-        const lineitems: Op[] = [];
-        const skiped = this.getThermostats().filter(x => x != climate)
+    public getLogTextInfos(line: string): LogTextInfo {
+        let climate = '';
+        const txt = clearLineStr(line)
 
-        for (const line of this.logs) {
-            if (climate && skiped.map(x => line.includes(x)).includes(true)) {
-                continue;
-            }
-
-            if (zoom) {
-                const time = new Date(line.substring(0, 19));
-                if (time < zoom.mindate || time > zoom.maxdate) {
-                    continue;
-                }
-            }
-
-            if (line.search(/ERROR|CRITICAL|FATAL/) !== -1) {
-                lineitems.push({ insert: line + '\n', attributes: { color: 'red' } });
-            } else if (line.search(/WARNING/) !== -1) {
-                lineitems.push({ insert: line + '\n', attributes: { color: 'orange' } });
-            } else if (line.search(/INFO/) !== -1) {
-                lineitems.push({ insert: line + '\n', attributes: { color: 'green' } });
-            } else {
-                lineitems.push({ insert: line + '\n' });
+        for (const know_climate of this.getThermostats()) {
+            if (txt.includes(know_climate)) {
+                climate = know_climate;
             }
         }
 
-        return lineitems;
+        let level = "DEBUG";
+        if (txt.search(/ERROR|CRITICAL|FATAL/) !== -1) {
+            level = "ERROR";
+        } else if (txt.search(/WARNING/) !== -1) {
+            level = "WARNING";
+        } else if (txt.search(/INFO/) !== -1) {
+            level = "INFO";
+        }
+
+        const date = new Date(txt.substring(0, 19))
+        return { climate, level, date, txt }
     }
 
     private getThermoParser(thermo: string): VThermLogParser {
@@ -146,14 +151,15 @@ export class LogParser {
         return this.thermostats.get(thermo)!;
     }
 
-    private parseLine(line: string) {
+    public parseLine(line: string) {
         for (const pattern of IGNORED_PATTERNS) {
             if (line.search(pattern) !== -1) {
                 return;
             }
         }
 
-        const time = line.substring(0, 19);
+        const clean_line = clearLineStr(line)
+        const time = clean_line.substring(0, 19);
 
         let match = line.match(/NEW EVENT: VersatileThermostat-(.+) - /)
         if (match) {
