@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, memo, useCallback, ChangeEventHandler, RefObject } from "react";
 import Chart from "react-apexcharts";
-import { LogParser } from "./log_parser";
+import { clearLineStr, LogParser } from "./log_parser";
 import './debugger.css';
 import type { ApexOptions } from 'apexcharts';
 import { useT } from "@/app/i18n/client";
@@ -219,11 +219,12 @@ const EditorV2: React.FC<{
             for (let i = 0; i < lines.length; i++) {
 
                 //parseLine(lines[i]);
-                const skip = lines[i].match(/^[^[]*\[[^]*\]\W*$/)
+                const line = clearLineStr(lines[i])
+                const skip = line.match(/^[^[]*\[[^]*\]\W*$/)
                 if (skip) {
                     continue;
                 }
-                const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(lines[i])
+                const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(line)
 
                 if (log_climate == '' || climate == log_climate) {
                     if (!zoom.enabled || !date || (zoom.mindate && date > zoom.mindate && zoom.maxdate && date < zoom.maxdate)) {
@@ -243,7 +244,7 @@ const EditorV2: React.FC<{
                 }
             }
         }
-    }, [zoom]);
+    }, [zoom, climate]);
 
     useEffect(() => {
         if (!inref.current) {
@@ -412,7 +413,6 @@ const Debugger: React.FC = () => {
                 {logData.size > 0 && <button type="submit" className="bg-blue-100 hover:bg-blue-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-blue-800 border-blue-500 border-solid border">{t('reload')}</button>}
             </form>
             {logData.state == 'finished' && selectedThermostat && <Graph logfile={parser.current} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
-            {/* {logData.size > 0 && <Editor climate={selectedThermostat} className="mt-4 w-full h-full" logfile={parser.current} zoom={zoom} />} */}
             {logData.state == 'finished' && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser.current} file_input={fileInputRef} zoom={zoom} />}
         </div>
     );

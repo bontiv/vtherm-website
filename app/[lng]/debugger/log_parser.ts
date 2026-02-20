@@ -79,7 +79,7 @@ class VThermLogParser {
             return;
         }
 
-            match = log.match(/Window sensor changed to state off/)
+        match = log.match(/Window sensor changed to state off/)
         if (match) {
             this.window_state.push({ timestamp, value: FeatureState.NORMAL })
             return;
@@ -126,22 +126,10 @@ class VThermLogParser {
         if (match) {
             this.valve_open_percents.push({ timestamp: time, value: parseFloat(match[1]) * 100 });
         }
-
-        try {
-            const config_json = state.replace(/'/g, '"')
-                .replace(/None/g, 'null')
-                .replace(/True/g, 'true')
-                .replace(/False/g, 'false')
-                .replace(/<([^:]*): ([^>]*)>/g, '{"$1": $2}')
-                ;
-            this.config = JSON.parse(config_json);
-        } catch (e) {
-            // console.error('Failed to parse config JSON for thermostat', this.name, 'from state:', state, 'error:', e);
-        }
     }
 }
 
-function clearLineStr(line: string): string {
+export function clearLineStr(line: string): string {
     const txt = line.replaceAll(/\x1b[^m]+m/g, '');
     return txt
 }
