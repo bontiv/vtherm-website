@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, memo, useCallback, ChangeEventHandler, Ref
 import Chart from "react-apexcharts";
 import { LogParser } from "./log_parser";
 import './debugger.css';
+import type { ApexOptions } from 'apexcharts';
 
 interface ZoomRange {
     min: number;
@@ -20,6 +21,7 @@ type LogData = {
     size: number,
     read_size: number,
     climates: string[],
+    state: "empty" | "running" | "finished",
 }
 
 
@@ -47,30 +49,35 @@ function yieldToMain(): Promise<void> {
 
 
 const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
-    const series = [
+    const series: ApexOptions['series'] = [
         {
             name: 'target',
-            data: logfile.getThermostat(selectedThermostat)?.target_temps.map(event => ({ x: event.timestamp, y: event.value })) || [],
+            data: logfile.getThermostat(selectedThermostat)?.target_temps.map(event => ({
+                x: event.timestamp,
+                y: event.value,
+            }))
+                .sort((a, b) => a.x.getTime() - b.x.getTime()) || [],
+            type: 'area',
         },
         {
             name: 'room_temp',
-            data: logfile.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })) || []
+            data: logfile.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: 'ext_temp',
-            data: logfile.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })) || []
+            data: logfile.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: 'underlying_setpoint',
-            data: logfile.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })) || []
+            data: logfile.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: 'underlying_temp',
-            data: logfile.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })) || []
+            data: logfile.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: 'regulated_temp',
-            data: logfile.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })) || []
+            data: logfile.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
     ];
 
@@ -80,8 +87,6 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
         onZoomChange && onZoomChange(dateMin, dateMax);
     }
 
-    console.log("useZoom", zoom, "Series", series)
-
     return (
         <div className="w-full">
             <Chart
@@ -90,12 +95,14 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
                         id: 'log-chart',
                         type: 'line',
                         zoom: { enabled: true },
-                        legend: { show: true },
                         events: {
                             zoomed: handleZoomChange,
                             scrolled: handleZoomChange,
                             beforeResetZoom: onZoomReset
-                        }
+                        },
+                    },
+                    fill: {
+                        opacity: [0.3, 1, 1, 1, 1, 1]
                     },
                     xaxis: {
                         type: 'datetime',
@@ -106,7 +113,7 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
                     },
                     stroke: { curve: 'stepline', width: 2 },
                     title: { text: 'Log Events Over Time', align: 'left' },
-                    colors: ['#008FFB', '#00E396', '#FEB019', '#8D5B4C', '#775DD0', '#3f51b5', '#33b2df', '#546E7A', 'd4526e', '#A5978B', '#4ecdc4'],
+                    colors: ['#FEB019', '#008FFB', '#00E396', '#8D5B4C', '#775DD0', '#3f51b5', '#33b2df', '#546E7A', 'd4526e', '#A5978B', '#4ecdc4'],
                 }}
                 series={series}
                 type="line"
@@ -148,7 +155,7 @@ const EditorV2: React.FC<{
                 const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(lines[i])
 
                 if (log_climate == '' || climate == log_climate) {
-                    if (!zoom.enabled || (zoom.mindate && date > zoom.mindate && zoom.maxdate && date < zoom.maxdate)) {
+                    if (!zoom.enabled || !date || (zoom.mindate && date > zoom.mindate && zoom.maxdate && date < zoom.maxdate)) {
                         const pl = document.createElement('p');
                         pl.appendChild(document.createTextNode(txt));
                         if (level == 'INFO') pl.className = 'text-green-500 info';
@@ -166,17 +173,24 @@ const EditorV2: React.FC<{
                     await yieldToMain();
                 }
             }
-
-            console.log('next Chunk Text');
         }
     }, [zoom]);
 
     useEffect(() => {
-        if (!inref.current) return;
-        if (!file_input?.current?.files) return;
-        if (!climate) return;
+        if (!inref.current) {
+            console.warn('EDITOR - Div not ready');
+            return;
+        }
+        if (!file_input?.current?.files?.length) {
+            console.warn('EDITOR - File not ready');
+            return;
+        }
+        if (!climate) {
+            console.warn('EDITOR - No climate selected');
+            return;
+        };
         write_log(file_input.current.files[0], inref.current);
-    }, [climate, zoom])
+    }, [climate, zoom, file_input.current])
 
     return <div ref={inref} className="debugger">
     </div>
@@ -187,6 +201,7 @@ const Debugger: React.FC = () => {
         size: 0,
         read_size: 0,
         climates: [],
+        state: "empty"
     })
     const parser = useRef(new LogParser());
     const [zoom, setZoom] = useState<ZoomType>({ enabled: false })
@@ -212,7 +227,6 @@ const Debugger: React.FC = () => {
     };
 
     const onZoomReset = () => {
-        console.log('Zoom RESET')
         zoom_reset.current = true
     };
 
@@ -226,7 +240,8 @@ const Debugger: React.FC = () => {
         SetLogData({
             size: file.size,
             read_size: 0,
-            climates: []
+            climates: [],
+            state: "running"
         })
 
         while (offset < file.size) {
@@ -256,9 +271,14 @@ const Debugger: React.FC = () => {
                 }
             }
 
-            SetLogData(x => ({ ...x, climates: parser.current.getThermostats() }))
-            console.log('next Chunk');
+            SetLogData(x => ({ ...x, climates: parser.current.getThermostats(), read_size: offset }))
         }
+
+        SetLogData(x => ({
+            ...x,
+            state: "finished"
+        }));
+
     }, []);
 
     const onChange: ChangeEventHandler<HTMLInputElement> = (evt) => {
@@ -281,7 +301,8 @@ const Debugger: React.FC = () => {
         SetLogData({
             size: 0,
             read_size: 0,
-            climates: []
+            climates: [],
+            state: "empty"
         });
         setZoom({ enabled: false });
         isAborted.current = true;
@@ -320,9 +341,9 @@ const Debugger: React.FC = () => {
                 {logData.size > 0 && <button type="reset" className="bg-red-100 hover:bg-red-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-red-800 border-red-500 border-solid border">Reset</button>}
                 {logData.size > 0 && <button type="submit" className="bg-blue-100 hover:bg-blue-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-blue-800 border-blue-500 border-solid border">Reload</button>}
             </form>
-            {logData.size > 0 && selectedThermostat && <Graph logfile={parser.current} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
+            {logData.state == 'finished' && selectedThermostat && <Graph logfile={parser.current} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
             {/* {logData.size > 0 && <Editor climate={selectedThermostat} className="mt-4 w-full h-full" logfile={parser.current} zoom={zoom} />} */}
-            {logData.size > 0 && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser.current} file_input={fileInputRef} zoom={zoom} />}
+            {logData.state == 'finished' && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser.current} file_input={fileInputRef} zoom={zoom} />}
         </div>
     );
 }

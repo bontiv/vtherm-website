@@ -22,7 +22,7 @@ const IGNORED_PATTERNS = [
 export type LogTextInfo = {
     level: string,
     climate: string,
-    date: Date,
+    date?: Date,
     txt: string
 }
 
@@ -43,7 +43,25 @@ class VThermLogParser {
         this.name = name;
     }
 
-    public parseLog(log: string) {
+    public parseLog(timestamp: Date, log: string) {
+        let match = undefined;
+
+        match = log.match(/Outdoor temperature changed to state ([\d.]+) /)
+        if (match) {
+            this.ext_temps.push({ timestamp, value: parseFloat(match[1]) })
+            return;
+        }
+
+        match = log.match(/Temperature changed to state ([\d.]+) /)
+        if (match) {
+            this.room_temps.push({ timestamp, value: parseFloat(match[1]) })
+            return;
+        }
+
+        match = log.match(/Underlying climate .* changed from .* to new_state .* current_temperature=([\d.]+),/)
+        if (match) {
+            this.underlying_temps.push({ timestamp, value: parseFloat(match[1]) })
+        }
     }
 
     public parseState(time: Date, state: string) {
@@ -136,7 +154,8 @@ export class LogParser {
             level = "INFO";
         }
 
-        const date = new Date(txt.substring(0, 19))
+        let match = line.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?/)
+        const date = match ? new Date(match[0]) : undefined
         return { climate, level, date, txt }
     }
 
@@ -158,12 +177,16 @@ export class LogParser {
             }
         }
 
-        const clean_line = clearLineStr(line)
-        const time = clean_line.substring(0, 19);
+        let match = line.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?/)
+        if (!match) {
+            console.warn('Date not found:', line)
+            return
+        }
+        const time = match[0];
 
-        let match = line.match(/NEW EVENT: VersatileThermostat-(.+) - /)
+        match = line.match(/NEW EVENT: VersatileThermostat-(.+) - /)
         if (match) {
-            this.getThermoParser(match[1]).parseLog(line);
+            this.getThermoParser(match[1]).parseLog(new Date(time), line);
             return;
         }
 
