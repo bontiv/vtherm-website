@@ -24,7 +24,9 @@ const ADV_FILTER_RULES = [
     /Last seen temperature changed to state/,
     /Periodical control cycle started/,
     /Calling update_custom_attributes/,
-    /find preset temp:/
+    /find preset temp:/,
+    /Calling ThermostatClimate\._send_regulated_temperature/,
+    / -> forget the auto-regulation send/,
 ]
 
 export type LogTextInfo = {

@@ -271,7 +271,7 @@ const EditorV2: React.FC<{
     return <div className="w-full">
         <div className="py-2">
             <input type="checkbox" id="log_filter" checked={adv_filter} onChange={(evt) => setAdvFilter(!adv_filter)} />
-            <label htmlFor="log_filter" className="px-2" >Enable log advance log filtering</label>
+            <label htmlFor="log_filter" className="px-2" >Enable advance log filtering</label>
         </div>
         <div ref={inref} className="debugger"></div>
     </div>
