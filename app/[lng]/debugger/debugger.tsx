@@ -215,6 +215,10 @@ const EditorV2: React.FC<{
             for (let i = 0; i < lines.length; i++) {
 
                 //parseLine(lines[i]);
+                const skip = lines[i].match(/^[^[]*\[[^]*\]\W*$/)
+                if (skip) {
+                    continue;
+                }
                 const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(lines[i])
 
                 if (log_climate == '' || climate == log_climate) {
@@ -225,8 +229,6 @@ const EditorV2: React.FC<{
                         if (level == 'WARNING') pl.className = 'text-yellow-500 warning';
                         if (level == 'ERROR') pl.className = 'text-red-500 error';
                         edit_div.appendChild(pl)
-                    } else {
-                        console
                     }
                 }
 

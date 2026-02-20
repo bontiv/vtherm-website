@@ -79,6 +79,12 @@ class VThermLogParser {
             return;
         }
 
+            match = log.match(/Window sensor changed to state off/)
+        if (match) {
+            this.window_state.push({ timestamp, value: FeatureState.NORMAL })
+            return;
+        }
+
         match = log.match(/Window sensor changed to state on/)
         if (match) {
             this.window_state.push({ timestamp, value: FeatureState.TRIGGER })
