@@ -111,11 +111,13 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
                         id: 'log-chart',
                         group: 'log-charts',
                         type: 'line',
-                        zoom: { enabled: true },
+                        zoom: {
+                            enabled: true,
+                            allowMouseWheelZoom: false,
+                        },
                         events: {
                             zoomed: handleZoomChange,
-                            scrolled: handleZoomChange,
-                            beforeResetZoom: onZoomReset
+                            beforeResetZoom: onZoomReset,
                         },
                     },
                     fill: {
@@ -138,10 +140,12 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
                         id: 'feat-chart',
                         // group: 'log-charts',
                         type: 'line',
-                        zoom: { enabled: true },
+                        zoom: {
+                            enabled: true,
+                            allowMouseWheelZoom: false,
+                        },
                         events: {
                             zoomed: handleZoomChange,
-                            scrolled: handleZoomChange,
                             beforeResetZoom: onZoomReset
                         },
                     },
