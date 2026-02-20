@@ -1,0 +1,19 @@
+{
+    "title": "Versatile Log Analyser",
+    "description": "Online log analyzer tool for Versatile Thermostat",
+    "graph": {
+        "title_logs": "Temperature over time",
+        "target": "Target",
+        "room_temp": "Room",
+        "ext_temp": "Exterior",
+        "underlying_setpoint": "Underlying setpoint",
+        "underlying_temp": "Underlying sensor",
+        "regulated_temp": "Regulated temperature",
+        "title_feature": "Feature state over time",
+        "window": "Open window",
+        "safety": "Safety guard"
+    },
+    "reset": "Reset",
+    "reload": "Reload",
+    "select": "Select Thermostat"
+}

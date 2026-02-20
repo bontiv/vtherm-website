@@ -12,7 +12,6 @@ const IGNORED_PATTERNS = [
     /\[custom_components\.versatile_thermostat\.base_thermostat\] .+ - last_change_time is now/,
     /\[custom_components\.versatile_thermostat\.feature_safety_manager\] SafetyManager-.+ - checking safety delta_temp=/,
     /\[custom_components\.versatile_thermostat\.thermostat_climate_valve\] .+ - last_regulation_change is now/,
-    /\[custom_components\.versatile_thermostat\.feature_window_manager\]/,
     /\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-.+ - period \([0-9.]+\) min is .+ min -> /,
     /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - Checking new cycle\./,
     /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - After setting _last/,
@@ -26,6 +25,12 @@ export type LogTextInfo = {
     txt: string
 }
 
+export enum FeatureState {
+    BYPASS = -1,
+    NORMAL = 0,
+    TRIGGER = 1,
+}
+
 class VThermLogParser {
     private name: string;
     public underlying_setpoints: { timestamp: Date, value: number }[] = [];
@@ -37,6 +42,10 @@ class VThermLogParser {
     public regulated_temps: { timestamp: Date, value: number }[] = [];
     public valve_open_percents: { timestamp: Date, value: number }[] = [];
     public on_percents: { timestamp: Date, value: number }[] = [];
+
+    public window_state: { timestamp: Date, value: FeatureState }[] = [];
+    public safety_state: { timestamp: Date, value: FeatureState }[] = [];
+
     public config: any = {};
 
     public constructor(name: string) {
@@ -61,7 +70,34 @@ class VThermLogParser {
         match = log.match(/Underlying climate .* changed from .* to new_state .* current_temperature=([\d.]+),/)
         if (match) {
             this.underlying_temps.push({ timestamp, value: parseFloat(match[1]) })
+            return;
         }
+
+        match = log.match(/Window is detected as closed/)
+        if (match) {
+            this.window_state.push({ timestamp, value: FeatureState.NORMAL })
+            return;
+        }
+
+        match = log.match(/Window sensor changed to state on/)
+        if (match) {
+            this.window_state.push({ timestamp, value: FeatureState.TRIGGER })
+            return;
+        }
+
+        match = log.match(/Starting safety mode/)
+        if (match) {
+            this.safety_state.push({ timestamp, value: FeatureState.TRIGGER })
+            return;
+        }
+
+        match = log.match(/Ending safety mode/)
+        if (match) {
+            this.safety_state.push({ timestamp, value: FeatureState.NORMAL })
+            return;
+        }
+
+        //console.log('Not parsed line', log)
     }
 
     public parseState(time: Date, state: string) {

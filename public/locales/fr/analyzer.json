@@ -1,0 +1,19 @@
+{
+    "title": "Versatile Log Analyseur",
+    "description": "Outil d'analyse de log Versatile Thermostat en ligne",
+    "graph": {
+        "title_logs": "Température dans le temps",
+        "target": "Cible",
+        "room_temp": "Pièce",
+        "ext_temp": "Extérieur",
+        "underlying_setpoint": "Cible du sous-jacent",
+        "underlying_temp": "Capteur du sous-jacent",
+        "regulated_temp": "Température régulée",
+        "title_feature": "Fonctionnalités dans le temps",
+        "window": "Fenêtre ouverte",
+        "safety": "Sécurité"
+    },
+    "reset": "Réinitialiser",
+    "reload": "Réanalyser",
+    "select": "Séléctionnez un thermostat"
+}
