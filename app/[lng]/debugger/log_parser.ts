@@ -18,6 +18,15 @@ const IGNORED_PATTERNS = [
     /Forget the event/,
 ]
 
+const ADV_FILTER_RULES = [
+    /Receive power sensor state/,
+    /New current power has been retrieved/,
+    /Last seen temperature changed to state/,
+    /Periodical control cycle started/,
+    /Calling update_custom_attributes/,
+    /find preset temp:/
+]
+
 export type LogTextInfo = {
     level: string,
     climate: string,
@@ -127,6 +136,20 @@ class VThermLogParser {
             this.valve_open_percents.push({ timestamp: time, value: parseFloat(match[1]) * 100 });
         }
     }
+}
+
+export function advFilterLog(line: string): boolean {
+    if (!line.includes('[custom_components.versatile_thermostat')) {
+        return true;
+    }
+
+    for (const rule of ADV_FILTER_RULES) {
+        if (line.match(rule)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 export function clearLineStr(line: string): string {

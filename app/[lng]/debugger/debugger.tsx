@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, memo, useCallback, ChangeEventHandler, RefObject } from "react";
 import Chart from "react-apexcharts";
-import { clearLineStr, LogParser } from "./log_parser";
+import { advFilterLog, clearLineStr, LogParser } from "./log_parser";
 import './debugger.css';
 import type { ApexOptions } from 'apexcharts';
 import { useT } from "@/app/i18n/client";
@@ -197,6 +197,7 @@ const EditorV2: React.FC<{
     zoom: ZoomType
 }> = memo(({ parser, climate, file_input, zoom }) => {
     const inref = useRef<HTMLDivElement>(null);
+    const [adv_filter, setAdvFilter] = useState(false)
 
     const write_log = useCallback(async (file: File, edit_div: HTMLDivElement) => {
         let offset = 0;
@@ -224,6 +225,11 @@ const EditorV2: React.FC<{
                 if (skip) {
                     continue;
                 }
+
+                if (adv_filter && advFilterLog(line)) {
+                    continue;
+                }
+
                 const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(line)
 
                 if (log_climate == '' || climate == log_climate) {
@@ -244,7 +250,7 @@ const EditorV2: React.FC<{
                 }
             }
         }
-    }, [zoom, climate]);
+    }, [zoom, climate, adv_filter]);
 
     useEffect(() => {
         if (!inref.current) {
@@ -260,9 +266,14 @@ const EditorV2: React.FC<{
             return;
         };
         write_log(file_input.current.files[0], inref.current);
-    }, [climate, zoom, file_input.current])
+    }, [climate, zoom, file_input.current, adv_filter])
 
-    return <div ref={inref} className="debugger">
+    return <div className="w-full">
+        <div className="py-2">
+            <input type="checkbox" id="log_filter" checked={adv_filter} onChange={(evt) => setAdvFilter(!adv_filter)} />
+            <label htmlFor="log_filter" className="px-2" >Enable log advance log filtering</label>
+        </div>
+        <div ref={inref} className="debugger"></div>
     </div>
 })
 
