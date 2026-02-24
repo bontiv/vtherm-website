@@ -101,7 +101,7 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
             continue;
         const lastElement = serie.data[serie.data.length - 1];
         if (typeof lastElement === 'object' && lastElement !== null && 'y' in lastElement) {
-            serie.data.push({ x: last_timestamp.last, y: lastElement.y });
+            (serie.data as any[]).push({ x: last_timestamp.last, y: lastElement.y });
         }
     }
     console.log('Last timestamp', end_timestamps)
