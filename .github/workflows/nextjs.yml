@@ -83,8 +83,11 @@ jobs:
               with:
                   name: outdir
 
+            - name: List directory
+              run: ls -l
+
             - name: Sync to production
-              run: rclone sync ./out/ :sftp:/web/out/
+              run: rclone sync ./out/ :sftp:web/out/
               env:
                   RCLONE_SFTP_HOST: ${{ secrets.RCLONE_SFTP_HOST }}
                   RCLONE_SFTP_USER: ${{ secrets.RCLONE_SFTP_USER }}
