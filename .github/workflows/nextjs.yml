@@ -72,10 +72,9 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         needs: build
+        container:
+            image: rclone/rclone:master
         steps:
-            - name: Install RClone
-              run: apt-get install rclone
-
             - name: Download artifact
               uses: actions/download-artifact@v5
               with:
