@@ -63,8 +63,9 @@ jobs:
                   GITHUB_TOKEN: ${{ github.token }}
 
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
+                  name: outdir
                   path: ./out
 
     # Deployment job
@@ -73,5 +74,12 @@ jobs:
         needs: build
         steps:
             - name: Install RClone
-              id: deployment
-              run: apt install rclone
+              run: apt-get install rclone
+
+            - name: Download artifact
+              uses: actions/download-artifact@v5
+              with:
+                  name: outdir
+
+            - name: Sync to production
+              run: rclone sync ./out/ SD5:/web/out/
