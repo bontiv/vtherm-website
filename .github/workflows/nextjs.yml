@@ -72,6 +72,9 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         needs: build
+        environment:
+            name: production
+            url: https://www.versatile-thermostat.org
         container:
             image: rclone/rclone:master
         steps:
@@ -81,4 +84,8 @@ jobs:
                   name: outdir
 
             - name: Sync to production
-              run: rclone sync ./out/ SD5:/web/out/
+              run: rclone sync ./out/ :sftp:/web/out/
+              env:
+                  RCLONE_SFTP_HOST: ${{ secrets.RCLONE_SFTP_HOST }}
+                  RCLONE_SFTP_USER: ${{ secrets.RCLONE_SFTP_USER }}
+                  RCLONE_SFTP_PASS: ${{ secrets.RCLONE_SFTP_PASS }}
