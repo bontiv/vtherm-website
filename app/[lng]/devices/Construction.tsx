@@ -4,7 +4,7 @@ import { WrenchScrewdriverIcon, SparklesIcon, RocketLaunchIcon } from '@heroicon
 const UnderConstruction: React.FC = () => {
     return (
         <>
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 flex items-center justify-center p-4 overflow-hidden relative">
+            <div className="min-h-screen bg-linear-to-br from-blue-50 via-cyan-50 to-sky-50 flex items-center justify-center p-4 overflow-hidden relative">
                 {/* Animated background elements */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <div className="absolute top-20 left-10 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl animate-pulse"
@@ -36,7 +36,7 @@ const UnderConstruction: React.FC = () => {
 
                     {/* Main heading */}
                     <div className="text-center mb-8">
-                        <h1 className="animate-fadeInScale text-7xl md:text-8xl font-black mb-4 bg-gradient-to-r from-blue-600 via-cyan-600 to-sky-600 bg-clip-text text-shadow-blue-900 tracking-tight leading-none"
+                        <h1 className="animate-fadeInScale text-7xl md:text-8xl font-black mb-4 bg-linear-to-r from-blue-600 via-cyan-600 to-sky-600 bg-clip-text text-shadow-blue-900 tracking-tight leading-none"
                             style={{
                                 fontFamily: '"Playfair Display", Georgia, serif',
                                 // textShadow: '0 0 40px rgba(59, 130, 246, 0.3)',
@@ -50,7 +50,7 @@ const UnderConstruction: React.FC = () => {
                                 fontFamily: '"Inter", sans-serif',
                                 animationDelay: '1s'
                             }}>
-                            Quelque chose d'extraordinaire arrive bientôt
+                            Quelque chose d&apos;extraordinaire arrive bientôt
                         </p>
                     </div>
 
@@ -58,12 +58,12 @@ const UnderConstruction: React.FC = () => {
                     <div className="animate-fadeInUp max-w-md mx-auto mb-12" style={{ animationDelay: '1.2s' }}>
                         <div className="relative h-3 bg-blue-200/50 rounded-full overflow-hidden backdrop-blur-sm border border-blue-300/50">
                             <div
-                                className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 via-cyan-500 to-sky-500 rounded-full shadow-lg animate-progressBar"
+                                className="absolute inset-y-0 left-0 bg-linear-to-r from-blue-500 via-cyan-500 to-sky-500 rounded-full shadow-lg animate-progressBar"
                                 style={{
                                     boxShadow: '0 0 20px rgba(59, 130, 246, 0.6)'
                                 }}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-r from-white/20 to-transparent" />
                             </div>
                         </div>
                         <p className="text-center mt-3 text-sm text-blue-800/70 font-medium">

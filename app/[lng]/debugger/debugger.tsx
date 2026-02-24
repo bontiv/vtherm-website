@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState, memo, useCallback, ChangeEventHandler, RefObject } from "react";
+import { useEffect, useRef, useState, useCallback, ChangeEventHandler, RefObject } from "react";
 import Chart from "react-apexcharts";
 import { advFilterLog, clearLineStr, LogParser } from "./log_parser";
 import './debugger.css';
@@ -49,12 +49,12 @@ function yieldToMain(): Promise<void> {
 }
 
 
-const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
+const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
     const { t, i18n } = useT('analyzer');
     const series: ApexOptions['series'] = [
         {
             name: t('graph.target'),
-            data: logfile.getThermostat(selectedThermostat)?.target_temps.map(event => ({
+            data: logfile.current.getThermostat(selectedThermostat)?.target_temps.map(event => ({
                 x: event.timestamp,
                 y: event.value,
             }))
@@ -63,23 +63,23 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
         },
         {
             name: t('graph.room_temp'),
-            data: logfile.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: t('graph.ext_temp'),
-            data: logfile.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: t('graph.underlying_setpoint'),
-            data: logfile.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: t('graph.underlying_temp'),
-            data: logfile.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
         {
             name: t('graph.regulated_temp'),
-            data: logfile.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
         },
     ];
 
@@ -101,19 +101,20 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
             continue;
         const lastElement = serie.data[serie.data.length - 1];
         if (typeof lastElement === 'object' && lastElement !== null && 'y' in lastElement) {
-            (serie.data as any[]).push({ x: last_timestamp.last, y: lastElement.y });
+            (serie.data as { x: Date, y: number }[]).push({ x: last_timestamp.last, y: lastElement.y });
         }
     }
     console.log('Last timestamp', end_timestamps)
 
+    // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     function handleZoomChange(chartContext: any, { xaxis }: { xaxis: ZoomRange }) {
         const dateMin = new Date(xaxis.min);
         const dateMax = new Date(xaxis.max);
-        onZoomChange && onZoomChange(dateMin, dateMax);
+        if (onZoomChange != undefined) onZoomChange(dateMin, dateMax);
     }
 
     console.log('Series', series);
-    console.log('Other states', logfile.getThermostat(selectedThermostat)?.window_state);
+    console.log('Other states', logfile.current.getThermostat(selectedThermostat)?.window_state);
 
     const xaxis: ApexOptions['xaxis'] = {
         type: 'datetime',
@@ -122,7 +123,7 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
         min: zoom?.enabled ? zoom?.mindate?.getTime() : undefined,
         max: zoom?.enabled ? zoom?.maxdate?.getTime() : undefined,
         tooltip: {
-            formatter: (value, opts) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)),
+            formatter: (value) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)),
         }
     };
 
@@ -200,11 +201,11 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
                 series={[
                     {
                         name: t('graph.window'),
-                        data: logfile.getThermostat(selectedThermostat)?.window_state.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+                        data: logfile.current.getThermostat(selectedThermostat)?.window_state.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
                     },
                     {
                         name: t('graph.safety'),
-                        data: logfile.getThermostat(selectedThermostat)?.safety_state.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || [],
+                        data: logfile.current.getThermostat(selectedThermostat)?.safety_state.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || [],
                         color: 'red'
                     }
                 ]}
@@ -214,11 +215,11 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
 }
 
 const EditorV2: React.FC<{
-    parser: LogParser,
+    parser: RefObject<LogParser>,
     climate?: string,
     file_input: RefObject<HTMLInputElement | null>,
     zoom: ZoomType
-}> = memo(({ parser, climate, file_input, zoom }) => {
+}> = ({ parser, climate, file_input, zoom }) => {
     const inref = useRef<HTMLDivElement>(null);
     const [adv_filter, setAdvFilter] = useState(false)
 
@@ -253,7 +254,7 @@ const EditorV2: React.FC<{
                     continue;
                 }
 
-                const { climate: log_climate, level, date, txt } = parser.getLogTextInfos(line)
+                const { climate: log_climate, level, date, txt } = parser.current.getLogTextInfos(line)
 
                 if (log_climate == '' || climate == log_climate) {
                     if (!zoom.enabled || !date || (zoom.mindate && date > zoom.mindate && zoom.maxdate && date < zoom.maxdate)) {
@@ -273,7 +274,7 @@ const EditorV2: React.FC<{
                 }
             }
         }
-    }, [zoom, climate, adv_filter]);
+    }, [zoom, climate, adv_filter, parser]);
 
     useEffect(() => {
         if (!inref.current) {
@@ -289,16 +290,16 @@ const EditorV2: React.FC<{
             return;
         };
         write_log(file_input.current.files[0], inref.current);
-    }, [climate, zoom, file_input.current, adv_filter])
+    }, [climate, zoom, file_input, adv_filter, write_log])
 
     return <div className="w-full">
         <div className="py-2">
-            <input type="checkbox" id="log_filter" checked={adv_filter} onChange={(evt) => setAdvFilter(!adv_filter)} />
+            <input type="checkbox" id="log_filter" checked={adv_filter} onChange={() => setAdvFilter(!adv_filter)} />
             <label htmlFor="log_filter" className="px-2" >Enable advance log filtering</label>
         </div>
         <div ref={inref} className="debugger"></div>
     </div>
-})
+}
 
 const Debugger: React.FC = () => {
     const [logData, SetLogData] = useState<LogData>({
@@ -446,8 +447,8 @@ const Debugger: React.FC = () => {
                 {logData.size > 0 && <button type="reset" className="bg-red-100 hover:bg-red-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-red-800 border-red-500 border-solid border">{t('reset')}</button>}
                 {logData.size > 0 && <button type="submit" className="bg-blue-100 hover:bg-blue-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-blue-800 border-blue-500 border-solid border">{t('reload')}</button>}
             </form>
-            {logData.state == 'finished' && selectedThermostat && <Graph logfile={parser.current} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
-            {logData.state == 'finished' && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser.current} file_input={fileInputRef} zoom={zoom} />}
+            {logData.state == 'finished' && selectedThermostat && <Graph logfile={parser} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
+            {logData.state == 'finished' && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser} file_input={fileInputRef} zoom={zoom} />}
         </div>
     );
 }

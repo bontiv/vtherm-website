@@ -59,8 +59,6 @@ class VThermLogParser {
     public window_state: { timestamp: Date, value: FeatureState }[] = [];
     public safety_state: { timestamp: Date, value: FeatureState }[] = [];
 
-    public config: any = {};
-
     public constructor(name: string) {
         this.name = name;
     }
@@ -211,7 +209,7 @@ export class LogParser {
             level = "INFO";
         }
 
-        let match = line.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?/)
+        const match = line.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?/)
         const date = match ? new Date(match[0]) : undefined
         return { climate, level, date, txt }
     }

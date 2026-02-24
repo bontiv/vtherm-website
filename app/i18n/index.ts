@@ -1,7 +1,7 @@
 import i18next from './i18next'
 import { fallbackLng } from './settings'
 
-export async function getT(ns: string, options: { keyPrefix?: any, lng?: string } = {}) {
+export async function getT(ns: string, options: { keyPrefix?: string, lng?: string } = {}) {
     const lng = options.lng || i18next.resolvedLanguage || fallbackLng
 
     if (lng && i18next.resolvedLanguage !== lng) {

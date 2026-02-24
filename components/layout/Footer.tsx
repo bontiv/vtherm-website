@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { getT } from '@/app/i18n';
 
@@ -10,7 +10,7 @@ export const Footer: React.FC<{ lng: string }> = async ({ lng }) => {
         <footer className="mt-auto w-full border-t border-[#3a3a3a] bg-blue-400">
             <div className="container px-6 py-6">
                 <div className="flex flex-col gap-4 text-sm text-gray-900">
-                    <div className="flex flex-wrap items-center gap-4 block mx-auto">
+                    <div className="flex flex-wrap items-center gap-4 mx-auto">
                         © {currentYear} Remi BONNET
                         <span className="hidden sm:inline">•</span>
                         <Link

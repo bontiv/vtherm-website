@@ -1,11 +1,9 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
-import { useParams } from 'next/navigation';
 import { fallbackLng, languages } from '@/app/i18n/settings';
 import { LinkLocale } from '../LinkLocale';
 

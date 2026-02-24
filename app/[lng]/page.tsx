@@ -5,7 +5,6 @@ import {
 } from "@heroicons/react/24/outline";
 import {
     FireIcon as Thermometer,
-    CalendarIcon as Calendar,
     Cog6ToothIcon as Settings,
     ChartBarIcon as Gauge,
     SignalIcon as Network,
@@ -14,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { LinkDocs } from "@/components/LinkLocale";
 import { getT } from "../i18n";
+import Image from "next/image";
 
 export default async function Home({ params }: { params: Promise<{ lng: string }> }) {
     const { lng } = await params
@@ -33,7 +33,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         href="https://my.home-assistant.io/redirect/hacs_repository/?owner=jmcollin78&repository=versatile_thermostat"
                         target="_blank"
                         rel="noreferrer noopener"
-                    ><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open a repository inside the Home Assistant Community Store." />
+                    ><Image src="https://my.home-assistant.io/badges/hacs_repository.svg" height={40} width={297} alt="Open your Home Assistant instance and open a repository inside the Home Assistant Community Store." />
                     </a>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
@@ -133,7 +133,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             </section>
 
             {/* CTA Section */}
-            <section className="bg-gradient-to-r from-blue-300 to-sky-200 rounded-2xl p-8 md:p-12 text-center border border-blue-100">
+            <section className="bg-linear-to-r from-blue-300 to-sky-200 rounded-2xl p-8 md:p-12 text-center border border-blue-100">
                 <div className="max-w-3xl mx-auto space-y-6">
                     <h2 className="text-3xl md:text-4xl font-normal text-blue-800">
                         {t('cta.title')}

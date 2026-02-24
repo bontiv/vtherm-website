@@ -2,6 +2,17 @@ import { Octokit } from "octokit";
 import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-methods'
 
 export type GithubReleases = RestEndpointMethodTypes['repos']['listReleases']['response']['data']
+export type GithubTree = RestEndpointMethodTypes['git']['getTree']['response']['data']
+export type GithubBlob = RestEndpointMethodTypes['git']['getBlob']['response']['data']
+
+export type GithubMetaTree = {
+    path: string;
+    mode: string;
+    type: string;
+    sha: string;
+    size?: number | undefined;
+    url?: string | undefined;
+}
 
 async function cachedFetch(input: RequestInfo, init?: RequestInit): Promise<Response | undefined> {
     const response = await fetch(input, {
@@ -19,8 +30,8 @@ export class GitHubAPI {
 
     private static instance: GitHubAPI;
     private releasesCache: GithubReleases | null = null;
-    private treeCache: { [key: string]: any } = {};
-    private blobCache: { [key: string]: any } = {};
+    private treeCache: { [key: string]: GithubTree } = {};
+    private blobCache: { [key: string]: GithubBlob } = {};
 
     static getInstance(owner: string = 'jmcollin78', repo: string = 'versatile_thermostat'): GitHubAPI {
         if (!GitHubAPI.instance) {
@@ -58,7 +69,7 @@ export class GitHubAPI {
         }
     }
 
-    async getGitTree(tag: string) {
+    async getGitTree(tag: string): Promise<GithubTree> {
         if (this.treeCache[tag]) {
             return this.treeCache[tag];
         }
@@ -76,16 +87,16 @@ export class GitHubAPI {
         }
     }
 
-    async getGitTreePath(path: string) {
+    async getGitTreePath(path: string): Promise<GithubMetaTree | undefined> {
         try {
             const paths = path.split('/');
             let sha = paths.shift();
-            let last_query = undefined;
-            let last_item = undefined;
+            let last_query: GithubTree | undefined = undefined;
+            let last_item: GithubMetaTree | undefined = undefined;
 
             for (const segment of paths) {
                 last_query = await this.getGitTree(sha!);
-                last_item = last_query.tree.find((item: any) => item.path === segment);
+                last_item = last_query.tree.find((item) => item.path === segment);
                 sha = last_item?.sha;
             }
 

@@ -37,7 +37,7 @@ const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, d
                 }
             ).then(x => x.text().then(x => setContent(x)))
         }
-    }, [])
+    }, [file, version])
 
     return (
         <div className="markdown-body">

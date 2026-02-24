@@ -30,7 +30,7 @@ export default async function Layout({ children, params }: { children: React.Rea
     const { lng } = await params;
     const release: string = (await githubapi.getReleases()).filter(x => !x.prerelease)[0].tag_name ?? '8.6.0';
     const filesDir = (await githubapi.getGitTreePath(`${release}/documentation/${lng}`))?.sha;
-    const files = filesDir ? (await githubapi.getGitTree(filesDir))?.tree.filter((x: any) => x.type === 'blob' && x.path.endsWith('.md')).map((item: any) => item.path.split('/').pop()?.slice(0, -3)) : undefined;
+    const files = filesDir ? (await githubapi.getGitTree(filesDir))?.tree.filter((x) => x.type === 'blob' && x.path.endsWith('.md')).map((item) => item.path.split('/').pop()?.slice(0, -3)) : undefined;
 
     return <html className="">
         <body className="antialiased">

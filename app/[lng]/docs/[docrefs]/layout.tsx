@@ -1,4 +1,3 @@
-import { LinkLocale } from '@/components/LinkLocale';
 import { GitHubAPI } from '@/lib/github';
 import DocVersionLink from './DocVersionLink';
 
@@ -10,10 +9,10 @@ async function getReleases() {
 
 export async function generateStaticParams() {
     const releases = await getReleases()
-    return releases.map((release: any) => ({ docrefs: release.tag_name }))
+    return releases.map((release) => ({ docrefs: release.tag_name }))
 }
 
-export default async function Layout({ children, params }: { children: React.ReactNode, params: any }) {
+export default async function Layout({ children, params }: { children: React.ReactNode, params: Promise<{ docrefs: string }> }) {
     const releases = await getReleases();
     const { docrefs } = await params;
 

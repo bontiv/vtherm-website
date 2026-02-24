@@ -1,6 +1,6 @@
 'use client';
 
-import { InformationCircleIcon, MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import './state-color.css';
 import { useState } from "react";

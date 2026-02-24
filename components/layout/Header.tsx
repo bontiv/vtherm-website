@@ -1,18 +1,12 @@
 'use client';
 
-import React, { ChangeEventHandler, useCallback } from 'react';
+import React, { ChangeEventHandler } from 'react';
 import Link from 'next/link';
-import { SearchBar } from '../ui/SearchBar';
 import { CodeBracketIcon } from '@heroicons/react/24/outline';
 import { useT } from '@/app/i18n/client';
 import { usePathname, useRouter } from 'next/navigation';
-import path from 'path';
 
 export const Header: React.FC = () => {
-    const handleSearch = (value: string) => {
-        // Logique de recherche à implémenter
-        console.log('Search:', value);
-    };
     const { t, i18n } = useT('common');
     const pathname = usePathname();
     const router = useRouter();
