@@ -83,6 +83,29 @@ const Graph: React.FC<{ logfile: LogParser, selectedThermostat: string, onZoomCh
         },
     ];
 
+    // Find last timestamp of all series then add this timestamp to other series
+    const end_timestamps = series.map((x, i) => {
+        if (x.data.length == 0)
+            return { serie: i, last: new Date(0) }
+        const lastElement = x.data[x.data.length - 1];
+        const lastValue = typeof lastElement === 'object' && lastElement !== null && 'x' in lastElement ? lastElement.x : new Date(0);
+        return { serie: i, last: lastValue }
+    })
+        .sort((a, b) => a.last.getTime() - b.last.getTime())
+
+    const last_timestamp = end_timestamps[end_timestamps.length - 1]
+
+    for (const [i, serie] of series.entries()) {
+        console.log('TEST', i)
+        if (i == last_timestamp.serie || serie.data.length == 0)
+            continue;
+        const lastElement = serie.data[serie.data.length - 1];
+        if (typeof lastElement === 'object' && lastElement !== null && 'y' in lastElement) {
+            serie.data.push({ x: last_timestamp.last, y: lastElement.y });
+        }
+    }
+    console.log('Last timestamp', end_timestamps)
+
     function handleZoomChange(chartContext: any, { xaxis }: { xaxis: ZoomRange }) {
         const dateMin = new Date(xaxis.min);
         const dateMax = new Date(xaxis.max);

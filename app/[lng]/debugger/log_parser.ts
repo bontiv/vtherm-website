@@ -27,6 +27,8 @@ const ADV_FILTER_RULES = [
     /find preset temp:/,
     /Calling ThermostatClimate\._send_regulated_temperature/,
     / -> forget the auto-regulation send/,
+    /of calculate_shedding/,
+    /shedding calculation/,
 ]
 
 export type LogTextInfo = {
@@ -318,6 +320,13 @@ export class LogParser {
         match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-(.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
         if (match) {
             this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] VersatileThermostat-(.+)-climate\..* --------> Underlying state change received:.*current_temperature=([0-9.]+), temperature=([0-9.]+),/)
+        if (match) {
+            this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
             return;
         }
 
