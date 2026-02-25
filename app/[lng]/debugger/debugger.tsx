@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback, ChangeEventHandler, RefObject } from "react";
+import { useEffect, useRef, useState, useCallback, ChangeEventHandler, RefObject, SubmitEventHandler } from "react";
 import Chart from "react-apexcharts";
 import { advFilterLog, clearLineStr, LogParser } from "./log_parser";
 import './debugger.css';
 import type { ApexOptions } from 'apexcharts';
 import { useT } from "@/app/i18n/client";
+import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 
 interface ZoomRange {
     min: number;
@@ -221,13 +222,20 @@ const EditorV2: React.FC<{
     zoom: ZoomType
 }> = ({ parser, climate, file_input, zoom }) => {
     const inref = useRef<HTMLDivElement>(null);
-    const [adv_filter, setAdvFilter] = useState(false)
+    const [adv_filter, setAdvFilter] = useState<{
+        vtherm_only: boolean,
+        txt?: string
+    }>({
+        vtherm_only: false,
+        txt: undefined
+    })
 
     const write_log = useCallback(async (file: File, edit_div: HTMLDivElement) => {
         let offset = 0;
         let leftover = "";
 
         edit_div.innerText = ''
+        const filter_txt = typeof adv_filter.txt === "string" && adv_filter.txt.length > 0 ? RegExp(adv_filter.txt) : null
 
         while (offset < file.size) {
             const chunk = file.slice(offset, offset + CHUNK_SIZE);
@@ -250,8 +258,14 @@ const EditorV2: React.FC<{
                     continue;
                 }
 
-                if (adv_filter && advFilterLog(line)) {
+                if (adv_filter.vtherm_only && advFilterLog(line)) {
                     continue;
+                }
+
+                if (filter_txt) {
+                    if (!filter_txt.test(line)) {
+                        continue;
+                    }
                 }
 
                 const { climate: log_climate, level, date, txt } = parser.current.getLogTextInfos(line)
@@ -292,10 +306,26 @@ const EditorV2: React.FC<{
         write_log(file_input.current.files[0], inref.current);
     }, [climate, zoom, file_input, adv_filter, write_log])
 
+    const onSearch: SubmitEventHandler<HTMLFormElement> = (evt) => {
+        evt.preventDefault()
+        console.log(evt.target['txt'].value)
+        setAdvFilter(e => ({ ...e, txt: evt.target['txt'].value }))
+    }
+
     return <div className="w-full">
-        <div className="py-2">
-            <input type="checkbox" id="log_filter" checked={adv_filter} onChange={() => setAdvFilter(!adv_filter)} />
-            <label htmlFor="log_filter" className="px-2" >Enable advance log filtering</label>
+        <div className="py-2 border rounded-2xl my-4 px-3">
+            <h2 className="text-xl border-b">Filters</h2>
+            <form onSubmit={onSearch} className="pt-4 flex flex-col">
+                <div className="flex">
+                    <input type="checkbox" id="log_filter" checked={adv_filter.vtherm_only} onChange={() => setAdvFilter(e => ({ ...e, vtherm_only: !adv_filter.vtherm_only }))} />
+                    <label htmlFor="log_filter" className="px-2 block" >Enable advance log filtering</label>
+                </div>
+                <div>
+                    <div className="pr-3 inline">Search in logs:</div>
+                    <input type="text" name="txt" placeholder="Regex search" className="w-2xs max-w-full bg-slate-100 px-2 py-1 rounded" />
+                </div>
+                <button type="submit" className="inline w-fit bg-green-300 rounded-full px-6 my-3 py-2"><MagnifyingGlassCircleIcon className="h-4 cursor-pointer inline" /> Search</button>
+            </form>
         </div>
         <div ref={inref} className="debugger"></div>
     </div>
