@@ -164,6 +164,8 @@ export class LogParser {
     private thermostats: Map<string, VThermLogParser> = new Map();
     private last_thermo: string | null = null;
 
+    public central_boiler: { timestamp: Date, value: FeatureState }[] = []
+
     public constructor(logs?: string) {
         if (logs) {
             const log_lines = logs.split('\n');
@@ -327,6 +329,19 @@ export class LogParser {
             this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
             return;
         }
+
+        match = line.match(/Central boiler is being turned on /)
+        if (match) {
+            this.central_boiler.push({ timestamp: new Date(time), value: 1 })
+            return;
+        }
+
+        match = line.match(/Central boiler is being turned off /)
+        if (match) {
+            this.central_boiler.push({ timestamp: new Date(time), value: 0 })
+            return;
+        }
+
 
         //console.log('No parse for line:', line);
     }

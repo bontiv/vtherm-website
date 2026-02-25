@@ -49,6 +49,9 @@ function yieldToMain(): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
+function dateSort(a: { x: Date }, b: { x: Date }): number {
+    return a.x.getTime() - b.x.getTime()
+}
 
 const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
     const { t, i18n } = useT('analyzer');
@@ -64,24 +67,40 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
         },
         {
             name: t('graph.room_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
         },
         {
             name: t('graph.ext_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
         },
         {
             name: t('graph.underlying_setpoint'),
-            data: logfile.current.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
         },
         {
             name: t('graph.underlying_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
         },
         {
             name: t('graph.regulated_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
+            data: logfile.current.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
         },
+    ];
+
+    const series_features: ApexOptions['series'] = [
+        {
+            name: t('graph.window'),
+            data: logfile.current.getThermostat(selectedThermostat)?.window_state.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+        },
+        {
+            name: t('graph.safety'),
+            data: logfile.current.getThermostat(selectedThermostat)?.safety_state.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || [],
+            color: 'red'
+        },
+        {
+            name: 'Central Boiler',
+            data: logfile.current.central_boiler.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime())
+        }
     ];
 
     // Find last timestamp of all series then add this timestamp to other series
@@ -97,7 +116,6 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
     const last_timestamp = end_timestamps[end_timestamps.length - 1]
 
     for (const [i, serie] of series.entries()) {
-        console.log('TEST', i)
         if (i == last_timestamp.serie || serie.data.length == 0)
             continue;
         const lastElement = serie.data[serie.data.length - 1];
@@ -105,7 +123,15 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
             (serie.data as { x: Date, y: number }[]).push({ x: last_timestamp.last, y: lastElement.y });
         }
     }
-    console.log('Last timestamp', end_timestamps)
+
+    for (const serie of series_features) {
+        if (serie.data.length == 0)
+            continue;
+        const lastElement = serie.data[serie.data.length - 1];
+        if (typeof lastElement === 'object' && lastElement !== null && 'y' in lastElement) {
+            (serie.data as { x: Date, y: number }[]).push({ x: last_timestamp.last, y: lastElement.y });
+        }
+    }
 
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     function handleZoomChange(chartContext: any, { xaxis }: { xaxis: ZoomRange }) {
@@ -199,17 +225,7 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
                         max: 1,
                     }
                 }}
-                series={[
-                    {
-                        name: t('graph.window'),
-                        data: logfile.current.getThermostat(selectedThermostat)?.window_state.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || []
-                    },
-                    {
-                        name: t('graph.safety'),
-                        data: logfile.current.getThermostat(selectedThermostat)?.safety_state.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime()) || [],
-                        color: 'red'
-                    }
-                ]}
+                series={series_features}
             />
         </div>
     );
@@ -308,7 +324,6 @@ const EditorV2: React.FC<{
 
     const onSearch: SubmitEventHandler<HTMLFormElement> = (evt) => {
         evt.preventDefault()
-        console.log(evt.target['txt'].value)
         setAdvFilter(e => ({ ...e, txt: evt.target['txt'].value }))
     }
 
