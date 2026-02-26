@@ -1,0 +1,8 @@
+{
+    "title": "Heatzy",
+    "config": {
+        "thermostat_type": "thermostat_over_switch",
+        "minimal_activation_delay": 30,
+        "minimal_deactivation_delay": 30
+    }
+}

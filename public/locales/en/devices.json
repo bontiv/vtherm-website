@@ -17,5 +17,37 @@
     },
     "details": {
         "title": "Configure and use your {{device}}"
+    },
+    "conf": {
+        "title": "Device configuration",
+        "finnaly": "You can validate and return to the configuration menu.",
+        "step1": {
+            "title": "Initialization",
+            "section": "Go to your settings, then integrations, then click on add a new integration. Search for Versatile Thermostat.",
+            "over_climate": "Click on Thermostat over another thermostat.",
+            "over_switch": "Click on Thermostat over a switch.",
+            "over_valve": "Click on Thermostat over a valve."
+        },
+        "step2": {
+            "title": "Basic attributes",
+            "section": "Go to the \"Main attributes\" section.",
+            "task1": "Choose a name for your thermostat",
+            "task2": "Set the temperature sensor for your room",
+            "task3": "If you are using the Zigbee protocol and you have a \"last_seen\" entity for your temperature sensor, fill it in."
+        },
+        "step3": {
+            "title": "Underlying entities",
+            "section": "Go to the underlying entities section.",
+            "over_climate": "Add the thermostats that will be controlled",
+            "over_valve": "Add the valves that will be controlled",
+            "over_switch": "Add the switches that will be controlled",
+            "use_regulation": "In the auto-regulation section, choose \"direct valve control\""
+        },
+        "step4": {
+            "title": "TPI parameters",
+            "section": "Go to the \"TPI parameters\" section. Uncheck the central configuration and proceed to the next screen. Configure the following values:",
+            "activation_delay": "Set {{delay}} as the minimum activation delay.",
+            "deactivation_delay": "Set {{delay}} as the minimum deactivation delay."
+        }
     }
 }

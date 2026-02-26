@@ -9,6 +9,8 @@ export type DeviceConfig = {
     auto_regulation_use_device_temp?: boolean,
     opening_degree_entity_ids?: EntityList,
     closing_degree_entity_ids?: EntityList,
+    minimal_activation_delay?: number,
+    minimal_deactivation_delay?: number
 }
 
 export type DeviceDefinition = {

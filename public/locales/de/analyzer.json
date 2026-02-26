@@ -1,0 +1,19 @@
+{
+    "title": "Versatile Log-Analyser",
+    "description": "Online-Log-Analysetool für Versatile Thermostat",
+    "graph": {
+        "title_logs": "Temperatur im Zeitverlauf",
+        "target": "Sollwert",
+        "room_temp": "Raum",
+        "ext_temp": "Außen",
+        "underlying_setpoint": "Sollwert des Untergeräts",
+        "underlying_temp": "Sensor des Untergeräts",
+        "regulated_temp": "Geregelte Temperatur",
+        "title_feature": "Funktionen im Zeitverlauf",
+        "window": "Fenster geöffnet",
+        "safety": "Sicherheit"
+    },
+    "reset": "Zurücksetzen",
+    "reload": "Neu analysieren",
+    "select": "Thermostat auswählen"
+}

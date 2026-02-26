@@ -14,5 +14,40 @@
         "unsupported": "Non supporté",
         "community": "Communautaire",
         "partially": "Partiel"
+    },
+    "details": {
+        "title": "Utiliser et configurer votre {{device}}"
+    },
+    "conf": {
+        "title": "Configuration de l'appareil",
+        "finnaly": "Vous pouvez valider et revenir au menu de configuration.",
+        "step1": {
+            "title": "Initialisation",
+            "section": "Allez dans vos paramètres puis intégration puis cliquez sur ajouter une nouvelle intégration. Cherchez Versatile Thermostat.",
+            "over_climate": "Cliquez sur Thermostat sur un autre thermostat.",
+            "over_switch": "Cliquez sur Thermostat sur un switch.",
+            "over_valve": "Cliquez sur Thermostat sur une valve."
+        },
+        "step2": {
+            "title": "Attributs de base",
+            "section": "Rentrez dans la section \"Principaux attributs\".",
+            "task1": "Choississez un nom pour votre thermostat",
+            "task2": "Mettez le capteur de température pour votre pièce",
+            "task3": "Si vous utilisez le protocole Zigbee et vous avez une entité \"last_seen\" pour votre capteur de température, renseignez le."
+        },
+        "step3": {
+            "title": "Sous-jacents",
+            "section": "Rentrez dans la section sous-jacents.",
+            "over_climate": "Ajouter les thermostats qui seront contrôlés",
+            "over_valve": "Ajouter les vannes qui seront contrôlés",
+            "over_switch": "Ajouter les commutateurs qui seront contrôlés",
+            "use_regulation": "Dans la section auto-régulation, choisissez \"controle direct de la vanne\""
+        },
+        "step4": {
+            "title": "Paramètres TPI",
+            "section": "Rentrez dans la section \"Paramètres TPI\". Décochez la configuration centrale et accédez à l'écran suivant. Configurez les valeures suivantes:",
+            "activation_delay": "Mettez {{delay}} en délai minimal d'activation.",
+            "deactivation_delay": "Mettez {{delay}} en délai de désactivation minimal."
+        }
     }
 }

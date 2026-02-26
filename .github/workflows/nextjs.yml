@@ -89,4 +89,4 @@ jobs:
                   RCLONE_SFTP_HOST: ${{ secrets.RCLONE_SFTP_HOST }}
                   RCLONE_SFTP_USER: ${{ secrets.RCLONE_SFTP_USER }}
                   RCLONE_SFTP_PASS: ${{ secrets.RCLONE_SFTP_PASS }}
-                  RCLONE_TRANSFERS: 12
+                  RCLONE_TRANSFERS: 25

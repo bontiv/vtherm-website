@@ -10,45 +10,65 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 
-const DeviceConfig: React.FC<{ config: DeviceDefinition['config'] }> = ({ config }) => {
+const DeviceConfig: React.FC<{ config: DeviceDefinition['config'], lng: string }> = async ({ config, lng }) => {
+    const { t } = await getT('devices', { lng });
+
+    /**
+     * Return true if on of defined configs is present
+     * @param configs 
+     */
+    function stepNeed(configs: string[]): boolean {
+        return configs.map(section => section in config).includes(true)
+    }
+
     return <section>
-        <h2>Device configuration</h2>
-        <h3>Etape 1</h3>
-        <p>
-            Allez dans vos paramètres puis intégration puis cliquez sur ajouter une nouvelle intégration. Cherchez Versatile Thermostat.</p>
+        <h2>{t('conf.title')}</h2>
+        <h3>{t('conf.step1.title')}</h3>
+        <p>{t('conf.step1.section')}</p>
         {config.thermostat_type == 'thermostat_over_climate' && <p>
-            Cliquez sur Thermostat sur un autre thermostat.
+            {t('conf.step1.over_climate')}
         </p>}
         {config.thermostat_type == 'thermostat_over_switch' && <p>
-            Cliquez sur Thermostat sur un switch.
+            {t('conf.step1.over_switch')}
         </p>}
         {config.thermostat_type == 'thermostat_over_valve' && <p>
-            Cliquez sur Thermostat sur une valve.
+            {t('conf.step1.over_valve')}
         </p>}
 
-        <h3>Etape 2</h3>
-        <p>Rentrez dans la section &ldquo;Principaux attributs&rdquo;.</p>
+        <h3>{t('conf.step2.title')}</h3>
+        <p>{t('conf.step2.section')}</p>
         <ol>
-            <li>Choississez un nom pour votre thermostat</li>
-            <li>Mettez le capteur de température pour votre pièce</li>
-            <li>Si vous utilisez le protocole Zigbee et vous avez une entité &ldquo;last_seen&rdquo; pour votre capteur de température, renseignez le.</li>
+            <li>{t('conf.step2.task1')}</li>
+            <li>{t('conf.step2.task2')}</li>
+            <li>{t('conf.step2.task3')}</li>
         </ol>
-        <p>Vous pouvez valider et revenir au menu de configuration.</p>
+        <p>{t('conf.finnaly')}</p>
 
-        <h3>Etape 3</h3>
-        <p>Rentrez dans la section sous-jacents.</p>
+        <h3>{t('conf.step3.title')}</h3>
+        <p>{t('conf.step3.section')}</p>
         <ol>
-            {config.thermostat_type == 'thermostat_over_climate' && <li>Ajouter les thermostats qui seront contrôlés</li>}
-            {config.thermostat_type == 'thermostat_over_valve' && <li>Ajouter les vannes qui seront contrôlés</li>}
-            {config.thermostat_type == 'thermostat_over_switch' && <li>Ajouter les commutateurs qui seront contrôlés</li>}
-            {config.auto_regulation_mode == 'auto_regulation_valve' && <li>Dans la section auto-régulation, choisissez &ldquo;controle direct de la vanne&rdquo;</li>}
+            {config.thermostat_type == 'thermostat_over_climate' && <li>{t('conf.step3.over_climate')}</li>}
+            {config.thermostat_type == 'thermostat_over_valve' && <li>{t('conf.step3.over_valve')}</li>}
+            {config.thermostat_type == 'thermostat_over_switch' && <li>{t('conf.step3.over_switch')}</li>}
+            {config.auto_regulation_mode == 'auto_regulation_valve' && <li>{t('conf.step3.use_regulation')}</li>}
         </ol>
+        <p>{t('conf.finnaly')}</p>
+
+        {stepNeed(['minimal_activation_delay', 'minimal_deactivation_delay']) && <>
+            <h3>{t('conf.step4.title')}</h3>
+            <p>{t('conf.step4.section')}</p>
+            <ol>
+                {config.minimal_activation_delay && <li>{t('conf.step4.activation_delay', { delay: config.minimal_activation_delay })}</li>}
+                {config.minimal_deactivation_delay && <li>{t('conf.step4.deactivation_delay', { delay: config.minimal_deactivation_delay })}</li>}
+            </ol>
+            <p>{t('conf.finnaly')}</p>
+        </>}
     </section>
 }
 
 const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> = async ({ params }) => {
     const { slug, lng } = await params;
-    const { t } = await getT('devices');
+    const { t } = await getT('devices', { lng });
 
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
     const readMePathLng = path.join(process.cwd(), 'devicesdb', slug, `README${lng != fallbackLng ? `-${lng.toUpperCase()}` : ''}.md`);
@@ -62,7 +82,7 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
             <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
         </div>
         {readme ? <Markdown rehypePlugins={[rehypeSlug]} remarkPlugins={[remarkGfm]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
-        <DeviceConfig config={config.config} />
+        <DeviceConfig config={config.config} lng={lng} />
     </div>
 }
 
