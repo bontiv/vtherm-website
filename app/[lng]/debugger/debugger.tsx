@@ -150,7 +150,7 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
         min: zoom?.enabled ? zoom?.mindate?.getTime() : undefined,
         max: zoom?.enabled ? zoom?.maxdate?.getTime() : undefined,
         tooltip: {
-            formatter: (value) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)),
+            formatter: (value) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short", timeZone: 'UTC' }).format(new Date(value)),
         }
     };
 
