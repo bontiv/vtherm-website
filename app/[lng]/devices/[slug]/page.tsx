@@ -10,6 +10,21 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 
+export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }) {
+    const { lng, slug } = await params
+    const { t } = await getT('devices', { lng })
+    const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
+    return {
+        title: t('title_details', { device: config.title ?? slug }),
+        description: t('description'),
+        openGraph: {
+            title: t('title'),
+            description: t('description'),
+            type: "website",
+        },
+    }
+}
+
 const DeviceConfig: React.FC<{ config: DeviceDefinition['config'], lng: string }> = async ({ config, lng }) => {
     const { t } = await getT('devices', { lng });
 

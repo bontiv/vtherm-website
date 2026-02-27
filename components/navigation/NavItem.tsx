@@ -47,7 +47,7 @@ export const NavItem: React.FC<NavItemProps> = ({
 
     const activeStyles = isActive
         ? 'bg-blue-100/10 text-blue-200 font-medium'
-        : 'text-gray-200 hover:text-sky-200 hover:bg-sky-100/5';
+        : ' hover:text-sky-200 hover:bg-sky-100/5';
 
     const content = (
         <>

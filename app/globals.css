@@ -3,31 +3,30 @@
 
 /* Configuration des couleurs personnalisées pour Tailwind v4 */
 @theme {
-  /* Couleurs primaires du logo VTherm */
-  /* --color-vtherm-azure: #5BA8DC;
-  --color-vtherm-sky: #4B9FD5;
-  --color-vtherm-royal: #5856D6;
-  --color-vtherm-violet: #4A47A3;
-  --color-vtherm-cyan: #00D4E8;
-  --color-vtherm-aqua: #00BCD4;
-  --color-vtherm-turquoise: #00D9FF;
-  --color-vtherm-bg-sidebar: #2b2b2b;
-  --color-vtherm-bg-section: #1f1f23;
-  --color-vtherm-border: #3a3a3a; */
-
-  /* Textes */
-  /* --color-vtherm-text: #ffffff;
-  --color-vtherm-text-secondary: #a1a1aa;
-  --color-vtherm-text-tertiary: #71717a; */
+  --color-background: var(--color-white);
+  --color-forground: var(--color-slate-800);
+  --color-primary: var(--color-blue-700);
+  --color-secondary: var(--color-blue-800);
 }
 
 /* Variables CSS globales */
 :root {
   --sidebar-width: 247px;
+
+  @variant dark {
+    --color-primary: var(--color-blue-400);
+    --color-secondary: var(--color-sky-500);
+    --color-background: #0d1117;
+    --color-forground: #f0f6fc;
+  }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+main {
+  @apply bg-background text-forground;
 }
 
 /* Styles pour les focus accessibles */
@@ -74,20 +73,16 @@ html {
   animation: slideUp 0.2s ease-out;
 }
 
-.main-content {
-  @apply text-slate-900;
-}
-
 .main-content h1 {
-  @apply text-4xl text-blue-900 font-bold py-4;
+  @apply text-4xl text-primary font-bold py-4;
 }
 
 .main-content h2 {
-  @apply text-3xl text-blue-800 font-semibold py-4;
+  @apply text-3xl text-secondary font-semibold py-4;
 }
 
 .main-content h3 {
-  @apply text-2xl text-blue-700 py-4;
+  @apply text-2xl text-secondary py-4;
 }
 
 .main-content p {

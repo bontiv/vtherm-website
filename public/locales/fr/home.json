@@ -40,8 +40,8 @@
             "desc": "Support l'activation et désactivation automatique de la chaudière centrale."
         },
         "power": {
-            "title": "Delestage de puissance",
-            "desc": "Sur les radiateurs électique, rédcution automatique de la puissance pour éviter un déclenchement du disjoncteur."
+            "title": "Délestage de puissance",
+            "desc": "Sur les radiateurs électique, réduction automatique de la puissance pour éviter un déclenchement du disjoncteur."
         }
     }
 }

@@ -6,6 +6,7 @@ import { NavItem } from '../navigation/NavItem';
 import { NavAccordion } from '../navigation/NavAccordion';
 import Image from 'next/image';
 import { useT } from '@/app/i18n/client';
+import logo from '@/public/logo.png';
 
 export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)[] }> = ({ docref, docfiles }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,7 +39,7 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
             {/* Logo / Branding */}
             <div className="flex flex-col items-center gap-3 px-4 py-6 border-b border-[#3a3a3a]">
                 <div className="flex items-center justify-center">
-                    <Image src={'https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/refs/heads/main/images/icon%402x.png'} alt="Logo" width={128} height={128} />
+                    <Image src={logo} alt="Logo" width={128} height={128} />
                 </div>
                 <div>
                     <h1 className="text-lg font-semibold text-[#ffffff]">Versatile Thermostat</h1>
@@ -90,7 +91,7 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
             {/* Mobile Menu Button */}
             <button
                 onClick={toggleMobileMenu}
-                className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-[#2b2b2b] border border-[#3a3a3a] text-[#ffffff] md:hidden hover:bg-[#3a3a3a] transition-colors"
+                className="fixed top-4 left-4 z-50 p-2 rounded-lg bg-blue-300 dark:bg-[#2b2b2b] border border-blue-400 text-blue-600 dark:border-[#3a3a3a] dark:text-white md:hidden dark:hover:bg-[#3a3a3a] transition-colors"
                 aria-label="Toggle menu"
             >
                 {isMobileMenuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
@@ -108,9 +109,12 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
             {/* Sidebar - Desktop & Mobile Drawer */}
             <aside
                 className={`
-          fixed top-0 left-0 z-40 h-screen
+          fixed top-16 md:top-0 left-0 z-40 h-screen
           w-[247px]
           bg-sky-800
+          dark:bg-sky-950
+          dark:text-slate-400
+          text-gray-200
           border-r border-[#3a3a3a]
           flex flex-col
           transition-transform duration-300 ease-in-out
@@ -123,7 +127,7 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
             </aside>
 
             {/* Spacer for desktop layout */}
-            <div className="hidden md:block w-[247px] flex-shrink-0" aria-hidden="true" />
+            <div className="hidden md:block w-[247px] shrink-0" aria-hidden="true" />
         </>
     );
 };

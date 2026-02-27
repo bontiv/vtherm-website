@@ -2,6 +2,24 @@ import { GitHubAPI } from "@/lib/github";
 import React from "react";
 import MarkDownPage from "./MarkdownPage";
 
+import { getT } from "@/app/i18n";
+export async function generateMetadata({ params }: { params: Promise<{ lng: string, docrefs: string, docFile: string }> }) {
+    const { lng, docFile } = await params
+    const { t } = await getT('common', { lng })
+    const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)
+
+    const title = (await content.text()).match(/^# (.*)\n/)
+    const web_title = t('title_doc', { title: title ? title[1] : docFile })
+
+    return {
+        title: web_title,
+        openGraph: {
+            title: web_title,
+            type: "website",
+        },
+    }
+}
+
 export const DocPage: React.FC<{ params: Promise<{ lng: string, docrefs: string, docFile: string }> }> = async ({ params }) => {
     const { lng, docrefs, docFile }: { lng: string, docrefs: string, docFile: string } = await params;
     const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)

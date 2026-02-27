@@ -1,9 +1,12 @@
 {
+    "title": "Appareils compatibles - Versatile Thermostat",
+    "description": "Liste des appareils compatibles avec Versatile Thermostat",
+    "title_details": "Configuration de {{device}} - Versatile Thermostat",
     "manufacturer": "Marque",
     "model": "Modèle",
     "all-devices": "Tous les appareils",
     "all-types": "Tout support",
-    "notice": "Ceci est une liste non exhaustive des appareils conpatibles avec Versatile Thermostat. Si votre appareil n'y figure pas, il n'a peut-être pas encore été ajouté. Consultez la documentation pour savoir comment ajouter votre appareil.",
+    "notice": "Ceci est une liste non exhaustive des appareils compatibles avec Versatile Thermostat. Si votre appareil n'y figure pas, il n'a peut-être pas encore été ajouté. Consultez la documentation pour savoir comment ajouter votre appareil.",
     "types": {
         "electric": "Chauffage électrique",
         "trv": "Vannes TRV",
@@ -31,7 +34,7 @@
         "step2": {
             "title": "Attributs de base",
             "section": "Rentrez dans la section \"Principaux attributs\".",
-            "task1": "Choississez un nom pour votre thermostat",
+            "task1": "Choisissez un nom pour votre thermostat",
             "task2": "Mettez le capteur de température pour votre pièce",
             "task3": "Si vous utilisez le protocole Zigbee et vous avez une entité \"last_seen\" pour votre capteur de température, renseignez le."
         },
@@ -39,13 +42,13 @@
             "title": "Sous-jacents",
             "section": "Rentrez dans la section sous-jacents.",
             "over_climate": "Ajouter les thermostats qui seront contrôlés",
-            "over_valve": "Ajouter les vannes qui seront contrôlés",
+            "over_valve": "Ajouter les vannes qui seront contrôlées",
             "over_switch": "Ajouter les commutateurs qui seront contrôlés",
             "use_regulation": "Dans la section auto-régulation, choisissez \"controle direct de la vanne\""
         },
         "step4": {
             "title": "Paramètres TPI",
-            "section": "Rentrez dans la section \"Paramètres TPI\". Décochez la configuration centrale et accédez à l'écran suivant. Configurez les valeures suivantes:",
+            "section": "Rentrez dans la section \"Paramètres TPI\". Décochez la configuration centrale et accédez à l'écran suivant. Configurez les valeurs suivantes:",
             "activation_delay": "Mettez {{delay}} en délai minimal d'activation.",
             "deactivation_delay": "Mettez {{delay}} en délai de désactivation minimal."
         }

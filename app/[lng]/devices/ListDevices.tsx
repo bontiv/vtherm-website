@@ -45,8 +45,8 @@ const ListDevices: React.FC<{ devices: DeviceSpec[] }> = ({ devices }) => {
     const { t } = useT('devices')
 
     return <div>
-        <div className="bg-slate-200 px-2 py-2 rounded">
-            <form className="flex gap-2" onSubmit={(evt) => evt.preventDefault()}>
+        <div className="bg-slate-200 px-2 py-2 rounded text-gray-500">
+            <form className="flex gap-2 flex-wrap" onSubmit={(evt) => evt.preventDefault()}>
                 <input name="manufacturer" onChange={(evt) => setUserFilter({ ...user_filter, manufacturer: evt.target.value })} type="text" className="bg-slate-50 flex-1 px-2 py-1" placeholder={t('manufacturer')} />
                 <input name="model" onChange={(evt) => setUserFilter({ ...user_filter, model: evt.target.value })} type="text" className="bg-slate-50 flex-1 px-2 py-1" placeholder={t('model')} />
                 <select name="support" onChange={(evt) => setUserFilter({ ...user_filter, state: evt.target.value })} className="bg-slate-50 flex-1 px-2 py-1">
