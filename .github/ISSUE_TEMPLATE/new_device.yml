@@ -30,7 +30,7 @@ body:
         - Compatible
         - Not compatible
         - Partially compatible
-      default: 0
+      default: 1
     validations:
       required: true
     - type: textarea
