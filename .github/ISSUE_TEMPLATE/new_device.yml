@@ -1,6 +1,8 @@
 name: New device compatibility
 description: Add a new device on the compatibility list
 title: "[Device] "
+labels:
+  - documentation
 body:
   - type: input
     id: manufacturer
