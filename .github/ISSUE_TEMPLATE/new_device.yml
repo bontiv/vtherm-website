@@ -1,7 +1,6 @@
 name: New device compatibility
 description: Add a new device on the compatibility list
 title: "[Device] "
-type: device
 body:
   - type: input
     id: manufacturer
@@ -18,7 +17,7 @@ body:
       required: true
   - type: input
     id: image
-    attribues:
+    attributes:
       label: Image link
       description: Link to a picture of this device
   - type: dropdown
