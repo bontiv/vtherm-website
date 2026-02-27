@@ -1,0 +1,50 @@
+name: Bug report
+description: You find a bug!
+title: "[BUG] "
+labels:
+  - bug
+body:
+  - type: input
+    id: url
+    attributes:
+      label: URL where you find the bug
+      placeholder: https://www.versatile-thermostat.org/en/
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      render: Markdown
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: To Reproduce
+      description: Steps to reproduce the behavior:
+      render: Markdown
+      placeholder: >|
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+      render: Markdown
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Type of device
+      default: 0
+      options:
+        - desktop
+        - mobile
+  - type: textarea
+    id: additionals
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here.
+      render: Markdown
