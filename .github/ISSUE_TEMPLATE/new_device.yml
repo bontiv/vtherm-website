@@ -31,7 +31,7 @@ body:
         - Compatible
         - Not compatible
         - Partially compatible
-      default: 1
+      default: 0
     validations:
       required: true
   - type: textarea
