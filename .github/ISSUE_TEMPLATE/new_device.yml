@@ -33,15 +33,15 @@ body:
       default: 1
     validations:
       required: true
-    - type: textarea
-      id: config
-      attributes:
-        label: Device configuration
-        description: Your YAML configuration for this device
-        render: JSON
-    - type: textarea
-      id: description
-      attributes:
-        label: Additional informations
-        description: If you want to give us any additional information about this device.
-        render: Markdown
+  - type: textarea
+    id: config
+    attributes:
+      label: Device configuration
+      description: Your YAML configuration for this device
+      render: JSON
+  - type: textarea
+    id: description
+    attributes:
+      label: Additional informations
+      description: If you want to give us any additional information about this device.
+      render: Markdown
