@@ -41,7 +41,7 @@
         },
         "power": {
             "title": "Délestage de puissance",
-            "desc": "Sur les radiateurs électique, réduction automatique de la puissance pour éviter un déclenchement du disjoncteur."
+            "desc": "Sur les radiateurs électriques, réduction automatique de la puissance pour éviter un déclenchement du disjoncteur."
         }
     }
 }
