@@ -11,7 +11,7 @@ import {
     BoltIcon as Bolt,
     CpuChipIcon as Cpu
 } from "@heroicons/react/24/outline";
-import { LinkDocs } from "@/components/LinkLocale";
+import { LinkLocale } from "@/components/LinkLocale";
 import { getT } from "../i18n";
 import Image from "next/image";
 
@@ -37,17 +37,17 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                     </a>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                        <LinkDocs href='/installation/'>
+                        <LinkLocale href='/docs/installation/'>
                             <Button variant="primary" size="lg">
                                 <span>{t('install-guide')}</span>
                                 <ArrowRightIcon className="w-5 h-5 ml-2" />
                             </Button>
-                        </LinkDocs>
-                        <LinkDocs href='/creation/'>
+                        </LinkLocale>
+                        <LinkLocale href='/docs/creation/'>
                             <Button size="lg" variant="secondary">
                                 {t('start-guide')}
                             </Button>
-                        </LinkDocs>
+                        </LinkLocale>
                     </div>
                 </div>
             </section>
@@ -121,13 +121,13 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         <p className=" leading-relaxed">
                             {t('easy-install-explain')}
                         </p>
-                        <LinkDocs
-                            href="/creation/"
+                        <LinkLocale
+                            href="/docs/creation/"
                             className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-400 transition-colors"
                         >
                             {t('config-guide')}
                             <ArrowRightIcon className="w-4 h-4" />
-                        </LinkDocs>
+                        </LinkLocale>
                     </div>
                 </div>
             </section>
