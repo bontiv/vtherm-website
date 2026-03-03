@@ -1,0 +1,50 @@
+.pagefind-container {
+    --pagefind-ui-scale: 0.9;
+    --pagefind-ui-primary: #0ea5e9;
+    --pagefind-ui-text: #1e293b;
+    --pagefind-ui-background: #ffffff;
+    --pagefind-ui-border: #e2e8f0;
+    --pagefind-ui-tag: #f1f5f9;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+@media (prefers-color-scheme: dark) {
+    .pagefind-container {
+        --pagefind-ui-primary: #38bdf8;
+        --pagefind-ui-text: #f8fafc;
+        --pagefind-ui-background: #1e293b;
+        --pagefind-ui-border: #334155;
+        --pagefind-ui-tag: #334155;
+    }
+}
+
+/* Forcer le positionnement statique du champ de saisie */
+.pagefind-container .pagefind-ui__form {
+    position: static !important;
+    margin: 0 !important;
+}
+
+/* Ajustements pour le header */
+.pagefind-container .pagefind-ui__search-input {
+    height: 40px;
+    border-radius: 0.5rem;
+    position: static !important;
+}
+
+/* Conteneur des résultats */
+.pagefind-container .pagefind-ui__results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.5rem;
+    max-height: 70vh;
+    overflow-y: auto;
+    background: var(--pagefind-ui-background);
+    border: 1px solid var(--pagefind-ui-border);
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    z-index: 50;
+}

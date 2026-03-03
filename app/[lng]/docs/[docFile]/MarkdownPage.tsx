@@ -40,7 +40,7 @@ const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, d
     }, [file, version])
 
     return (
-        <div className="markdown-body">
+        <div className="markdown-body" data-pagefind-body>
             <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]} urlTransform={urlTransform}>{content}</Markdown>
         </div>
     )

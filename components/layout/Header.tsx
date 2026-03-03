@@ -1,10 +1,20 @@
 'use client';
 
-import React, { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler, Suspense } from 'react';
 import Link from 'next/link';
 import { CodeBracketIcon } from '@heroicons/react/24/outline';
 import { useT } from '@/app/i18n/client';
 import { usePathname, useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+// Chargement dynamique pour éviter les erreurs SSR
+const PagefindSearch = dynamic(
+    () => import('@/components/search/PagefindSearch').then(mod => ({ default: mod.PagefindSearch })),
+    {
+        ssr: false,
+        loading: () => <div className="h-10 animate-pulse bg-gray-200 dark:bg-gray-700 rounded w-full max-w-md" />
+    }
+);
 
 export const Header: React.FC = () => {
     const { t, i18n } = useT('common');
@@ -22,19 +32,27 @@ export const Header: React.FC = () => {
 
     return (
         <header className="sticky top-0 z-40 w-full border-b border-blue-900 dark:border-vtherm-secondary/60 backdrop-blur bg-vtherm-quaternary text-vtherm-dark dark:bg-vtherm-primary dark:text-slate-50">
-            <div className="container flex h-16 items-center justify-between px-6">
-                {/* Barre de recherche */}
-                <div className="flex-1 max-w-md pl-12 md:pl-0">
-                    {/* <SearchBar
-                        placeholder="Search ..."
-                        onSearch={handleSearch}
-                    /> */}
-                    <select value={i18n.language} onChange={handleLangChange}>
+            <div className="container flex h-16 items-center justify-between px-6 gap-4">
+                {/* Sélecteur de langue */}
+                <div className="gap-4">
+                    <select
+                        value={i18n.language}
+                        onChange={handleLangChange}
+                        className="px-2 py-1 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
+                    >
                         <option value='en'>EN</option>
                         <option value='fr'>FR</option>
                         <option value='de'>DE</option>
                     </select>
                 </div>
+
+                {/* Barre de recherche Pagefind */}
+                <div className="flex-1 max-w-md pl-12 md:pl-0 relative">
+                    <Suspense fallback={<div className="h-10 animate-pulse bg-gray-200 dark:bg-gray-700 rounded w-full" />}>
+                        <PagefindSearch />
+                    </Suspense>
+                </div>
+
 
                 {/* Lien GitHub */}
                 <Link

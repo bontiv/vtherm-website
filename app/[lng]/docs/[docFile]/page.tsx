@@ -28,7 +28,7 @@ const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docCon
     const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)
 
     return (
-        <div className="space-y-12">
+        <div className="space-y-12" lang={lng}>
             <MarkDownPage lng={lng} version={'main'} file={`/documentation/${lng}/${docFile}.md`} default_page={await content?.text()} />
         </div>
     )
