@@ -55,7 +55,11 @@ function dateSort(a: { x: Date }, b: { x: Date }): number {
 
 const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
     const { t, i18n } = useT('analyzer');
-    const [isDark, setDark] = useState(false);
+    const [isDark, setDark] = useState<boolean>(() => {
+        if (typeof window === 'undefined') return false
+        const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        return document.documentElement.classList.contains('dark') || mq.matches
+    });
     const series: ApexOptions['series'] = [
         {
             name: t('graph.target'),
@@ -157,7 +161,6 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
 
     useEffect(() => {
         const mq = window.matchMedia('(prefers-color-scheme: dark)')
-        setDark(mq.matches)
         const handler = (e: MediaQueryListEvent) => setDark(e.matches)
         mq.addEventListener('change', handler)
         return () => mq.removeEventListener('change', handler)
