@@ -7,7 +7,7 @@ import { useState, memo, useEffect, useRef } from "react";
 import rehypeSlug from 'rehype-slug';
 
 const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, default_page?: string }> = ({ file, lng, version, default_page }) => {
-    const [content, setContent] = useState<string | undefined>()
+    const [content, setContent] = useState<string | undefined>(default_page)
     const initialized = useRef(false);
 
     function urlTransform(url: string): string {
@@ -41,7 +41,7 @@ const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, d
 
     return (
         <div className="markdown-body">
-            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]} urlTransform={urlTransform}>{content ?? default_page}</Markdown>
+            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeSlug]} urlTransform={urlTransform}>{content}</Markdown>
         </div>
     )
 };

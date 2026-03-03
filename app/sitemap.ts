@@ -8,10 +8,6 @@ export const dynamic = "force-static";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const sitemap: MetadataRoute.Sitemap = []
     const github = GitHubAPI.getInstance()
-    const release = (await github.getReleases())
-        .filter(x => x.prerelease == false)
-        .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
-        .pop()
 
     for (const lng of languages) {
         sitemap.push({
@@ -22,12 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         for (const device of devicesDB.map(x => x.slug).filter((x, i, a) => a.indexOf(x) === i)) {
             sitemap.push({
-                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/${device}`,
+                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/${device}/`,
                 priority: 0.7,
             })
         }
 
-        const page_lng_tree = await github.getGitTreePath(`${release?.tag_name}/documentation/${lng}`);
+        const page_lng_tree = await github.getGitTreePath(`main/documentation/${lng}`);
         if (!page_lng_tree)
             continue;
 
@@ -35,8 +31,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
         for (const page_meta of pages_docs.tree.filter(x => x.path.endsWith('.md'))) {
             sitemap.push({
-                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${release?.tag_name}/${page_meta.path.slice(0, -3)}`,
-                priority: 0.7,
+                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${page_meta.path.slice(0, -3)}/`,
+                priority: 0.6,
                 changeFrequency: 'weekly',
             })
         }

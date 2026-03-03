@@ -34,6 +34,15 @@ main {
   @apply bg-background text-forground;
 }
 
+nav.vtherm-navigation {
+  scrollbar-color: var(--color-vtherm-quaternary) var(--color-neutral-900);
+  scrollbar-width: auto;
+
+  @variant dark {
+    scrollbar-color: var(--color-vtherm-primary) var(--color-blue-900);
+  }
+}
+
 /* Styles pour les focus accessibles */
 *:focus-visible {
   outline: 2px solid var(--color-vtherm-cyan);
@@ -81,6 +90,7 @@ main {
 @layer components {
   h1 {
     @apply text-4xl text-vtherm-primary font-bold py-4;
+
     @variant dark {
       @apply text-vtherm-secondary;
     }

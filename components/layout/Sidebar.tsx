@@ -21,7 +21,7 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
     };
 
     const qnaSubItems = docfiles?.map(file => ({
-        href: `/docs/${docref}/${file}`,
+        href: `/docs/${file}`,
         label: file ?? '--'
     })) || [];
 
@@ -48,7 +48,7 @@ export const Sidebar: React.FC<{ docref: string, docfiles?: (string | undefined)
             </div>
 
             {/* Navigation Menu */}
-            <nav className="flex-1 px-3 py-6 space-y-1 overflow-y-auto" aria-label="Main navigation">
+            <nav className="vtherm-navigation flex-1 px-3 py-6 space-y-1 overflow-y-auto" aria-label="Main navigation">
                 <NavItem
                     href="/"
                     label={t('menu.home')}

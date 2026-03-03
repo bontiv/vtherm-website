@@ -133,12 +133,12 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             </section>
 
             {/* CTA Section */}
-            <section className="bg-linear-to-r from-blue-300 dark:from-vtherm-tertiary/80 to-sky-200 dark:to-vtherm-quaternary rounded-2xl p-8 md:p-12 text-center border border-blue-100 dark:border-vtherm-tertiary">
+            <section className="bg-linear-to-r from-blue-300 dark:from-vtherm-tertiary to-sky-200 dark:to-vtherm-quaternary/80 rounded-2xl p-8 md:p-12 text-center border border-blue-100 dark:border-vtherm-tertiary">
                 <div className="max-w-3xl mx-auto space-y-6">
-                    <h2 className="text-3xl md:text-4xl font-normal text-blue-800">
+                    <h2 className="text-3xl md:text-4xl font-normal text-blue-700 dark:text-vtherm-light">
                         {t('cta.title')}
                     </h2>
-                    <p className="text-lg dark:text-vtherm-light">
+                    <p className="text-lg dark:text-blue-200">
                         {t('cta.desc')}
                     </p>
                     {/* <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -169,7 +169,7 @@ interface FeatureCardProps {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
     return (
-        <div className="group p-6 rounded-xl bg-vtherm-quaternary/70 dark:bg-vtherm-primary/80 hover:border-vtherm-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#7CFC00]/5">
+        <div className="group p-6 rounded-xl bg-vtherm-quaternary/70 dark:bg-vtherm-tertiary/50 hover:border-vtherm-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#7CFC00]/5">
             <div className="mb-4 text-vtherm-secondary">{icon}</div>
             <h3 className="text-xl font-medium dark:text-vtherm-light text-vtherm-primary mb-2 transition-colors">
                 {title}
