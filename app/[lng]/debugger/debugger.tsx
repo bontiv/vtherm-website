@@ -55,6 +55,11 @@ function dateSort(a: { x: Date }, b: { x: Date }): number {
 
 const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
     const { t, i18n } = useT('analyzer');
+    const [isDark, setDark] = useState<boolean>(() => {
+        if (typeof window === 'undefined') return false
+        const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        return document.documentElement.classList.contains('dark') || mq.matches
+    });
     const series: ApexOptions['series'] = [
         {
             name: t('graph.target'),
@@ -154,9 +159,17 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
         }
     };
 
+    useEffect(() => {
+        const mq = window.matchMedia('(prefers-color-scheme: dark)')
+        const handler = (e: MediaQueryListEvent) => setDark(e.matches)
+        mq.addEventListener('change', handler)
+        return () => mq.removeEventListener('change', handler)
+    }, []);
+
     return (
         <div className="w-full">
             <Chart
+                className="chart"
                 options={{
                     chart: {
                         id: 'log-chart',
@@ -174,6 +187,9 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
                     fill: {
                         opacity: [0.3, 1, 1, 1, 1, 1]
                     },
+                    theme: {
+                        mode: isDark ? 'dark' : 'light',
+                    },
                     xaxis,
                     stroke: { curve: 'stepline', width: 2 },
                     title: { text: t('graph.title_logs'), align: 'left' },
@@ -185,6 +201,7 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
             />
             <Chart
                 type="area"
+                className="chart"
                 height={200}
                 options={{
                     chart: {
@@ -208,6 +225,9 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
                     },
                     dataLabels: {
                         enabled: false,
+                    },
+                    theme: {
+                        mode: isDark ? 'dark' : 'light',
                     },
                     xaxis,
                     stroke: { curve: 'stepline', width: 2 },
@@ -339,7 +359,7 @@ const EditorV2: React.FC<{
                     <div className="pr-3 inline">Search in logs:</div>
                     <input type="text" name="txt" placeholder="Regex search" className="w-2xs max-w-full bg-slate-100 px-2 py-1 rounded" />
                 </div>
-                <button type="submit" className="inline w-fit bg-green-300 rounded-full px-6 my-3 py-2"><MagnifyingGlassCircleIcon className="h-4 cursor-pointer inline" /> Search</button>
+                <button type="submit" className="inline w-fit bg-green-300 dark:bg-green-400 dark:text-black rounded-full px-6 my-3 py-2"><MagnifyingGlassCircleIcon className="h-4 cursor-pointer inline" /> Search</button>
             </form>
         </div>
         <div ref={inref} className="debugger"></div>
@@ -489,8 +509,8 @@ const Debugger: React.FC = () => {
                         <option key={therm} value={therm}>{therm}</option>
                     ))}
                 </select>}
-                {logData.size > 0 && <button type="reset" className="bg-red-100 hover:bg-red-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-red-800 border-red-500 border-solid border">{t('reset')}</button>}
-                {logData.size > 0 && <button type="submit" className="bg-blue-100 hover:bg-blue-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-blue-800 border-blue-500 border-solid border">{t('reload')}</button>}
+                {logData.size > 0 && <button type="reset" className="bg-red-100 dark:bg-red-400 dark:text-black hover:bg-red-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-red-800 border-red-500 border-solid border">{t('reset')}</button>}
+                {logData.size > 0 && <button type="submit" className="bg-blue-100 dark:bg-blue-400 dark:text-black hover:bg-blue-200 transition-all duration-400 cursor-pointer font-bold rounded-full px-4 text-blue-800 border-blue-500 border-solid border">{t('reload')}</button>}
             </form>
             {logData.state == 'finished' && selectedThermostat && <Graph logfile={parser} selectedThermostat={selectedThermostat} zoom={zoom} onZoomChange={onZoomChange} onZoomReset={onZoomReset} />}
             {logData.state == 'finished' && selectedThermostat && <EditorV2 climate={selectedThermostat} parser={parser} file_input={fileInputRef} zoom={zoom} />}
