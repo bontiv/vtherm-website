@@ -41,7 +41,7 @@ export const Header: React.FC = () => {
                     href="https://github.com/jmcollin78/versatile_thermostat"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:text-vtherm-quaternary dark:text-vtherm-light transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-medium hover:text-orange-200 dark:hover:text-vtherm-quaternary dark:text-vtherm-light transition-colors"
                 >
                     <CodeBracketIcon className="w-[18px] h-[18px]" />
                     <span className="hidden sm:inline">{t('on-github')}</span>

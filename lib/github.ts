@@ -4,6 +4,7 @@ import type { RestEndpointMethodTypes } from '@octokit/plugin-rest-endpoint-meth
 export type GithubReleases = RestEndpointMethodTypes['repos']['listReleases']['response']['data']
 export type GithubTree = RestEndpointMethodTypes['git']['getTree']['response']['data']
 export type GithubBlob = RestEndpointMethodTypes['git']['getBlob']['response']['data']
+export type GithubCommit = RestEndpointMethodTypes['repos']['listCommits']['response']['data']
 
 export type GithubMetaTree = {
     path: string;
@@ -83,6 +84,22 @@ export class GitHubAPI {
             return tree.data;
         } catch (error) {
             console.error('Error fetching git tree:', error);
+            throw error;
+        }
+    }
+
+    async getFileCommit(path: string, count: number = 1): Promise<GithubCommit> {
+        try {
+            const commit = await this.octokit.rest.repos.listCommits({
+                owner: this.owner,
+                repo: this.repo,
+                path: path,
+                per_page: count
+            })
+
+            return commit.data;
+        } catch (error) {
+            console.error('Error fetching commit tree:', error);
             throw error;
         }
     }
