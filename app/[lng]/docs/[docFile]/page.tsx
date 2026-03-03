@@ -2,7 +2,7 @@ import { GitHubAPI } from "@/lib/github";
 import React from "react";
 import MarkDownPage from "./MarkdownPage";
 
-import { getT } from "@/app/i18n";
+import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, docFile: string }> }): Promise<Metadata> {
     const { lng, docFile } = await params
@@ -11,6 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 
     const title = (await content.text()).match(/^# (.*)\n/)
     const web_title = t('title_doc', { title: title ? title[1] : docFile })
+    const alternates = getAlternatesMetadata(`/docs/${docFile}/`, lng);
 
     return {
         title: web_title,
@@ -18,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: web_title,
             type: "website",
         },
+        alternates
     }
 }
 

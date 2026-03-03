@@ -1,11 +1,12 @@
 import ListDevices from "./ListDevices";
 import devices_list from '@/devicesdb/devices.json';
 
-import { getT } from "@/app/i18n";
+import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
-    const { lng } = await params
-    const { t } = await getT('devices', { lng })
+    const { lng } = await params;
+    const { t } = await getT('devices', { lng });
+    const alternates = getAlternatesMetadata('/devices/', lng);
     return {
         title: t('title'),
         description: t('description'),
@@ -14,6 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             description: t('description'),
             type: "website",
         },
+        alternates,
     }
 }
 

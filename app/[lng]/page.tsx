@@ -12,8 +12,10 @@ import {
     CpuChipIcon as Cpu
 } from "@heroicons/react/24/outline";
 import { LinkLocale } from "@/components/LinkLocale";
-import { getT } from "../i18n";
+import { generateMetadataBuilder, getT } from "../i18n";
 import Image from "next/image";
+
+export const generateMetadata = generateMetadataBuilder('/')
 
 export default async function Home({ params }: { params: Promise<{ lng: string }> }) {
     const { lng } = await params

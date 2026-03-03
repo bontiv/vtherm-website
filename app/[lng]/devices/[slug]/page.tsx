@@ -1,4 +1,4 @@
-import { getT } from '@/app/i18n';
+import { getAlternatesMetadata, getT } from '@/app/i18n';
 import { LinkLocale } from '@/components/LinkLocale';
 import devices from '@/devicesdb/devices.json';
 import { ArrowUturnLeftIcon } from '@heroicons/react/16/solid';
@@ -15,6 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const { lng, slug } = await params
     const { t } = await getT('devices', { lng })
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
+    const alternates = getAlternatesMetadata(`/devices/${slug}/`, lng);
+
     return {
         title: t('title_details', { device: config.title ?? slug }),
         description: t('description'),
@@ -23,6 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             description: t('description'),
             type: "website",
         },
+        alternates
     }
 }
 

@@ -15,6 +15,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params
     const { t } = await getT('common', { lng })
+
+
+
     return {
         title: t('title'),
         description: t('description'),
