@@ -9,8 +9,9 @@ import IO from 'fs';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }): Promise<Metadata> {
     const { lng, slug } = await params
     const { t } = await getT('devices', { lng })
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;

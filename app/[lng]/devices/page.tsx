@@ -2,7 +2,8 @@ import ListDevices from "./ListDevices";
 import devices_list from '@/devicesdb/devices.json';
 
 import { getT } from "@/app/i18n";
-export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }) {
+import { Metadata } from "next";
+export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params
     const { t } = await getT('devices', { lng })
     return {

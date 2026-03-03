@@ -6,12 +6,13 @@ import { Footer } from "@/components/layout/Footer";
 import { GitHubAPI } from '@/lib/github';
 import Statistics from '@/components/Statisctics';
 import { Suspense } from 'react';
+import { Metadata } from 'next';
 
 export async function generateStaticParams() {
     return languages.map((lng) => ({ lng }))
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params
     const { t } = await getT('common', { lng })
     return {
