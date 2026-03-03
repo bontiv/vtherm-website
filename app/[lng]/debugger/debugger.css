@@ -2,7 +2,7 @@
 @import url('https://cdn.jsdelivr.net/npm/quill@2.0.0-beta.0/dist/quill.snow.css');
 
 div.debugger {
-    @apply bg-blue-50 border w-full block p-2 cursor-text font-mono overflow-y-auto text-nowrap text-xs;
+    @apply bg-blue-50 border w-full block p-2 cursor-text font-mono overflow-y-auto text-nowrap text-xs dark:bg-neutral-500;
 }
 
 .debugger .INFO {
@@ -15,4 +15,15 @@ div.debugger {
 
 .debugger .WARNING {
     @apply text-yellow-500;
+}
+
+input,
+main select {
+    @variant dark {
+        @apply bg-neutral-400 text-black;
+    }
+}
+
+.chart {
+    @apply rounded;
 }
