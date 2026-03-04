@@ -3,12 +3,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'next/navigation';
 import './pagefind.css';
+import { push } from '@socialgouv/matomo-next';
 
 interface PagefindUI {
     new(options: {
         element: string;
         showSubResults?: boolean;
         translations?: Record<string, string>;
+        debounceTimeoutMs?: number;
+        processTerm?: (term: string) => string;
     }): void;
 }
 
@@ -100,7 +103,12 @@ export const PagefindSearch: React.FC = () => {
             new window.PagefindUI({
                 element: '#pagefind-search',
                 showSubResults: true,
-                translations: translations[lng] || translations.en
+                translations: translations[lng] || translations.en,
+                debounceTimeoutMs: 500,
+                processTerm: (therm => {
+                    push(['trackSiteSearch', therm])
+                    return therm;
+                }),
             });
         }
     }, [isLoaded, lng]);

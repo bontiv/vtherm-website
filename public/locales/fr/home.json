@@ -28,8 +28,8 @@
             "desc": "Interface de configuration intuitive avec de nombreuses options personnalisables pour s'adapter à tous les systèmes."
         },
         "valve": {
-            "title": "Contrôle de Valve",
-            "desc": "Contrôle précis de l'ouverture des valves TRV avec support du mode boost et anti-freeze."
+            "title": "Contrôle de vanne",
+            "desc": "Contrôle précis de l'ouverture des vannes TRV avec support du mode boost et anti-freeze."
         },
         "presence": {
             "title": "Détection de présence",

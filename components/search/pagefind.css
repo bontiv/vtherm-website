@@ -1,3 +1,5 @@
+@reference '../../app/globals.css';
+
 .pagefind-container {
     --pagefind-ui-scale: 0.9;
     --pagefind-ui-primary: #0ea5e9;
@@ -35,11 +37,6 @@
 
 /* Conteneur des résultats */
 .pagefind-container .pagefind-ui__results {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 0.5rem;
     max-height: 70vh;
     overflow-y: auto;
     background: var(--pagefind-ui-background);
@@ -47,4 +44,8 @@
     border-radius: 0.5rem;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     z-index: 50;
+}
+
+.pagefind-container .pagefind-ui__drawer {
+    @apply bg-neutral-100 rounded px-4 dark:bg-neutral-800 pb-3;
 }

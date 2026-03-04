@@ -96,7 +96,7 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
 
     const readme: string | undefined = IO.existsSync(readMePath) ? IO.readFileSync(readMePath, {}).toString() : undefined
 
-    return <div className='main-content'>
+    return <div className='main-content' lang={lng} data-pagefind-body>
         <div className='text-blue-900 flex flex-wrap items-start'>
             <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
         </div>

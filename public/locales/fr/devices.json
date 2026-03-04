@@ -29,7 +29,7 @@
             "section": "Allez dans vos paramètres puis intégration puis cliquez sur ajouter une nouvelle intégration. Cherchez Versatile Thermostat.",
             "over_climate": "Cliquez sur Thermostat sur un autre thermostat.",
             "over_switch": "Cliquez sur Thermostat sur un switch.",
-            "over_valve": "Cliquez sur Thermostat sur une valve."
+            "over_valve": "Cliquez sur Thermostat sur une vanne."
         },
         "step2": {
             "title": "Attributs de base",

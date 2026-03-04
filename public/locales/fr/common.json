@@ -1,7 +1,7 @@
 {
     "title": "Versatile Thermostat - Le thermostat intelligent pour votre maison",
     "title_doc": "{{title}} - Versatile Thermostat",
-    "description": "Versatile Thermostat est une intégration de thermostat avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de climat, d'interrupteur ou de valve existante. Il offre une calibration intelligente, un contrôle de chaudière et un algorithme TPI pour un confort optimal et des économies d'énergie.",
+    "description": "Versatile Thermostat est une intégration de thermostat avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de climat, d'interrupteur ou de vanne existante. Il offre une calibration intelligente, un contrôle de chaudière et un algorithme TPI pour un confort optimal et des économies d'énergie.",
     "menu": {
         "home": "Accueil",
         "devices": "Compatibilité des appareils",
