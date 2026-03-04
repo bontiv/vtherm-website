@@ -68,6 +68,9 @@ jobs:
                   NEXT_PUBLIC_MATOMO_PROXY_JS_TRACKER_FILE: ${{ vars.MATOMO_PROXY_JS_TRACKER_FILE }}
                   NEXT_PUBLIC_MATOMO_PROXY_PHP_TRACKER_FILE: ${{ vars.MATOMO_PROXY_PHP_TRACKER_FILE }}
 
+            - name: Build pagefind index
+              run: ${{ steps.config-package-manager.outputs.runner }} pagefind --site out
+
             - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
