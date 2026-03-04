@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/copy-pagefind.js && next dev",
+    "dev": "node scripts/copy-pagefind.mjs && next dev",
     "dev:clean": "next dev",
     "build": "next build && npx pagefind --site out",
-    "postbuild": "node scripts/copy-pagefind.js",
+    "postbuild": "node scripts/copy-pagefind.mjs",
     "start": "next start",
     "lint": "eslint"
   },
