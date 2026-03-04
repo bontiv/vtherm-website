@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { languages } from './i18n/settings'
+import { fallbackLng, languages } from './i18n/settings'
 import devicesDB from '@/devicesdb/devices.json'
 import { GitHubAPI } from '@/lib/github';
 
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         lastModified?: Date | string
     } = {}) {
         sitemap.push({
-            url: `${process.env.NEXT_PUBLIC_SITE_URL}${path}`,
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${fallbackLng}${path}`,
             changeFrequency: opts.changeFrequency ?? 'monthly',
             priority: opts.priority ?? 0.7,
             lastModified: opts.lastModified,
