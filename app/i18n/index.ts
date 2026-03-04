@@ -24,14 +24,17 @@ export async function getT(ns: string, options: { keyPrefix?: string, lng?: stri
     }
 }
 
-export function getAlternatesMetadata(path: string, lng?: string): Metadata['alternates'] {
+export function getAlternatesMetadata(path: string, lng?: string, params: {
+    canonical?: string,
+    x_default?: string,
+} = {}): Metadata['alternates'] {
     const lang_pages = Object.fromEntries(languages.map(lng => [lng, `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`]))
 
     return {
-        canonical: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng ?? fallbackLng}${path}`,
+        canonical: params.canonical ?? `${process.env.NEXT_PUBLIC_SITE_URL}/${lng ?? fallbackLng}${path}`,
         languages: {
             ...lang_pages,
-            'x-default': `${process.env.NEXT_PUBLIC_SITE_URL}/${fallbackLng}${path}`
+            'x-default': params.x_default ?? `${process.env.NEXT_PUBLIC_SITE_URL}/${fallbackLng}${path}`
         }
     }
 }
