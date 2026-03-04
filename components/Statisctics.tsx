@@ -1,6 +1,6 @@
 'use client';
 
-import { trackAppRouter } from "@socialgouv/matomo-next";
+import { trackAppRouter, push } from "@socialgouv/matomo-next";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
@@ -19,6 +19,10 @@ const Statistics: React.FC = () => {
                 pathname,
                 searchParams,
                 disableCookies: true,
+                onInitialization: () => {
+                    push(["setRequestMethod", "POST"])
+                    push(['disableAlwaysUseSendBeacon'])
+                }
             });
         }
     }, [pathname, searchParams]);
