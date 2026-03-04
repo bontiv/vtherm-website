@@ -38,12 +38,51 @@ export default async function Layout({ children, params }: { children: React.Rea
     const files = filesDir ? (await githubapi.getGitTree(filesDir))?.tree.filter((x) => x.type === 'blob' && x.path.endsWith('.md')).map((item) => item.path.split('/').pop()?.slice(0, -3)) : undefined;
     const { i18n } = await getT('common', { lng })
 
+    const page_ordering: (string | undefined)[] = [
+        'presentation',
+        'installation',
+        'quick-start',
+        'creation',
+        'base-attributes',
+        'over-switch',
+        'over-climate',
+        'over-valve',
+        'feature-presets',
+        'feature-window',
+        'feature-presence',
+        'feature-motion',
+        'feature-power',
+        'feature-auto-start-stop',
+        'feature-central-mode',
+        'feature-central-boiler',
+        'feature-advanced',
+        'feature-heating-failure-detection',
+        'self-regulation',
+        'feature-autotpi',
+        'feature-lock',
+        'feature-sync_device_temp',
+        'feature-timed-preset',
+        'tuning-examples',
+        'algorithms',
+        'reference',
+        'troubleshooting',
+        'releases'
+    ].filter(x => {
+        if (files) {
+            const idx = files.indexOf(x)
+            if (idx >= 0) {
+                files.splice(idx, 1);
+                return true;
+            }
+        }
+    })
+
     return <html className="" lang={i18n.resolvedLanguage}>
         <body className="antialiased">
             {/* Layout principal: Sidebar fixe + Contenu principal */}
             <div className="flex min-h-screen">
                 {/* Sidebar - 247px fixe sur desktop */}
-                <Sidebar docfiles={files} />
+                <Sidebar docfiles={page_ordering.concat(files)} />
 
                 {/* Contenu principal */}
                 <div className="flex flex-col flex-1 min-w-0">

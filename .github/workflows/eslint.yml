@@ -11,6 +11,8 @@ name: ESLint
 
 on:
   push:
+    branches-ignore:
+      - main
   pull_request:
 
 jobs:
