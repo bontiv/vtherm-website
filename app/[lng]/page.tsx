@@ -19,7 +19,19 @@ import { Metadata } from "next";
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
     const alternates = getAlternatesMetadata('/', lng, { x_default: process.env.NEXT_PUBLIC_SITE_URL + '/' });
+    const { t } = await getT('common', { lng })
+
+    const title = 'Versatile Thermostat - ' + t('title')
     return {
+        title: {
+            absolute: title
+        },
+        openGraph: {
+            title,
+            type: "website",
+            description: t('description'),
+            siteName: "Versatile Thermostat"
+        },
         alternates
     }
 }
