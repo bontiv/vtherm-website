@@ -1,7 +1,8 @@
 {
-    "title": "Appareils compatibles - Versatile Thermostat",
-    "description": "Liste des appareils compatibles avec Versatile Thermostat",
-    "title_details": "Configuration de {{device}} - Versatile Thermostat",
+    "title": "Appareils compatibles",
+    "description": "Liste des appareils compatibles avec Versatile Thermostat.",
+    "title_details": "Configuration de {{device}}",
+    "description_details": "Comment configurer {{device}} avec Versatile Thermostat. Manuel et explications.",
     "manufacturer": "Marque",
     "model": "Modèle",
     "all-devices": "Tous les appareils",

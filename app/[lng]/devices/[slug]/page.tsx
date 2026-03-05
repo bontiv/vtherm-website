@@ -17,13 +17,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
     const alternates = getAlternatesMetadata(`/devices/${slug}/`, lng);
 
+    const t_opts = { device: config.title ?? slug }
+
     return {
-        title: t('title_details', { device: config.title ?? slug }),
-        description: t('description'),
+        title: t('title_details', t_opts),
+        description: t('description_details', t_opts),
         openGraph: {
-            title: t('title'),
-            description: t('description'),
+            title: t('title_details', t_opts),
+            description: t('description_details', t_opts),
             type: "website",
+            siteName: "Versatile Thermostat"
         },
         alternates
     }

@@ -19,7 +19,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 
 
     return {
-        title: t('title'),
+        title: {
+            template: "%s - Versatile Thermostat",
+            default: t('title')
+        },
         description: t('description'),
         keywords: ["home assistant", "thermostat", "climate control", "smart home", "automation"],
         authors: [{ name: "Remi BONNET" }],
@@ -27,6 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: t('title'),
             description: t('description'),
             type: "website",
+            siteName: "Versatile Thermostat"
         },
     }
 }

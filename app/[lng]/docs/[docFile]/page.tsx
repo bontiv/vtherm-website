@@ -4,6 +4,9 @@ import MarkDownPage from "./MarkdownPage";
 
 import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
+
+const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, docFile: string }> }): Promise<Metadata> {
     const { lng, docFile } = await params
     const { t } = await getT('common', { lng })
@@ -14,10 +17,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const alternates = getAlternatesMetadata(`/docs/${docFile}/`, lng);
 
     return {
-        title: web_title,
+        title: decodeEntity(web_title),
         openGraph: {
             title: web_title,
             type: "website",
+            siteName: "Versatile Thermostat"
         },
         alternates
     }
