@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: t('title'),
             description: t('description'),
             type: "website",
+            siteName: "Versatile Thermostat"
         },
         alternates,
     }
