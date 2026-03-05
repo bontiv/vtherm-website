@@ -70,7 +70,7 @@ jobs:
                   NEXT_PUBLIC_MATOMO_SITE_ID: ${{ vars.MATOMO_SITE_ID }}
                   NEXT_PUBLIC_MATOMO_PROXY_JS_TRACKER_FILE: ${{ vars.MATOMO_PROXY_JS_TRACKER_FILE }}
                   NEXT_PUBLIC_MATOMO_PROXY_PHP_TRACKER_FILE: ${{ vars.MATOMO_PROXY_PHP_TRACKER_FILE }}
-                  NODE_ENV: production
+                  APP_ENV: production
 
             - name: Build pagefind index
               run: ${{ steps.config-package-manager.outputs.runner }} pagefind --site out
@@ -98,7 +98,7 @@ jobs:
                   name: outdir
 
             - name: Sync to production
-              run: rclone sync -v --no-update-modtime --no-update-dir-modtime ./ :sftp:web/staging/
+              run: rclone sync -v --no-update-modtime --no-update-dir-modtime ./ :sftp:web/out/
               env:
                   RCLONE_SFTP_HOST: ${{ secrets.RCLONE_SFTP_HOST }}
                   RCLONE_SFTP_USER: ${{ secrets.RCLONE_SFTP_USER }}
