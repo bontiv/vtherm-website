@@ -2,18 +2,26 @@ import type { MetadataRoute } from 'next'
 import { languages } from './i18n/settings'
 
 export const dynamic = "force-static";
+const allowing = process.env.NODE_ENV == 'production'
 
 export default function robots(): MetadataRoute.Robots {
     const rules: MetadataRoute.Robots['rules'] = []
 
-    rules.push({
-        userAgent: '*',
-        allow: '/',
-        disallow: languages.map(lng => `/${lng}/debugger/`)
-    })
+    if (allowing) {
+        rules.push({
+            userAgent: '*',
+            allow: '/',
+            disallow: languages.map(lng => `/${lng}/debugger/`)
+        })
+    } else {
+        rules.push({
+            userAgent: '*',
+            disallow: '/'
+        })
+    }
 
     return {
         rules: rules,
-        sitemap: `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml`
+        sitemap: allowing ? `${process.env.NEXT_PUBLIC_SITE_URL}/sitemap.xml` : undefined
     }
 }
