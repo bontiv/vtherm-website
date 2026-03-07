@@ -15,6 +15,7 @@ import { LinkLocale } from "@/components/LinkLocale";
 import { getAlternatesMetadata, getT } from "../i18n";
 import Image from "next/image";
 import { Metadata } from "next";
+import { opengraph_defaults } from "@/lib/opengraph";
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
         openGraph: {
             title,
             url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
-            siteName: "Versatile Thermostat"
+            siteName: "Versatile Thermostat",
+            ...opengraph_defaults,
         }
     }
 }

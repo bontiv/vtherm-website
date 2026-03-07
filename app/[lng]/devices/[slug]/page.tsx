@@ -10,6 +10,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import { Metadata } from 'next';
+import { opengraph_defaults } from '@/lib/opengraph';
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }): Promise<Metadata> {
     const { lng, slug } = await params
@@ -28,7 +29,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             description: t('description_details', t_opts),
             type: "website",
             siteName: "Versatile Thermostat",
-            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`,
+            ...opengraph_defaults,
         },
         alternates
     }

@@ -4,6 +4,7 @@ import MarkDownPage from "./MarkdownPage";
 
 import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
+import { opengraph_defaults } from "@/lib/opengraph";
 
 const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
 
@@ -23,9 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: web_title,
             type: "website",
             siteName: "Versatile Thermostat",
-            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`,
+            ...opengraph_defaults,
         },
-        alternates
+        alternates,
     }
 }
 

@@ -3,6 +3,7 @@ import Statistics from "@/components/Statisctics";
 import { fallbackLng, languages } from "../i18n/settings";
 import { Metadata } from "next";
 import { getT } from "../i18n";
+import { opengraph_defaults } from "@/lib/opengraph";
 
 const GlobalLayout: React.FC<PropsWithChildren<object>> = async ({ children }) => <html><body>
     {children}
@@ -29,6 +30,7 @@ export async function generateMetadata({ }): Promise<Metadata> {
             description: t('description'),
             type: "website",
             siteName: "Versatile Thermostat",
+            ...opengraph_defaults
         },
         alternates: {
             canonical: process.env.NEXT_PUBLIC_SITE_URL,

@@ -7,6 +7,7 @@ import { GitHubAPI } from '@/lib/github';
 import Statistics from '@/components/Statisctics';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
+import { opengraph_defaults } from '@/lib/opengraph';
 
 export async function generateStaticParams() {
     return languages.map((lng) => ({ lng }))
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: t('title'),
             description: t('description'),
             type: "website",
-            siteName: "Versatile Thermostat"
+            siteName: "Versatile Thermostat",
+            ...opengraph_defaults,
         },
     }
 }
