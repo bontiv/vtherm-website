@@ -32,6 +32,7 @@ export async function generateMetadata({ }): Promise<Metadata> {
             siteName: "Versatile Thermostat",
             ...opengraph_defaults
         },
+        metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
         alternates: {
             canonical: process.env.NEXT_PUBLIC_SITE_URL,
             languages: {

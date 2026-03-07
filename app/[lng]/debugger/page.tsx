@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: t('title'),
             siteName: "Versatile Thermostat",
             type: "website",
-            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/debugger/`,
+            url: `/${lng}/debugger/`,
             ...opengraph_defaults,
         }
     }

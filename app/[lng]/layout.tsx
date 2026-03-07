@@ -27,6 +27,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
         description: t('description'),
         keywords: ["home assistant", "thermostat", "climate control", "smart home", "automation"],
         authors: [{ name: "Remi BONNET" }],
+        metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(process.env.NEXT_PUBLIC_SITE_URL) : undefined,
         openGraph: {
             title: t('title'),
             description: t('description'),
