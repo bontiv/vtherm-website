@@ -14,7 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: t('title'),
             description: t('description'),
             type: "website",
-            siteName: "Versatile Thermostat"
+            siteName: "Versatile Thermostat",
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/`,
         },
         alternates,
     }

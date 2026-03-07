@@ -14,14 +14,16 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 
     const title = (await content.text()).match(/^# (.*)\n/)
     const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
-    const alternates = getAlternatesMetadata(`/docs/${docFile}/`, lng);
+    const path = `/docs/${docFile}/`
+    const alternates = getAlternatesMetadata(path, lng);
 
     return {
         title: web_title,
         openGraph: {
             title: web_title,
             type: "website",
-            siteName: "Versatile Thermostat"
+            siteName: "Versatile Thermostat",
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`
         },
         alternates
     }

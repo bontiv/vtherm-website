@@ -15,7 +15,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const { lng, slug } = await params
     const { t } = await getT('devices', { lng })
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
-    const alternates = getAlternatesMetadata(`/devices/${slug}/`, lng);
+    const path = `/devices/${slug}/`
+    const alternates = getAlternatesMetadata(path, lng);
 
     const t_opts = { device: config.title ?? slug }
 
@@ -26,7 +27,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
             title: t('title_details', t_opts),
             description: t('description_details', t_opts),
             type: "website",
-            siteName: "Versatile Thermostat"
+            siteName: "Versatile Thermostat",
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`
         },
         alternates
     }

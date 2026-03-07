@@ -28,6 +28,7 @@ export async function generateMetadata({ }): Promise<Metadata> {
             title: t('title'),
             description: t('description'),
             type: "website",
+            siteName: "Versatile Thermostat",
         },
         alternates: {
             canonical: process.env.NEXT_PUBLIC_SITE_URL,
