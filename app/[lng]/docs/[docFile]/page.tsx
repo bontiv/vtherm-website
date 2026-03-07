@@ -13,11 +13,11 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)
 
     const title = (await content.text()).match(/^# (.*)\n/)
-    const web_title = t('title_doc', { title: title ? title[1] : docFile })
+    const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
     const alternates = getAlternatesMetadata(`/docs/${docFile}/`, lng);
 
     return {
-        title: decodeEntity(web_title),
+        title: web_title,
         openGraph: {
             title: web_title,
             type: "website",
