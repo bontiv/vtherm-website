@@ -4,16 +4,16 @@
     "graph": {
         "title_logs": "Temperatur im Zeitverlauf",
         "target": "Sollwert",
-        "room_temp": "Raum",
-        "ext_temp": "Außen",
-        "underlying_setpoint": "Sollwert des Untergeräts",
-        "underlying_temp": "Sensor des Untergeräts",
-        "regulated_temp": "Geregelte Temperatur",
-        "title_feature": "Funktionen im Zeitverlauf",
+        "room_temp": "Raumtemperatur",
+        "ext_temp": "Außentemperatur",
+        "underlying_setpoint": "Gerätesollwert",
+        "underlying_temp": "Gerätetemperatur",
+        "regulated_temp": "Temperaturregelung",
+        "title_feature": "Zeitachse des Funktionsstatus",
         "window": "Fenster geöffnet",
         "safety": "Sicherheit"
     },
     "reset": "Zurücksetzen",
-    "reload": "Neu analysieren",
+    "reload": "Aktualisieren",
     "select": "Thermostat auswählen"
 }

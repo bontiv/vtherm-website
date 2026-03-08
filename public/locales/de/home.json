@@ -3,9 +3,9 @@
     "start-guide": "Konfiguration",
     "install-guide": "Installation",
     "easy-install": "Einfache Installation",
-    "easy-install-explain": "Versatile Thermostat lässt sich einfach über HACS (Home Assistant Community Store) installieren. Nach der Installation können Sie Ihren ersten Thermostat dank unserer intuitiven Benutzeroberfläche in wenigen Minuten konfigurieren.",
+    "easy-install-explain": "Versatile Thermostat lässt sich einfach über HACS (Home Assistant Community Store) installieren. Nach der Installation kann sofort, dank der intuitiven Benutzeroberfläche, das erste Thermostat in wenigen Minuten konfiguriert werden.",
     "why": "Warum Versatile Thermostat verwenden?",
-    "why-explain": "Versatile Thermostat wurde entwickelt, um die Einschränkungen von Standard-Thermostaten in Home Assistant zu überwinden. Unser Ziel ist es, Ihnen eine intelligente und effiziente Klimaregelung zu bieten, die sich an Ihre spezifischen Bedürfnisse anpasst.",
+    "why-explain": "Versatile Thermostat wurde entwickelt, um die Einschränkungen von Standard-Thermostaten in Home Assistant zu überwinden. Das Ziel ist es, eine intelligente und effiziente Klimaregelung zu bieten, die sich an persönliche spezifische Bedürfnisse anpasst.",
     "config-guide": "Konfigurationshandbuch",
     "features": {
         "compatibility": "Kompatibel mit Wärmepumpen, Ventilen und Schaltern",
@@ -16,7 +16,7 @@
     },
     "cta": {
         "title": "Bereit, Ihr Heizsystem zu verbessern?",
-        "desc": "Schließen Sie sich Tausenden von Nutzern an, die bereits ihren Komfort und ihren Energieverbrauch optimiert haben"
+        "desc": "Schließen Sie sich Tausenden von Nutzern an, die bereits ihren Komfort und Energieverbrauch optimiert haben"
     },
     "cards": {
         "algo": {
@@ -29,7 +29,7 @@
         },
         "valve": {
             "title": "Ventilsteuerung",
-            "desc": "Präzise Steuerung der TRV-Ventilöffnung mit Unterstützung des Boost- und Anti-Frost-Modus."
+            "desc": "Präzise Steuerung der TRV-Ventilöffnung inklusive Unterstützung des Boost- und Anti-Frost-Modus."
         },
         "presence": {
             "title": "Anwesenheitserkennung",
@@ -41,7 +41,7 @@
         },
         "power": {
             "title": "Lastabwurf",
-            "desc": "Bei elektrischen Heizkörpern automatische Leistungsreduzierung, um das Auslösen des Leistungsschutzschalters zu vermeiden."
+            "desc": "Bei elektrischen Heizkörpern wird die Leistung automatisch reduziert, um ein Auslösen des Schutzschalters zu vermeiden."
         }
     }
 }

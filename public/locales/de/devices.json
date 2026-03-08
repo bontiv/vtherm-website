@@ -1,12 +1,16 @@
 {
+    "title": "Gerätekompotibilität",
+    "description": "Liste kompatibler Versatile Thermostat-Geräte",
+    "title_details": "Kompatibilität von {{device}}",
+    "description_details": "So wird {{device}} mit Versatile Thermostat konfiguriert. Anleitung und Erläuterung",
     "manufacturer": "Marke",
     "model": "Modell",
     "all-devices": "Alle Geräte",
     "all-types": "Alle Typen",
-    "notice": "Dies ist eine nicht erschöpfende Liste der mit Versatile Thermostat kompatiblen Geräte. Wenn Ihr Gerät nicht aufgeführt ist, wurde es möglicherweise noch nicht hinzugefügt. Lesen Sie die Dokumentation, um zu erfahren, wie Sie Ihr Gerät hinzufügen können.",
+    "notice": "Dies ist keine vollständige Liste der mit Versatile Thermostat kompatiblen Geräte. Wenn ein Gerät nicht aufgeführt ist, wurde es möglicherweise noch nicht hinzugefügt. Wie man ein Gerät hinzufügen kann, wird in der Dokumentation leicht erklärt.",
     "types": {
         "electric": "Elektrische Heizung",
-        "trv": "TRV-Ventile",
+        "trv": "TRVs (Heizköperventile)",
         "climate": "Thermostate und Wärmepumpen"
     },
     "states": {
@@ -16,38 +20,38 @@
         "partially": "Teilweise"
     },
     "details": {
-        "title": "Ihr {{device}} verwenden und konfigurieren"
+        "title": "Konfigurieren und verwenden von {{Gerät}}"
     },
     "conf": {
         "title": "Gerätekonfiguration",
-        "finnaly": "Sie können bestätigen und zum Konfigurationsmenü zurückkehren.",
+        "finnaly": "Eingabe bestätigen und zum Konfigurationsmenü zurückkehren.",
         "step1": {
             "title": "Initialisierung",
-            "section": "Gehen Sie zu Ihren Einstellungen, dann zu Integrationen und klicken Sie auf neue Integration hinzufügen. Suchen Sie nach Versatile Thermostat.",
-            "over_climate": "Klicken Sie auf Thermostat auf einem anderen Thermostat.",
-            "over_switch": "Klicken Sie auf Thermostat auf einem Schalter.",
-            "over_valve": "Klicken Sie auf Thermostat auf einem Ventil."
+            "section": "Gehe zu Einstellungen, dann zu Integrationen und dort \"neue Integration hinzufügen\" anklicken. Suche nach Versatile Thermostat.",
+            "over_climate": "Klicken auf VTherm auf Thermostat.",
+            "over_switch": "Klicken auf VTherm auf Schalter.",
+            "over_valve": "Klicken auf VTherm auf Ventil."
         },
         "step2": {
-            "title": "Grundattribute",
-            "section": "Gehen Sie in den Abschnitt \"Hauptattribute\".",
-            "task1": "Wählen Sie einen Namen für Ihren Thermostat",
-            "task2": "Stellen Sie den Temperatursensor für Ihren Raum ein",
-            "task3": "Wenn Sie das Zigbee-Protokoll verwenden und eine \"last_seen\"-Entität für Ihren Temperatursensor haben, tragen Sie diese ein."
+            "title": "Grundeinstellungen",
+            "section": "Gehe zum Abschnitt \"Hauptattribute\".",
+            "task1": "Wähle einen Namen für das Thermostat",
+            "task2": "Stelle den Temperatursensor des Raumes ein",
+            "task3": "Wenn das Zigbee-Protokoll verwendet wird und eine \"last_seen\"-Entität für den Temperatursensor vorhanden ist, diesen dann bitte eintragen."
         },
         "step3": {
-            "title": "Untergeräte",
-            "section": "Gehen Sie in den Abschnitt Untergeräte.",
-            "over_climate": "Fügen Sie die zu steuernden Thermostate hinzu",
-            "over_valve": "Fügen Sie die zu steuernden Ventile hinzu",
-            "over_switch": "Fügen Sie die zu steuernden Schalter hinzu",
-            "use_regulation": "Wählen Sie im Abschnitt Selbstregelung \"direkte Ventilsteuerung\""
+            "title": "Gerätezuordnung",
+            "section": "Gehe zum Abschnitt Gerätezuordnung.",
+            "over_climate": "Die zu steuernden Thermostate hinzufügen",
+            "over_valve": "Die zu steuernden Ventile hinzufügen",
+            "over_switch": "Die zu steuernden Schalter hinzufügen",
+            "use_regulation": "Im Abschnitt Selbstregelung \"direkte Ventilsteuerung\" anwählen"
         },
         "step4": {
             "title": "TPI-Parameter",
-            "section": "Gehen Sie in den Abschnitt \"TPI-Parameter\". Deaktivieren Sie die zentrale Konfiguration und gehen Sie zum nächsten Bildschirm. Konfigurieren Sie die folgenden Werte:",
-            "activation_delay": "Setzen Sie {{delay}} als minimale Aktivierungsverzögerung.",
-            "deactivation_delay": "Setzen Sie {{delay}} als minimale Deaktivierungsverzögerung."
+            "section": "Gehe zum Abschnitt \"TPI-Parameter\". Deaktiviere die zentrale Konfiguration und gehen zum nächsten Dialogfenster. Konfiguriere die folgenden Werte:",
+            "activation_delay": "Setze {{delay}} als minimale Aktivierungsverzögerung.",
+            "deactivation_delay": "Setze {{delay}} als minimale Deaktivierungsverzögerung."
         }
     }
 }
