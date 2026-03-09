@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
 
     const variantStyles = {
         primary: 'bg-gradient-to-r from-vtherm-tertiary/80 to-vtherm-secondary/80 dark:to-vtherm-primary text-white hover:shadow-lg hover:shadow-[#00D9FF]/30 hover:scale-105',
-        secondary: 'border-2 border-vtherm-tertiary text-vtherm-tertiary hover:bg-vtherm-quaternary/20',
+        secondary: 'border-2 border-vtherm-tertiary text-vtherm-tertiary hover:bg-vtherm-quaternary/20 text-center',
         outline: 'border border-[#3a3a3a] text-[#ffffff] hover:border-[#7CFC00] hover:text-[#7CFC00]',
     };
 

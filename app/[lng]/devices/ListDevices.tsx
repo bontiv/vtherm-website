@@ -6,6 +6,7 @@ import './state-color.css';
 import { useState } from "react";
 import { LinkLocale } from "@/components/LinkLocale";
 import { useT } from "@/app/i18n/client";
+import { Button } from "@/components/ui/Button";
 
 type DeviceSpec = {
     manufacturer: string,
@@ -66,11 +67,12 @@ const ListDevices: React.FC<{ devices: DeviceSpec[] }> = ({ devices }) => {
                 </button> */}
             </form>
         </div>
-        <div className="bg-sky-100 dark:bg-vtherm-tertiary dark:text-vtherm-light flex gap-6 mt-4 rounded-2xl text-blue-900 px-6 py-3 items-center">
-            <InformationCircleIcon className="h-8" />
-            <p>
-                {t('notice')}
-            </p>
+        <div className="bg-sky-100 dark:bg-vtherm-tertiary dark:text-vtherm-light  mt-4 rounded-2xl text-blue-900 px-6 py-3 flex flex-col gap-6 md:flex-row items-center">
+            <div className="flex items-center py-3 gap-6">
+                <InformationCircleIcon className="h-8 min-w-8" />
+                <p>{t('notice')}</p>
+            </div>
+            <Button variant="secondary" className="text-nowrap"><a href="https://github.com/bontiv/vtherm-website/issues/new?template=new_device.yml" target="_blank">{t('contributing')}</a></Button>
         </div>
         <div className="flex flex-wrap gap-3 justify-center my-5">
             {devices.filter(x =>

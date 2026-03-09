@@ -8,6 +8,7 @@
     "all-devices": "Tous les appareils",
     "all-types": "Tout support",
     "notice": "Ceci est une liste non exhaustive des appareils compatibles avec Versatile Thermostat. Si votre appareil n'y figure pas, il n'a peut-être pas encore été ajouté. Consultez la documentation pour savoir comment ajouter votre appareil.",
+    "contributing": "Ajouter un appareil",
     "types": {
         "electric": "Chauffage électrique",
         "trv": "Vannes TRV",
