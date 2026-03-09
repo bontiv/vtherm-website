@@ -71,6 +71,7 @@ const ListDevices: React.FC<{ devices: DeviceSpec[] }> = ({ devices }) => {
             <p>
                 {t('notice')}
             </p>
+            <p><a href="https://github.com/bontiv/vtherm-website/issues/new?template=new_device.yml" target="_blank">{t('contributing')}</a></p>
         </div>
         <div className="flex flex-wrap gap-3 justify-center my-5">
             {devices.filter(x =>

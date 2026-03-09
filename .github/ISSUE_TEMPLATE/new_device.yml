@@ -38,7 +38,7 @@ body:
     id: config
     attributes:
       label: Device configuration
-      description: Your YAML configuration for this device
+      description: Your YAML configuration for this device. You can read [the contributing documentation and rules](https://github.com/bontiv/vtherm-website/blob/main/CONTRIBUTING.md#device-configuration) for how to fill this field.
       render: JSON
   - type: textarea
     id: description
