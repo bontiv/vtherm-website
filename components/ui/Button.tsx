@@ -15,9 +15,13 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
     const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
 
-    const variantStyles = {
+    const variantStyles: {
+        primary: HTMLBaseElement['className'],
+        secondary: HTMLBaseElement['className'],
+        outline: HTMLBaseElement['className'],
+    } = {
         primary: 'bg-gradient-to-r from-vtherm-tertiary/80 to-vtherm-secondary/80 dark:to-vtherm-primary text-white hover:shadow-lg hover:shadow-[#00D9FF]/30 hover:scale-105',
-        secondary: 'border-2 border-vtherm-tertiary text-vtherm-tertiary hover:bg-vtherm-quaternary/20 text-center',
+        secondary: 'border-2 border-vtherm-tertiary text-vtherm-tertiary hover:bg-vtherm-quaternary/20 dark:border-vtherm-primary dark:text-vtherm-secondary dark:hover:bg-vtherm-primary/20 text-center',
         outline: 'border border-[#3a3a3a] text-[#ffffff] hover:border-[#7CFC00] hover:text-[#7CFC00]',
     };
 
