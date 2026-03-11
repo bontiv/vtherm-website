@@ -28,9 +28,9 @@ const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, d
             return url
         }
 
-        const page = url.match(/^([\w-]+)\.md$/)
+        const page = url.match(/^([\w-]+)\.md(#.*)?$/)
         if (page) {
-            return `/${lng}/docs/${page[1]}/`
+            return `/${lng}/docs/${page[1]}/${page.length > 1 && page[2] ? page[2] : ''}`
         }
 
 
