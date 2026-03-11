@@ -1,6 +1,5 @@
 'use client';
 
-import { group } from "console";
 import Chart from "react-apexcharts";
 
 export type ReleaseInfos = {
@@ -74,7 +73,7 @@ const StatsPageDetails: React.FC<{ data: ReleaseInfos[] }> = ({ data }) => {
             </thead>
             <tbody>
                 {data.map(relinfo =>
-                    <tr className="border-t-1">
+                    <tr className="border-t" key={relinfo.tag_name}>
                         <td className="px-4">{relinfo.tag_name}</td>
                         <td className="px-4 text-right">{formater.format(relinfo.downloads)}</td>
                         <td className="px-4 text-right">{formater.format(relinfo.installs)}</td>
