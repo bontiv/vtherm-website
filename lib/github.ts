@@ -145,4 +145,14 @@ export class GitHubAPI {
             throw error;
         }
     }
+
+    async getAssets(releaseID: number): Promise<RestEndpointMethodTypes['repos']['listReleaseAssets']['response']['data'] | undefined> {
+        try {
+            const op = await this.octokit.request(`/repos/${this.owner}/${this.repo}/releases/${releaseID}/assets`)
+            return op.data;
+        } catch (error) {
+            console.error('Error fetching assets:', error);
+            throw error;
+        }
+    }
 }
