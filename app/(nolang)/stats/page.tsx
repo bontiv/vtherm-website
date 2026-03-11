@@ -1,5 +1,13 @@
+import type { Metadata } from 'next';
 import { GitHubAPI } from "@/lib/github";
 import StatsPageDetails, { ReleaseInfos } from "./statsPageDetails";
+
+export const metadata: Metadata = {
+    robots: {
+        index: false,
+    },
+    title: "Statistiques Versatile Thermostat"
+};
 
 const StatsPage: React.FC = async () => {
     const githubapi = GitHubAPI.getInstance()
@@ -12,7 +20,6 @@ const StatsPage: React.FC = async () => {
 
     for (const release of releases) {
         const assets = await githubapi.getAssets(release.id);
-        console.log(assets);
         data.push({
             tag_name: release.tag_name,
             downloads: assets && assets.length > 0 ? assets[0].download_count : 0,
