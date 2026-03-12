@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import i18n from "@/app/i18n/i18next";
 import { fallbackLng } from "../i18n/settings";
+import Semantic from "@/components/Semantic";
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
 
   return (
     <div>
+      <Semantic />
       <p>You will be redirected to your langage.</p>
       <ul>
         <li>

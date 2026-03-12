@@ -8,6 +8,7 @@ import Statistics from '@/components/Statisctics';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { opengraph_defaults } from '@/lib/opengraph';
+import Semantic from '@/components/Semantic';
 
 export async function generateStaticParams() {
     return languages.map((lng) => ({ lng }))
@@ -86,6 +87,7 @@ export default async function Layout({ children, params }: { children: React.Rea
 
     return <html className="" lang={i18n.resolvedLanguage}>
         <body className="antialiased">
+            <Semantic />
             {/* Layout principal: Sidebar fixe + Contenu principal */}
             <div className="flex min-h-screen">
                 {/* Sidebar - 247px fixe sur desktop */}
