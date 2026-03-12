@@ -16,6 +16,7 @@ import { getAlternatesMetadata, getT } from "../i18n";
 import Image from "next/image";
 import { Metadata } from "next";
 import { opengraph_defaults } from "@/lib/opengraph";
+import Semantic from "@/components/Semantic";
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
@@ -40,15 +41,42 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 export default async function Home({ params }: { params: Promise<{ lng: string }> }) {
     const { lng } = await params
     const { t } = await getT('home', { lng })
+    const { t: common_t } = await getT('common', { lng })
+
     return (
         <div className="space-y-16">
+            <Semantic data={{
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                inLanguage: lng,
+                isPartOf: { "@id": "https://www.versatile-thermostat.org/#website" },
+                name: common_t('title'),
+                description: common_t('description'),
+                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
+                breadcrumb: {
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                        {
+                            "@type": "ListItem",
+                            name: "Home",
+                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
+                            position: 1
+                        }
+                    ]
+                }
+            }} />
             {/* Hero Section */}
             <section className="pt-8 pb-12 text-center">
                 <div className="max-w-4xl mx-auto space-y-6">
-                    <h1 className="text-5xl md:text-6xl font-light text-vtherm-dark dark:text-vtherm-light">
+                    <h1 className="text-5xl md:text-6xl font-light text-vtherm-dark dark:text-vtherm-light mb-0">
                         Versatile Thermostat
                     </h1>
-                    <p className="text-xl md:text-2xl text-[#a1a1aa] leading-relaxed">
+                    <div className="flex justify-center gap-4 flex-wrap">
+                        <Image height={20} width={90} alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jmcollin78/versatile_thermostat" />
+                        <Image height={20} width={162} alt="Home Assistant install count" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fanalytics.home-assistant.io%2Fcustom_integrations.json&query=%24.versatile_thermostat.total&style=plastic&logo=homeassistantcommunitystore&label=Current%20instances" />
+                        <Image height={20} width={145} alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/jmcollin78/versatile_thermostat/latest/total?style=plastic" />
+                    </div>
+                    <p className="text-xl md:text-2xl text-[#a1a1aa] leading-relaxed py-5">
                         {t('subtitle')}
                     </p>
                     <a className="inline-block mx-auto"
@@ -76,6 +104,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
 
             {/* Features Grid */}
             <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <h2 className="hidden">Main features</h2>
                 <FeatureCard
                     icon={<Cpu className="w-8 h-8" />}
                     title={t('cards.algo.title')}
