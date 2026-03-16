@@ -8,6 +8,15 @@
         "type": "trv"
     },
     {
+        "manufacturer": "Aqara",
+        "title": "Aqara W600",
+        "model": "W600",
+        "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
+        "state": "supported",
+        "slug": "aqara-w600",
+        "type": "trv"
+    },
+    {
         "manufacturer": "Eutronic",
         "title": "Eutronic Comet",
         "model": "CoZB_dha",

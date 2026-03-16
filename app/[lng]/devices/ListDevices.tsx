@@ -21,9 +21,9 @@ type DeviceSpec = {
 const DeviceCard: React.FC<{ device: DeviceSpec }> = ({ device }) => {
     const { t } = useT('devices')
 
-    return <LinkLocale href={`/devices/${device.slug}/`} className="bg-slate-100 rounded border-2 border-solid border-slate-300 text-gray-700 w-3xs">
-        <h3 className="text-center text-lg font-bold py-2">{device.title ? device.title : `${device.manufacturer} - ${device.model}`}</h3>
-        <div className="p-1 relative bg-white">
+    return <LinkLocale href={`/devices/${device.slug}/`} className="bg-white rounded border-2 border-solid border-slate-300 text-gray-700 w-3xs relative">
+        <h3 className="text-center text-lg font-bold py-2 bg-slate-100">{device.title ? device.title : `${device.manufacturer} - ${device.model}`}</h3>
+        <div className="p-1">
             <Image className="mx-auto" src={device.img} alt={`${device.manufacturer} ${device.model}`} width={256} height={256} />
             <p className={`px-4 py-1 text-sm font-bold badge ${device.state} absolute bottom-0 left-0 rounded-tr-lg`}>{t('states.' + device.state)}</p>
         </div>
