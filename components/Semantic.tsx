@@ -1,6 +1,5 @@
 import { languages } from "@/app/i18n/settings"
 import Script from "next/script"
-import { PropsWithChildren } from "react"
 import { Graph, Thing, WithContext } from "schema-dts"
 
 const sem_data: Graph = {
@@ -58,8 +57,8 @@ const sem_data: Graph = {
     ]
 }
 
-const Semantic: React.FC<{ data?: WithContext<Thing> }> = ({ data }) => {
-    return <Script type="application/ld+json" dangerouslySetInnerHTML={{
+const Semantic: React.FC<{ data?: WithContext<Thing>, id: string }> = ({ data, id }) => {
+    return <Script id={id} type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify(data ?? sem_data).replace(/</g, '\\u003c'),
     }} />
 }

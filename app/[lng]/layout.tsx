@@ -87,7 +87,7 @@ export default async function Layout({ children, params }: { children: React.Rea
 
     return <html className="" lang={i18n.resolvedLanguage}>
         <body className="antialiased">
-            <Semantic />
+            <Semantic id={`layout`} />
             {/* Layout principal: Sidebar fixe + Contenu principal */}
             <div className="flex min-h-screen">
                 {/* Sidebar - 247px fixe sur desktop */}

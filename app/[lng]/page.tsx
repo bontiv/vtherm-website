@@ -45,7 +45,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
 
     return (
         <div className="space-y-16">
-            <Semantic data={{
+            <Semantic id={`home-${lng}`} data={{
                 "@context": "https://schema.org",
                 "@type": "WebPage",
                 inLanguage: lng,

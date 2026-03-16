@@ -41,7 +41,7 @@ const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docCon
 
     return (
         <div className="space-y-12" lang={lng}>
-            <Semantic data={{
+            <Semantic id={`doc-${docFile}-${lng}`} data={{
                 "@context": "https://schema.org",
                 "@type": "WebPage",
                 mainEntity: {

@@ -16,7 +16,7 @@ export default function Home() {
 
   return (
     <div>
-      <Semantic />
+      <Semantic id="noland" />
       <p>You will be redirected to your langage.</p>
       <ul>
         <li>
