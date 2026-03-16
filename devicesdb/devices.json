@@ -63,8 +63,16 @@
         "img": "https://images.squarespace-cdn.com/content/v1/57d112cb9f7456d72f62cd0f/1937c67e-c931-40b9-a66c-ae0fea0a4d43/heatzy-pilote-co%CC%82te%CC%81.jpg",
         "manufacturer": "heatzy",
         "model": "pilote",
-        "slug": "heatzy",
         "state": "supported",
-        "type": "electric"
+        "type": "electric",
+        "slug": "heatzy"
+    },
+    {
+        "manufacturer": "MOES",
+        "model": "UFO-R11",
+        "img": "https://www.zigbee2mqtt.io/images/devices/UFO-R11.png",
+        "state": "community",
+        "type": "electric",
+        "slug": "smartir"
     }
 ]

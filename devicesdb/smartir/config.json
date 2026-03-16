@@ -1,0 +1,6 @@
+{
+    "title": "climate over IR Remote",
+    "config": {
+        "thermostat_type": "thermostat_over_climate"
+    }
+}
