@@ -5,7 +5,7 @@ name: Deploy site to production
 on:
     # Runs on pushes targeting the default branch
     push:
-        tags: ["production"]
+        branches: ["stable"]
         paths-ignore:
             - .*/**
             - '*.md'
@@ -85,7 +85,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         needs: build_production
-        if: github.ref == 'refs/tags/production'
+        if: github.ref == 'refs/heads/stable'
         environment:
             name: production
             url: https://www.versatile-thermostat.org
