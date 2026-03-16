@@ -1,61 +1,70 @@
 [
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/TRVZB.png",
         "manufacturer": "Sonoff",
         "model": "TRVZB",
-        "img": "https://www.zigbee2mqtt.io/images/devices/TRVZB.png",
-        "state": "supported",
         "slug": "sonoff-trvzb",
-        "type": "trv"
-    },
-    {
-        "manufacturer": "Aqara",
-        "title": "Aqara W600",
-        "model": "W600",
-        "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
         "state": "supported",
+        "type": "trv"
+    },
+    {
+        "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
+        "manufacturer": "Aqara",
+        "model": "W600",
         "slug": "aqara-w600",
+        "state": "supported",
+        "title": "Aqara W600",
         "type": "trv"
     },
     {
-        "manufacturer": "Eutronic",
-        "title": "Eutronic Comet",
-        "model": "CoZB_dha",
         "img": "https://www.zigbee2mqtt.io/images/devices/CoZB_dha.png",
-        "state": "community",
+        "manufacturer": "Eutronic",
+        "model": "CoZB_dha",
         "slug": "over-climate-valve",
+        "state": "community",
+        "title": "Eutronic Comet",
         "type": "trv"
     },
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/COZB0001.png",
         "manufacturer": "Eutronic",
         "model": "COZB0001",
-        "img": "https://www.zigbee2mqtt.io/images/devices/COZB0001.png",
-        "state": "community",
         "slug": "over-climate-valve",
+        "state": "community",
         "type": "trv"
     },
     {
-        "manufacturer": "Danfoss",
-        "title": "Danfoss Ally",
-        "model": "014G2461",
         "img": "https://www.zigbee2mqtt.io/images/devices/014G2461.png",
-        "state": "partially",
+        "manufacturer": "Danfoss",
+        "model": "014G2461",
         "slug": "over-climate",
+        "state": "partially",
+        "title": "Danfoss Ally",
         "type": "trv"
     },
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-20.png",
         "manufacturer": "NodOn",
         "model": "SIN-4-FP-20",
-        "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-20.png",
-        "state": "supported",
         "slug": "over-switch",
+        "state": "supported",
         "type": "electric"
     },
     {
+        "img": "/img/tuya-ac.jpg",
+        "title": "Tuya WIFI",
+        "manufacturer": "Tuya",
+        "model": "",
+        "slug": "tuya-wifi",
+        "state": "supported",
+        "type": "climate"
+    },
+    {
+        "img": "https://images.squarespace-cdn.com/content/v1/57d112cb9f7456d72f62cd0f/1937c67e-c931-40b9-a66c-ae0fea0a4d43/heatzy-pilote-co%CC%82te%CC%81.jpg",
         "manufacturer": "heatzy",
         "model": "pilote",
-        "img": "https://images.squarespace-cdn.com/content/v1/57d112cb9f7456d72f62cd0f/1937c67e-c931-40b9-a66c-ae0fea0a4d43/heatzy-pilote-co%CC%82te%CC%81.jpg",
+        "slug": "heatzy",
         "state": "supported",
-        "type": "electric",
-        "slug": "heatzy"
+        "type": "electric"
     }
 ]
