@@ -6,8 +6,9 @@ import './markdown.css';
 import { useState, memo, useEffect, useRef } from "react";
 import rehypeSlug from 'rehype-slug';
 import type { Mermaid } from 'mermaid';
+import rehypeExternalLinks from 'rehype-external-links';
 
-const rehypePlugins: object[] = [rehypeSlug]
+const rehypePlugins: object[] = [rehypeSlug, rehypeExternalLinks]
 
 const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, default_page?: string }> = ({ file, lng, version, default_page }) => {
     const [content, setContent] = useState<string | undefined>(default_page)

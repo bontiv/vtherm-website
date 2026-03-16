@@ -1,0 +1,57 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.versatile-thermostat.org/devices.schema.json",
+    "title": "Device database",
+    "description": "Database of compatible devices with Versatile Thermostat",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "manufacturer": {
+                "type": "string",
+                "description": "Name of the manufacturer"
+            },
+            "model": {
+                "type": "string",
+                "description": "Model number"
+            },
+            "img": {
+                "type": "string",
+                "description": "Link to a picture of device. It can be absolute link or relative and image in public/img folder."
+            },
+            "slug": {
+                "type": "string",
+                "description": "Sub folder where the device definition is located. It will also be use as slug in URL."
+            },
+            "state": {
+                "enum": [
+                    "supported",
+                    "community",
+                    "unsupported",
+                    "partially"
+                ],
+                "description": "supported: Maintainer supported device | community: report as working by the community | partially: Work with limitations | unsupported: not supported device"
+            },
+            "title": {
+                "type": "string",
+                "description": "Title for this device"
+            },
+            "type": {
+                "enum": [
+                    "trv",
+                    "climate",
+                    "electric"
+                ],
+                "description": "Type of device"
+            }
+        },
+        "required": [
+            "manufacturer",
+            "model",
+            "img",
+            "slug",
+            "state",
+            "type"
+        ]
+    }
+}

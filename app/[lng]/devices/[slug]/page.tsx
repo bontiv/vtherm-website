@@ -11,6 +11,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import { Metadata } from 'next';
 import { opengraph_defaults } from '@/lib/opengraph';
+import rehypeExternalLinks from 'rehype-external-links'
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }): Promise<Metadata> {
     const { lng, slug } = await params
@@ -107,7 +108,7 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
         <div className='text-blue-900 flex flex-wrap items-start'>
             <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
         </div>
-        {readme ? <Markdown rehypePlugins={[rehypeSlug]} remarkPlugins={[remarkGfm]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
+        {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
         <DeviceConfig config={config.config} lng={lng} />
     </div>
 }

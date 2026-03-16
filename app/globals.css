@@ -103,17 +103,24 @@ nav.vtherm-navigation {
   h3 {
     @apply text-2xl text-vtherm-tertiary py-4 dark:text-vtherm-quaternary;
   }
-}
 
-.main-content p {
-  @apply py-1.5;
-}
+  .main-content p {
+    @apply py-1.5;
+  }
 
+  .main-content ol {
+    @apply list-decimal ps-11 py-4;
+  }
 
-.main-content ol {
-  @apply list-decimal ps-11 py-4;
-}
+  .main-content ol li {
+    @apply py-0.5 ps-2.5;
+  }
 
-.main-content ol li {
-  @apply py-0.5 ps-2.5;
+  .main-content ul {
+    @apply list-disc ps-11 py-4;
+  }
+
+  .main-content a {
+    @apply underline text-vtherm-tertiary dark:text-vtherm-quaternary hover:text-vtherm-primary transition duration-300;
+  }
 }

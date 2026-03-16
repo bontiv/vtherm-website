@@ -1,0 +1,6 @@
+{
+    "title": "Tuya WIFI",
+    "config": {
+        "thermostat_type": "thermostat_over_climate"
+    }
+}
