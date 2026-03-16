@@ -1,3 +1,17 @@
 {
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "json.schemas": [
+        {
+            "fileMatch": [
+                "devicesdb/devices.json"
+            ],
+            "url": "./devicesdb/devices.schema.json"
+        },
+        {
+            "fileMatch": [
+                "devicesdb/*/config.json"
+            ],
+            "url": "./devicesdb/config.schema.json"
+        }
+    ]
 }

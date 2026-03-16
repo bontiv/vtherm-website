@@ -1,0 +1,31 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.versatile-thermostat.org/config.schema.json",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "Title of this device"
+        },
+        "config": {
+            "type": "object",
+            "properties": {
+                "thermostat_type": {
+                    "enum": [
+                        "thermostat_over_climate",
+                        "thermostat_over_switch",
+                        "thermostat_over_valve"
+                    ]
+                }
+            },
+            "additionalProperties": {},
+            "required": [
+                "thermostat_type"
+            ]
+        }
+    },
+    "required": [
+        "title",
+        "config"
+    ]
+}
