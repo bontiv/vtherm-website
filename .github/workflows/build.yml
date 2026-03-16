@@ -6,7 +6,7 @@ description: Try to build NextJS and export site
 on:
     # Runs on pushes targeting the default branch
     pull_request:
-        branches: [ "main" ]
+        branches: [ "latest", "stable" ]
     merge_group:
         types: [checks_requested]
 

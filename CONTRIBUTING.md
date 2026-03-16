@@ -165,18 +165,18 @@ If you set `minimal_activation_delay` on the device configuration, it's because 
 
 #### Protected Branches
 
-| Branch / tag | Purpose | Direct push |
+| Branch | Purpose | Direct push |
 |--------|---------|-------------|
-| `production` (tag) | Production-ready code | ❌ Forbidden |
-| `main` | Pre-production integration | ❌ Forbidden |
+| `stable` | Production-ready code | ❌ Forbidden |
+| `latest` | Pre-production integration | ❌ Forbidden |
 
-All changes to `main` **must go through a Pull Request** with at least **1 approved review**. Force-pushes are disabled on both branches.
+All changes to `latest` **must go through a Pull Request** with at least **1 approved review**. Force-pushes are disabled on both branches.
 
-The `production` tag is only updated on the `main` branch.
+The `stable` branch is only updated from `latest` branch or if urgent patch is needed.
 
 #### Branch Naming
 
-Create your working branch from `main` using the following convention:
+Create your working branch from `latest` using the following convention:
 
 ```
 <type>/<short-description>
@@ -193,7 +193,7 @@ Create your working branch from `main` using the following convention:
 
 #### Merge Strategy
 
-- All PRs are merged using **Squash and Merge** to keep `main` history linear and readable.
+- All PRs are merged using **Squash and Merge** to keep `latest` history linear and readable.
 - The squashed commit message must follow the [Commit Convention](#commit-convention).
 - Delete your branch after merging.
 
