@@ -72,7 +72,7 @@
         "model": "UFO-R11",
         "img": "https://www.zigbee2mqtt.io/images/devices/UFO-R11.png",
         "state": "community",
-        "type": "electric",
+        "type": "climate",
         "slug": "smartir"
     }
 ]
