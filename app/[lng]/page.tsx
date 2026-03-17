@@ -18,6 +18,9 @@ import { Metadata } from "next";
 import { opengraph_defaults } from "@/lib/opengraph";
 import Semantic from "@/components/Semantic";
 
+/// Last stable release pattern
+const stable_release = "9.2.*";
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
     const { t } = await getT('common', { lng });
@@ -71,10 +74,14 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                     <h1 className="text-5xl md:text-6xl font-light text-vtherm-dark dark:text-vtherm-light mb-0">
                         Versatile Thermostat
                     </h1>
-                    <div className="flex justify-center gap-4 flex-wrap">
+                    <div className="flex justify-center items-center gap-4 flex-wrap">
                         <Image height={20} width={90} alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jmcollin78/versatile_thermostat" />
                         <Image height={20} width={162} alt="Home Assistant install count" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fanalytics.home-assistant.io%2Fcustom_integrations.json&query=%24.versatile_thermostat.total&style=plastic&logo=homeassistantcommunitystore&label=Current%20instances" />
-                        <Image height={20} width={145} alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/jmcollin78/versatile_thermostat/latest/total?style=plastic" />
+                        {/*<Image height={20} width={145} alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/jmcollin78/versatile_thermostat/latest/total?style=plastic" />*/}
+                        <Image height={20} width={108} alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/jmcollin78/versatile_thermostat/total?style=plastic" />
+                        <Image height={20} width={95} alt="GitHub Release" src="https://img.shields.io/github/v/release/jmcollin78/versatile_thermostat?style=plastic" />
+                        <Image height={20} width={139} alt="GitHub Stable Release" src={`https://img.shields.io/github/v/release/jmcollin78/versatile_thermostat?filter=${stable_release}&style=plastic&label=release%40stable&color=green`} />
+
                     </div>
                     <p className="text-xl md:text-2xl text-[#a1a1aa] leading-relaxed py-5">
                         {t('subtitle')}
@@ -104,7 +111,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
 
             {/* Features Grid */}
             <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <h2 className="hidden">Main features</h2>
+                <h2 className="hidden">{t('main-features')}</h2>
                 <FeatureCard
                     icon={<Cpu className="w-8 h-8" />}
                     title={t('cards.algo.title')}

@@ -7,6 +7,7 @@
     "why": "Why use Versatile Thermostat?",
     "why-explain": "Versatile Thermostat was designed to overcome the limitations of standard thermostats in Home Assistant. Our goal is to provide you with intelligent and efficient climate regulation that adapts to your specific needs.",
     "config-guide": "Configuration guide",
+    "main-features": "Main features",
     "features": {
         "compatibility": "Compatible with heat pumps, valves and switches",
         "algorithms": "Intelligent TPI algorithm",

@@ -50,7 +50,8 @@ const sem_data: Graph = {
         },
         {
             "@type": "Organization",
-            "@id": "https://www.versatile-thermostat.org/#organisation",
+            "@id": "https://www.versatile-thermostat.org/#organization",
+            name: "Versatile Thermostat",
             url: process.env.NEXT_PUBLIC_SITE_URL,
             logo: `${process.env.NEXT_PUBLIC_SITE_URL}/opengraph-image.png`
         }

@@ -65,7 +65,7 @@ const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docCon
                         {
                             "@type": "ListItem",
                             name: t('menu.docs'),
-                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/`,
+                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/#docs`,
                             position: 2,
                         },
                         {
