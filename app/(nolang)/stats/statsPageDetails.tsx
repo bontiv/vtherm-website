@@ -60,8 +60,20 @@ const StatsPageDetails: React.FC<{ data: ReleaseInfos[] }> = ({ data }) => {
                 },
                 dataLabels: {
                     enabled: true,
+                    background: {
+                        enabled: true,
+                        borderRadius: 5,
+                    },
                     style: {
-                        colors: ['lightblue', 'green']
+                        colors: [isDark ? 'darkskyblue' : 'darkblue', 'green'],
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    shared: true,
+                    intersect: false,
+                    x: {
+                        formatter: (val, opts) => `Verison ${val}`,
                     }
                 },
                 yaxis: [
