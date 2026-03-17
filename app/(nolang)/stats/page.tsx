@@ -27,7 +27,7 @@ const StatsPage: React.FC = async () => {
         })
     }
 
-    return <StatsPageDetails data={data} />
+    return <main className='min-h-dvh'><StatsPageDetails data={data} /></main>
 }
 
 export default StatsPage;
