@@ -151,11 +151,11 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
     const xaxis: ApexOptions['xaxis'] = {
         type: 'datetime',
         title: { text: 'Time' },
-        labels: { format: 'HH:mm:ss' },
+        labels: { format: 'HH:mm:ss', datetimeUTC: false },
         min: zoom?.enabled ? zoom?.mindate?.getTime() : undefined,
         max: zoom?.enabled ? zoom?.maxdate?.getTime() : undefined,
         tooltip: {
-            formatter: (value) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short", timeZone: 'UTC' }).format(new Date(value)),
+            formatter: (value) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)),
         }
     };
 
