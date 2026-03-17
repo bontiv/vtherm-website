@@ -7,9 +7,9 @@
     --pagefind-ui-background: #ffffff;
     --pagefind-ui-border: #e2e8f0;
     --pagefind-ui-tag: #f1f5f9;
-    width: 100%;
     max-width: 500px;
-    position: relative;
+    @apply has-focus:fixed has-focus:left-16 has-focus:right-2;
+    @apply relative;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -32,7 +32,7 @@
 .pagefind-container .pagefind-ui__search-input {
     height: 40px;
     border-radius: 0.5rem;
-    position: static !important;
+    /* position: static !important; */
 }
 
 /* Conteneur des résultats */
@@ -47,5 +47,5 @@
 }
 
 .pagefind-container .pagefind-ui__drawer {
-    @apply bg-neutral-100 rounded px-4 dark:bg-neutral-800 pb-3;
+    @apply bg-neutral-100 rounded px-4 dark:bg-neutral-800 pb-3 fixed left-0 md:relative;
 }
