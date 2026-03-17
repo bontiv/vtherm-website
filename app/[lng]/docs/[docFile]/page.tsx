@@ -5,6 +5,7 @@ import MarkDownPage from "./MarkdownPage";
 import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
 import { opengraph_defaults } from "@/lib/opengraph";
+import Semantic from "@/components/Semantic";
 
 const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
 
@@ -33,11 +34,50 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 
 const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docContent: string }> }> = async ({ params }) => {
     const { lng, docFile } = await params;
-    const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)
+    const { t } = await getT('common', { lng })
+    const content = await (await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)).text()
+    const title = content.match(/^# (.*)\n/)
+    const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
 
     return (
         <div className="space-y-12" lang={lng}>
-            <MarkDownPage lng={lng} version={'main'} file={`/documentation/${lng}/${docFile}.md`} default_page={await content?.text()} />
+            <Semantic id={`doc-${docFile}-${lng}`} data={{
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                mainEntity: {
+                    "@type": "TechArticle",
+                    name: web_title,
+                    about: { "@id": "https://www.versatile-thermostat.org/#software" }
+                },
+                inLanguage: lng,
+                name: web_title,
+                isPartOf: { "@id": "https://www.versatile-thermostat.org/#website" },
+                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${docFile}/`,
+                breadcrumb: {
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                        {
+                            "@type": "ListItem",
+                            name: t('menu.home'),
+                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
+                            position: 1,
+                        },
+                        {
+                            "@type": "ListItem",
+                            name: t('menu.docs'),
+                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/#docs`,
+                            position: 2,
+                        },
+                        {
+                            "@type": "ListItem",
+                            name: web_title,
+                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${docFile}/`,
+                            position: 3,
+                        }
+                    ]
+                }
+            }} />
+            <MarkDownPage lng={lng} version={'main'} file={`/documentation/${lng}/${docFile}.md`} default_page={content} />
         </div>
     )
 }

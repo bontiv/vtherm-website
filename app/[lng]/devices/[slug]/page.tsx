@@ -12,6 +12,7 @@ import rehypeSlug from 'rehype-slug';
 import { Metadata } from 'next';
 import { opengraph_defaults } from '@/lib/opengraph';
 import rehypeExternalLinks from 'rehype-external-links'
+import Semantic from '@/components/Semantic';
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }): Promise<Metadata> {
     const { lng, slug } = await params
@@ -96,6 +97,7 @@ const DeviceConfig: React.FC<{ config: DeviceDefinition['config'], lng: string }
 const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> = async ({ params }) => {
     const { slug, lng } = await params;
     const { t } = await getT('devices', { lng });
+    const { t: commont } = await getT('common', { lng });
 
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
     const readMePathLng = path.join(process.cwd(), 'devicesdb', slug, `README${lng != fallbackLng ? `-${lng.toUpperCase()}` : ''}.md`);
@@ -103,14 +105,49 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
     const readMePath = IO.existsSync(readMePathLng) ? readMePathLng : readMePathFallback
 
     const readme: string | undefined = IO.existsSync(readMePath) ? IO.readFileSync(readMePath, {}).toString() : undefined
+    const t_opts = { device: config.title ?? slug }
 
-    return <div className='main-content' lang={lng} data-pagefind-body>
-        <div className='text-blue-900 flex flex-wrap items-start'>
-            <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
+    return <>
+        <Semantic id={`devices-${lng}-${slug}`} data={{
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            inLanguage: lng,
+            isPartOf: { "@id": "https://www.versatile-thermostat.org/#website" },
+            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/${slug}/`,
+            name: t('title_details', t_opts),
+            description: t('description_details', t_opts),
+            breadcrumb: {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                    {
+                        "@type": "ListItem",
+                        "name": commont('menu.home'),
+                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
+                        position: 1
+                    },
+                    {
+                        "@type": "ListItem",
+                        "name": commont('menu.devices'),
+                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/`,
+                        position: 2
+                    },
+                    {
+                        "@type": "ListItem",
+                        "name": t('title_details', t_opts),
+                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/${slug}/`,
+                        position: 3
+                    }
+                ]
+            }
+        }} />
+        <div className='main-content' lang={lng} data-pagefind-body>
+            <div className='text-blue-900 flex flex-wrap items-start'>
+                <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
+            </div>
+            {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
+            <DeviceConfig config={config.config} lng={lng} />
         </div>
-        {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
-        <DeviceConfig config={config.config} lng={lng} />
-    </div>
+    </>
 }
 
 export default DevicePage;
