@@ -74,6 +74,7 @@ const ListDevices: React.FC<{ devices: DeviceSpec[] }> = ({ devices }) => {
             </div>
             <Button variant="secondary" className="text-nowrap"><a href="https://github.com/bontiv/vtherm-website/issues/new?template=new_device.yml" target="_blank">{t('contributing')}</a></Button>
         </div>
+        <h2 className="hidden">{t('all-devices')}</h2>
         <div className="flex flex-wrap gap-3 justify-center my-5">
             {devices.filter(x =>
                 (user_filter.manufacturer.length == 0 || x.manufacturer.toLowerCase().includes(user_filter.manufacturer.toLowerCase()))

@@ -7,6 +7,7 @@
     "why": "Pourquoi utiliser Versatile Thermostat ?",
     "why-explain": "Versatile Thermostat a été conçu pour pallier les limitations des thermostats standards dans Home Assistant. Notre objectif est de vous offrir une régulation climatique intelligente et efficace qui s'adapte à vos besoins spécifiques.",
     "config-guide": "Guide de configuration",
+    "main-features": "Principales fonctionnalités",
     "features": {
         "compatibility": "Compatible avec les PAC, vannes et commutateurs",
         "algorithms": "Algorithme TPI intelligent",
