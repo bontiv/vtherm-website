@@ -73,7 +73,7 @@ const StatsPageDetails: React.FC<{ data: ReleaseInfos[] }> = ({ data }) => {
                     shared: true,
                     intersect: false,
                     x: {
-                        formatter: (val, opts) => `Verison ${val}`,
+                        formatter: (val) => `Version ${val}`,
                     }
                 },
                 yaxis: [
