@@ -256,9 +256,9 @@ export class LogParser {
 
         // Block for HA log format
         if (line.search("custom_components.versatile_thermostat") >= 0) {
-            match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] VersatileThermostat-(.+)-climate\..+ Set setpoint temperature to: ([0-9.]+)/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] (VersatileThermostat-)?(.+)-climate\..+ Set setpoint temperature to: ([0-9.]+)/)
             if (match) {
-                this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+                this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
                 return;
             }
 
@@ -270,29 +270,29 @@ export class LogParser {
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+). New target is ([0-9.]+)/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+). New target is ([0-9.]+)/)
             if (match) {
-                this.getThermoParser(match[1]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+                this.getThermoParser(match[2]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+                this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate(_valve)?\] VersatileThermostat-(.+) - Calling update_custom_attributes: (.+)/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate(_valve)?\] (VersatileThermostat-)?(.+) - Calling update_custom_attributes: (.+)/)
             if (match) {
-                this.getThermoParser(match[2]).parseState(new Date(time), match[3]);
+                this.getThermoParser(match[3]).parseState(new Date(time), match[4]);
                 return
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-(.+) - Regulated temp have changed to ([0-9.]+)\. Resend it to underlyings/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - Regulated temp have changed to ([0-9.]+)\. Resend it to underlyings/)
             if (match) {
-                this.getThermoParser(match[1]).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+                this.getThermoParser(match[2]).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-(.+) - regulation calculation will be done/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - regulation calculation will be done/)
             if (match) {
-                this.last_thermo = match[1];
+                this.last_thermo = match[2];
                 return;
             }
 
@@ -308,9 +308,9 @@ export class LogParser {
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-(.+) - Applying new target temperature: ([0-9.]+)/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] (VersatileThermostat-)?(.+) - Applying new target temperature: ([0-9.]+)/)
             if (match) {
-                this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+                this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
                 return;
             }
 
@@ -326,16 +326,16 @@ export class LogParser {
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-(.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] (VersatileThermostat-)?(.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
             if (match) {
-                this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+                this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] VersatileThermostat-(.+)-climate\..* --------> Underlying state change received:.*current_temperature=([0-9.]+), temperature=([0-9.]+),/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] (VersatileThermostat-)?(.+)-climate\..* --------> Underlying state change received:.*current_temperature=([0-9.]+), temperature=([0-9.]+),/)
             if (match) {
-                this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
                 return;
             }
         }
