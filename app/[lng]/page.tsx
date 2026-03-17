@@ -75,7 +75,9 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         Versatile Thermostat
                     </h1>
                     <div className="flex justify-center items-center gap-4 flex-wrap">
-                        <Image height={20} width={90} alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jmcollin78/versatile_thermostat" />
+                        <a href="https://github.com/jmcollin78/versatile_thermostat">
+                            <Image height={20} width={90} alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jmcollin78/versatile_thermostat" />
+                        </a>
                         <Image height={20} width={162} alt="Home Assistant install count" src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fanalytics.home-assistant.io%2Fcustom_integrations.json&query=%24.versatile_thermostat.total&style=plastic&logo=homeassistantcommunitystore&label=Current%20instances" />
                         {/*<Image height={20} width={145} alt="GitHub Downloads (all assets, latest release)" src="https://img.shields.io/github/downloads/jmcollin78/versatile_thermostat/latest/total?style=plastic" />*/}
                         <Image height={20} width={108} alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/jmcollin78/versatile_thermostat/total?style=plastic" />
