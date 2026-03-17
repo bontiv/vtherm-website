@@ -191,6 +191,11 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
                         mode: isDark ? 'dark' : 'light',
                     },
                     xaxis,
+                    yaxis: {
+                        labels: {
+                            formatter: (val: number) => val.toFixed(2)
+                        }
+                    },
                     stroke: { curve: 'stepline', width: 2 },
                     title: { text: t('graph.title_logs'), align: 'left' },
                     colors: ['#FEB019', '#008FFB', '#00E396', '#8D5B4C', '#775DD0', '#3f51b5', '#33b2df', '#546E7A', 'd4526e', '#A5978B', '#4ecdc4'],
