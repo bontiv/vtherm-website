@@ -27,6 +27,7 @@
         "feature-central-mode": "Central configuration",
         "feature-heating-failure-detection": "Heating failure dectection",
         "feature-lock": "Lock feature",
+        "feature-logs-collector": "Log collector",
         "feature-motion": "Motion feature",
         "feature-power": "Power management",
         "feature-presets": "Presets",

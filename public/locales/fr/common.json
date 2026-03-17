@@ -27,6 +27,7 @@
         "feature-central-mode": "Configuration centrale",
         "feature-heating-failure-detection": "Détection de panne",
         "feature-lock": "Verrouillage",
+        "feature-logs-collector": "Collecteur de logs",
         "feature-motion": "Détection de mouvement",
         "feature-power": "Gestion énergétique",
         "feature-presets": "Modes de chauffe",
