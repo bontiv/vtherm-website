@@ -270,10 +270,12 @@ export class LogParser {
                 return;
             }
 
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+). New target is ([0-9.]+)/)
+            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+)\. New target is ([0-9.]+)/)
             if (match) {
-                this.getThermoParser(match[2]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+                if (match[3] != "0.00" && match[4] != "0.00") {
+                    this.getThermoParser(match[2]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                    this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+                }
                 this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
                 return;
             }
@@ -357,10 +359,12 @@ export class LogParser {
                     return;
                 }
 
-                match = line.match(/\[\s*thermostat_climate\s*\] (.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+). New target is ([0-9.]+)/)
+                match = line.match(/\[\s*thermostat_climate\s*\] (.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+)\. New target is ([0-9.]+)/)
                 if (match) {
-                    this.getThermoParser(match[1]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                    if (match[2] != "0.00" && match[3] != "0.00") {
+                        this.getThermoParser(match[1]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+                        this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                    }
                     this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
                     return;
                 }
