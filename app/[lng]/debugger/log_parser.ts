@@ -442,6 +442,15 @@ export class LogParser {
         }
 
 
+        /*
+         * Fallback parsing section
+         */
+
+        match = line.match(/underlyings\s*] ([^.]+)-\w+\.\w+ -------->/)
+        if (match) {
+            this.getThermoParser(match[1]); // Annonce the thermostat
+            return;
+        }
         //console.log('No parse for line:', line);
     }
 }
