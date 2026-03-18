@@ -166,6 +166,22 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
         return () => mq.removeEventListener('change', handler)
     }, []);
 
+    const colors = isDark ?
+        [
+            '#FFC107', // Jaune/Orange
+            '#4DBAFA', // Bleu clair
+            '#26E7A6', // Menthe
+            '#C49384', // Marron clair
+            '#9B86E0', // Violet
+            '#7986CB', // Indigo
+            '#5EC5ED', // Cyan
+            '#90A4AE', // Gris-bleu
+            '#EC6B87', // Rose/Rouge
+            '#C9BCB1', // Beige/Sable
+            '#76D7D0'  // Turquoise
+        ]
+        : ['#FEB019', '#008FFB', '#00E396', '#8D5B4C', '#775DD0', '#3f51b5', '#33b2df', '#546E7A', 'd4526e', '#A5978B', '#4ecdc4'];
+
     return (
         <div className="w-full">
             <Chart
@@ -190,15 +206,58 @@ const Graph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: strin
                     theme: {
                         mode: isDark ? 'dark' : 'light',
                     },
+                    tooltip: {
+                        intersect: false,
+                        shared: true,
+                        x: {
+                            show: false
+                        },
+                        custom: ({ seriesIndex, dataPointIndex, w }) => {
+                            // Timestamp du point survolé
+                            const hoveredTs = w.globals.seriesX[seriesIndex][dataPointIndex];
+
+                            // Pour chaque série, on cherche la dernière valeur <= hoveredTs
+                            const rows = w.globals.seriesNames
+                                .map((name: string, i: number) => {
+                                    const xArr = w.globals.seriesX[i];
+                                    const yArr = w.globals.series[i];
+
+                                    // Dernier index dont le timestamp est <= hoveredTs
+                                    let lastVal: null | number = null;
+                                    for (let j = 0; j < xArr.length; j++) {
+                                        if (xArr[j] <= hoveredTs) {
+                                            lastVal = yArr[j];
+                                        }
+                                    }
+
+                                    const color = w.globals.colors[i];
+                                    const display = lastVal !== null ? lastVal.toFixed(2) : "–";
+
+                                    return `
+                                  <div style="display:flex; align-items:center; gap:6px; padding:2px 0">
+                                    <span style="width:10px;height:10px;border-radius:50%;
+                                                 background:${color};display:inline-block"></span>
+                                    <span>${name} :</span>
+                                    <strong>${display}</strong>
+                                  </div>`;
+                                })
+                                .join("");
+
+                            return `
+                              <div style="padding:10px 14px; font-size:13px; font-family:sans-serif">
+                                ${rows}
+                              </div>`;
+                        },
+                    },
                     xaxis,
                     yaxis: {
                         labels: {
                             formatter: (val: number) => val.toFixed(2)
                         }
                     },
-                    stroke: { curve: 'stepline', width: 2 },
+                    stroke: { curve: 'stepline', width: [2, 2, 1, 1, 1.5, 1.5] },
                     title: { text: t('graph.title_logs'), align: 'left' },
-                    colors: ['#FEB019', '#008FFB', '#00E396', '#8D5B4C', '#775DD0', '#3f51b5', '#33b2df', '#546E7A', 'd4526e', '#A5978B', '#4ecdc4'],
+                    colors,
                 }}
                 series={series}
                 type="line"
@@ -315,9 +374,10 @@ const EditorV2: React.FC<{
                     if (!zoom.enabled || !date || (zoom.mindate && date > zoom.mindate && zoom.maxdate && date < zoom.maxdate)) {
                         const pl = document.createElement('p');
                         pl.appendChild(document.createTextNode(txt));
-                        if (level == 'INFO') pl.className = 'text-green-500 info';
-                        if (level == 'WARNING') pl.className = 'text-yellow-500 warning';
-                        if (level == 'ERROR') pl.className = 'text-red-500 error';
+                        if (level == 'INFO') pl.className = 'info';
+                        if (level == 'WARNING') pl.className = 'warning';
+                        if (level == 'ERROR') pl.className = 'error';
+                        if (!date) pl.className = 'nodata';
                         edit_div.appendChild(pl)
                     }
                 }
