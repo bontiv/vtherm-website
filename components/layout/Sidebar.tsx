@@ -39,7 +39,7 @@ export const Sidebar: React.FC<{ docfiles?: (string | undefined)[] }> = ({ docfi
             {/* Logo / Branding */}
             <div className="flex flex-col items-center gap-3 px-4 py-6 border-b border-[#3a3a3a]">
                 <div className="flex items-center justify-center">
-                    <Image src={logo} alt="Logo" width={256} height={256} />
+                    <Image loading='eager' src={logo} alt="Logo" width={256} height={256} />
                 </div>
                 <div>
                     <p className="text-lg font-semibold text-[#ffffff]">Versatile Thermostat</p>

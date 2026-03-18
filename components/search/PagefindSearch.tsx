@@ -25,8 +25,6 @@ declare global {
     }
 }
 
-let pagefnd: undefined | PagefindUIObject = undefined
-
 export const PagefindSearch: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -106,12 +104,7 @@ export const PagefindSearch: React.FC = () => {
                 }
             };
 
-            if (pagefnd) {
-                console.warn('Reload pagefind');
-                pagefnd.destroy();
-            }
-
-            pagefnd = new window.PagefindUI({
+            const pagefnd = new window.PagefindUI({
                 element: '#pagefind-search',
                 showSubResults: true,
                 translations: translations[lng] || translations.en,
@@ -121,6 +114,9 @@ export const PagefindSearch: React.FC = () => {
                     return therm;
                 }),
             });
+            return () => {
+                pagefnd?.destroy();
+            }
         }
     }, [isLoaded, lng]);
 
