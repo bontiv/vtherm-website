@@ -85,7 +85,7 @@ export default async function Layout({ children, params }: { children: React.Rea
         }
     })
 
-    return <html className="" lang={i18n.resolvedLanguage}>
+    return <html className="" lang={i18n.resolvedLanguage} data-scroll-behavior="smooth">
         <body className="antialiased">
             <Semantic id={`layout`} />
             {/* Layout principal: Sidebar fixe + Contenu principal */}
