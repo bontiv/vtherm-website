@@ -7,8 +7,13 @@ import { useState, memo, useEffect, useRef } from "react";
 import rehypeSlug from 'rehype-slug';
 import type { Mermaid } from 'mermaid';
 import rehypeExternalLinks from 'rehype-external-links';
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import remarkNotes from 'remark-github-blockquote-alert';
+import 'remark-github-blockquote-alert/alert.css';
 
-const rehypePlugins: object[] = [rehypeSlug, rehypeExternalLinks]
+
+const rehypePlugins: object[] = [rehypeKatex, rehypeSlug, rehypeExternalLinks]
 
 const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, default_page?: string }> = ({ file, lng, version, default_page }) => {
     const [content, setContent] = useState<string | undefined>(default_page)
@@ -74,7 +79,7 @@ const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, d
 
     return (
         <div className="markdown-body" data-pagefind-body>
-            <Markdown remarkPlugins={[remarkGfm]} rehypePlugins={rehypePlugins} urlTransform={urlTransform}>{content}</Markdown>
+            <Markdown remarkPlugins={[remarkGfm, remarkNotes, remarkMath]} rehypePlugins={rehypePlugins} urlTransform={urlTransform}>{content}</Markdown>
         </div>
     )
 };
