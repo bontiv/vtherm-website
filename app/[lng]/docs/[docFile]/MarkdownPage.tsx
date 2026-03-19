@@ -7,8 +7,8 @@ import { useState, memo, useEffect, useRef } from "react";
 import rehypeSlug from 'rehype-slug';
 import type { Mermaid } from 'mermaid';
 import rehypeExternalLinks from 'rehype-external-links';
-import remarkMath from 'remark-math'
-import rehypeKatex from 'rehype-katex'
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import remarkNotes from 'remark-github-blockquote-alert';
 import 'remark-github-blockquote-alert/alert.css';
 
