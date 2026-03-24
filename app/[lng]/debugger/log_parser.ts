@@ -44,6 +44,31 @@ export enum FeatureState {
     TRIGGER = 1,
 }
 
+export type ZoomType = {
+    mindate?: Date,
+    maxdate?: Date,
+    enabled: boolean
+}
+
+export const CHUNK_SIZE = 2 * 1024 * 1024; // 2 Mo par chunk
+export const LINES_PER_TICK = 500;         // lignes traitées avant de céder le thread + mise à jour de la progression
+
+/** Lit un Blob en texte de façon asynchrone */
+export function readBlobAsText(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsText(blob);
+    });
+}
+
+
+/** Cède le contrôle au navigateur (évite le freeze) */
+export function yieldToMain(): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 class VThermLogParser {
     private name: string;
     public underlying_setpoints: { timestamp: Date, value: number }[] = [];
