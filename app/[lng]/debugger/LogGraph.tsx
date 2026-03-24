@@ -1,7 +1,7 @@
 'use client';
 
 import { RefObject, useEffect, useState } from "react";
-import { LogParser, ZoomType } from "./log_parser";
+import { FeatureState, LogParser, ZoomType } from "./log_parser";
 import { useT } from "@/app/i18n/client";
 import { ApexOptions } from "apexcharts";
 import Chart from 'react-apexcharts';
@@ -15,6 +15,49 @@ type ZoomCallback = (datemin: Date, datemax: Date) => void
 
 function dateSort(a: { x: Date }, b: { x: Date }): number {
     return a.x.getTime() - b.x.getTime()
+}
+
+function feature_serie_builder(feature: "startstop_state" | "window_state" | "safety_state", { logfile, selectedThermostat }: {
+    logfile: RefObject<LogParser>,
+    selectedThermostat: string,
+}, state: FeatureState = FeatureState.TRIGGER) {
+    const vtherm = logfile.current.getThermostat(selectedThermostat)
+    if (!vtherm || !(feature in vtherm)) {
+        throw 'VTherm not found or serie not exist'
+    }
+
+    const data = vtherm[feature];
+
+    let start = undefined;
+    const result = [];
+
+    for (const event of data) {
+        if (event.value == state && start === undefined) {
+            start = event.timestamp;
+        } else if (event.value != state && start) {
+            result.push({ x: feature, y: [start, event.timestamp] })
+            start = undefined;
+        }
+    }
+
+    if (start) {
+        result.push({ x: feature, y: [start, data[data.length - 1].timestamp] })
+    }
+    return result;
+}
+
+function serie_builder(serie: "room_temps" | "target_temps" | "ext_temps" | "underlying_setpoints" | "regulated_temps" | "underlying_temps",
+    { logfile, selectedThermostat }: {
+        logfile: RefObject<LogParser>,
+        selectedThermostat: string,
+    }) {
+    const vtherm = logfile.current.getThermostat(selectedThermostat)
+    if (!vtherm || !(serie in vtherm)) {
+        throw 'VTherm not found or serie not exist'
+    }
+
+    const data = vtherm[serie];
+    return data.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
 }
 
 const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
@@ -36,41 +79,44 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
         },
         {
             name: t('graph.room_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.room_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+            data: serie_builder("room_temps", { logfile, selectedThermostat })
         },
         {
             name: t('graph.ext_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.ext_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+            data: serie_builder("ext_temps", { logfile, selectedThermostat })
         },
         {
             name: t('graph.underlying_setpoint'),
-            data: logfile.current.getThermostat(selectedThermostat)?.underlying_setpoints.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+            data: serie_builder("underlying_setpoints", { logfile, selectedThermostat })
         },
         {
             name: t('graph.underlying_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.underlying_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+            data: serie_builder("underlying_temps", { logfile, selectedThermostat })
         },
         {
             name: t('graph.regulated_temp'),
-            data: logfile.current.getThermostat(selectedThermostat)?.regulated_temps.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+            data: serie_builder("regulated_temps", { logfile, selectedThermostat })
         },
     ];
 
     const series_features: ApexOptions['series'] = [
         {
-            name: t('graph.window'),
-            data: logfile.current.getThermostat(selectedThermostat)?.window_state.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+            name: t("graph.trigger"),
+            data: [
+                ...feature_serie_builder("startstop_state", { logfile, selectedThermostat }),
+                ...feature_serie_builder("safety_state", { logfile, selectedThermostat }),
+                ...feature_serie_builder("window_state", { logfile, selectedThermostat }),
+            ]
         },
         {
-            name: t('graph.safety'),
-            data: logfile.current.getThermostat(selectedThermostat)?.safety_state.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || [],
-            color: 'red'
+            name: t("graph.bypass"),
+            data: [
+                ...feature_serie_builder("startstop_state", { logfile, selectedThermostat }, FeatureState.BYPASS),
+                ...feature_serie_builder("safety_state", { logfile, selectedThermostat }, FeatureState.BYPASS),
+                ...feature_serie_builder("window_state", { logfile, selectedThermostat }, FeatureState.BYPASS),
+            ]
         },
-        {
-            name: 'Central Boiler',
-            data: logfile.current.central_boiler.map(event => ({ x: event.timestamp, y: event.value })).sort((a, b) => a.x.getTime() - b.x.getTime())
-        }
-    ];
+    ]
 
     // Find last timestamp of all series then add this timestamp to other series
     const end_timestamps = series.map((x, i) => {
@@ -93,15 +139,6 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
         }
     }
 
-    for (const serie of series_features) {
-        if (serie.data.length == 0)
-            continue;
-        const lastElement = serie.data[serie.data.length - 1];
-        if (typeof lastElement === 'object' && lastElement !== null && 'y' in lastElement) {
-            (serie.data as { x: Date, y: number }[]).push({ x: last_timestamp.last, y: lastElement.y });
-        }
-    }
-
     // eslint-disable-next-line  @typescript-eslint/no-explicit-any
     function handleZoomChange(chartContext: any, { xaxis }: { xaxis: ZoomRange }) {
         const dateMin = new Date(xaxis.min);
@@ -110,7 +147,7 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
     }
 
     console.log('Series', series);
-    console.log('Other states', logfile.current.getThermostat(selectedThermostat)?.window_state);
+    console.log('Other states', series_features);
 
     const xaxis: ApexOptions['xaxis'] = {
         type: 'datetime',
@@ -228,14 +265,14 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                 height={350}
             />
             <Chart
-                type="area"
+                type="rangeBar"
                 className="chart"
                 height={200}
                 options={{
                     chart: {
                         id: 'feat-chart',
                         // group: 'log-charts',
-                        type: 'line',
+                        // type: 'rangeBar',
                         zoom: {
                             enabled: true,
                             allowMouseWheelZoom: false,
@@ -245,8 +282,14 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                             beforeResetZoom: onZoomReset
                         },
                     },
+                    colors: ['red', 'orange'],
                     title: {
                         text: t('graph.title_feature')
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: true
+                        }
                     },
                     legend: {
                         show: true,
@@ -254,24 +297,17 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                     dataLabels: {
                         enabled: false,
                     },
+                    yaxis: {
+                        labels: {
+                            formatter(val) {
+                                return t(`graph.${val}`);
+                            },
+                        }
+                    },
                     theme: {
                         mode: isDark ? 'dark' : 'light',
                     },
                     xaxis,
-                    stroke: { curve: 'stepline', width: 2 },
-                    yaxis: {
-                        labels: {
-                            formatter: (val) => {
-                                if (val == 1) return "ON";
-                                if (val == 0) return "OFF";
-                                if (val == -1) return "BYPASS";
-                                return val.toString();
-                            }
-                        },
-                        stepSize: 1,
-                        min: -1,
-                        max: 1,
-                    }
                 }}
                 series={series_features}
             />

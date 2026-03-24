@@ -11,7 +11,10 @@
         "regulated_temp": "Température régulée",
         "title_feature": "Fonctionnalités dans le temps",
         "window": "Fenêtre ouverte",
-        "safety": "Sécurité"
+        "safety": "Sécurité",
+        "startstop_state": "Start Stop",
+        "trigger": "Déclenché",
+        "bypass": "Bypass"
     },
     "reset": "Réinitialiser",
     "reload": "Réanalyser",
