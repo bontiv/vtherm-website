@@ -46,6 +46,49 @@ function feature_serie_builder(feature: "startstop_state" | "window_state" | "sa
     return result;
 }
 
+function feature_serie_builder_str(feature: "preset" | "hvac_mode", { logfile, selectedThermostat }: {
+    logfile: RefObject<LogParser>,
+    selectedThermostat: string,
+}) {
+    const vtherm = logfile.current.getThermostat(selectedThermostat)
+    if (!vtherm || !(feature in vtherm)) {
+        throw 'VTherm not found or serie not exist'
+    }
+
+    const data = vtherm[feature];
+    let start: Date | undefined = undefined;
+    let last_state = '';
+    const result = new Map();
+
+    function add_data(event: { timestamp: Date }) {
+        if (!result.has(last_state))
+            result.set(last_state, {
+                name: last_state,
+                data: []
+            })
+        result.get(last_state).data.push({ x: feature, y: [start, event.timestamp] })
+    }
+
+    for (const event of data) {
+        if (event.value != last_state && start === undefined) {
+            // New state (first state)
+            start = event.timestamp;
+            last_state = event.value;
+        } else if (event.value != last_state && start) {
+            // Change event
+            add_data(event)
+            start = event.timestamp;
+            last_state = event.value;
+        }
+    }
+    if (start) {
+        add_data(data[data.length - 1])
+    }
+
+    console.log('Data parsing', result)
+    return result.values();
+}
+
 function serie_builder(serie: "room_temps" | "target_temps" | "ext_temps" | "underlying_setpoints" | "regulated_temps" | "underlying_temps",
     { logfile, selectedThermostat }: {
         logfile: RefObject<LogParser>,
@@ -116,7 +159,11 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                 ...feature_serie_builder("window_state", { logfile, selectedThermostat }, FeatureState.BYPASS),
             ]
         },
+        ...feature_serie_builder_str("hvac_mode", { logfile, selectedThermostat }),
+        ...feature_serie_builder_str("preset", { logfile, selectedThermostat }),
     ]
+
+    console.log('hvac mode', logfile.current.getThermostat(selectedThermostat)?.hvac_mode)
 
     // Find last timestamp of all series then add this timestamp to other series
     const end_timestamps = series.map((x, i) => {
@@ -147,7 +194,7 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
     }
 
     console.log('Series', series);
-    console.log('Other states', series_features);
+    console.log('Features states', series_features);
 
     const xaxis: ApexOptions['xaxis'] = {
         type: 'datetime',
@@ -282,13 +329,14 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                             beforeResetZoom: onZoomReset
                         },
                     },
-                    colors: ['red', 'orange'],
+                    colors: ['red', 'orange', ...colors],
                     title: {
                         text: t('graph.title_feature')
                     },
                     plotOptions: {
                         bar: {
-                            horizontal: true
+                            horizontal: true,
+                            rangeBarGroupRows: true,
                         }
                     },
                     legend: {
@@ -296,6 +344,11 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                     },
                     dataLabels: {
                         enabled: false,
+                    },
+                    tooltip: {
+                        intersect: false,
+                        shared: true,
+                        enabled: true,
                     },
                     yaxis: {
                         labels: {

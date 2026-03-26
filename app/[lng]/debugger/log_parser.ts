@@ -13,7 +13,6 @@ const IGNORED_PATTERNS = [
     /feature_safety_manager\s*\] SafetyManager-.+ - checking safety delta_temp=/,
     /thermostat_climate_valve\s*\] .+ - last_regulation_change is now/,
     /thermostat_climate\s*\] .+ - period \([0-9.]+\) min is .+ min -> /,
-    /base_thermostat\s*\] .+ - Checking new cycle\./,
     /base_thermostat\s*\] .+ - After setting _last/,
     /Forget the event/,
     /After setting _last_temperature_measure/,
@@ -96,6 +95,8 @@ class VThermLogParser {
     public window_state: { timestamp: Date, value: FeatureState }[] = [];
     public safety_state: { timestamp: Date, value: FeatureState }[] = [];
     public startstop_state: { timestamp: Date, value: FeatureState }[] = [];
+    public preset: { timestamp: Date, value: string }[] = [];
+    public hvac_mode: { timestamp: Date, value: string }[] = [];
 
     public constructor(name: string) {
         this.name = name;
@@ -203,6 +204,7 @@ export class LogParser {
     private last_thermo: string | null = null;
 
     public central_boiler: { timestamp: Date, value: FeatureState }[] = []
+    public central_mode: { timestamp: Date, value: string }[] = []
 
     public constructor(logs?: string) {
         if (logs) {
@@ -300,7 +302,7 @@ export class LogParser {
 
         // Log Exporter format
         match = line.match(/\] (.+) - ---------------------> NEW EVENT:/)
-        if (match) {
+        if (match && match[1] != 'VersatileThermostat-Central Mode') {
             this.getThermoParser(match[1]).parseLog(new Date(time), line);
             return;
         }
@@ -377,9 +379,11 @@ export class LogParser {
             return;
         }
 
-        match = line.match(/base_thermostat\s*\] (VersatileThermostat-)?(.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
+        match = line.match(/base_thermostat\s*\] (VersatileThermostat-)?(.+) - current state changed to VThermState\(hvac_mode=(\w+), target_temperature=([0-9.]+), preset=(\w+),/)
         if (match) {
-            this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            this.getThermoParser(match[2]).preset.push({ timestamp: new Date(time), value: match[5] });
+            this.getThermoParser(match[2]).hvac_mode.push({ timestamp: new Date(time), value: match[3] });
             return;
         }
 
@@ -438,6 +442,25 @@ export class LogParser {
             return;
         }
 
+        match = line.match(/Central mode is being changed from \w+ to (\w+)/)
+        if (match) {
+            this.central_mode.push({ timestamp: new Date(time), value: match[1] })
+            return;
+        }
+
+        match = line.match(/base_thermostat\s*\] (.+) - Applying new hvac mode: (\w+)/)
+        if (match) {
+            this.getThermoParser(match[1]).hvac_mode.push({ timestamp: new Date(time), value: match[2] })
+            return;
+        }
+
+        match = line.match(/base_thermostat\s*\] (.+) - Checking new cycle\. hvac_mode=(\w+), safety_state=(\w+), preset_mode=(\w+),/)
+        if (match) {
+            this.getThermoParser(match[1]).hvac_mode.push({ timestamp: new Date(time), value: match[2] })
+            this.getThermoParser(match[1]).preset.push({ timestamp: new Date(time), value: match[4] })
+            this.getThermoParser(match[1]).safety_state.push({ timestamp: new Date(time), value: match[3] == 'on' ? FeatureState.TRIGGER : FeatureState.NORMAL })
+            return
+        }
 
         /*
          * Fallback parsing section
