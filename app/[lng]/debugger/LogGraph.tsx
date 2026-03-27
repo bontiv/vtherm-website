@@ -85,7 +85,6 @@ function feature_serie_builder_str(feature: "preset" | "hvac_mode", { logfile, s
         add_data(data[data.length - 1])
     }
 
-    console.log('Data parsing', result)
     return result.values();
 }
 
@@ -101,6 +100,24 @@ function serie_builder(serie: "room_temps" | "target_temps" | "ext_temps" | "und
 
     const data = vtherm[serie];
     return data.map(event => ({ x: event.timestamp, y: event.value })).sort(dateSort) || []
+}
+
+function count_features(series: ApexOptions['series']): number {
+    const dataSet = new Set<string>()
+
+    if (series == undefined)
+        return 0
+
+    for (const serie of series) {
+        if (typeof serie === 'object' && 'data' in serie) {
+            for (const data of serie.data) {
+                if (typeof data === 'object' && data && 'x' in data) {
+                    dataSet.add(data.x)
+                }
+            }
+        }
+    }
+    return dataSet.size
 }
 
 const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: string, onZoomChange?: ZoomCallback, zoom?: ZoomType, onZoomReset?: () => void }> = ({ logfile, selectedThermostat, onZoomChange, zoom, onZoomReset }) => {
@@ -163,8 +180,6 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
         ...feature_serie_builder_str("preset", { logfile, selectedThermostat }),
     ]
 
-    console.log('hvac mode', logfile.current.getThermostat(selectedThermostat)?.hvac_mode)
-
     // Find last timestamp of all series then add this timestamp to other series
     const end_timestamps = series.map((x, i) => {
         if (x.data.length == 0)
@@ -176,6 +191,13 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
         .sort((a, b) => a.last.getTime() - b.last.getTime())
 
     const last_timestamp = end_timestamps[end_timestamps.length - 1]
+    const first_timestamp = series.filter(x => x.data.length > 0).map((x, i) => {
+        const firstElement = x.data[0];
+        return {
+            serie: i,
+            first: typeof firstElement === 'object' && firstElement !== null && 'x' in firstElement ? firstElement.x : null
+        }
+    }).filter(x => x.first != null)[0]
 
     for (const [i, serie] of series.entries()) {
         if (i == last_timestamp.serie || serie.data.length == 0)
@@ -193,18 +215,17 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
         if (onZoomChange != undefined) onZoomChange(dateMin, dateMax);
     }
 
-    console.log('Series', series);
-    console.log('Features states', series_features);
+    if (process.env.NODE_ENV === 'development') {
+        console.log('Series', series);
+        console.log('Features states', series_features);
+    }
 
     const xaxis: ApexOptions['xaxis'] = {
         type: 'datetime',
         title: { text: 'Time' },
         labels: { format: 'HH:mm:ss', datetimeUTC: false },
-        min: zoom?.enabled ? zoom?.mindate?.getTime() : undefined,
-        max: zoom?.enabled ? zoom?.maxdate?.getTime() : undefined,
-        tooltip: {
-            formatter: (value) => new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)),
-        }
+        min: zoom?.enabled ? zoom?.mindate?.getTime() : first_timestamp.first.getTime(),
+        max: zoom?.enabled ? zoom?.maxdate?.getTime() : last_timestamp.last.getTime(),
     };
 
     useEffect(() => {
@@ -297,10 +318,17 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                               </div>`;
                         },
                     },
-                    xaxis,
+                    xaxis: {
+                        tooltip: {
+                            formatter: (value) => {
+                                return value ? new Intl.DateTimeFormat(i18n.language, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)) : ''
+                            },
+                        },
+                        ...xaxis
+                    },
                     yaxis: {
                         labels: {
-                            formatter: (val: number) => val.toFixed(2)
+                            formatter: (val: number) => val ? val.toFixed(2) : ''
                         }
                     },
                     stroke: { curve: 'stepline', width: [2, 2, 1, 1, 1.5, 1.5] },
@@ -314,12 +342,11 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
             <Chart
                 type="rangeBar"
                 className="chart"
-                height={200}
+                height={140 + count_features(series_features) * 20}
                 options={{
                     chart: {
                         id: 'feat-chart',
                         // group: 'log-charts',
-                        // type: 'rangeBar',
                         zoom: {
                             enabled: true,
                             allowMouseWheelZoom: false,
@@ -348,7 +375,7 @@ const LogGraph: React.FC<{ logfile: RefObject<LogParser>, selectedThermostat: st
                     tooltip: {
                         intersect: false,
                         shared: true,
-                        enabled: true,
+                        enabled: false,
                     },
                     yaxis: {
                         labels: {
