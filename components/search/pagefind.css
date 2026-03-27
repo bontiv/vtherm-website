@@ -8,7 +8,9 @@
     --pagefind-ui-border: #e2e8f0;
     --pagefind-ui-tag: #f1f5f9;
     max-width: 500px;
-    @apply has-focus:fixed has-focus:left-16 has-focus:right-2;
+    @apply has-focus:fixed has-focus:left-16 has-focus:right-2 md:has-focus:relative md:has-focus:left-auto md:has-focus:right-auto;
+    ;
+
     @apply relative;
 }
 
