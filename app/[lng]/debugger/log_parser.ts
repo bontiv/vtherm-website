@@ -1,21 +1,32 @@
 const IGNORED_PATTERNS = [
-    /\[custom_components.versatile_thermostat.auto_tpi_manager\]/,
+    /auto_tpi_manager\s*\]/,
     /Last_sent_temperature/,
     /no change in valve_open_percent/,
     /recalculate the open percent/,
     /underlying_climate_start_hvac_action_date to calculate energy/,
-    /\[custom_components\.versatile_thermostat\.thermostat_climate\] .+ - usage time_delta:/,
-    /\[custom_components\.versatile_thermostat\.thermostat_climate\] .+ - usage regulation_step:/,
-    /\[custom_components\.versatile_thermostat\.feature_heating_failure_detection_manager\]/,
-    /\[custom_components\.versatile_thermostat\.thermostat_climate\] .+ - Calling ThermostatClimate\._send_regulated_temperature/,
-    /\[custom_components\.versatile_thermostat\.feature_auto_start_stop_manager\] .* - auto start\/stop is /,
-    /\[custom_components\.versatile_thermostat\.base_thermostat\] .+ - last_change_time is now/,
-    /\[custom_components\.versatile_thermostat\.feature_safety_manager\] SafetyManager-.+ - checking safety delta_temp=/,
-    /\[custom_components\.versatile_thermostat\.thermostat_climate_valve\] .+ - last_regulation_change is now/,
-    /\[custom_components\.versatile_thermostat\.thermostat_climate\] VersatileThermostat-.+ - period \([0-9.]+\) min is .+ min -> /,
-    /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - Checking new cycle\./,
-    /\[custom_components\.versatile_thermostat\.base_thermostat\] VersatileThermostat-.+ - After setting _last/,
+    /thermostat_climate\s*\] .+ - usage time_delta:/,
+    /thermostat_climate\s*\] .+ - usage regulation_step:/,
+    /feature_heating_failure_detection_manager\s*\]/,
+    /thermostat_climate\s*\] .+ - Calling ThermostatClimate\._send_regulated_temperature/,
+    /feature_auto_start_stop_manager\s*\] .* - auto start\/stop is /,
+    /base_thermostat\s*\] .+ - last_change_time is now/,
+    /feature_safety_manager\s*\] SafetyManager-.+ - checking safety delta_temp=/,
+    /thermostat_climate_valve\s*\] .+ - last_regulation_change is now/,
+    /thermostat_climate\s*\] .+ - period \([0-9.]+\) min is .+ min -> /,
+    /base_thermostat\s*\] .+ - After setting _last/,
     /Forget the event/,
+    /After setting _last_temperature_measure/,
+    /Window auto event is ignored/,
+    /feature_window_manager\].+check the alert/,
+    /thermostat_climate\s*\] .+ - added energy is/,
+    /thermostat_climate\s*\] .+ - incremente_energy incremented energy is/,
+    /thermostat_climate\s*\] .+ - don't send regulated temperature/,
+    /auto_start_stop_algorithm\s*\] AutoStartStopDetectionAlgorithm-.* - new calculation of auto_start_stop/,
+    /auto_start_stop_algorithm\s*\] AutoStartStopDetectionAlgorithm-.* - calculate_action: requested_hvac_mode=/,
+    /auto_start_stop_algorithm\s*\] AutoStartStopDetectionAlgorithm-.* - nothing to do/,
+    /underlying event is received less than 10 sec after command/,
+    /do_set_temperature_later call/,
+    / new last_temperature_measure is now: /,
 ]
 
 const ADV_FILTER_RULES = [
@@ -44,6 +55,31 @@ export enum FeatureState {
     TRIGGER = 1,
 }
 
+export type ZoomType = {
+    mindate?: Date,
+    maxdate?: Date,
+    enabled: boolean
+}
+
+export const CHUNK_SIZE = 2 * 1024 * 1024; // 2 Mo par chunk
+export const LINES_PER_TICK = 500;         // lignes traitées avant de céder le thread + mise à jour de la progression
+
+/** Lit un Blob en texte de façon asynchrone */
+export function readBlobAsText(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error);
+        reader.readAsText(blob);
+    });
+}
+
+
+/** Cède le contrôle au navigateur (évite le freeze) */
+export function yieldToMain(): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 class VThermLogParser {
     private name: string;
     public underlying_setpoints: { timestamp: Date, value: number }[] = [];
@@ -58,6 +94,9 @@ class VThermLogParser {
 
     public window_state: { timestamp: Date, value: FeatureState }[] = [];
     public safety_state: { timestamp: Date, value: FeatureState }[] = [];
+    public startstop_state: { timestamp: Date, value: FeatureState }[] = [];
+    public preset: { timestamp: Date, value: string }[] = [];
+    public hvac_mode: { timestamp: Date, value: string }[] = [];
 
     public constructor(name: string) {
         this.name = name;
@@ -165,6 +204,7 @@ export class LogParser {
     private last_thermo: string | null = null;
 
     public central_boiler: { timestamp: Date, value: FeatureState }[] = []
+    public central_mode: { timestamp: Date, value: string }[] = []
 
     public constructor(logs?: string) {
         if (logs) {
@@ -228,209 +268,166 @@ export class LogParser {
     }
 
     public parseLine(line: string) {
+        let time: string | undefined = undefined;
+
+        // Format HA
+        let match = line.match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?) \w+ \(MainThread\) \[custom_components\.versatile_thermostat\./)
+        if (match) {
+            time = match[1];
+        }
+
+        // Format VTherm
+        match = line.match(/(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?)\s+\w+\s+\[\s*\w+\s*\] /)
+        if (match) {
+            time = match[1];
+        }
+
+        if (!time) {
+            console.warn('Date not found or not vTherm:', line)
+            return;
+        }
+
         for (const pattern of IGNORED_PATTERNS) {
             if (line.search(pattern) !== -1) {
                 return;
             }
         }
 
-        let match = line.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{3})?/)
-        if (!match) {
-            console.warn('Date not found:', line)
-            return
-        }
-        const time = match[0];
 
-        match = line.match(/NEW EVENT: VersatileThermostat-(.+) - /)
+        match = line.match(/NEW EVENT: (VersatileThermostat-)?(.+) - /)
         if (match) {
-            this.getThermoParser(match[1]).parseLog(new Date(time), line);
+            this.getThermoParser(match[2]).parseLog(new Date(time), line);
             return;
         }
 
         // Log Exporter format
         match = line.match(/\] (.+) - ---------------------> NEW EVENT:/)
-        if (match) {
+        if (match && match[1] != 'VersatileThermostat-Central Mode') {
             this.getThermoParser(match[1]).parseLog(new Date(time), line);
             return;
         }
 
-        // Block for HA log format
-        if (line.search("custom_components.versatile_thermostat") >= 0) {
-            match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] (VersatileThermostat-)?(.+)-climate\..+ Set setpoint temperature to: ([0-9.]+)/)
-            if (match) {
-                this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.prop_algorithm\] (.+) - heating percent calculated for current_temp ([0-9.]+), ext_current_temp ([0-9.]+) and target_temp ([0-9.]+)/)
-            if (match) {
-                this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                this.getThermoParser(match[1]).ext_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+)\. New target is ([0-9.]+)/)
-            if (match) {
-                if (match[3] != "0.00" && match[4] != "0.00") {
-                    this.getThermoParser(match[2]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                    this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                }
-                this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate(_valve)?\] (VersatileThermostat-)?(.+) - Calling update_custom_attributes: (.+)/)
-            if (match) {
-                this.getThermoParser(match[3]).parseState(new Date(time), match[4]);
-                return
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - Regulated temp have changed to ([0-9.]+)\. Resend it to underlyings/)
-            if (match) {
-                this.getThermoParser(match[2]).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.thermostat_climate\] (VersatileThermostat-)?(.+) - regulation calculation will be done/)
-            if (match) {
-                this.last_thermo = match[2];
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.pi_algorithm\] PITemperatureRegulator - Error: ([0-9.]+) accumulated_error: ([0-9.]+) \(overheat protection True and delta ([0-9.]+)\) offset: ([0-9.]+) offset_ext: ([0-9.]+) target_tem: ([0-9.]+) regulatedTemp: ([0-9.]+)/)
-            if (match && this.last_thermo) {
-                // this.getThermoParser(this.last_thermo).pi_errors.push({ timestamp: new Date(time), value: parseFloat(match[1]) });
-                // this.getThermoParser(this.last_thermo).pi_accumulated_errors.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                // this.getThermoParser(this.last_thermo).pi_deltas.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                this.getThermoParser(this.last_thermo).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                // this.getThermoParser(this.last_thermo).pi_offset_exts.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
-                this.getThermoParser(this.last_thermo).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[6]) });
-                this.getThermoParser(this.last_thermo).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[7]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] (VersatileThermostat-)?(.+) - Applying new target temperature: ([0-9.]+)/)
-            if (match) {
-                this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.ema\] EMA-(.+) - .+ measurement=([0-9.]+) /)
-            if (match) {
-                this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.prop_algorithm\] (.+) - Proportional algorithm: on_percent is forced to 0 cause current_temp \(([0-9.]+)\) /)
-            if (match) {
-                this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.base_thermostat\] (VersatileThermostat-)?(.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
-            if (match) {
-                this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                return;
-            }
-
-            match = line.match(/\[custom_components\.versatile_thermostat\.underlyings\] (VersatileThermostat-)?(.+)-climate\..* --------> Underlying state change received:.*current_temperature=([0-9.]+), temperature=([0-9.]+),/)
-            if (match) {
-                this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                return;
-            }
+        match = line.match(/underlyings\s*\] (VersatileThermostat-)?(.+)-climate\..+ Set setpoint temperature to: ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            return;
         }
-        else {
-            // Block for new log format
-            match = line.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} [A-Z]+\s+\[[\s\w]+\] /)
-            if (match) {
-                match = line.match(/\[\s*underlyings\s*\] (.+)-climate\..+ Set setpoint temperature to: ([0-9.]+)/)
-                if (match) {
-                    this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    return;
-                }
 
-                match = line.match(/\[\s*prop_algorithm\s*\] (.+) - heating percent calculated for current_temp ([0-9.]+), ext_current_temp ([0-9.]+) and target_temp ([0-9.]+)/)
-                if (match) {
-                    this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    this.getThermoParser(match[1]).ext_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                    this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                    return;
-                }
+        match = line.match(/prop_algorithm\s*\] (.+) - heating percent calculated for current_temp ([0-9.]+), ext_current_temp ([0-9.]+) and target_temp ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            this.getThermoParser(match[1]).ext_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            return;
+        }
 
-                match = line.match(/\[\s*thermostat_climate\s*\] (.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+)\. New target is ([0-9.]+)/)
-                if (match) {
-                    if (match[2] != "0.00" && match[3] != "0.00") {
-                        this.getThermoParser(match[1]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                        this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                    }
-                    this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*thermostat_climate(_valve)?\s*\] (.+) - Calling update_custom_attributes: (.+)/)
-                if (match) {
-                    this.getThermoParser(match[2]).parseState(new Date(time), match[3]);
-                    return
-                }
-
-                match = line.match(/\[\s*thermostat_climate\s*\] (.+) - Regulated temp have changed to ([0-9.]+)\. Resend it to underlyings/)
-                if (match) {
-                    this.getThermoParser(match[1]).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*thermostat_climate\s*\] (.+) - regulation calculation will be done/)
-                if (match) {
-                    this.last_thermo = match[1];
-                    return;
-                }
-
-                match = line.match(/\[\s*pi_algorithm\s*\] PITemperatureRegulator - Error: ([0-9.]+) accumulated_error: ([0-9.]+) \(overheat protection True and delta ([0-9.]+)\) offset: ([0-9.]+) offset_ext: ([0-9.]+) target_tem: ([0-9.]+) regulatedTemp: ([0-9.]+)/)
-                if (match && this.last_thermo) {
-                    // this.getThermoParser(this.last_thermo).pi_errors.push({ timestamp: new Date(time), value: parseFloat(match[1]) });
-                    // this.getThermoParser(this.last_thermo).pi_accumulated_errors.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    // this.getThermoParser(this.last_thermo).pi_deltas.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                    this.getThermoParser(this.last_thermo).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
-                    // this.getThermoParser(this.last_thermo).pi_offset_exts.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
-                    this.getThermoParser(this.last_thermo).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[6]) });
-                    this.getThermoParser(this.last_thermo).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[7]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*base_thermostat\s*\] (.+) - Applying new target temperature: ([0-9.]+)/)
-                if (match) {
-                    this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*ema\s*\] EMA-(.+) - .+ measurement=([0-9.]+) /)
-                if (match) {
-                    this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*prop_algorithm\s*\] (.+) - Proportional algorithm: on_percent is forced to 0 cause current_temp \(([0-9.]+)\) /)
-                if (match) {
-                    this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*base_thermostat\s*\] (.+) - current state changed to VThermState\(hvac_mode=.+, target_temperature=([0-9.]+), preset=/)
-                if (match) {
-                    this.getThermoParser(match[1]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    return;
-                }
-
-                match = line.match(/\[\s*underlyings\s*\] (.+)-climate\..* --------> Underlying state change received:.*current_temperature=([0-9.]+), temperature=([0-9.]+),/)
-                if (match) {
-                    this.getThermoParser(match[1]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
-                    this.getThermoParser(match[1]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
-                    return;
-                }
+        match = line.match(/thermostat_climate\s*\] (VersatileThermostat-)?(.+) - The device offset temp for regulation is ([0-9.]+) - internal temp is ([0-9.]+)\. New target is ([0-9.]+)/)
+        if (match) {
+            if (match[3] != "0.00" && match[4] != "0.00") {
+                this.getThermoParser(match[2]).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+                this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
             }
+            this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
+            return;
+        }
 
+        match = line.match(/thermostat_climate(_valve)?\s*\] (VersatileThermostat-)?(.+) - Calling update_custom_attributes: (.+)/)
+        if (match) {
+            this.getThermoParser(match[3]).parseState(new Date(time), match[4]);
+            return
+        }
+
+        match = line.match(/thermostat_climate\s*\] (VersatileThermostat-)?(.+) - Regulated temp have changed to ([0-9.]+)\. Resend it to underlyings/)
+        if (match) {
+            this.getThermoParser(match[2]).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            return;
+        }
+
+        match = line.match(/thermostat_climate\s*\] (VersatileThermostat-)?(.+) - regulation calculation will be done/)
+        if (match) {
+            this.last_thermo = match[2];
+            return;
+        }
+
+        match = line.match(/pi_algorithm\s*\] PITemperatureRegulator - Error: ([0-9.]+) accumulated_error: ([0-9.]+) \(overheat protection True and delta ([0-9.]+)\) offset: ([0-9.]+) offset_ext: ([0-9.]+) target_tem: ([0-9.]+) regulatedTemp: ([0-9.]+)/)
+        if (match && this.last_thermo) {
+            // this.getThermoParser(this.last_thermo).pi_errors.push({ timestamp: new Date(time), value: parseFloat(match[1]) });
+            // this.getThermoParser(this.last_thermo).pi_accumulated_errors.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            // this.getThermoParser(this.last_thermo).pi_deltas.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(this.last_thermo).offset_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            // this.getThermoParser(this.last_thermo).pi_offset_exts.push({ timestamp: new Date(time), value: parseFloat(match[5]) });
+            this.getThermoParser(this.last_thermo).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[6]) });
+            this.getThermoParser(this.last_thermo).regulated_temps.push({ timestamp: new Date(time), value: parseFloat(match[7]) });
+            return;
+        }
+
+        match = line.match(/base_thermostat\s*\] (VersatileThermostat-)?(.+) - Applying new target temperature: ([0-9.]+)/)
+        if (match) {
+            this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            return;
+        }
+
+        match = line.match(/ema\s*\] EMA-(.+) - .+ measurement=([0-9.]+) /)
+        if (match) {
+            this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/prop_algorithm\s*\] (.+) - Proportional algorithm: on_percent is forced to 0 cause current_temp \(([0-9.]+)\) /)
+        if (match) {
+            this.getThermoParser(match[1]).room_temps.push({ timestamp: new Date(time), value: parseFloat(match[2]) });
+            return;
+        }
+
+        match = line.match(/base_thermostat\s*\] (VersatileThermostat-)?(.+) - current state changed to VThermState\(hvac_mode=(\w+), target_temperature=([0-9.]+), preset=(\w+),/)
+        if (match) {
+            this.getThermoParser(match[2]).target_temps.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            this.getThermoParser(match[2]).preset.push({ timestamp: new Date(time), value: match[5] });
+            this.getThermoParser(match[2]).hvac_mode.push({ timestamp: new Date(time), value: match[3] });
+            return;
+        }
+
+        match = line.match(/underlyings\s*\] (VersatileThermostat-)?(.+)-climate\..* --------> Underlying state change received:.*current_temperature=([0-9.]+), temperature=([0-9.]+),/)
+        if (match) {
+            this.getThermoParser(match[2]).underlying_temps.push({ timestamp: new Date(time), value: parseFloat(match[3]) });
+            this.getThermoParser(match[2]).underlying_setpoints.push({ timestamp: new Date(time), value: parseFloat(match[4]) });
+            return;
+        }
+
+        match = line.match(/feature_auto_start_stop_manager\s*\] AutoStartStopManager-(.*) - VTherm should be OFF/)
+        if (match) {
+            this.getThermoParser(match[1]).startstop_state.push({ timestamp: new Date(time), value: FeatureState.TRIGGER });
+            return;
+        }
+
+        match = line.match(/feature_auto_start_stop_manager\s*\] AutoStartStopManager-(.*) - VTherm should be ON/)
+        if (match) {
+            this.getThermoParser(match[1]).startstop_state.push({ timestamp: new Date(time), value: FeatureState.NORMAL });
+            return;
+        }
+
+        match = line.match(/feature_auto_start_stop_manager\s*\] AutoStartStopManager-(.*) - auto_start_stop should be off is True/)
+        if (match) {
+            this.getThermoParser(match[1]).startstop_state.push({ timestamp: new Date(time), value: FeatureState.TRIGGER });
+            return;
+        }
+
+        match = line.match(/feature_auto_start_stop_manager\s*\] AutoStartStopManager-(.*) - auto_start_stop should be off is False/)
+        if (match) {
+            this.getThermoParser(match[1]).startstop_state.push({ timestamp: new Date(time), value: FeatureState.NORMAL });
+            return;
+        }
+
+        match = line.match(/auto_start_stop_algorithm\s*\] AutoStartStopDetectionAlgorithm-(.*) - We need to stop, there is no need for cooling for a long time/)
+        if (match) {
+            this.getThermoParser(match[1]).startstop_state.push({ timestamp: new Date(time), value: FeatureState.TRIGGER });
+            return;
+        }
+
+        match = line.match(/auto_start_stop_algorithm\s*\] AutoStartStopDetectionAlgorithm-(.*) - We need to start cooling./)
+        if (match) {
+            this.getThermoParser(match[1]).startstop_state.push({ timestamp: new Date(time), value: FeatureState.NORMAL });
+            return;
         }
 
         match = line.match(/Central boiler is being turned on /)
@@ -445,6 +442,25 @@ export class LogParser {
             return;
         }
 
+        match = line.match(/Central mode is being changed from \w+ to (\w+)/)
+        if (match) {
+            this.central_mode.push({ timestamp: new Date(time), value: match[1] })
+            return;
+        }
+
+        match = line.match(/base_thermostat\s*\] (.+) - Applying new hvac mode: (\w+)/)
+        if (match) {
+            this.getThermoParser(match[1]).hvac_mode.push({ timestamp: new Date(time), value: match[2] })
+            return;
+        }
+
+        match = line.match(/base_thermostat\s*\] (.+) - Checking new cycle\. hvac_mode=(\w+), safety_state=(\w+), preset_mode=(\w+),/)
+        if (match) {
+            this.getThermoParser(match[1]).hvac_mode.push({ timestamp: new Date(time), value: match[2] })
+            this.getThermoParser(match[1]).preset.push({ timestamp: new Date(time), value: match[4] })
+            this.getThermoParser(match[1]).safety_state.push({ timestamp: new Date(time), value: match[3] == 'on' ? FeatureState.TRIGGER : FeatureState.NORMAL })
+            return
+        }
 
         /*
          * Fallback parsing section

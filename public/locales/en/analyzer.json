@@ -11,7 +11,12 @@
         "regulated_temp": "Regulated temperature",
         "title_feature": "Feature state over time",
         "window": "Open window",
-        "safety": "Safety guard"
+        "safety": "Safety guard",
+        "startstop_state": "Start Stop",
+        "trigger": "Trigger",
+        "bypass": "Bypass",
+        "hvac_mode": "HVAC Mode",
+        "preset": "Preset"
     },
     "reset": "Reset",
     "reload": "Reload",
