@@ -19,7 +19,7 @@ import { opengraph_defaults } from "@/lib/opengraph";
 import Semantic from "@/components/Semantic";
 
 /// Last stable release pattern
-const stable_release = "9.2.*";
+const stable_release = "9.3.*";
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
