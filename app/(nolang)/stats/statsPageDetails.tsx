@@ -2,30 +2,68 @@
 
 import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
+import useSWR from 'swr';
 
 export type ReleaseInfos = {
     tag_name: string,
-    downloads: number,
-    installs: number
+    assets_url: string,
+    prerelease: boolean,
 }
 
-const StatsPageDetails: React.FC<{ data: ReleaseInfos[] }> = ({ data }) => {
+const StatsPageDetails: React.FC = () => {
     const formater = new Intl.NumberFormat('fr', {})
+
     const [isDark, setDark] = useState<boolean>(() => {
         if (typeof window === 'undefined') return false
         const mq = window.matchMedia('(prefers-color-scheme: dark)')
         return document.documentElement.classList.contains('dark') || mq.matches
-    });
+    })
+
+    const releases = useSWR('https://api.github.com/repos/jmcollin78/versatile_thermostat/releases', {
+        fetcher: (url) => fetch(url).then(res => res.json()).then(releases => releases.filter((x: ReleaseInfos) => x.prerelease == false)),
+    })
+    console.log('Github releases:', releases.data)
+
+    const ha_analytics = useSWR('/stats/ha_stats.json', {
+        fetcher: (url) => fetch(url).then(res => res.json()).then(json => json.ha_analytics.versatile_thermostat.versions),
+    })
+
+    const github_assets = useSWR('github/assets', {
+        fetcher: async () => {
+            const downloads_by_version: Record<string, number> = {}
+            for (const release of releases.data) {
+                try {
+                    const assets = await (await fetch(release.assets_url)).json()
+                    if (assets && assets.length > 0) {
+                        downloads_by_version[release.tag_name] = assets[0]?.download_count || 0
+                    } else {
+                        throw new Error(`No assets found for release ${release.tag_name}`)
+                    }
+                } catch (error) {
+                    console.error(`Error fetching assets for release ${release.tag_name}:`, error)
+                    throw error
+                }
+            }
+            return downloads_by_version
+        }
+    })
+    console.log('Github assets:', github_assets.data, github_assets.error, github_assets.isLoading)
 
     const series = [
         {
             name: 'Downloads',
             type: 'line',
-            data: data.map(x => ({ x: x.tag_name, y: x.downloads })).reverse()
+            data: releases.data.map((release: ReleaseInfos) => ({
+                x: release.tag_name,
+                y: github_assets.data[release.tag_name] || 0
+            })).reverse()
         },
         {
             name: 'Actives Installs',
-            data: data.map(x => ({ x: x.tag_name, y: x.installs })).reverse()
+            data: releases.data.map((release: ReleaseInfos) => ({
+                x: release.tag_name,
+                y: ha_analytics.data[release.tag_name] || 0
+            })).reverse()
         }
     ]
 
@@ -106,11 +144,11 @@ const StatsPageDetails: React.FC<{ data: ReleaseInfos[] }> = ({ data }) => {
                 </tr>
             </thead>
             <tbody>
-                {data.map(relinfo =>
+                {releases.data.map((relinfo: ReleaseInfos) =>
                     <tr className="border-t" key={relinfo.tag_name}>
                         <td className="px-4">{relinfo.tag_name}</td>
-                        <td className="px-4 text-right">{formater.format(relinfo.downloads)}</td>
-                        <td className="px-4 text-right">{formater.format(relinfo.installs)}</td>
+                        <td className="px-4 text-right">{formater.format(github_assets.data[relinfo.tag_name] || 0)}</td>
+                        <td className="px-4 text-right">{formater.format(ha_analytics.data[relinfo.tag_name] || 0)}</td>
                     </tr>
                 )}
             </tbody>
