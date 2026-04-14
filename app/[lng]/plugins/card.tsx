@@ -1,3 +1,5 @@
+import { useT } from "@/app/i18n/client";
+
 type PluginType = 'blueprint' | 'integration' | 'interface';
 type CertificationLevel = 'community' | 'recommended' | 'maintainer';
 
@@ -18,17 +20,14 @@ interface PluginCardProps {
 
 const typeConfig = {
     blueprint: {
-        label: 'Blueprint',
         color: '#306BE5',
         bgColor: 'rgba(48, 107, 229, 0.08)'
     },
     integration: {
-        label: 'Intégration',
         color: '#E67249',
         bgColor: 'rgba(230, 114, 73, 0.08)'
     },
     interface: {
-        label: 'Interface',
         color: '#3EB0F2',
         bgColor: 'rgba(62, 176, 242, 0.08)'
     }
@@ -36,17 +35,14 @@ const typeConfig = {
 
 const certConfig = {
     maintainer: {
-        label: 'Officiel',
         color: 'var(--color-vtherm-tertiary)',
         icon: '★'
     },
     recommended: {
-        label: 'Recommandé',
         color: 'var(--color-vtherm-quaternary)',
         icon: '◆'
     },
     community: {
-        label: 'Communautaire',
         color: 'var(--color-vtherm-secondary)',
         icon: '●'
     }
@@ -55,6 +51,7 @@ const certConfig = {
 export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
+    const { t } = useT('plugins');
 
     return (
         <div
@@ -97,7 +94,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
                         border: `1px solid ${typeStyle.color}20`,
                     }}
                 >
-                    {typeStyle.label}
+                    {t(`types.${plugin.type}`)}
                 </div>
             </div>
 
@@ -131,7 +128,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
                             color: certStyle.color,
                         }}
                     >
-                        {certStyle.label}
+                        {t(`certification.${plugin.certification}`)}
                     </span>
                 </div>
 

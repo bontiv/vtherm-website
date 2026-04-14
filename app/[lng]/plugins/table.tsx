@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PluginCard } from './card';
+import { useT } from '@/app/i18n/client';
 
 type PluginType = 'blueprint' | 'integration' | 'interface';
 type CertificationLevel = 'community' | 'recommended' | 'maintainer';
@@ -76,6 +77,7 @@ const mockPlugins: Plugin[] = [
 export default function PluginTable() {
     const [selectedType, setSelectedType] = useState<PluginType | 'all'>('all');
     const [selectedCert, setSelectedCert] = useState<CertificationLevel | 'all'>('all');
+    const { t } = useT('plugins');
 
     const filteredPlugins = mockPlugins.filter(plugin => {
         const typeMatch = selectedType === 'all' || plugin.type === selectedType;
@@ -91,7 +93,7 @@ export default function PluginTable() {
                     <div className="flex items-center gap-4 mb-4">
                         <h1 className='p-0 text-(--color-primary)'
                         >
-                            Compléments disponibles
+                            {t('title')}
                         </h1>
                         <div
                             className="px-3 py-1 rounded-full self-start text-xs font-medium text-white bg-(--color-primary) tracking-wide"
@@ -100,7 +102,7 @@ export default function PluginTable() {
                         </div>
                     </div>
                     <p className="m-0 max-w-3xl dark:text-slate-300 text-slate-800">
-                        Étendez les fonctionnalités avec des intégrations, interfaces et blueprints créés par la communauté
+                        {t('description_short')}
                     </p>
                 </div>
 
@@ -111,28 +113,28 @@ export default function PluginTable() {
                             active={selectedType === 'all'}
                             onClick={() => setSelectedType('all')}
                         >
-                            Tous types
+                            {t('types.all')}
                         </FilterButton>
                         <FilterButton
                             active={selectedType === 'blueprint'}
                             onClick={() => setSelectedType('blueprint')}
                             color="var(--color-blue-500)"
                         >
-                            Blueprints
+                            {t('types.blueprint')}
                         </FilterButton>
                         <FilterButton
                             active={selectedType === 'integration'}
                             onClick={() => setSelectedType('integration')}
                             color="var(--color-orange-400)"
                         >
-                            Intégrations
+                            {t('types.integration')}
                         </FilterButton>
                         <FilterButton
                             active={selectedType === 'interface'}
                             onClick={() => setSelectedType('interface')}
                             color="var(--color-sky-500)"
                         >
-                            Interfaces
+                            {t('types.interface')}
                         </FilterButton>
                     </div>
                     <div className="w-px h-8 my-0 mx-2 bg-slate-300" />
@@ -141,28 +143,28 @@ export default function PluginTable() {
                             active={selectedCert === 'all'}
                             onClick={() => setSelectedCert('all')}
                         >
-                            Toutes
+                            {t('certification.all')}
                         </FilterButton>
                         <FilterButton
                             active={selectedCert === 'maintainer'}
                             onClick={() => setSelectedCert('maintainer')}
                             color="var(--color-vtherm-tertiary)"
                         >
-                            ★ Officiel
+                            ★ {t('certification.maintainer')}
                         </FilterButton>
                         <FilterButton
                             active={selectedCert === 'recommended'}
                             onClick={() => setSelectedCert('recommended')}
                             color="var(--color-vtherm-quaternary)"
                         >
-                            ◆ Recommandé
+                            ◆ {t('certification.recommended')}
                         </FilterButton>
                         <FilterButton
                             active={selectedCert === 'community'}
                             onClick={() => setSelectedCert('community')}
                             color="var(--color-vtherm-secondary)"
                         >
-                            ● Communautaire
+                            ● {t('certification.community')}
                         </FilterButton>
                     </div>
                 </div>
