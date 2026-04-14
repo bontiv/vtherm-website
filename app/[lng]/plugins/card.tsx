@@ -51,7 +51,7 @@ const certConfig = {
     }
 };
 
-export function PluginCard({ plugin, index }: PluginCardProps) {
+export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
 
