@@ -12,6 +12,8 @@
   --color-vtherm-quaternary: #3EB0F2;
   --color-vtherm-light: #E7EFF9;
   --color-vtherm-dark: #121214;
+  --color-primary: var(--color-vtherm-tertiary);
+  --color-secondary: var(--color-vtherm-secondary);
 }
 
 /* Variables CSS globales */
@@ -19,7 +21,7 @@
   --sidebar-width: 247px;
 
   @variant dark {
-    --color-primary: var(--color-blue-400);
+    --color-primary: var(--color-vtherm-primary);
     --color-secondary: var(--color-sky-500);
     --color-background: #0d1117;
     --color-forground: #f0f6fc;
@@ -89,7 +91,7 @@ nav.vtherm-navigation {
 
 @layer components {
   h1 {
-    @apply text-4xl text-vtherm-primary font-bold py-4;
+    @apply text-4xl text-vtherm-primary font-medium py-4;
 
     @variant dark {
       @apply text-vtherm-secondary;
