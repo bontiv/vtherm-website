@@ -3,6 +3,7 @@ type CertificationLevel = 'community' | 'recommended' | 'maintainer';
 
 interface Plugin {
     id: string;
+    slug: string,
     name: string;
     author: string;
     description: string;
@@ -66,6 +67,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
             hover:shadow-(color:--card-color)
             shadow-sm hover:shadow-xl/60
             hover:-translate-y-2
+            flex flex-col
             `}
             style={{
                 '--card-color': `${typeStyle.color}`
@@ -101,13 +103,13 @@ export function PluginCard({ plugin }: PluginCardProps) {
 
             {/* Description */}
             <p
-                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm"
+                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1"
             >
                 {plugin.description}
             </p>
 
             {/* Footer with certification */}
-            <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: 'rgba(18, 18, 20, 0.06)' }}>
+            <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: 'rgba(18, 18, 20, 0.06)' }}>
                 <div
                     className="flex items-center gap-1.5 px-2.5 py-1 rounded-md"
                     style={{
@@ -135,7 +137,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
 
                 {/* Hover indicator */}
                 <div
-                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-base"
+                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-2xl pe-3"
                     style={{
                         color: typeStyle.color,
                     }}

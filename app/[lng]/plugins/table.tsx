@@ -8,6 +8,7 @@ type CertificationLevel = 'community' | 'recommended' | 'maintainer';
 
 interface Plugin {
     id: string;
+    slug: string,
     name: string;
     author: string;
     description: string;
@@ -18,6 +19,7 @@ interface Plugin {
 const mockPlugins: Plugin[] = [
     {
         id: '1',
+        slug: 'advanced-analytics-dashboard',
         name: 'Advanced Analytics Dashboard',
         author: 'jmcollin78',
         description: 'Graphiques de debugs avec Plotly. Permet de mieux comprendre le fonctionnement de Versatile.',
@@ -26,6 +28,7 @@ const mockPlugins: Plugin[] = [
     },
     {
         id: '2',
+        slug: 'ha-entity-explorer',
         name: 'HA Entity Explorer',
         author: 'KipK',
         description: 'Tableau de bord avec tous les états de Home Assistant.',
@@ -34,6 +37,7 @@ const mockPlugins: Plugin[] = [
     },
     {
         id: '3',
+        slug: 'versatile-card-ui',
         name: 'Versatile Card UI',
         author: 'jmcollin78',
         description: 'Carte de tableau de bord pour la gestion des thermostat Versatile.',
@@ -42,6 +46,7 @@ const mockPlugins: Plugin[] = [
     },
     {
         id: '4',
+        slug: 'auto-tpi-card',
         name: 'AutoTPI Card',
         author: 'KipK',
         description: 'Carte pour l\'apprentissage de Auto TPI. Permet de lancer l\'apprentissage et voir l\'évolution de Kint et Kext.',
@@ -50,6 +55,7 @@ const mockPlugins: Plugin[] = [
     },
     {
         id: '5',
+        slug: 'versatile-store',
         name: 'Versatile Store',
         author: 'bontiv',
         description: 'Intégration permettant de parcourrir et installer facilement des compléments pour Versatile et définir les valeurs par défaut pour les sous-jacents.',
@@ -58,6 +64,7 @@ const mockPlugins: Plugin[] = [
     },
     {
         id: '6',
+        slug: 'sonoff-trvzb-linearité',
         name: 'Sonoff TRVZB linéarité',
         author: 'Caius',
         description: 'Blueprint pour la gestion fine des vannes TRVZB et d\'ajuster l\'ouverture à la linéarité de la vanne.',
@@ -84,7 +91,7 @@ export default function PluginTable() {
                     <div className="flex items-center gap-4 mb-4">
                         <h1 className='p-0 text-(--color-primary)'
                         >
-                            Plugins disponibles
+                            Compléments disponibles
                         </h1>
                         <div
                             className="px-3 py-1 rounded-full self-start text-xs font-medium text-white bg-(--color-primary) tracking-wide"
