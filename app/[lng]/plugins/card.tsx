@@ -1,8 +1,11 @@
+import { useT } from "@/app/i18n/client";
+
 type PluginType = 'blueprint' | 'integration' | 'interface';
 type CertificationLevel = 'community' | 'recommended' | 'maintainer';
 
 interface Plugin {
     id: string;
+    slug: string,
     name: string;
     author: string;
     description: string;
@@ -17,17 +20,14 @@ interface PluginCardProps {
 
 const typeConfig = {
     blueprint: {
-        label: 'Blueprint',
         color: '#306BE5',
         bgColor: 'rgba(48, 107, 229, 0.08)'
     },
     integration: {
-        label: 'Intégration',
         color: '#E67249',
         bgColor: 'rgba(230, 114, 73, 0.08)'
     },
     interface: {
-        label: 'Interface',
         color: '#3EB0F2',
         bgColor: 'rgba(62, 176, 242, 0.08)'
     }
@@ -35,17 +35,14 @@ const typeConfig = {
 
 const certConfig = {
     maintainer: {
-        label: 'Officiel',
         color: 'var(--color-vtherm-tertiary)',
         icon: '★'
     },
     recommended: {
-        label: 'Recommandé',
         color: 'var(--color-vtherm-quaternary)',
         icon: '◆'
     },
     community: {
-        label: 'Communautaire',
         color: 'var(--color-vtherm-secondary)',
         icon: '●'
     }
@@ -54,6 +51,7 @@ const certConfig = {
 export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
+    const { t } = useT('plugins');
 
     return (
         <div
@@ -66,6 +64,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
             hover:shadow-(color:--card-color)
             shadow-sm hover:shadow-xl/60
             hover:-translate-y-2
+            flex flex-col
             `}
             style={{
                 '--card-color': `${typeStyle.color}`
@@ -95,19 +94,19 @@ export function PluginCard({ plugin }: PluginCardProps) {
                         border: `1px solid ${typeStyle.color}20`,
                     }}
                 >
-                    {typeStyle.label}
+                    {t(`types.${plugin.type}`)}
                 </div>
             </div>
 
             {/* Description */}
             <p
-                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm"
+                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1"
             >
                 {plugin.description}
             </p>
 
             {/* Footer with certification */}
-            <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: 'rgba(18, 18, 20, 0.06)' }}>
+            <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: 'rgba(18, 18, 20, 0.06)' }}>
                 <div
                     className="flex items-center gap-1.5 px-2.5 py-1 rounded-md"
                     style={{
@@ -129,13 +128,13 @@ export function PluginCard({ plugin }: PluginCardProps) {
                             color: certStyle.color,
                         }}
                     >
-                        {certStyle.label}
+                        {t(`certification.${plugin.certification}`)}
                     </span>
                 </div>
 
                 {/* Hover indicator */}
                 <div
-                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-base"
+                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-2xl pe-3"
                     style={{
                         color: typeStyle.color,
                     }}
