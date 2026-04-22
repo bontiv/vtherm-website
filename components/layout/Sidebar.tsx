@@ -62,6 +62,10 @@ export const Sidebar: React.FC<{ docfiles?: (string | undefined)[] }> = ({ docfi
                     label={t('menu.devices')}
                 />
                 <NavItem
+                    href="/plugins"
+                    label={t('menu.plugins')}
+                />
+                <NavItem
                     href="/debugger"
                     label={t('menu.log-analyzer')}
                 />

@@ -7,7 +7,8 @@
         "devices": "Compatibilité des appareils",
         "log-analyzer": "Analyseur de logs",
         "github": "Dépôt github",
-        "docs": "Documentation"
+        "docs": "Documentation",
+        "plugins": "Compléments"
     },
     "footer": "Ce site est un site communautaire. La seule source d'information officielle sur Versatile Thermostat est le dépôt GitHub.",
     "contribute": "Contribuer sur GitHub",

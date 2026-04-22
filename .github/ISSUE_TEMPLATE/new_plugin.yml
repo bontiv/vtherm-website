@@ -1,0 +1,51 @@
+name: New plugin
+description: Add a new plugin on the plugin database
+title: "[Plugin] "
+labels:
+  - documentation
+body:
+  - type: input
+    id: title
+    attributes:
+      label: Name of your plugin
+      placeholder: My awesome plugin
+    validations:
+      required: true
+  - type: input
+    id: github_url
+    attributes:
+      label: GitHub URL
+      placeholder: https://github.com/user/repo
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: Plugin type
+      description: What type of plugin is this?
+      options:
+        - Integration
+        - Interface
+        - Add-on
+        - Blueprint
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: family
+    attributes:
+      label: Plugin family
+      description: What does this plugin do?
+      options:
+        - Algorithm
+        - Device helper
+        - Interface
+      default: 0
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Plugin description
+      description: A brief description of what your plugin does and how it works.
+      render: Markdown

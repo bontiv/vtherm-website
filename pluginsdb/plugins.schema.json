@@ -1,0 +1,58 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://www.versatile-thermostat.org/plugins.schema.json",
+    "title": "Plugins database",
+    "description": "Database of plugins for Versatile Thermostat",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "description": "A plugin for Versatile Thermostat",
+        "properties": {
+            "type": {
+                "type": "string",
+                "description": "The type of the plugin (integration, interface, blueprint, addon)",
+                "enum": [
+                    "integration",
+                    "interface",
+                    "blueprint",
+                    "addon"
+                ]
+            },
+            "certification": {
+                "type": "string",
+                "description": "The certification level of the plugin (community, recommended, official)",
+                "enum": [
+                    "official",
+                    "recommended",
+                    "community"
+                ]
+            },
+            "name": {
+                "type": "string",
+                "description": "The name of the plugin"
+            },
+            "description": {
+                "type": "string",
+                "description": "A short description of the plugin"
+            },
+            "slug": {
+                "type": "string",
+                "description": "The Github slug of the plugin"
+            },
+            "author": {
+                "type": "string",
+                "description": "The author of the plugin"
+            },
+            "url": {
+                "type": "string",
+                "description": "The URL of the plugin (used for blueprints)"
+            }
+        },
+        "required": [
+            "name",
+            "description",
+            "certification",
+            "type"
+        ]
+    }
+}

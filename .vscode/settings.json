@@ -12,6 +12,12 @@
                 "devicesdb/*/config.json"
             ],
             "url": "./devicesdb/config.schema.json"
+        },
+        {
+            "fileMatch": [
+                "pluginsdb/plugins.json"
+            ],
+            "url": "./pluginsdb/plugins.schema.json"
         }
     ],
     "css.validate": false

@@ -1,13 +1,14 @@
 {
     "title": "Compléments et intégrations",
     "description": "Découvrez les compléments et intégrations disponibles pour améliorer votre expérience avec Versatile Thermostat. Explorez une variété de plugins créés par la communauté pour personnaliser et optimiser votre système de chauffage.",
-    "description_short": "Étendez les fonctionnalités avec des intégrations, interfaces et blueprints créés par la communauté",
+    "submit_plugin": "Soumettre votre plugin",
+    "description_short": "Étendez les fonctionnalités avec des intégrations, interfaces et blueprints créés par la communauté. Si vous avez développé un plugin, n'hésitez pas à <0>soumettre votre plugin</0> pour qu'il puisse être partagé avec la communauté.",
     "keywords": "compléments, intégrations, plugins, tableau de bord, Home Assistant, Auto TPI, Versatile Store, TRVZB linéarité",
     "certification": {
         "all": "Toutes certifications",
         "community": "Communauté",
         "recommended": "Recommandé",
-        "maintainer": "Officiel"
+        "official": "Officiel"
     },
     "types": {
         "all": "Tous types",
