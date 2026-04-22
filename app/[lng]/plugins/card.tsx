@@ -1,5 +1,5 @@
 import { useT } from "@/app/i18n/client";
-import { VTPlugin } from "@/lib/plugindb";
+import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
 import Image from "next/image";
 import { Trans } from "react-i18next";
 
@@ -7,40 +7,6 @@ interface PluginCardProps {
     plugin: VTPlugin;
     index: number;
 }
-
-const typeConfig = {
-    blueprint: {
-        color: '#306BE5',
-        bgColor: 'rgba(48, 107, 229, 0.08)'
-    },
-    integration: {
-        color: '#E67249',
-        bgColor: 'rgba(230, 114, 73, 0.08)'
-    },
-    interface: {
-        color: '#3EB0F2',
-        bgColor: 'rgba(62, 176, 242, 0.08)'
-    },
-    addon: {
-        color: '#9F7EEA',
-        bgColor: 'rgba(159, 126, 234, 0.08)'
-    }
-};
-
-const certConfig = {
-    official: {
-        color: 'var(--color-vtherm-tertiary)',
-        icon: '★'
-    },
-    recommended: {
-        color: 'var(--color-vtherm-quaternary)',
-        icon: '◆'
-    },
-    community: {
-        color: 'var(--color-vtherm-secondary)',
-        icon: '●'
-    }
-};
 
 export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];

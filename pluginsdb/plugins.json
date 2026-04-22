@@ -9,28 +9,29 @@
     {
         "slug": "KipK/ha_entity_explorer",
         "name": "HA Entity Explorer",
-        "description": "Tableau de bord avec tous les états de Home Assistant.",
+        "description": "Dashboard with all Home Assistant statuses.",
         "type": "addon",
         "certification": "recommended"
     },
     {
         "slug": "jmcollin78/versatile-thermostat-ui-card",
         "name": "Versatile Card UI",
-        "description": "Carte de tableau de bord pour la gestion des thermostat Versatile.",
+        "description": "Versatile thermostat control dashboard card.",
         "type": "interface",
         "certification": "official"
     },
     {
         "slug": "KipK/auto-tpi-learning-card",
         "name": "AutoTPI Learning Card",
-        "description": "Carte pour l'apprentissage de Auto TPI. Permet de lancer l'apprentissage et voir l'évolution de Kint et Kext.",
+        "description": "Card for learning Auto TPI. Allows you to start the learning process and see the progress of Kint and Kext.",
         "type": "interface",
         "certification": "official"
     },
     {
-        "name": "Sonoff TRVZB linéarité",
+        "name": "Sonoff TRVZB linearity",
+        "slug": "caiusseverus/abe064b3f8d96896ab377766916e456a",
         "author": "Caius",
-        "description": "Blueprint pour la gestion fine des vannes TRVZB et d'ajuster l'ouverture à la linéarité de la vanne.",
+        "description": "Blueprint for fine-tuning TRVZB valves and adjusting the opening to the valve linearity, which is often non-linear. This blueprint allows you to create a linear relationship between the valve opening and the actual flow, improving the performance of the heating system.",
         "type": "blueprint",
         "certification": "recommended",
         "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml"

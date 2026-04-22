@@ -45,3 +45,38 @@ export interface VTPlugin {
      */
     url?: string;
 }
+
+
+export const typeConfig = {
+    blueprint: {
+        color: '#306BE5',
+        bgColor: 'rgba(48, 107, 229, 0.08)'
+    },
+    integration: {
+        color: '#E67249',
+        bgColor: 'rgba(230, 114, 73, 0.08)'
+    },
+    interface: {
+        color: '#3EB0F2',
+        bgColor: 'rgba(62, 176, 242, 0.08)'
+    },
+    addon: {
+        color: '#9F7EEA',
+        bgColor: 'rgba(159, 126, 234, 0.08)'
+    }
+};
+
+export const certConfig = {
+    official: {
+        color: 'var(--color-vtherm-tertiary)',
+        icon: '★'
+    },
+    recommended: {
+        color: 'var(--color-vtherm-quaternary)',
+        icon: '◆'
+    },
+    community: {
+        color: 'var(--color-vtherm-secondary)',
+        icon: '●'
+    }
+};
