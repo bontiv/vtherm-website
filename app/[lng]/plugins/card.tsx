@@ -1,6 +1,7 @@
 import { useT } from "@/app/i18n/client";
 import { VTPlugin } from "@/lib/plugindb";
 import Image from "next/image";
+import { Trans } from "react-i18next";
 
 interface PluginCardProps {
     plugin: VTPlugin;
@@ -74,8 +75,12 @@ export function PluginCard({ plugin }: PluginCardProps) {
                     <div
                         className="flex items-center gap-1.5 text-sm"
                     >
-                        <span>par</span>
-                        <span className="font-medium">{plugin.author ?? plugin?.slug?.split('/')[0]}</span>
+                        <Trans t={t} i18nKey="from" values={{ author: plugin.author ?? plugin?.slug?.split('/')[0] }}
+                            components={[
+                                <span key="0" className="font-medium"></span>
+                            ]}
+                        />
+
                         {plugin?.slug && (
                             <a href={"https://github.com/" + plugin?.slug} target="_blank" rel="noreferrer noopener" className="py-2 text-blue-500 hover:underline shrink">
                                 <Image

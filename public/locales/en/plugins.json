@@ -2,6 +2,7 @@
     "title": "Plugins and Integrations",
     "description": "Discover the available plugins and integrations to enhance your experience with Versatile Thermostat. Explore a variety of plugins created by the community to customize and optimize your heating system.",
     "submit_plugin": "Submit your plugin",
+    "from": "by <0>{{author}}</0>",
     "description_short": "Extend functionality with integrations, interfaces and blueprints created by the community. If you have developed a plugin, feel free to <0>submit your plugin</0> so it can be shared with the community.",
     "keywords": "addons, integrations, plugins, dashboard, Home Assistant, Auto TPI, Versatile Store, TRVZB linearity",
     "certification": {
