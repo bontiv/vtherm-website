@@ -1,52 +1,12 @@
 import { useT } from "@/app/i18n/client";
-
-type PluginType = 'blueprint' | 'integration' | 'interface';
-type CertificationLevel = 'community' | 'recommended' | 'maintainer';
-
-interface Plugin {
-    id: string;
-    slug: string,
-    name: string;
-    author: string;
-    description: string;
-    type: PluginType;
-    certification: CertificationLevel;
-}
+import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
+import Image from "next/image";
+import { Trans } from "react-i18next";
 
 interface PluginCardProps {
-    plugin: Plugin;
+    plugin: VTPlugin;
     index: number;
 }
-
-const typeConfig = {
-    blueprint: {
-        color: '#306BE5',
-        bgColor: 'rgba(48, 107, 229, 0.08)'
-    },
-    integration: {
-        color: '#E67249',
-        bgColor: 'rgba(230, 114, 73, 0.08)'
-    },
-    interface: {
-        color: '#3EB0F2',
-        bgColor: 'rgba(62, 176, 242, 0.08)'
-    }
-};
-
-const certConfig = {
-    maintainer: {
-        color: 'var(--color-vtherm-tertiary)',
-        icon: '★'
-    },
-    recommended: {
-        color: 'var(--color-vtherm-quaternary)',
-        icon: '◆'
-    },
-    community: {
-        color: 'var(--color-vtherm-secondary)',
-        icon: '●'
-    }
-};
 
 export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
@@ -58,7 +18,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
             className={`group relative rounded-xl
             bg-white dark:bg-gray-800
             transition-all duration-200
-            cursor-pointer p-2
+            p-2
             border border-slate-300 dark:border-slate-600
             hover:border-(--card-color)/30
             hover:shadow-(color:--card-color)
@@ -81,8 +41,21 @@ export function PluginCard({ plugin }: PluginCardProps) {
                     <div
                         className="flex items-center gap-1.5 text-sm"
                     >
-                        <span>par</span>
-                        <span className="font-medium">{plugin.author}</span>
+                        <Trans t={t} i18nKey="from" values={{ author: plugin.author ?? plugin?.slug?.split('/')[0] }}
+                            components={[
+                                <span key="0" className="font-medium"></span>
+                            ]}
+                        />
+
+                        {plugin?.slug && (
+                            <a href={"https://github.com/" + plugin?.slug} target="_blank" rel="noreferrer noopener" className="py-2 text-blue-500 hover:underline shrink">
+                                <Image
+                                    width={80} height={20}
+                                    style={{ height: '1.4em', width: 'auto' }}
+                                    alt="GitHub Repo stars" src={"https://img.shields.io/github/stars/" + plugin?.slug}
+                                />
+                            </a>
+                        )}
                     </div>
                 </div>
 

@@ -1,0 +1,39 @@
+[
+    {
+        "name": "Adaptative TPI",
+        "description": "An integration that implements an adaptive TPI algorithm to optimize the heating system performance.",
+        "certification": "official",
+        "type": "integration",
+        "slug": "KipK/vtherm_adaptive_tpi"
+    },
+    {
+        "slug": "KipK/ha_entity_explorer",
+        "name": "HA Entity Explorer",
+        "description": "Dashboard with all Home Assistant statuses.",
+        "type": "addon",
+        "certification": "recommended"
+    },
+    {
+        "slug": "jmcollin78/versatile-thermostat-ui-card",
+        "name": "Versatile Card UI",
+        "description": "Versatile thermostat control dashboard card.",
+        "type": "interface",
+        "certification": "official"
+    },
+    {
+        "slug": "KipK/auto-tpi-learning-card",
+        "name": "AutoTPI Learning Card",
+        "description": "Card for learning Auto TPI. Allows you to start the learning process and see the progress of Kint and Kext.",
+        "type": "interface",
+        "certification": "official"
+    },
+    {
+        "name": "Sonoff TRVZB linearity",
+        "slug": "caiusseverus/abe064b3f8d96896ab377766916e456a",
+        "author": "Caius",
+        "description": "Blueprint for fine-tuning TRVZB valves and adjusting the opening to the valve linearity, which is often non-linear. This blueprint allows you to create a linear relationship between the valve opening and the actual flow, improving the performance of the heating system.",
+        "type": "blueprint",
+        "certification": "recommended",
+        "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml"
+    }
+]
