@@ -3,27 +3,34 @@
  *
  * Reads a GitHub issue created from the new_plugin.yml template,
  * builds a VTPlugin entry, inserts it into pluginsdb/plugins.json (re-sorting
- * the entire array), then opens a Pull Request against the `stable` branch.
+ * the entire array), then opens a Pull Request against the `stable` branch
+ * (or `latest` if specified).
  *
  * Usage:
  *   # Automatically (GitHub Actions – issue number comes from GITHUB_EVENT_PATH)
  *   node scripts/add-plugin-from-issue.mjs
  *
- *   # Manually
+ *   # Manually (defaults to stable branch)
  *   GITHUB_TOKEN=ghp_xxx GITHUB_REPOSITORY=owner/repo \
  *     node scripts/add-plugin-from-issue.mjs 42
+ *
+ *   # Manually targeting the latest branch
+ *   GITHUB_TOKEN=ghp_xxx GITHUB_REPOSITORY=owner/repo \
+ *     node scripts/add-plugin-from-issue.mjs 42 --branch latest
  */
 
 import { Octokit } from 'octokit';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const BASE_BRANCH = 'stable';
+const ALLOWED_BRANCHES = ['stable', 'latest'];
+const DEFAULT_BRANCH = 'stable';
 const PLUGINS_PATH = 'pluginsdb/plugins.json';
 
 /** Certification sort order – lower index = higher priority */
@@ -117,22 +124,93 @@ function sortPlugins(plugins) {
 // Configuration resolution
 // ---------------------------------------------------------------------------
 
+/**
+ * Try to retrieve the GitHub token from the `gh` CLI (requires `gh auth login`).
+ * Returns `null` if the CLI is not available or not authenticated.
+ *
+ * @returns {string|null}
+ */
+function tokenFromGhCli() {
+    try {
+        return execSync('gh auth token', { stdio: ['pipe', 'pipe', 'pipe'] })
+            .toString()
+            .trim();
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * Try to retrieve the current repository slug (`owner/repo`) from the `gh` CLI.
+ * Returns `null` if the CLI is not available or not inside a GitHub repository.
+ *
+ * @returns {string|null}
+ */
+function repositoryFromGhCli() {
+    try {
+        return execSync('gh repo view --json nameWithOwner -q .nameWithOwner', {
+            stdio: ['pipe', 'pipe', 'pipe'],
+        })
+            .toString()
+            .trim();
+    } catch {
+        return null;
+    }
+}
+
 function resolveConfig() {
-    const token = process.env.GITHUB_TOKEN;
+    // --- Token -----------------------------------------------------------
+    let token = process.env.GITHUB_TOKEN;
+
     if (!token) {
-        console.error('❌  GITHUB_TOKEN environment variable is required.');
+        console.log('ℹ️   GITHUB_TOKEN not set – trying `gh auth token` …');
+        token = tokenFromGhCli();
+    }
+
+    if (!token) {
+        console.error(
+            '❌  No GitHub token found.\n' +
+            '   Either set the GITHUB_TOKEN environment variable or run `gh auth login`.'
+        );
         process.exit(1);
     }
 
-    const repository = process.env.GITHUB_REPOSITORY;
+    // --- Repository ------------------------------------------------------
+    let repository = process.env.GITHUB_REPOSITORY;
+
     if (!repository || !repository.includes('/')) {
-        console.error('❌  GITHUB_REPOSITORY environment variable must be set to "owner/repo".');
+        console.log('ℹ️   GITHUB_REPOSITORY not set – trying `gh repo view` …');
+        repository = repositoryFromGhCli();
+    }
+
+    if (!repository || !repository.includes('/')) {
+        console.error(
+            '❌  Could not determine the repository.\n' +
+            '   Either set GITHUB_REPOSITORY="owner/repo" or run inside a GitHub repository with `gh` configured.'
+        );
         process.exit(1);
     }
+
     const [owner, repo] = repository.split('/');
 
-    // Issue number: prefer CLI argument, fall back to the event payload
-    let issueNumber = parseInt(process.argv[2], 10);
+    // Branch: read --branch <value> from CLI args, default to stable
+    const branchFlagIndex = process.argv.indexOf('--branch');
+    let baseBranch = DEFAULT_BRANCH;
+    if (branchFlagIndex !== -1) {
+        const branchValue = process.argv[branchFlagIndex + 1];
+        if (!branchValue || !ALLOWED_BRANCHES.includes(branchValue)) {
+            console.error(
+                `❌  Invalid --branch value: "${branchValue}".\n` +
+                `   Allowed values: ${ALLOWED_BRANCHES.join(', ')}`
+            );
+            process.exit(1);
+        }
+        baseBranch = branchValue;
+    }
+
+    // Issue number: prefer CLI argument (first non-flag arg), fall back to the event payload
+    const firstArg = process.argv.slice(2).find(a => !a.startsWith('--') && !/^(stable|latest)$/.test(a));
+    let issueNumber = parseInt(firstArg, 10);
 
     if (!issueNumber && process.env.GITHUB_EVENT_PATH) {
         try {
@@ -152,7 +230,8 @@ function resolveConfig() {
         process.exit(1);
     }
 
-    return { token, owner, repo, issueNumber };
+    console.log(`🌿  Using base branch: "${baseBranch}"`);
+    return { token, owner, repo, issueNumber, baseBranch };
 }
 
 // ---------------------------------------------------------------------------
@@ -160,7 +239,7 @@ function resolveConfig() {
 // ---------------------------------------------------------------------------
 
 async function run() {
-    const { token, owner, repo, issueNumber } = resolveConfig();
+    const { token, owner, repo, issueNumber, baseBranch } = resolveConfig();
 
     const octokit = new Octokit({ auth: token });
 
@@ -246,15 +325,15 @@ async function run() {
     console.log(`✅  Sorted plugin list (${merged.length} entries total).`);
 
     // ------------------------------------------------------------------
-    // 5. Get the base SHA from the `stable` branch
+    // 5. Get the base SHA from the target branch
     // ------------------------------------------------------------------
-    console.log(`🌿  Getting latest SHA from branch "${BASE_BRANCH}" …`);
-    const { data: baseBranch } = await octokit.rest.repos.getBranch({
+    console.log(`🌿  Getting latest SHA from branch "${baseBranch}" …`);
+    const { data: baseBranchData } = await octokit.rest.repos.getBranch({
         owner,
         repo,
-        branch: BASE_BRANCH,
+        branch: baseBranch,
     });
-    const baseSha = baseBranch.commit.sha;
+    const baseSha = baseBranchData.commit.sha;
 
     // ------------------------------------------------------------------
     // 6. Create a new branch
@@ -263,35 +342,63 @@ async function run() {
     const branchName = `plugin/add-${sanitizedSlug}-${issueNumber}`;
 
     console.log(`🌱  Creating branch "${branchName}" …`);
-    await octokit.rest.git.createRef({
-        owner,
-        repo,
-        ref: `refs/heads/${branchName}`,
-        sha: baseSha,
-    });
+    try {
+        await octokit.rest.git.createRef({
+            owner,
+            repo,
+            ref: `refs/heads/${branchName}`,
+            sha: baseSha,
+        });
+    } catch (err) {
+        if (err.status === 422 && err.response?.data?.message === 'Reference already exists') {
+            console.log(`⚠️   Branch "${branchName}" already exists – resetting it to base SHA …`);
+            await octokit.rest.git.updateRef({
+                owner,
+                repo,
+                ref: `heads/${branchName}`,
+                sha: baseSha,
+                force: true,
+            });
+        } else {
+            throw err;
+        }
+    }
 
     // ------------------------------------------------------------------
     // 7. Commit the updated plugins.json
     // ------------------------------------------------------------------
     console.log(`💾  Committing updated ${PLUGINS_PATH} …`);
 
-    // Fetch the current blob SHA so GitHub accepts the update
-    const { data: currentFile } = await octokit.rest.repos.getContent({
-        owner,
-        repo,
-        path: PLUGINS_PATH,
-        ref: BASE_BRANCH,
-    });
+    // Fetch the current blob SHA so GitHub accepts the update.
+    // If the file doesn't exist on the base branch yet, omit sha (creates the file).
+    let existingFileSha;
+    try {
+        const { data: currentFile } = await octokit.rest.repos.getContent({
+            owner,
+            repo,
+            path: PLUGINS_PATH,
+            ref: branchName,
+        });
+        existingFileSha = currentFile.sha;
+    } catch (err) {
+        if (err.status === 404) {
+            console.log(`ℹ️   ${PLUGINS_PATH} not found on branch "${branchName}" – will create it.`);
+        } else {
+            throw err;
+        }
+    }
 
-    await octokit.rest.repos.createOrUpdateFileContents({
+    const commitPayload = {
         owner,
         repo,
         path: PLUGINS_PATH,
         message: `feat(plugins): add plugin "${title}" (#${issueNumber})`,
         content: Buffer.from(updatedContent).toString('base64'),
-        sha: currentFile.sha,
         branch: branchName,
-    });
+    };
+    if (existingFileSha) commitPayload.sha = existingFileSha;
+
+    await octokit.rest.repos.createOrUpdateFileContents(commitPayload);
 
     // ------------------------------------------------------------------
     // 8. Open a Pull Request
@@ -318,7 +425,7 @@ async function run() {
             '> A maintainer can upgrade it after review.',
         ].join('\n'),
         head: branchName,
-        base: BASE_BRANCH,
+        base: baseBranch,
     });
 
     // Apply the `documentation` label to the PR
