@@ -3,6 +3,7 @@ import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
 import { CloseButton, Description, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import { HTMLProps } from "react";
 import { Trans } from "react-i18next";
 
 type PluginModalProps = {
@@ -35,6 +36,8 @@ const MyHABlueprintBadge: React.FC<{ url: string }> = ({ url }) => {
     );
 };
 
+const GithubLogo: React.FC<HTMLProps<SVGSVGElement>> = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640"><path d="M237.9 461.4C237.9 463.4 235.6 465 232.7 465C229.4 465.3 227.1 463.7 227.1 461.4C227.1 459.4 229.4 457.8 232.3 457.8C235.3 457.5 237.9 459.1 237.9 461.4zM206.8 456.9C206.1 458.9 208.1 461.2 211.1 461.8C213.7 462.8 216.7 461.8 217.3 459.8C217.9 457.8 216 455.5 213 454.6C210.4 453.9 207.5 454.9 206.8 456.9zM251 455.2C248.1 455.9 246.1 457.8 246.4 460.1C246.7 462.1 249.3 463.4 252.3 462.7C255.2 462 257.2 460.1 256.9 458.1C256.6 456.2 253.9 454.9 251 455.2zM316.8 72C178.1 72 72 177.3 72 316C72 426.9 141.8 521.8 241.5 555.2C254.3 557.5 258.8 549.6 258.8 543.1C258.8 536.9 258.5 502.7 258.5 481.7C258.5 481.7 188.5 496.7 173.8 451.9C173.8 451.9 162.4 422.8 146 415.3C146 415.3 123.1 399.6 147.6 399.9C147.6 399.9 172.5 401.9 186.2 425.7C208.1 464.3 244.8 453.2 259.1 446.6C261.4 430.6 267.9 419.5 275.1 412.9C219.2 406.7 162.8 398.6 162.8 302.4C162.8 274.9 170.4 261.1 186.4 243.5C183.8 237 175.3 210.2 189 175.6C209.9 169.1 258 202.6 258 202.6C278 197 299.5 194.1 320.8 194.1C342.1 194.1 363.6 197 383.6 202.6C383.6 202.6 431.7 169 452.6 175.6C466.3 210.3 457.8 237 455.2 243.5C471.2 261.2 481 275 481 302.4C481 398.9 422.1 406.6 366.2 412.9C375.4 420.8 383.2 435.8 383.2 459.3C383.2 493 382.9 534.7 382.9 542.9C382.9 549.4 387.5 557.3 400.2 555C500.2 521.8 568 426.9 568 316C568 177.3 455.5 72 316.8 72zM169.2 416.9C167.9 417.9 168.2 420.2 169.9 422.1C171.5 423.7 173.8 424.4 175.1 423.1C176.4 422.1 176.1 419.8 174.4 417.9C172.8 416.3 170.5 415.6 169.2 416.9zM158.4 408.8C157.7 410.1 158.7 411.7 160.7 412.7C162.3 413.7 164.3 413.4 165 412C165.7 410.7 164.7 409.1 162.7 408.1C160.7 407.5 159.1 407.8 158.4 408.8zM190.8 444.4C189.2 445.7 189.8 448.7 192.1 450.6C194.4 452.9 197.3 453.2 198.6 451.6C199.9 450.3 199.3 447.3 197.3 445.4C195.1 443.1 192.1 442.8 190.8 444.4zM179.4 429.7C177.8 430.7 177.8 433.3 179.4 435.6C181 437.9 183.7 438.9 185 437.9C186.6 436.6 186.6 434 185 431.7C183.6 429.4 181 428.4 179.4 429.7z" /></svg>
+
 const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
     const { t } = useT('plugins');
 
@@ -54,59 +57,80 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                 >
                     {/* Header — accent bar matching card type color */}
                     <DialogTitle
-                        className="flex items-center justify-between gap-3 px-5 py-4 border-b border-slate-200 dark:border-slate-700"
+                        className=" px-5 py-4 border-b border-slate-200 dark:border-slate-700"
                         style={{ borderTopColor: typeStyle.color, borderTopWidth: 3 }}
                     >
-                        <div className="flex-1 min-w-0">
-                            <h2 className="m-0 truncate text-lg font-semibold text-gray-900 dark:text-white">
-                                {plugin?.name}
-                            </h2>
-                            <div className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-                                <Trans
-                                    t={t}
-                                    i18nKey="from"
-                                    values={{ author: plugin?.author ?? plugin?.slug?.split('/')[0] }}
-                                    components={[<span key="0" className="font-medium text-slate-700 dark:text-slate-300"></span>]}
-                                />
-                                {plugin?.slug && (
-                                    <a
-                                        href={"https://github.com/" + plugin.slug}
-                                        target="_blank"
-                                        rel="noreferrer noopener"
-                                        className="text-blue-500 hover:underline shrink-0"
-                                    >
-                                        <Image
-                                            width={80} height={20}
-                                            style={{ height: '1.4em', width: 'auto' }}
-                                            alt="GitHub Repo stars"
-                                            src={"https://img.shields.io/github/stars/" + plugin.slug}
-                                        />
-                                    </a>
-                                )}
+                        {/* Name and type badge */}
+                        <div className="flex items-center justify-between gap-3">
+                            <div className="flex-1 min-w-0">
+                                <h2 className="m-0 p-1 truncate text-lg font-semibold text-gray-900 dark:text-white">
+                                    {plugin?.name}
+                                </h2>
+
                             </div>
+
+                            {/* Type badge */}
+                            <div
+                                className="px-2.5 py-1 rounded-md font-mono text-[0.6875rem] font-medium uppercase shrink-0"
+                                style={{
+                                    background: typeStyle.bgColor,
+                                    color: typeStyle.color,
+                                    border: `1px solid ${typeStyle.color}20`,
+                                }}
+                            >
+                                {plugin && t(`types.${plugin.type}`)}
+                            </div>
+
+                            <CloseButton
+                                onClick={onClose}
+                                className="text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-200 cursor-pointer transition-colors shrink-0"
+                            >
+                                <XMarkIcon className="h-6 w-6" />
+                            </CloseButton>
                         </div>
 
-                        {/* Type badge */}
-                        <div
-                            className="px-2.5 py-1 rounded-md font-mono text-[0.6875rem] font-medium uppercase shrink-0"
-                            style={{
-                                background: typeStyle.bgColor,
-                                color: typeStyle.color,
-                                border: `1px solid ${typeStyle.color}20`,
-                            }}
-                        >
-                            {plugin && t(`types.${plugin.type}`)}
-                        </div>
 
-                        <CloseButton
-                            onClick={onClose}
-                            className="text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-200 cursor-pointer transition-colors shrink-0"
-                        >
-                            <XMarkIcon className="h-6 w-6" />
-                        </CloseButton>
                     </DialogTitle>
 
                     {/* Body */}
+
+                    <div className="flex items-center border-b border-slate-200 mx-5 p-2 justify-between gap-3 text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+                        <div>
+                            <Trans
+                                t={t}
+                                i18nKey="from"
+                                values={{ author: plugin?.author ?? plugin?.slug?.split('/')[0] }}
+                                components={[<span key="0" className="font-medium text-slate-700 dark:text-slate-300"></span>]}
+                            />
+                        </div>
+
+                        {plugin?.slug && (<>
+
+                            <a
+                                href={"https://github.com/" + plugin.slug}
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                className="text-blue-500 hover:underline shrink-0"
+                            >
+                                <GithubLogo className="h-8" alt="Github Repository" />
+                            </a>
+                            <a
+                                href={"https://github.com/" + plugin.slug}
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                className="text-blue-500 hover:underline shrink-0"
+                            >
+                                <Image
+                                    width={80} height={20}
+                                    style={{ height: '1.4em', width: 'auto' }}
+                                    alt="GitHub Repo stars"
+                                    src={"https://img.shields.io/github/stars/" + plugin.slug}
+                                />
+                            </a>
+                        </>
+                        )}
+                    </div>
+
                     <div className="px-5 py-4">
                         <Description className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                             {plugin?.description}

@@ -21,13 +21,6 @@
         "certification": "official"
     },
     {
-        "slug": "KipK/auto-tpi-learning-card",
-        "name": "AutoTPI Learning Card",
-        "description": "Card for learning Auto TPI. Allows you to start the learning process and see the progress of Kint and Kext.",
-        "type": "interface",
-        "certification": "official"
-    },
-    {
         "name": "Sonoff TRVZB linearity",
         "slug": "caiusseverus/abe064b3f8d96896ab377766916e456a",
         "author": "Caius",

@@ -1,0 +1,59 @@
+name: Add plugin from issue
+
+on:
+    # Trigger automatically when a new issue is opened
+    issues:
+        types: [opened]
+
+    # Allow manual triggering from the Actions tab
+    workflow_dispatch:
+        inputs:
+            issue_number:
+                description: "Issue number to process"
+                required: true
+                type: number
+
+# Only one run per issue at a time
+concurrency:
+    group: "add-plugin-${{ github.event.issue.number || inputs.issue_number }}"
+    cancel-in-progress: false
+
+jobs:
+    add-plugin:
+        name: Create plugin PR from issue
+        runs-on: ubuntu-latest
+
+        # For automatic triggers: only run on plugin issues
+        # For manual triggers: always run (the script will validate the issue)
+        if: >
+            github.event_name == 'workflow_dispatch' ||
+            (
+                startsWith(github.event.issue.title, '[Plugin]') &&
+                contains(github.event.issue.labels.*.name, 'documentation')
+            )
+
+        permissions:
+            contents: write        # create branch + commit
+            pull-requests: write   # open PR
+            issues: write          # add label to PR (treated as issue)
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+              with:
+                  ref: stable
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "24"
+                  cache: npm
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Run add-plugin script
+              run: node scripts/add-plugin-from-issue.mjs ${{ inputs.issue_number || '' }}
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_REPOSITORY: ${{ github.repository }}
