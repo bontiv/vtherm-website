@@ -1,5 +1,3 @@
-import { icon } from "mermaid/dist/rendering-util/rendering-elements/shapes/icon.js";
-
 export type VTPluginType = 'integration' | 'interface' | 'blueprint' | 'addon';
 export type VTCertificationLevel = 'official' | 'recommended' | 'community';
 export type VTPluginFamily = 'algorithm' | 'interface' | 'device-helper';
