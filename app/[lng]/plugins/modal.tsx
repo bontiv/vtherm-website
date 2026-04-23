@@ -3,7 +3,7 @@ import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
 import { CloseButton, Description, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import { HTMLProps, SVGProps } from "react";
+import { HTMLProps } from "react";
 import { Trans } from "react-i18next";
 
 type PluginModalProps = {
