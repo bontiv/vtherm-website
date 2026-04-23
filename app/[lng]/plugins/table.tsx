@@ -4,7 +4,7 @@ import { Suspense, useState } from 'react';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { PluginCard } from './card';
 import { useT } from '@/app/i18n/client';
-import { VTCertificationLevel, VTPlugin, VTPluginType } from '@/lib/plugindb';
+import { VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
 import { Trans } from 'react-i18next';
 import dynamic from 'next/dynamic';
 const PluginModal = dynamic(() => import('./modal'), { ssr: false });
@@ -13,13 +13,15 @@ const PluginModal = dynamic(() => import('./modal'), { ssr: false });
 const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
     const [selectedType, setSelectedType] = useState<VTPluginType | 'all'>('all');
     const [selectedCert, setSelectedCert] = useState<VTCertificationLevel | 'all'>('all');
+    const [selectedFamily, setSelectedFamily] = useState<VTPluginFamily | 'all'>('all');
     const [modalPlugin, setModalPlugin] = useState<VTPlugin | undefined>(undefined);
     const { t } = useT('plugins');
 
     const filteredPlugins = plugins.filter(plugin => {
         const typeMatch = selectedType === 'all' || plugin.type === selectedType;
         const certMatch = selectedCert === 'all' || plugin.certification === selectedCert;
-        return typeMatch && certMatch;
+        const familyMatch = selectedFamily === 'all' || plugin.family === selectedFamily;
+        return typeMatch && certMatch && familyMatch;
     });
 
     return (
@@ -62,7 +64,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                             { value: 'interface', label: t('types.interface'), color: 'var(--color-sky-500)' },
                         ]}
                     />
-                    <div className="w-px h-8 bg-slate-300" />
+
                     {/* Certification filter */}
                     <FilterSelect<VTCertificationLevel | 'all'>
                         value={selectedCert}
@@ -74,13 +76,25 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                             { value: 'community', label: `● ${t('certification.community')}`, color: 'var(--color-vtherm-secondary)' },
                         ]}
                     />
+
+                    {/* Family filter */}
+                    <FilterSelect<VTPluginFamily | 'all'>
+                        value={selectedFamily}
+                        onChange={setSelectedFamily}
+                        options={[
+                            { value: 'all', label: t('families.all') },
+                            { value: 'algorithm', label: t('families.algorithm'), color: 'var(--color-vtherm-tertiary)' },
+                            { value: 'interface', label: t('families.interface'), color: 'var(--color-vtherm-quaternary)' },
+                            { value: 'device-helper', label: t('families.device-helper'), color: 'var(--color-vtherm-secondary)' },
+                        ]}
+                    />
                 </div>
 
                 {/* Plugin Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                     {filteredPlugins.map((plugin, index) => (
                         <button
-                            key={plugin.slug}
+                            key={index}
                             onClick={() => setModalPlugin(plugin)}
                             className='cursor-pointer text-left'
                         >

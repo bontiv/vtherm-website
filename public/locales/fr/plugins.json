@@ -16,5 +16,11 @@
         "blueprint": "Blueprint",
         "integration": "Intégration",
         "interface": "Interface"
+    },
+    "families": {
+        "all": "Toutes familles",
+        "algorithm": "Algorithme",
+        "interface": "Interface",
+        "device-helper": "Compatibilité d'appareils"
     }
 }
