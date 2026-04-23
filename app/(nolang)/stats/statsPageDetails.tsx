@@ -47,7 +47,6 @@ const StatsPageDetails: React.FC = () => {
             return downloads_by_version
         }
     })
-    console.log('Github assets:', github_assets.data, github_assets.error, github_assets.isLoading)
 
     const series = [
         {
@@ -152,6 +151,13 @@ const StatsPageDetails: React.FC = () => {
                     </tr>
                 )}
             </tbody>
+            <tfoot>
+                <tr className="border-t font-bold">
+                    <td className="px-4">Total</td>
+                    <td className="px-4 text-right">{formater.format((Object.values(github_assets.data) as number[]).reduce((a, b) => a + b, 0))}</td>
+                    <td className="px-4 text-right">{formater.format((Object.values(ha_analytics.data) as number[]).reduce((a, b) => a + b, 0))}</td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 }
