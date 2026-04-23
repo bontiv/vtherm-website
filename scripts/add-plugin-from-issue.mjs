@@ -24,6 +24,11 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { execSync } from 'child_process';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -51,6 +56,13 @@ const TYPE_MAP = {
     Interface: 'interface',
     'Add-on': 'addon',
     Blueprint: 'blueprint',
+};
+
+/** Maps the family dropdown display values to schema enum values */
+const FAMILY_MAP = {
+    Algorithm: 'algorithm',
+    'Device helper': 'device-helper',
+    Interface: 'interface',
 };
 
 // ---------------------------------------------------------------------------
@@ -103,6 +115,44 @@ function slugFromUrl(url) {
     const match = cleaned.match(/github\.com\/([^/]+\/[^/]+)/);
     if (!match) throw new Error(`Cannot extract slug from URL: ${url}`);
     return match[1];
+}
+
+/**
+ * Strip a GitHub "render: Markdown" code-fence wrapper that GitHub injects
+ * around textarea fields declared with `render: Markdown` in issue templates.
+ * The body value arrives as:
+ *
+ *   ```Markdown
+ *   <actual content>
+ *   ```
+ *
+ * This function returns the inner content unchanged when no such fence is present.
+ *
+ * @param {string} value
+ * @returns {string}
+ */
+function stripMarkdownFence(value) {
+    // Match an opening fence of the form ```<lang> (case-insensitive) at the very
+    // start of the string, then capture everything up to the closing ```.
+    const match = value.match(/^```[^\n]*\n([\s\S]*?)```\s*$/);
+    return match ? match[1].trim() : value;
+}
+
+/**
+ * Convert a Markdown string to an HTML string.
+ * Uses remark-gfm so GitHub Flavored Markdown (tables, strikethrough, etc.) is supported.
+ *
+ * @param {string} markdown
+ * @returns {Promise<string>}
+ */
+async function markdownToHtml(markdown) {
+    const file = await unified()
+        .use(remarkParse)
+        .use(remarkGfm)
+        .use(remarkRehype)
+        .use(rehypeStringify)
+        .process(markdown);
+    return String(file).trim();
 }
 
 /**
@@ -278,7 +328,7 @@ async function run() {
     // ------------------------------------------------------------------
     // 3. Build the VTPlugin object
     // ------------------------------------------------------------------
-    const { title, github_url, type: rawType, description } = fields;
+    const { title, github_url, type: rawType, family: rawFamily, description } = fields;
 
     if (!title || !github_url || !rawType || !description) {
         console.error('❌  Missing required fields in the issue form. Got:', fields);
@@ -291,15 +341,24 @@ async function run() {
         process.exit(1);
     }
 
+    const pluginFamily = rawFamily ? FAMILY_MAP[rawFamily] : undefined;
+    if (rawFamily && !pluginFamily) {
+        console.warn(`⚠️   Unknown plugin family: "${rawFamily}". Expected one of: ${Object.keys(FAMILY_MAP).join(', ')}. The field will be omitted.`);
+    }
+
     const slug = slugFromUrl(github_url);
     const authorFromSlug = slug.split('/')[0];
+
+    const descriptionHtml = await markdownToHtml(stripMarkdownFence(description));
+    console.log('📝  Description converted to HTML.');
 
     /** @type {import('../lib/plugindb.js').VTPlugin} */
     const newPlugin = {
         name: title,
-        description,
+        description: descriptionHtml,
         certification: 'community',
         type: pluginType,
+        ...(pluginFamily && { family: pluginFamily }),
         slug,
         author: authorFromSlug,
     };
@@ -417,6 +476,7 @@ async function run() {
             '|-------|-------|',
             `| Name | ${title} |`,
             `| Type | ${pluginType} |`,
+            ...(pluginFamily ? [`| Family | ${pluginFamily} |`] : []),
             `| Certification | community |`,
             `| Slug | \`${slug}\` |`,
             `| GitHub URL | ${github_url} |`,

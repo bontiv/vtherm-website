@@ -1,5 +1,8 @@
+import { icon } from "mermaid/dist/rendering-util/rendering-elements/shapes/icon.js";
+
 export type VTPluginType = 'integration' | 'interface' | 'blueprint' | 'addon';
 export type VTCertificationLevel = 'official' | 'recommended' | 'community';
+export type VTPluginFamily = 'algorithm' | 'interface' | 'device-helper';
 
 export interface VTPlugin {
     /**
@@ -44,6 +47,15 @@ export interface VTPlugin {
      * A URL to the plugin's download. This is optional but can help users find more information about the plugin and how to use it.
      */
     url?: string;
+
+
+    /**
+     * The family to which the plugin belongs, which can be used for further categorization and filtering. This is optional but can help users discover related plugins and understand the plugin's purpose and functionality better. The possible values are:
+     * - "algorithm": A plugin that implements a specific algorithm or logic for the VT, such as a control strategy, a data processing method, or a machine learning model.
+     * - "interface": A plugin that provides a user interface component or dashboard for the VT, such as a custom card, a settings page, or a visualization tool.
+     * - "device-helper": A plugin that helps integrate a specific device or hardware with the VT, such as a smart thermostat, a sensor, or an actuator.
+     */
+    family?: VTPluginFamily;
 }
 
 
@@ -78,5 +90,20 @@ export const certConfig = {
     community: {
         color: 'var(--color-vtherm-secondary)',
         icon: '●'
+    }
+};
+
+export const familyConfig = {
+    algorithm: {
+        color: 'var(--color-vtherm-tertiary)',
+        icon: '',
+    },
+    interface: {
+        color: 'var(--color-vtherm-quaternary)',
+        icon: '',
+    },
+    'device-helper': {
+        color: 'var(--color-vtherm-secondary)',
+        icon: '',
     }
 };

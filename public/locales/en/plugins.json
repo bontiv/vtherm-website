@@ -17,5 +17,11 @@
         "integration": "Integration",
         "interface": "Interface",
         "addon": "Addon"
+    },
+    "families": {
+        "all": "All families",
+        "algorithm": "Algorithm",
+        "interface": "Interface",
+        "device-helper": "Device helper"
     }
 }

@@ -46,6 +46,15 @@
             "url": {
                 "type": "string",
                 "description": "The URL of the plugin (used for blueprints)"
+            },
+            "family": {
+                "type": "string",
+                "description": "The family to which the plugin belongs",
+                "enum": [
+                    "algorithm",
+                    "interface",
+                    "device-helper"
+                ]
             }
         },
         "required": [

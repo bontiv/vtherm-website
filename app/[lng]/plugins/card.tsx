@@ -1,5 +1,5 @@
 import { useT } from "@/app/i18n/client";
-import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
+import { certConfig, typeConfig, familyConfig, VTPlugin } from "@/lib/plugindb";
 import Image from "next/image";
 import { Trans } from "react-i18next";
 
@@ -11,6 +11,7 @@ interface PluginCardProps {
 export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
+    const familyStyle = plugin.family ? familyConfig[plugin.family] : null;
     const { t } = useT('plugins');
 
     return (
@@ -72,37 +73,63 @@ export function PluginCard({ plugin }: PluginCardProps) {
             </div>
 
             {/* Description */}
-            <p
-                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1"
+            <div
+                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1" dangerouslySetInnerHTML={{ __html: plugin.description }}
             >
-                {plugin.description}
-            </p>
+            </div>
 
             {/* Footer with certification */}
             <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: 'rgba(18, 18, 20, 0.06)' }}>
-                <div
-                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-md"
-                    style={{
-                        background: `${certStyle.color}08`,
-                        border: `1px solid ${certStyle.color}20`
-                    }}
-                >
-                    <span
-                        className="text-xs leading-none"
+                <div className="flex gap-3">
+                    <div
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md"
                         style={{
-                            color: certStyle.color,
+                            background: `color-mix(in srgb, ${certStyle.color}, transparent 90%)`,
+                            border: `1px solid color-mix(in srgb, ${certStyle.color}, transparent 20%)`
                         }}
                     >
-                        {certStyle.icon}
-                    </span>
-                    <span
-                        className="text-xs font-semibold"
-                        style={{
-                            color: certStyle.color,
-                        }}
-                    >
-                        {t(`certification.${plugin.certification}`)}
-                    </span>
+                        <span
+                            className="text-xs leading-none"
+                            style={{
+                                color: certStyle.color,
+                            }}
+                        >
+                            {certStyle.icon}
+                        </span>
+                        <span
+                            className="text-xs font-semibold"
+                            style={{
+                                color: certStyle.color,
+                            }}
+                        >
+                            {t(`certification.${plugin.certification}`)}
+                        </span>
+                    </div>
+                    {familyStyle && (
+                        <div
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-black"
+                            style={{
+                                background: `color-mix(in srgb, ${familyStyle.color}, transparent 80%)`,
+                                border: `1px solid color-mix(in srgb, ${familyStyle.color}, transparent 20%)`
+                            }}
+                        >
+                            <span
+                                className="text-xs leading-none"
+                                style={{
+                                    color: familyStyle.color,
+                                }}
+                            >
+                                {familyStyle.icon}
+                            </span>
+                            <span
+                                className="text-xs font-semibold"
+                                style={{
+                                    color: familyStyle.color,
+                                }}
+                            >
+                                {t(`families.${plugin.family}`)}
+                            </span>
+                        </div>)}
                 </div>
 
                 {/* Hover indicator */}

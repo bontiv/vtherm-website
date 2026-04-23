@@ -4,37 +4,41 @@
         "description": "An integration that implements an adaptive TPI algorithm to optimize the heating system performance.",
         "certification": "official",
         "type": "integration",
-        "slug": "KipK/vtherm_adaptive_tpi"
+        "slug": "KipK/vtherm_adaptive_tpi",
+        "family": "algorithm"
     },
     {
         "slug": "jmcollin78/versatile-thermostat-ui-card",
         "name": "Versatile Card UI",
         "description": "Versatile thermostat control dashboard card.",
         "type": "interface",
-        "certification": "official"
+        "certification": "official",
+        "family": "interface"
     },
     {
         "slug": "KipK/ha_entity_explorer",
         "name": "HA Entity Explorer",
         "description": "Dashboard with all Home Assistant statuses.",
         "type": "addon",
-        "certification": "recommended"
+        "certification": "recommended",
+        "family": "interface"
     },
     {
         "name": "Sonoff TRVZB linearity",
-        "slug": "caiusseverus/abe064b3f8d96896ab377766916e456a",
         "author": "Caius",
         "description": "Blueprint for fine-tuning TRVZB valves and adjusting the opening to the valve linearity, which is often non-linear. This blueprint allows you to create a linear relationship between the valve opening and the actual flow, improving the performance of the heating system.",
         "type": "blueprint",
         "certification": "recommended",
-        "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml"
+        "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml",
+        "family": "device-helper"
     },
     {
         "name": "VTherm climate replication",
-        "description": "```Markdown\nVTherm Climate Replication is a Home Assistant custom integration for Versatile Thermostat.\n\nIt links a physical thermostat entity to a Versatile Thermostat climate entity and forwards the physical thermostat state changes to the target VTherm. The goal is to use a real thermostat as a physical remote control for a VTherm.\n```",
-        "certification": "community",
+        "description": "<p>VTherm Climate Replication is a Home Assistant custom integration for Versatile Thermostat.</p><p>It links a physical thermostat entity to a Versatile Thermostat climate entity and forwards the physical thermostat state changes to the target VTherm. The goal is to use a real thermostat as a physical remote control for a VTherm.</p>",
+        "certification": "official",
         "type": "integration",
         "slug": "jmcollin78/vtherm_climate_replication",
-        "author": "jmcollin78"
+        "author": "jmcollin78",
+        "family": "device-helper"
     }
 ]

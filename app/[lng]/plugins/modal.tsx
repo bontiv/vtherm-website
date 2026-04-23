@@ -132,8 +132,7 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                     </div>
 
                     <div className="px-5 py-4">
-                        <Description className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                            {plugin?.description}
+                        <Description className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed" dangerouslySetInnerHTML={{ __html: plugin?.description ?? '' }}>
                         </Description>
                     </div>
 
