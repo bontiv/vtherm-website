@@ -7,18 +7,18 @@
         "slug": "KipK/vtherm_adaptive_tpi"
     },
     {
-        "slug": "KipK/ha_entity_explorer",
-        "name": "HA Entity Explorer",
-        "description": "Dashboard with all Home Assistant statuses.",
-        "type": "addon",
-        "certification": "recommended"
-    },
-    {
         "slug": "jmcollin78/versatile-thermostat-ui-card",
         "name": "Versatile Card UI",
         "description": "Versatile thermostat control dashboard card.",
         "type": "interface",
         "certification": "official"
+    },
+    {
+        "slug": "KipK/ha_entity_explorer",
+        "name": "HA Entity Explorer",
+        "description": "Dashboard with all Home Assistant statuses.",
+        "type": "addon",
+        "certification": "recommended"
     },
     {
         "name": "Sonoff TRVZB linearity",
@@ -28,5 +28,13 @@
         "type": "blueprint",
         "certification": "recommended",
         "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml"
+    },
+    {
+        "name": "VTherm climate replication",
+        "description": "```Markdown\nVTherm Climate Replication is a Home Assistant custom integration for Versatile Thermostat.\n\nIt links a physical thermostat entity to a Versatile Thermostat climate entity and forwards the physical thermostat state changes to the target VTherm. The goal is to use a real thermostat as a physical remote control for a VTherm.\n```",
+        "certification": "community",
+        "type": "integration",
+        "slug": "jmcollin78/vtherm_climate_replication",
+        "author": "jmcollin78"
     }
 ]
