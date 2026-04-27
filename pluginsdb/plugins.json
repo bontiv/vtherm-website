@@ -42,6 +42,15 @@
         "family": "device-helper"
     },
     {
+        "name": "HA Entity Explorer",
+        "description": "<p>A standalone web application to explore and visualize data history of any Home Assistant entity and its attributes</p>\n<p>Features:</p>\n<p>Entity Browser: Search and select any entity from your Home Assistant instance\nInteractive Charts: Zoom, pan, and explore entity history with ECharts\nAttribute Explorer: Click on chart points to view all entity attributes\nCustom Date Range: Select the time period you want to analyze\nData Export: Export entity or attribute history to JSON for external analysis\nMulti-language: Available in English and French\nEntity Filtering: Whitelist/blacklist entities for security</p>",
+        "certification": "community",
+        "type": "addon",
+        "family": "algorithm",
+        "slug": "KipK/ha_entity_explorer",
+        "author": "KipK"
+    },
+    {
         "name": "VTherm Pellet stove",
         "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
         "certification": "community",
