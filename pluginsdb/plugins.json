@@ -1,13 +1,5 @@
 [
     {
-        "name": "Adaptative TPI",
-        "description": "An integration that implements an adaptive TPI algorithm to optimize the heating system performance.",
-        "certification": "official",
-        "type": "integration",
-        "slug": "KipK/vtherm_adaptive_tpi",
-        "family": "algorithm"
-    },
-    {
         "slug": "jmcollin78/versatile-thermostat-ui-card",
         "name": "Versatile Card UI",
         "description": "Versatile thermostat control dashboard card.",
@@ -23,6 +15,15 @@
         "slug": "jmcollin78/vtherm_climate_replication",
         "author": "jmcollin78",
         "family": "device-helper"
+    },
+    {
+        "name": "Vtherm-SmartPI",
+        "description": "<p>SmartPI is an advanced PI-based thermal control algorithm built around a first-order thermal model (1R1C) rather than a classic PID loop.</p>\n<p>It learns your room's heating capability, heat loss rate and dead time, then uses that model to compute a much more accurate heating command than fixed-time proportional controllers.</p>\n<p>Documentation: <a href=\"https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md\">https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md</a></p>",
+        "certification": "official",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "kipk/vtherm-smartpi",
+        "author": "kipk"
     },
     {
         "name": "HA Entity Explorer",
