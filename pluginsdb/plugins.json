@@ -25,12 +25,13 @@
         "family": "device-helper"
     },
     {
-        "slug": "KipK/ha_entity_explorer",
         "name": "HA Entity Explorer",
-        "description": "Dashboard with all Home Assistant statuses.",
-        "type": "addon",
+        "description": "<p>A standalone web application to explore and visualize data history of any Home Assistant entity and its attributes</p>\n<p>Features:</p>\n<p>Entity Browser: Search and select any entity from your Home Assistant instance\nInteractive Charts: Zoom, pan, and explore entity history with ECharts\nAttribute Explorer: Click on chart points to view all entity attributes\nCustom Date Range: Select the time period you want to analyze\nData Export: Export entity or attribute history to JSON for external analysis\nMulti-language: Available in English and French\nEntity Filtering: Whitelist/blacklist entities for security</p>",
         "certification": "recommended",
-        "family": "interface"
+        "type": "addon",
+        "family": "interface",
+        "slug": "KipK/ha_entity_explorer",
+        "author": "KipK"
     },
     {
         "name": "Sonoff TRVZB linearity",
@@ -40,15 +41,6 @@
         "certification": "recommended",
         "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml",
         "family": "device-helper"
-    },
-    {
-        "name": "HA Entity Explorer",
-        "description": "<p>A standalone web application to explore and visualize data history of any Home Assistant entity and its attributes</p>\n<p>Features:</p>\n<p>Entity Browser: Search and select any entity from your Home Assistant instance\nInteractive Charts: Zoom, pan, and explore entity history with ECharts\nAttribute Explorer: Click on chart points to view all entity attributes\nCustom Date Range: Select the time period you want to analyze\nData Export: Export entity or attribute history to JSON for external analysis\nMulti-language: Available in English and French\nEntity Filtering: Whitelist/blacklist entities for security</p>",
-        "certification": "community",
-        "type": "addon",
-        "family": "algorithm",
-        "slug": "KipK/ha_entity_explorer",
-        "author": "KipK"
     },
     {
         "name": "VTherm Pellet stove",
