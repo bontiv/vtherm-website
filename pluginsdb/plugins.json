@@ -22,7 +22,7 @@
         "certification": "official",
         "type": "integration",
         "family": "algorithm",
-        "slug": "kipk/vtherm-smartpi",
+        "slug": "kipk/vtherm_smartpi",
         "author": "kipk"
     },
     {
