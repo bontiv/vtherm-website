@@ -50,5 +50,14 @@
         "family": "device-helper",
         "slug": "jmcollin78/vtherm_pellet_stove",
         "author": "jmcollin78"
+    },
+    {
+        "name": "Vtherm-Hysteresis",
+        "description": "<p>This integration provides a simple hysteresis-based heating algorithm packaged as an external integration for Versatile Thermostat.</p>\n<p>This repository also serve as project scaffold for Vtherm plugins development.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "KipK/vtherm_hysteresis",
+        "author": "KipK"
     }
 ]
