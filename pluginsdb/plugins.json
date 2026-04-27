@@ -46,7 +46,7 @@
         "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
         "certification": "community",
         "type": "integration",
-        "family": "algorithm",
+        "family": "device-helper",
         "slug": "jmcollin78/vtherm_pellet_stove",
         "author": "jmcollin78"
     }
