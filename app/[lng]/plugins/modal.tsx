@@ -169,7 +169,7 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                 >
                     <div className="fixed w-screen items-center justify-center p-4">
                         <DialogPanel
-                            className="w-full max-w-lvw max-h-lvh flex flex-col rounded-xl bg-white dark:bg-gray-800 border border-slate-300 dark:border-slate-600 shadow-2xl overflow-hidden"
+                            className="container mx-auto max-h-lvh flex flex-col rounded-xl bg-white dark:bg-gray-800 border border-slate-300 dark:border-slate-600 shadow-2xl overflow-hidden"
                             style={{ '--card-color': typeStyle.color } as React.CSSProperties & { '--card-color': string }}
                         >
                             {/* Header — accent bar matching card type color */}
