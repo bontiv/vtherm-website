@@ -148,8 +148,6 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
         }
     }, [plugin]);
 
-    console.log("Funding info:", Object.keys(funding).length, funding);
-
     const link_formatting = useCallback((link_url: string) => {
         if (link_url.startsWith('http'))
             return link_url

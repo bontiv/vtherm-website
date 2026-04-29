@@ -10,6 +10,10 @@
         "docs": "Documentation",
         "plugins": "Compléments"
     },
+    "bmc": {
+        "message": "Merci de visiter mon site web. Si cette intégration vous a aidé d'une manière ou d'une autre, envisagez de m'offrir un café. ✨😎",
+        "description": "Soutenez-moi sur Buy me a coffee!"
+    },
     "footer": "Ce site est un site communautaire. La seule source d'information officielle sur Versatile Thermostat est le dépôt GitHub.",
     "contribute": "Contribuer sur GitHub",
     "on-github": "Versatile Thermostat sur GitHub",
