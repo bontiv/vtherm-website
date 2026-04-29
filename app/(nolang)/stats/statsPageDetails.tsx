@@ -22,7 +22,6 @@ const StatsPageDetails: React.FC = () => {
     const releases = useSWR('https://api.github.com/repos/jmcollin78/versatile_thermostat/releases', {
         fetcher: (url) => fetch(url).then(res => res.json()).then(releases => releases.filter((x: ReleaseInfos) => x.prerelease == false)),
     })
-    console.log('Github releases:', releases.data)
 
     const ha_analytics = useSWR('/stats/ha_stats.json', {
         fetcher: (url) => fetch(url).then(res => res.json()).then(json => json.ha_analytics.versatile_thermostat.versions),
