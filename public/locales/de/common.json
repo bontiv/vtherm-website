@@ -9,6 +9,10 @@
         "github": "GitHub-Repository",
         "docs": "Dokumentation"
     },
+    "bmc": {
+        "message": "Danke, dass Sie meine Website besucht haben. Wenn diese App Sie irgendwie geholfen hat, erwägen Sie bitte, uns einen Kaffee zu kaufen. ✨😎",
+        "description": "Unterstützen Sie mich auf Buy me a coffee!"
+    },
     "footer": "Diese Website ist eine Community-Website. Die einzige offizielle Informationsquelle zu Versatile Thermostat ist das GitHub-Repository.",
     "contribute": "Auf GitHub beitragen",
     "on-github": "Versatile Thermostat auf GitHub",
