@@ -17,8 +17,17 @@
         "family": "device-helper"
     },
     {
-        "name": "Vtherm-SmartPI",
-        "description": "<p>SmartPI is an advanced PI-based thermal control algorithm built around a first-order thermal model (1R1C) rather than a classic PID loop.</p>\n<p>It learns your room's heating capability, heat loss rate and dead time, then uses that model to compute a much more accurate heating command than fixed-time proportional controllers.</p>\n<p>Documentation: <a href=\"https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md\">https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md</a></p>",
+        "name": "VTherm Pellet stove",
+        "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
+        "certification": "official",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "jmcollin78/vtherm_pellet_stove",
+        "author": "jmcollin78"
+    },
+    {
+        "name": "VTherm SmartPI",
+        "description": "<p>SmartPI is an advanced PI-based thermal control algorithm built around a first-order thermal model (1R1C) rather than a classic PID loop.</p>\n<p>It learns your room's heating capability, heat loss rate and dead time, then uses that model to compute a much more accurate heating command than fixed-time proportional controllers.</p>\n<p><a href=\"https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md\">Documentation</a></p>",
         "certification": "official",
         "type": "integration",
         "family": "algorithm",
@@ -44,16 +53,7 @@
         "family": "device-helper"
     },
     {
-        "name": "VTherm Pellet stove",
-        "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
-        "certification": "community",
-        "type": "integration",
-        "family": "device-helper",
-        "slug": "jmcollin78/vtherm_pellet_stove",
-        "author": "jmcollin78"
-    },
-    {
-        "name": "Vtherm-Hysteresis",
+        "name": "VTherm Hysteresis",
         "description": "<p>This integration provides a simple hysteresis-based heating algorithm packaged as an external integration for Versatile Thermostat.</p>\n<p>This repository also serve as project scaffold for Vtherm plugins development.</p>",
         "certification": "community",
         "type": "integration",
