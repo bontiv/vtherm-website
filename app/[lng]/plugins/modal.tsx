@@ -43,7 +43,7 @@ function parseFundingData(data: string): FundingInfo {
         const parsedData = yaml.load(data) as Record<string, string | string[]>;
         for (const key in parsedData) {
             if (parsedData.hasOwnProperty(key)) {
-                funding[key as keyof FundingInfo] = parsedData[key] as string | string[];
+                funding[key as keyof FundingInfo] = parsedData[key] as (string & string[]) | undefined;
             }
         }
     } catch (e) {
