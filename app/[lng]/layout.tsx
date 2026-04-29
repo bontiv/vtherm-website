@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { opengraph_defaults } from '@/lib/opengraph';
 import Semantic from '@/components/Semantic';
-import Buymeacoffee from '@/components/CofeeWidget';
+import Buymeacoffee from '@/components/CoffeeWidget';
 
 export async function generateStaticParams() {
     return languages.map((lng) => ({ lng }))

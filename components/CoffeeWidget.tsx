@@ -2,7 +2,6 @@
 
 import { useT } from "@/app/i18n/client";
 import Script from "next/script";
-import React, { useEffect } from "react";
 
 export default function Buymeacoffee({ name }: { name?: string }) {
     const { t } = useT('common');
