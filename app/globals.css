@@ -126,3 +126,7 @@ nav.vtherm-navigation {
     @apply underline text-vtherm-tertiary dark:text-vtherm-quaternary hover:text-vtherm-primary transition duration-300;
   }
 }
+
+#bmc-wbtn {
+  z-index: 20 !important;
+}
