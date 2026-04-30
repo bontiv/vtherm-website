@@ -135,7 +135,7 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
             ];
 
 
-            function tryFetchReadme(url: string, onError = () => { }) {
+            const tryFetchReadme = (url: string, onError = () => { }) =>
                 fetch(url)
                     .then(response => {
                         if (response.ok) {
@@ -150,7 +150,6 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                     .catch(error => {
                         console.warn("Error fetching README data:", error);
                     });
-            }
 
             tryFetchReadme(readme_urls[0], () => tryFetchReadme(readme_urls[1], () => setReadme('')));
         }
@@ -158,7 +157,7 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
             setFunding({}); // Clear funding info when plugin changes or modal closes
             setReadme(''); // Clear README info when plugin changes or modal closes
         }
-    }, [plugin]);
+    }, [plugin, i18n.language]);
 
     const link_formatting = useCallback((link_url: string) => {
         if (link_url.startsWith('http'))
