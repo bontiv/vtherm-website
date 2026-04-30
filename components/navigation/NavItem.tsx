@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { HTMLProps } from 'react';
 import { usePathname } from 'next/navigation';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 
@@ -11,6 +11,7 @@ interface NavItemProps {
     href: string;
     label: string;
     isExternal?: boolean;
+    onClick?: HTMLProps<HTMLAnchorElement>['onClick'];
 }
 
 function getCurrentLanguage(pathname: string): string {
@@ -30,6 +31,7 @@ export const NavItem: React.FC<NavItemProps> = ({
     href,
     label,
     isExternal = false,
+    onClick = () => { },
 }) => {
     const pathname = usePathname();
     const lng = getCurrentLanguage(pathname);
@@ -67,6 +69,7 @@ export const NavItem: React.FC<NavItemProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${baseStyles} ${activeStyles}`}
+                onClick={onClick}
             >
                 {content}
             </a>
@@ -77,6 +80,7 @@ export const NavItem: React.FC<NavItemProps> = ({
         <LinkLocale
             href={href}
             className={`${baseStyles} ${activeStyles}`}
+            onClick={onClick}
         >
             {content}
         </LinkLocale>
