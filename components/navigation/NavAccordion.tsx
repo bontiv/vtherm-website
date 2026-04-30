@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { HTMLProps, useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { NavItem } from './NavItem';
 import { useT } from '@/app/i18n/client';
@@ -13,11 +13,13 @@ interface SubItem {
 interface NavAccordionProps {
     label: string;
     subItems: SubItem[];
+    onClick?: HTMLProps<HTMLAnchorElement>['onClick'];
 }
 
 export const NavAccordion: React.FC<NavAccordionProps> = ({
     label,
     subItems,
+    onClick = () => { },
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -62,6 +64,7 @@ export const NavAccordion: React.FC<NavAccordionProps> = ({
                             key={item.href}
                             href={item.href}
                             label={t(`docs.${item.label}`)}
+                            onClick={onClick}
                         />
                     ))}
                 </div>

@@ -52,22 +52,27 @@ export const Sidebar: React.FC<{ docfiles?: (string | undefined)[] }> = ({ docfi
                 <NavItem
                     href="/"
                     label={t('menu.home')}
+                    onClick={closeMobileMenu}
                 />
                 <NavAccordion
                     label={t('menu.docs')}
                     subItems={qnaSubItems}
+                    onClick={closeMobileMenu}
                 />
                 <NavItem
                     href="/devices"
                     label={t('menu.devices')}
+                    onClick={closeMobileMenu}
                 />
                 <NavItem
                     href="/plugins"
                     label={t('menu.plugins')}
+                    onClick={closeMobileMenu}
                 />
                 <NavItem
                     href="/debugger"
                     label={t('menu.log-analyzer')}
+                    onClick={closeMobileMenu}
                 />
 
                 {/* Separator */}

@@ -83,7 +83,7 @@ const GithubLogo: React.FC<HTMLProps<SVGSVGElement>> = (props) => <svg {...props
 
 const FundingBadge: React.FC<{ funding: FundingInfo }> = ({ funding }) => {
     return (
-        <div className="flex border align-middle items-center gap-2 px-2 py-1 rounded-2xl border-fuchsia-400 bg-fuchsia-50 text-red-500">
+        <div className="flex border align-middle items-center gap-2 px-2 py-1 rounded-2xl border-fuchsia-400 bg-fuchsia-100 text-red-500">
             <HeartIcon className="h-6 w-6" />
             {funding.github && (
                 <a href={typeof funding.github === 'string' ? funding.github : funding.github[0]} target="_blank" rel="noreferrer noopener">
@@ -91,8 +91,8 @@ const FundingBadge: React.FC<{ funding: FundingInfo }> = ({ funding }) => {
                 </a>
             )}
             {funding.buy_me_a_coffee && (
-                <a href={'https://buymeacoffee.com/' + funding.buy_me_a_coffee} title="Buy Me a Coffee" className="" target="_blank" rel="noreferrer noopener">
-                    <Image height="32" width="32" src="https://cdn.simpleicons.org/buymeacoffee/FFDD00" alt={"Buy me a Coffee"} />
+                <a href={'https://buymeacoffee.com/' + funding.buy_me_a_coffee} title="Buy Me a Coffee" className="bg-white border-stone-400 p-1 rounded-full shadow-xl hover:-translate-y-1 inset-shadow-2xs duration-100" target="_blank" rel="noreferrer noopener">
+                    <Image height="32" width="32" src="https://cdn.simpleicons.org/buymeacoffee" alt={"Buy me a Coffee"} />
                 </a>
             )}
             {funding.custom && (
@@ -105,7 +105,7 @@ const FundingBadge: React.FC<{ funding: FundingInfo }> = ({ funding }) => {
 };
 
 const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
-    const { t } = useT('plugins');
+    const { t, i18n } = useT('plugins');
     const [funding, setFunding] = useState<FundingInfo>({});
     const [readme, setReadme] = useState<string>('');
 
@@ -128,25 +128,36 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                 .catch(error => {
                     console.warn("Error fetching funding data:", error);
                 });
-            fetch(`https://raw.githubusercontent.com/${plugin.slug}/HEAD/README.md`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.text();
-                    }
-                    return ''; // Return empty string if no README is found
-                })
-                .then(data => {
-                    setReadme(data);
-                })
-                .catch(error => {
-                    console.warn("Error fetching README data:", error);
-                });
+
+            const readme_urls = [
+                `https://raw.githubusercontent.com/${plugin.slug}/HEAD/README.${i18n.language}.md`,
+                `https://raw.githubusercontent.com/${plugin.slug}/HEAD/README.md`
+            ];
+
+
+            const tryFetchReadme = (url: string, onError = () => { }) =>
+                fetch(url)
+                    .then(response => {
+                        if (response.ok) {
+                            return response.text();
+                        }
+                        onError(); // Try the next URL if the current one fails
+                        throw new Error("README not found at " + url);
+                    })
+                    .then(data => {
+                        setReadme(data);
+                    })
+                    .catch(error => {
+                        console.warn("Error fetching README data:", error);
+                    });
+
+            tryFetchReadme(readme_urls[0], () => tryFetchReadme(readme_urls[1], () => setReadme('')));
         }
         return () => {
             setFunding({}); // Clear funding info when plugin changes or modal closes
             setReadme(''); // Clear README info when plugin changes or modal closes
         }
-    }, [plugin]);
+    }, [plugin, i18n.language]);
 
     const link_formatting = useCallback((link_url: string) => {
         if (link_url.startsWith('http'))

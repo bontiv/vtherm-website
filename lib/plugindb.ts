@@ -7,11 +7,15 @@ export interface VTPlugin {
      * The display name of the plugin
      */
     name: string;
+    name_fr?: string;
+    name_de?: string;
 
     /**
      * A short description of the plugin, ideally one sentence. This will be shown in the plugin card, so it should be concise and informative.
      */
     description: string;
+    description_fr?: string;
+    description_de?: string;
 
     /**
      * The type of the plugin, which determines its category and styling. This should be one of the following values:

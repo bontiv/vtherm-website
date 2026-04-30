@@ -12,7 +12,12 @@ export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
     const familyStyle = plugin.family ? familyConfig[plugin.family] : null;
-    const { t } = useT('plugins');
+    const { t, i18n } = useT('plugins');
+
+    const nameKey = `name_${i18n.language}` as keyof VTPlugin;
+    const name = i18n.language != 'en' && nameKey in plugin ? plugin[nameKey] as string : plugin.name;
+    const descriptionKey = `description_${i18n.language}` as keyof VTPlugin;
+    const description = i18n.language != 'en' && descriptionKey in plugin ? plugin[descriptionKey] as string : plugin.description;
 
     return (
         <div
@@ -37,7 +42,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
                     <h3
                         className="m-0 mb-1.5 truncate text-lg font-medium"
                     >
-                        {plugin.name}
+                        {name}
                     </h3>
                     <div
                         className="flex items-center gap-1.5 text-sm"
@@ -74,7 +79,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
 
             {/* Description */}
             <div
-                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1" dangerouslySetInnerHTML={{ __html: plugin.description }}
+                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1" dangerouslySetInnerHTML={{ __html: description }}
             >
             </div>
 

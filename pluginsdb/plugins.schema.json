@@ -31,9 +31,25 @@
                 "type": "string",
                 "description": "The name of the plugin"
             },
+            "name_fr": {
+                "type": "string",
+                "description": "The name of the plugin in French"
+            },
+            "name_de": {
+                "type": "string",
+                "description": "The name of the plugin in German"
+            },
             "description": {
                 "type": "string",
                 "description": "A short description of the plugin"
+            },
+            "description_fr": {
+                "type": "string",
+                "description": "A short description of the plugin in French"
+            },
+            "description_de": {
+                "type": "string",
+                "description": "A short description of the plugin in German"
             },
             "slug": {
                 "type": "string",
