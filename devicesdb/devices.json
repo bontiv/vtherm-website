@@ -74,5 +74,14 @@
         "state": "community",
         "type": "climate",
         "slug": "smartir"
+    },
+    {
+        "manufacturer": "Mitsubishi Electric",
+        "model": "MSZ-HR35VFK",
+        "state": "community",
+        "title": "Mitsubishi MELCloud",
+        "type": "climate",
+        "slug": "MELCloud",
+        "img": "/img/MELCloud.jpg"
     }
 ]
