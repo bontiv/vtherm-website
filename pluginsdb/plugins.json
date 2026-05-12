@@ -53,6 +53,15 @@
         "family": "device-helper"
     },
     {
+        "name": "Equinox",
+        "description": "<p>Equinox is a custom Lovelace card for Home Assistant. It is designed for Versatile Thermostat while keeping compatibility with standard climate entities.</p>",
+        "certification": "community",
+        "type": "interface",
+        "family": "interface",
+        "slug": "KipK/equinox",
+        "author": "KipK"
+    },
+    {
         "name": "VTherm Hysteresis",
         "description": "<p>This integration provides a simple hysteresis-based heating algorithm packaged as an external integration for Versatile Thermostat.</p>\n<p>This repository also serve as project scaffold for Vtherm plugins development.</p>",
         "certification": "community",
