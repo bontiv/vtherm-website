@@ -83,5 +83,13 @@
         "type": "climate",
         "slug": "MELCloud",
         "img": "/img/MELCloud.jpg"
+    },
+    {
+        "manufacturer": "Fritz!",
+        "model": "DECT 301",
+        "state": "partially",
+        "type": "climate",
+        "slug": "fritz",
+        "img": "/img/fritzdect_301.png"
     }
 ]
