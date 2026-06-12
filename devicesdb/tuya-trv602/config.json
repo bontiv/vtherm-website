@@ -1,0 +1,6 @@
+{
+    "title": "Tuya TRV602 - Zigbee",
+    "config": {
+        "thermostat_type": "thermostat_over_climate"
+    }
+}
