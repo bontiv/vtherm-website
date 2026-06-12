@@ -1,0 +1,13 @@
+@reference '../../../globals.css';
+@import url('https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.8.1/github-markdown.min.css');
+
+.device-doc pre {
+    overflow-x: auto;
+    @apply border border-neutral-700 rounded-lg p-4 bg-neutral-100 dark:bg-neutral-800;
+}
+
+.device-doc code {
+    background-color: var(--bg-secondary) !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+}

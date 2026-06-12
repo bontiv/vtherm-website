@@ -14,6 +14,10 @@ import { opengraph_defaults } from '@/lib/opengraph';
 import rehypeExternalLinks from 'rehype-external-links'
 import Semantic from '@/components/Semantic';
 
+import remarkNotes from 'remark-github-blockquote-alert';
+import './markdown.css';
+import 'remark-github-blockquote-alert/alert.css';
+
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }): Promise<Metadata> {
     const { lng, slug } = await params
     const { t } = await getT('devices', { lng })
@@ -140,11 +144,11 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
                 ]
             }
         }} />
-        <div className='main-content' lang={lng} data-pagefind-body>
+        <div className='main-content device-doc' lang={lng} data-pagefind-body>
             <div className='text-blue-900 flex flex-wrap items-start'>
                 <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
             </div>
-            {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
+            {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
             <DeviceConfig config={config.config} lng={lng} />
         </div>
     </>
