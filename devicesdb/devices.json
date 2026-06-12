@@ -91,5 +91,13 @@
         "type": "climate",
         "slug": "fritz",
         "img": "/img/fritzdect_301.png"
+    },
+    {
+        "manufacturer": "Tuya",
+        "model": "TRV602",
+        "state": "partially",
+        "type": "trv",
+        "slug": "tuya-trv602",
+        "img": "https://www.zigbee2mqtt.io/images/devices/TRV602.png"
     }
 ]
