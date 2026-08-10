@@ -1,6 +1,6 @@
 {
     "title": "Der intelligente Thermostat für Ihr Zuhause",
-    "title_doc": "{{title}}",
+    "title_doc": "{{- title}}",
     "description": "Versatile Thermostat ist eine erweiterte Thermostat-Integration für Home Assistant, die mit jeder vorhandenen Klima-, Schalter- oder Ventilentität funktioniert. Es bietet intelligente Kalibrierung, Kesselsteuerung und einen TPI-Algorithmus für optimalen Komfort und Energieeinsparungen.",
     "menu": {
         "home": "Startseite",
