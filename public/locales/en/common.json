@@ -35,6 +35,7 @@
         "feature-logs-collector": "Log collector",
         "feature-motion": "Motion feature",
         "feature-power": "Power management",
+        "feature-presence": "Presence management",
         "feature-presets": "Presets",
         "feature-recalibrate-valves": "Valves recalibration",
         "feature-sync_device_temp": "Sync device temperature",
