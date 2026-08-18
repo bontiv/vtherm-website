@@ -9,6 +9,15 @@
 # with --force-with-lease. If the rebase produces conflicts, the workflow
 # fails on purpose (standard GitHub email notification) instead of trying to
 # resolve anything automatically.
+#
+# `latest` is a protected branch (force pushes restricted). The default
+# GITHUB_TOKEN (github-actions[bot]) cannot be added to a ruleset bypass list,
+# so we authenticate the push with a Deploy Key (SSH). Setup required:
+#   1. Generate an SSH keypair (e.g. `ssh-keygen -t ed25519 -C latest-sync -f latest_sync -N ""`).
+#   2. Repo Settings > Deploy keys: add the PUBLIC key with "Allow write access".
+#   3. Repo Settings > Secrets and variables > Actions: add the PRIVATE key as
+#      the secret `LATEST_DEPLOY_KEY`.
+#   4. Add that Deploy key to the Bypass list of the ruleset protecting `latest`.
 name: Update latest from stable
 
 on:
@@ -37,6 +46,10 @@ jobs:
               with:
                   ref: latest
                   fetch-depth: 0
+                  # Push under the Deploy key identity, which is allowed to
+                  # bypass the branch protection on `latest`.
+                  ssh-key: ${{ secrets.LATEST_DEPLOY_KEY }}
+                  persist-credentials: true
 
             - name: Configure git identity
               run: |
