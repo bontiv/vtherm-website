@@ -69,5 +69,14 @@
         "family": "algorithm",
         "slug": "KipK/vtherm_hysteresis",
         "author": "KipK"
+    },
+    {
+        "name": "vtherm_auto_fan_extended",
+        "description": "<p>For every over_climate VTherm exposing fan_modes, the plugin creates a set of configuration entities and, at each control cycle:</p>\n<ol>\n<li>Computes the temperature gap dtemp = target − current.\n2; Selects the underlying fan_mode whose activation threshold is the greatest one that is > 0 and ≤ |dtemp|, provided it is coherent with the current HVAC mode (heating/cooling/off).</li>\n<li>Otherwise it applies the configured rest fan_mode.</li>\n<li>The chosen fan_mode is only sent to the underlying when it actually changes.</li>\n</ol>\n<p>Each fan_mode gets its own user-configurable threshold (a threshold of 0 means the fan_mode never participates), so non-normalized fan_modes (e.g. on_low / on_high / auto_low / off) are supported out of the box.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "jmcollin78/vtherm_auto_fan_extended",
+        "author": "jmcollin78"
     }
 ]
