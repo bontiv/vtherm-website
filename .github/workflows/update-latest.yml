@@ -1,0 +1,56 @@
+# Keep `latest` linear on top of `stable`.
+#
+# `latest` is always expected to be `stable` plus extra commits. Whenever a
+# hotfix or a documentation change is pushed to `stable`, this workflow
+# rebases `latest` onto `stable` so the hotfix is integrated while keeping a
+# linear history (no merge commits).
+#
+# NOTE: this rewrites the history of `latest` (new commit SHAs) and pushes
+# with --force-with-lease. If the rebase produces conflicts, the workflow
+# fails on purpose (standard GitHub email notification) instead of trying to
+# resolve anything automatically.
+name: Update latest from stable
+
+on:
+    # Runs whenever stable is updated (hotfix or doc merge)
+    push:
+        branches: ["stable"]
+
+    # Allows running this workflow manually from the Actions tab
+    workflow_dispatch:
+
+permissions:
+    contents: write
+
+# Avoid running two rebases concurrently, which could corrupt the branch.
+# Do NOT cancel an in-progress run: let it finish (or fail) before starting another.
+concurrency:
+    group: "update-latest"
+    cancel-in-progress: false
+
+jobs:
+    rebase-latest:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout latest (full history)
+              uses: actions/checkout@v4
+              with:
+                  ref: latest
+                  fetch-depth: 0
+
+            - name: Configure git identity
+              run: |
+                  git config user.name "github-actions[bot]"
+                  git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+            - name: Rebase latest onto stable
+              run: |
+                  git fetch origin stable
+                  git rebase origin/stable
+
+            - name: Push rebased latest
+              run: git push --force-with-lease origin latest
+
+            - name: Abort rebase on failure
+              if: failure()
+              run: git rebase --abort || true
