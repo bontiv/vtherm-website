@@ -104,3 +104,15 @@ jobs:
                   RCLONE_SFTP_USER: ${{ secrets.RCLONE_SFTP_USER }}
                   RCLONE_SFTP_PASS: ${{ secrets.RCLONE_SFTP_PASS }}
                   RCLONE_TRANSFERS: 25
+    github-page:
+        runs-on: ubuntu-latest
+        needs: build_production
+        permissions:
+            pages: write
+            id-token: write
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v5
+              with:
+                artifact_name: outdir
