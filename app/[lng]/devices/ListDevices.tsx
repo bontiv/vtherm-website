@@ -1,12 +1,19 @@
 'use client';
 
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import { InformationCircleIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import './state-color.css';
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import { LinkLocale } from "@/components/LinkLocale";
 import { useT } from "@/app/i18n/client";
 import { Button } from "@/components/ui/Button";
+
+type AffiliateLinks = {
+    fr?: string,
+    de?: string,
+    en?: string
+}
 
 type DeviceSpec = {
     manufacturer: string,
@@ -15,19 +22,28 @@ type DeviceSpec = {
     state: string,
     img: string,
     title?: string,
-    type: string
+    type: string,
+    affiliate?: AffiliateLinks
 }
 
 const DeviceCard: React.FC<{ device: DeviceSpec }> = ({ device }) => {
     const { t } = useT('devices')
+    const lng = useParams()?.lng
+    const affiliateUrl = typeof lng === 'string' ? device.affiliate?.[lng as keyof AffiliateLinks] : undefined
 
-    return <LinkLocale href={`/devices/${device.slug}/`} className="bg-white rounded border-2 border-solid border-slate-300 text-gray-700 w-3xs relative">
-        <h3 className="text-center text-lg font-bold py-2 bg-slate-100">{device.title ? device.title : `${device.manufacturer} - ${device.model}`}</h3>
-        <div className="p-1">
-            <Image className="mx-auto" src={device.img} alt={`${device.manufacturer} ${device.model}`} width={256} height={256} />
-            <p className={`px-4 py-1 text-sm font-bold badge ${device.state} absolute bottom-0 left-0 rounded-tr-lg`}>{t('states.' + device.state)}</p>
-        </div>
-    </LinkLocale>
+    return <div className="bg-white rounded border-2 border-solid border-slate-300 text-gray-700 w-3xs flex flex-col">
+        <LinkLocale href={`/devices/${device.slug}/`} className="grow flex flex-col">
+            <h3 className="text-center text-lg font-bold py-2 bg-slate-100">{device.title ? device.title : `${device.manufacturer} - ${device.model}`}</h3>
+            <div className="p-1 relative grow">
+                <Image className="mx-auto" src={device.img} alt={`${device.manufacturer} ${device.model}`} width={256} height={256} />
+                <p className={`px-4 py-1 text-sm font-bold badge ${device.state} absolute bottom-0 left-0 rounded-tr-lg`}>{t('states.' + device.state)}</p>
+            </div>
+        </LinkLocale>
+        {affiliateUrl && <a href={affiliateUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-2 border-t border-solid border-slate-300 text-gray-700 hover:bg-slate-100 transition-colors rounded-b">
+            <ShoppingCartIcon className="w-5 h-5" />
+            <span className="text-sm font-semibold">{t('buy')}</span>
+        </a>}
+    </div>
 }
 
 const ListDevices: React.FC<{ devices: DeviceSpec[] }> = ({ devices }) => {

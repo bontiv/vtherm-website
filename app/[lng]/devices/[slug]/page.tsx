@@ -1,7 +1,7 @@
 import { getAlternatesMetadata, getT } from '@/app/i18n';
 import { LinkLocale } from '@/components/LinkLocale';
 import devices from '@/devicesdb/devices.json';
-import { ArrowUturnLeftIcon } from '@heroicons/react/16/solid';
+import { ArrowUturnLeftIcon, ShoppingCartIcon } from '@heroicons/react/16/solid';
 import type { DeviceDefinition } from '@/lib/devicedb';
 import path from 'path';
 import { fallbackLng } from '@/app/i18n/settings';
@@ -111,6 +111,9 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
     const readme: string | undefined = IO.existsSync(readMePath) ? IO.readFileSync(readMePath, {}).toString() : undefined
     const t_opts = { device: config.title ?? slug }
 
+    const deviceEntry = devices.find(device => device.slug === slug && device.affiliate);
+    const affiliateUrl = deviceEntry?.affiliate?.[lng as 'fr' | 'de' | 'en'];
+
     return <>
         <Semantic id={`devices-${lng}-${slug}`} data={{
             "@context": "https://schema.org",
@@ -145,8 +148,9 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
             }
         }} />
         <div className='main-content device-doc' lang={lng} data-pagefind-body>
-            <div className='text-blue-900 flex flex-wrap items-start'>
+            <div className='text-blue-900 flex flex-wrap items-start gap-3'>
                 <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
+                {affiliateUrl && <a href={affiliateUrl} target='_blank' rel='noopener noreferrer' className='rounded-full no-underline border-2 border-sky-600 text-sky-600 px-4 py-3 inline-block hover:bg-sky-600 hover:text-white transition-colors'>{t('buy')} <ShoppingCartIcon className='h-lh inline' /></a>}
             </div>
             {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
             <DeviceConfig config={config.config} lng={lng} />
