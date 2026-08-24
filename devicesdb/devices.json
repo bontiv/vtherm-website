@@ -5,7 +5,12 @@
         "model": "TRVZB",
         "slug": "sonoff-trvzb",
         "state": "supported",
-        "type": "trv"
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/chauffage-connecte/6776-sonoff-tete-thermostatique-zigbee-30-trvzb-compatible-zigbee2mqtt.html?domid=97",
+            "de": "https://www.domadoo.fr/de/chauffage-connecte/6776-sonoff-tete-thermostatique-zigbee-30-trvzb-compatible-zigbee2mqtt.html?domid=97",
+            "en": "https://www.domadoo.fr/en/chauffage-connecte/6776-sonoff-tete-thermostatique-zigbee-30-trvzb-compatible-zigbee2mqtt.html?domid=97"
+        }
     },
     {
         "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
@@ -14,7 +19,12 @@
         "slug": "aqara-w600",
         "state": "supported",
         "title": "Aqara W600",
-        "type": "trv"
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97"
+        }
     },
     {
         "img": "https://www.zigbee2mqtt.io/images/devices/CoZB_dha.png",
@@ -48,7 +58,12 @@
         "model": "SIN-4-FP-20",
         "slug": "over-switch",
         "state": "supported",
-        "type": "electric"
+        "type": "electric",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=97",
+            "en": "https://www.domadoo.fr/en/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=97",
+            "de": "https://www.domadoo.fr/de/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=97"
+        }
     },
     {
         "img": "/img/tuya-ac.jpg",
@@ -73,7 +88,12 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/UFO-R11.png",
         "state": "community",
         "type": "climate",
-        "slug": "smartir"
+        "slug": "smartir",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/telecommandes-domotiques/6327-moes-telecommande-universelle-infrarouge-tuya-zigbee-ih-f8260.html?domid=97",
+            "en": "https://www.domadoo.fr/en/telecommandes-domotiques/6327-moes-telecommande-universelle-infrarouge-tuya-zigbee-ih-f8260.html?domid=97",
+            "de": "https://www.domadoo.fr/de/telecommandes-domotiques/6327-moes-telecommande-universelle-infrarouge-tuya-zigbee-ih-f8260.html?domid=97"
+        }
     },
     {
         "manufacturer": "Mitsubishi Electric",

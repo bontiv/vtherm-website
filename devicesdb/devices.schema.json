@@ -43,6 +43,20 @@
                     "electric"
                 ],
                 "description": "Type of device"
+            },
+            "affiliate": {
+                "type": "object",
+                "properties": {
+                    "fr": {
+                        "type": "string"
+                    },
+                    "de": {
+                        "type": "string"
+                    },
+                    "en": {
+                        "type": "string"
+                    }
+                }
             }
         },
         "required": [
