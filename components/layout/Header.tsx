@@ -30,11 +30,12 @@ export const Header: React.FC = () => {
     const router = useRouter();
 
     const handleLangChange = (lang: string) => {
-        if (pathname.startsWith(`/${i18n.language}`)) {
-            router.push(`/${lang}${pathname.slice(3, -1)}`);
-        } else {
-            i18n.changeLanguage(lang);
+        const currentLang = i18n.language;
+        if (pathname.startsWith(`/${currentLang}`)) {
+            const rest = pathname.replace(`/${currentLang}`, `/${lang}`);
+            router.push(rest);
         }
+        i18n.changeLanguage(lang);
     };
 
     const currentLang = LANGUAGES.find(l => l.value === i18n.language) ?? LANGUAGES[0];
