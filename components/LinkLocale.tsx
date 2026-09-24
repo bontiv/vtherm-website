@@ -11,15 +11,14 @@ type LinkLocaleProps = LinkProps & AnchorHTMLAttributes<HTMLAnchorElement>;
 
 function getCurrentLanguage(pathname: string): string {
     const pathSegments = pathname.split('/');
+    if (pathSegments.length >= 2) {
+        const lng = pathSegments[1];
+        if (languages.includes(lng)) {
+            return lng;
+        }
+    }
     if (i18n.resolvedLanguage) {
         return i18n.resolvedLanguage;
-    }
-    if (pathSegments.length < 2) {
-        return fallbackLng;
-    }
-    const lng = pathSegments[1];
-    if (languages.includes(lng)) {
-        return lng;
     }
     return fallbackLng;
 }
