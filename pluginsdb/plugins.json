@@ -17,21 +17,21 @@
         "family": "device-helper"
     },
     {
-        "name": "VTherm Pellet stove",
-        "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
-        "certification": "official",
-        "type": "integration",
-        "family": "algorithm",
-        "slug": "jmcollin78/vtherm_pellet_stove",
-        "author": "jmcollin78"
-    },
-    {
         "name": "VTherm Heating Failure Detection",
         "description": "<p>Home Assistant plugin for heating and cooling failure detection with Versatile Thermostat.</p><p>It monitors how temperature responds to commands from the thermostat's proportional algorithm. When an abnormal condition persists, it publishes a Versatile Thermostat-compatible event and exposes a binary sensor for automations.</p>",
         "certification": "official",
         "type": "integration",
         "family": "algorithm",
         "slug": "jmcollin78/vtherm_heating_failure_detection",
+        "author": "jmcollin78"
+    },
+    {
+        "name": "VTherm Pellet stove",
+        "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
+        "certification": "official",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "jmcollin78/vtherm_pellet_stove",
         "author": "jmcollin78"
     },
     {
@@ -62,21 +62,21 @@
         "family": "device-helper"
     },
     {
+        "name": "A graphical Scheduler",
+        "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "interface",
+        "slug": "armellarcier/ha-chauffage",
+        "author": "armellarcier"
+    },
+    {
         "name": "Equinox",
         "description": "<p>Equinox is a custom Lovelace card for Home Assistant. It is designed for Versatile Thermostat while keeping compatibility with standard climate entities.</p>",
         "certification": "community",
         "type": "interface",
         "family": "interface",
         "slug": "KipK/equinox",
-        "author": "KipK"
-    },
-    {
-        "name": "VTherm Hysteresis",
-        "description": "<p>This integration provides a simple hysteresis-based heating algorithm packaged as an external integration for Versatile Thermostat.</p>\n<p>This repository also serve as project scaffold for Vtherm plugins development.</p>",
-        "certification": "community",
-        "type": "integration",
-        "family": "algorithm",
-        "slug": "KipK/vtherm_hysteresis",
         "author": "KipK"
     },
     {
@@ -87,5 +87,14 @@
         "family": "algorithm",
         "slug": "jmcollin78/vtherm_auto_fan_extended",
         "author": "jmcollin78"
+    },
+    {
+        "name": "VTherm Hysteresis",
+        "description": "<p>This integration provides a simple hysteresis-based heating algorithm packaged as an external integration for Versatile Thermostat.</p>\n<p>This repository also serve as project scaffold for Vtherm plugins development.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "KipK/vtherm_hysteresis",
+        "author": "KipK"
     }
 ]
