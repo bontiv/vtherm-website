@@ -96,5 +96,14 @@
         "family": "algorithm",
         "slug": "KipK/vtherm_hysteresis",
         "author": "KipK"
+    },
+    {
+        "name": "VTherm inhibition",
+        "description": "<p>Home Assistant plugin that lets a Versatile Thermostat (VTherm) step back while another device takes over the room: an electric heater running on PV surplus, an air conditioner heating or cooling, a person heating manually at the valve...</p>\n<p>It can also be used to prevent VTherm from controlling its underlying devices, allowing the user to control them directly without any VTherm interaction.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "algorithm",
+        "slug": "alexlenk/vtherm_inhibition",
+        "author": "alexlenk"
     }
 ]
