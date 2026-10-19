@@ -1,6 +1,11 @@
+import type { ComponentType, SVGProps } from 'react';
+import { CheckBadgeIcon, ClipboardDocumentListIcon, CubeIcon, HandThumbUpIcon, PuzzlePieceIcon, Squares2X2Icon, UserGroupIcon } from '@heroicons/react/24/outline';
+
+type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
+
 export type VTPluginType = 'integration' | 'interface' | 'blueprint' | 'addon';
 export type VTCertificationLevel = 'official' | 'recommended' | 'community';
-export type VTPluginFamily = 'algorithm' | 'interface' | 'device-helper';
+export type VTPluginFamily = 'algorithm' | 'interface' | 'device-helper' | 'feature';
 
 export interface VTPlugin {
     /**
@@ -56,42 +61,58 @@ export interface VTPlugin {
      * - "algorithm": A plugin that implements a specific algorithm or logic for the VT, such as a control strategy, a data processing method, or a machine learning model.
      * - "interface": A plugin that provides a user interface component or dashboard for the VT, such as a custom card, a settings page, or a visualization tool.
      * - "device-helper": A plugin that helps integrate a specific device or hardware with the VT, such as a smart thermostat, a sensor, or an actuator.
+     * - "feature": A plugin that adds a new feature to the VT, such as a scheduler, an inhibition mechanism or a failure detection.
      */
     family?: VTPluginFamily;
+
+    /**
+     * Number of GitHub stars of the repository. Not stored in plugins.json: it is fetched at build time.
+     */
+    stars?: number;
 }
 
 
-export const typeConfig = {
+export const typeConfig: Record<VTPluginType, { color: string, bgColor: string, icon: HeroIcon }> = {
     blueprint: {
         color: '#306BE5',
-        bgColor: 'rgba(48, 107, 229, 0.08)'
+        bgColor: 'rgba(48, 107, 229, 0.12)',
+        icon: ClipboardDocumentListIcon,
     },
     integration: {
         color: '#E67249',
-        bgColor: 'rgba(230, 114, 73, 0.08)'
+        bgColor: 'rgba(230, 114, 73, 0.12)',
+        icon: PuzzlePieceIcon,
     },
     interface: {
-        color: '#3EB0F2',
-        bgColor: 'rgba(62, 176, 242, 0.08)'
+        color: '#0EA5E9',
+        bgColor: 'rgba(14, 165, 233, 0.12)',
+        icon: Squares2X2Icon,
     },
     addon: {
         color: '#9F7EEA',
-        bgColor: 'rgba(159, 126, 234, 0.08)'
+        bgColor: 'rgba(159, 126, 234, 0.12)',
+        icon: CubeIcon,
     }
 };
 
-export const certConfig = {
+export const certConfig: Record<VTCertificationLevel, { color: string, icon: string, Icon: HeroIcon, rank: number }> = {
     official: {
-        color: 'var(--color-vtherm-tertiary)',
-        icon: '★'
+        color: '#059669',
+        icon: '★',
+        Icon: CheckBadgeIcon,
+        rank: 0,
     },
     recommended: {
-        color: 'var(--color-vtherm-quaternary)',
-        icon: '◆'
+        color: '#306BE5',
+        icon: '◆',
+        Icon: HandThumbUpIcon,
+        rank: 1,
     },
     community: {
-        color: 'var(--color-vtherm-secondary)',
-        icon: '●'
+        color: '#64748B',
+        icon: '●',
+        Icon: UserGroupIcon,
+        rank: 2,
     }
 };
 
@@ -107,5 +128,15 @@ export const familyConfig = {
     'device-helper': {
         color: 'var(--color-vtherm-secondary)',
         icon: '',
+    },
+    feature: {
+        color: '#9F7EEA',
+        icon: '',
     }
 };
+
+/**
+ * Identifier of a plugin in the URL hash: its GitHub slug ("owner/repo"), or a slugified name for plugins without repository.
+ */
+export const pluginAnchor = (plugin: VTPlugin): string =>
+    plugin.slug ?? plugin.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');

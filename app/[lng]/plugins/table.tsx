@@ -1,48 +1,131 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useMemo, useState, useSyncExternalStore } from 'react';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { PluginCard } from './card';
 import { useT } from '@/app/i18n/client';
-import { VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
+import { certConfig, pluginAnchor, typeConfig, VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
 import { Trans } from 'react-i18next';
 import dynamic from 'next/dynamic';
 const PluginModal = dynamic(() => import('./modal'), { ssr: false });
 
+type SortOrder = 'certification' | 'stars' | 'name';
+type Facet = 'type' | 'certification' | 'family';
+
+const pluginTypes: VTPluginType[] = ['integration', 'interface', 'blueprint', 'addon'];
+const certificationLevels: VTCertificationLevel[] = ['official', 'recommended', 'community'];
+const pluginFamilies: VTPluginFamily[] = ['algorithm', 'feature', 'interface', 'device-helper'];
+
+const toggle = <T,>(set: Set<T>, value: T): Set<T> => {
+    const next = new Set(set);
+    if (next.has(value)) {
+        next.delete(value);
+    } else {
+        next.add(value);
+    }
+    return next;
+};
+
+// The opened plugin is kept in the URL hash (e.g. #kipk/vtherm_smartpi) so that a plugin card can be shared.
+// The hash is updated with replaceState, which fires no event: local listeners are notified explicitly.
+const hashListeners = new Set<() => void>();
+
+const subscribeToHash = (onChange: () => void) => {
+    hashListeners.add(onChange);
+    window.addEventListener('hashchange', onChange);
+    return () => {
+        hashListeners.delete(onChange);
+        window.removeEventListener('hashchange', onChange);
+    };
+};
+
+const setHash = (anchor: string) => {
+    const url = anchor ? `#${anchor}` : window.location.pathname + window.location.search;
+    window.history.replaceState(window.history.state, '', url);
+    hashListeners.forEach(listener => listener());
+};
+
+const decodeHash = (hash: string): string => {
+    try {
+        return decodeURIComponent(hash.replace(/^#/, ''));
+    } catch {
+        return '';
+    }
+};
+
+const searchableText = (plugin: VTPlugin): string =>
+    [
+        plugin.name, plugin.name_fr, plugin.name_de,
+        plugin.description, plugin.description_fr, plugin.description_de,
+        plugin.author, plugin.slug,
+    ]
+        .filter(Boolean)
+        .join(' ')
+        .replace(/<[^>]+>/g, ' ')
+        .toLowerCase();
 
 const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
     const [selectedType, setSelectedType] = useState<VTPluginType | 'all'>('all');
-    const [selectedCert, setSelectedCert] = useState<VTCertificationLevel | 'all'>('all');
-    const [selectedFamily, setSelectedFamily] = useState<VTPluginFamily | 'all'>('all');
-    const [modalPlugin, setModalPlugin] = useState<VTPlugin | undefined>(undefined);
+    const [selectedCerts, setSelectedCerts] = useState<Set<VTCertificationLevel>>(new Set());
+    const [selectedFamilies, setSelectedFamilies] = useState<Set<VTPluginFamily>>(new Set());
+    const [query, setQuery] = useState('');
+    const [sortOrder, setSortOrder] = useState<SortOrder>('certification');
+    const hash = useSyncExternalStore(subscribeToHash, () => window.location.hash, () => '');
     const { t } = useT('plugins');
 
-    const filteredPlugins = plugins.filter(plugin => {
-        const typeMatch = selectedType === 'all' || plugin.type === selectedType;
-        const certMatch = selectedCert === 'all' || plugin.certification === selectedCert;
-        const familyMatch = selectedFamily === 'all' || plugin.family === selectedFamily;
-        return typeMatch && certMatch && familyMatch;
-    });
+    const modalPlugin = useMemo(() => {
+        const anchor = decodeHash(hash).toLowerCase();
+        return anchor ? plugins.find(plugin => pluginAnchor(plugin).toLowerCase() === anchor) : undefined;
+    }, [hash, plugins]);
+
+    const searchIndex = useMemo(() => new Map(plugins.map(plugin => [plugin, searchableText(plugin)])), [plugins]);
+    const normalizedQuery = query.trim().toLowerCase();
+
+    // A plugin matches when it satisfies every active filter, except the one given in `ignore`.
+    // Ignoring its own facet lets each chip show how many results it would give once selected.
+    const matches = (plugin: VTPlugin, ignore?: Facet) =>
+        (ignore === 'type' || selectedType === 'all' || plugin.type === selectedType)
+        && (ignore === 'certification' || selectedCerts.size === 0 || selectedCerts.has(plugin.certification))
+        && (ignore === 'family' || selectedFamilies.size === 0 || (!!plugin.family && selectedFamilies.has(plugin.family)))
+        && (normalizedQuery === '' || !!searchIndex.get(plugin)?.includes(normalizedQuery));
+
+    const filteredPlugins = plugins
+        .filter(plugin => matches(plugin))
+        .sort((a, b) => {
+            if (sortOrder === 'name') {
+                return a.name.localeCompare(b.name);
+            }
+            const byStars = (b.stars ?? 0) - (a.stars ?? 0);
+            if (sortOrder === 'stars') {
+                return byStars || a.name.localeCompare(b.name);
+            }
+            return (certConfig[a.certification].rank - certConfig[b.certification].rank) || byStars;
+        });
+
+    const countFor = (facet: Facet, predicate: (plugin: VTPlugin) => boolean) =>
+        plugins.filter(plugin => predicate(plugin) && matches(plugin, facet)).length;
+
+    const hasActiveFilters = selectedType !== 'all' || selectedCerts.size > 0 || selectedFamilies.size > 0 || normalizedQuery !== '';
+
+    const resetFilters = () => {
+        setSelectedType('all');
+        setSelectedCerts(new Set());
+        setSelectedFamilies(new Set());
+        setQuery('');
+    };
 
     return (
         <div className="size-full min-h-screen overflow-auto">
             <Suspense>
-                <PluginModal plugin={modalPlugin} onClose={() => setModalPlugin(undefined)} />
+                <PluginModal plugin={modalPlugin} onClose={() => setHash('')} />
             </Suspense>
             <div className="max-w-[1400px] mx-auto px-6 py-12">
                 {/* Header */}
-                <div className="mb-12">
-                    <div className="flex items-center gap-4 mb-4">
-                        <h1 className='p-0 text-orange-500'
-                        >
-                            {t('title')}
-                        </h1>
-                        <div
-                            className="px-3 py-1 rounded-full self-start text-xs font-medium text-white bg-(--color-primary) tracking-wide"
-                        >
-                            {filteredPlugins.length}
-                        </div>
-                    </div>
+                <div className="mb-10">
+                    <h1 className='p-0 mb-4 text-orange-500'>
+                        {t('title')}
+                    </h1>
                     <p className="m-0 max-w-3xl dark:text-slate-300 text-slate-800">
                         <Trans i18nKey="description_short" t={t} components={[
                             <a key="0" href='https://github.com/bontiv/vtherm-website/issues/new?template=new_plugin.yml' className='underline' />
@@ -50,64 +133,171 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                     </p>
                 </div>
 
+                {/* Search and sort */}
+                <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <div className="relative flex-1 min-w-60">
+                        <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-slate-400 pointer-events-none" aria-hidden="true" />
+                        <input
+                            type="search"
+                            value={query}
+                            onChange={e => setQuery(e.target.value)}
+                            placeholder={t('search_placeholder')}
+                            aria-label={t('search_label')}
+                            className="w-full pl-9 pr-9 py-2 rounded-lg text-sm border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-600 dark:text-white placeholder:text-slate-400 hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-(--color-primary) [&::-webkit-search-cancel-button]:hidden"
+                        />
+                        {query && (
+                            <button
+                                type="button"
+                                onClick={() => setQuery('')}
+                                aria-label={t('search_clear')}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer"
+                            >
+                                <XMarkIcon className="size-4" />
+                            </button>
+                        )}
+                    </div>
+
+                    <FilterSelect<SortOrder>
+                        value={sortOrder}
+                        onChange={setSortOrder}
+                        options={[
+                            { value: 'certification', label: t('sort.certification') },
+                            { value: 'stars', label: t('sort.stars') },
+                            { value: 'name', label: t('sort.name') },
+                        ]}
+                    />
+                </div>
+
                 {/* Filters */}
-                <div className="flex flex-wrap items-center gap-4 mb-8 pb-6 border-b border-slate-300">
-                    {/* Type filter */}
-                    <FilterSelect<VTPluginType | 'all'>
-                        value={selectedType}
-                        onChange={setSelectedType}
-                        options={[
-                            { value: 'all', label: t('types.all') },
-                            { value: 'blueprint', label: t('types.blueprint'), color: 'var(--color-blue-500)' },
-                            { value: 'integration', label: t('types.integration'), color: 'var(--color-orange-400)' },
-                            { value: 'addon', label: t('types.addon'), color: 'var(--color-purple-500)' },
-                            { value: 'interface', label: t('types.interface'), color: 'var(--color-sky-500)' },
-                        ]}
-                    />
+                <div className="flex flex-col gap-3 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
+                    <div className="flex flex-wrap gap-2">
+                        <Chip
+                            active={selectedType === 'all'}
+                            count={countFor('type', () => true)}
+                            onClick={() => setSelectedType('all')}
+                        >
+                            {t('types.all')}
+                        </Chip>
+                        {pluginTypes.map(type => {
+                            const TypeIcon = typeConfig[type].icon;
+                            return (
+                                <Chip
+                                    key={type}
+                                    active={selectedType === type}
+                                    count={countFor('type', plugin => plugin.type === type)}
+                                    onClick={() => setSelectedType(selectedType === type ? 'all' : type)}
+                                >
+                                    <TypeIcon className="size-4" style={{ color: selectedType === type ? undefined : typeConfig[type].color }} aria-hidden="true" />
+                                    {t(`types.${type}`)}
+                                </Chip>
+                            );
+                        })}
+                    </div>
 
-                    {/* Certification filter */}
-                    <FilterSelect<VTCertificationLevel | 'all'>
-                        value={selectedCert}
-                        onChange={setSelectedCert}
-                        options={[
-                            { value: 'all', label: t('certification.all') },
-                            { value: 'official', label: `★ ${t('certification.official')}`, color: 'var(--color-vtherm-tertiary)' },
-                            { value: 'recommended', label: `◆ ${t('certification.recommended')}`, color: 'var(--color-vtherm-quaternary)' },
-                            { value: 'community', label: `● ${t('certification.community')}`, color: 'var(--color-vtherm-secondary)' },
-                        ]}
-                    />
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 me-1">{t('filters.certification')}</span>
+                            {certificationLevels.map(level => {
+                                const CertIcon = certConfig[level].Icon;
+                                return (
+                                    <Chip
+                                        key={level}
+                                        active={selectedCerts.has(level)}
+                                        count={countFor('certification', plugin => plugin.certification === level)}
+                                        onClick={() => setSelectedCerts(toggle(selectedCerts, level))}
+                                    >
+                                        <CertIcon className="size-4" style={{ color: selectedCerts.has(level) ? undefined : certConfig[level].color }} aria-hidden="true" />
+                                        {t(`certification.${level}`)}
+                                    </Chip>
+                                );
+                            })}
+                        </div>
 
-                    {/* Family filter */}
-                    <FilterSelect<VTPluginFamily | 'all'>
-                        value={selectedFamily}
-                        onChange={setSelectedFamily}
-                        options={[
-                            { value: 'all', label: t('families.all') },
-                            { value: 'algorithm', label: t('families.algorithm'), color: 'var(--color-vtherm-tertiary)' },
-                            { value: 'interface', label: t('families.interface'), color: 'var(--color-vtherm-quaternary)' },
-                            { value: 'device-helper', label: t('families.device-helper'), color: 'var(--color-vtherm-secondary)' },
-                        ]}
-                    />
+                        <span className="hidden sm:block w-px h-5 bg-slate-300 dark:bg-slate-600" aria-hidden="true" />
+
+                        <div className="flex flex-wrap items-center gap-2">
+                            <span className="text-xs text-slate-500 dark:text-slate-400 me-1">{t('filters.family')}</span>
+                            {pluginFamilies.map(family => (
+                                <Chip
+                                    key={family}
+                                    active={selectedFamilies.has(family)}
+                                    count={countFor('family', plugin => plugin.family === family)}
+                                    onClick={() => setSelectedFamilies(toggle(selectedFamilies, family))}
+                                >
+                                    {t(`families.${family}`)}
+                                </Chip>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                {/* Results summary */}
+                <div className="flex items-center justify-between gap-4 mb-4 text-sm text-slate-600 dark:text-slate-400">
+                    <span aria-live="polite">{t('results', { count: filteredPlugins.length })}</span>
+                    {hasActiveFilters && (
+                        <button type="button" onClick={resetFilters} className="text-(--color-primary) hover:underline cursor-pointer">
+                            {t('reset_filters')}
+                        </button>
+                    )}
                 </div>
 
                 {/* Plugin Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    {filteredPlugins.map((plugin, index) => (
-                        <button
-                            key={index}
-                            onClick={() => setModalPlugin(plugin)}
-                            className='cursor-pointer text-left'
-                        >
-                            <PluginCard plugin={plugin} index={index} />
+                {filteredPlugins.length > 0 ? (
+                    <div className="@container">
+                        <div className="grid grid-cols-1 @2xl:grid-cols-2 @6xl:grid-cols-3 gap-4">
+                            {filteredPlugins.map(plugin => (
+                                <button
+                                    key={pluginAnchor(plugin)}
+                                    onClick={() => setHash(pluginAnchor(plugin))}
+                                    className='h-full cursor-pointer text-left rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-primary) focus-visible:ring-offset-2'
+                                >
+                                    <PluginCard plugin={plugin} />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div className="py-16 text-center text-slate-600 dark:text-slate-400">
+                        <p className="m-0 mb-3">{t('no_results')}</p>
+                        <button type="button" onClick={resetFilters} className="text-sm text-(--color-primary) hover:underline cursor-pointer">
+                            {t('reset_filters')}
                         </button>
-                    ))}
-                </div>
+                    </div>
+                )}
             </div>
         </div>
     );
 }
 
 export default PluginTable;
+
+function Chip({
+    active,
+    count,
+    onClick,
+    children,
+}: {
+    active: boolean;
+    count: number;
+    onClick: () => void;
+    children: React.ReactNode;
+}) {
+    return (
+        <button
+            type="button"
+            aria-pressed={active}
+            onClick={onClick}
+            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm border cursor-pointer transition-colors duration-150
+                ${active
+                    ? 'border-transparent bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                    : 'border-slate-300 bg-white text-slate-700 hover:border-slate-400 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-slate-500'}
+                ${!active && count === 0 ? 'opacity-50' : ''}`}
+        >
+            {children}
+            <span className={`text-xs ${active ? 'text-slate-300 dark:text-slate-600' : 'text-slate-400'}`}>{count}</span>
+        </button>
+    );
+}
 
 interface FilterOption<T> {
     value: T;
@@ -130,7 +320,7 @@ function FilterSelect<T extends string>({
         <div className="relative">
             <Listbox value={value} onChange={onChange}>
                 <ListboxButton
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium cursor-pointer transition-colors duration-200 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-600 hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-(--color-primary) min-w-[9rem]"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-colors duration-200 border border-slate-300 bg-white dark:bg-slate-800 dark:border-slate-600 dark:text-white hover:border-slate-400 dark:hover:border-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-(--color-primary) min-w-[9rem]"
                 >
                     <span
                         className="flex-1 text-left truncate"
@@ -145,7 +335,7 @@ function FilterSelect<T extends string>({
 
                 <ListboxOptions
                     className="absolute z-20 mt-1 w-max rounded-md bg-white dark:bg-slate-800 shadow-lg ring-1 ring-black/10 dark:ring-white/10 focus:outline-none py-1"
-                    anchor="bottom start"
+                    anchor="bottom end"
                 >
                     {options.map(option => (
                         <ListboxOption

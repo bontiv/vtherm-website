@@ -261,7 +261,7 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                             </div>
 
                             <motion.div className="px-5 py-4 overflow-y-scroll" style={{ maxHeight: '70vh' }} initial={{ height: 0 }} animate={{ height: '70vh' }} exit={{ height: 0 }}>
-                                <Description className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                <Description as="div" className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                                     {readme.length > 0 ?
                                         <div className="markdown-body">
                                             <Markdown
