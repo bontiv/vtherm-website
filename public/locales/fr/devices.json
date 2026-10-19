@@ -39,7 +39,9 @@
             "section": "Rentrez dans la section \"Principaux attributs\".",
             "task1": "Choisissez un nom pour votre thermostat",
             "task2": "Mettez le capteur de température pour votre pièce",
-            "task3": "Si vous utilisez le protocole Zigbee et vous avez une entité \"last_seen\" pour votre capteur de température, renseignez le."
+            "task3": "Si vous utilisez le protocole Zigbee et vous avez une entité \"last_seen\" pour votre capteur de température, renseignez le.",
+            "no_central_main": "Décochez \"Utiliser la configuration centrale supplémentaire\" et validez.",
+            "step_temperature": "Sur l'écran suivant, mettez {{step}} en pas de température."
         },
         "step3": {
             "title": "Sous-jacents",

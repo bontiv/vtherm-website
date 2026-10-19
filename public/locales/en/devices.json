@@ -39,7 +39,9 @@
             "section": "Go to the \"Main attributes\" section.",
             "task1": "Choose a name for your thermostat",
             "task2": "Set the temperature sensor for your room",
-            "task3": "If you are using the Zigbee protocol and you have a \"last_seen\" entity for your temperature sensor, fill it in."
+            "task3": "If you are using the Zigbee protocol and you have a \"last_seen\" entity for your temperature sensor, fill it in.",
+            "no_central_main": "Uncheck \"Use additional central main configuration\" and submit.",
+            "step_temperature": "On the next screen, set {{step}} as the temperature step."
         },
         "step3": {
             "title": "Underlying entities",

@@ -13,6 +13,19 @@
         }
     },
     {
+        "img": "https://sonoff.tech/cdn/shop/files/TRV-ZBT-1.avif?v=1787121997&width=800",
+        "manufacturer": "Sonoff",
+        "model": "TRV-ZBT",
+        "slug": "sonoff-trv-zbt",
+        "state": "partially",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-de-domotique/9944-sonoff-trv-vanne-thermostatique-zigbee-ble-gen2-avec-ecran-couleur-ips.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-de-domotique/9944-sonoff-trv-vanne-thermostatique-zigbee-ble-gen2-avec-ecran-couleur-ips.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-de-domotique/9944-sonoff-trv-vanne-thermostatique-zigbee-ble-gen2-avec-ecran-couleur-ips.html?domid=97"
+        }
+    },
+    {
         "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
         "manufacturer": "Aqara",
         "model": "W600",

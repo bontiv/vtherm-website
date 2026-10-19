@@ -10,7 +10,9 @@ export type DeviceConfig = {
     opening_degree_entity_ids?: EntityList,
     closing_degree_entity_ids?: EntityList,
     minimal_activation_delay?: number,
-    minimal_deactivation_delay?: number
+    minimal_deactivation_delay?: number,
+    use_main_central_config?: boolean,
+    step_temperature?: number
 }
 
 export type DeviceDefinition = {

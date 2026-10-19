@@ -38,7 +38,9 @@
             "section": "Gehe zum Abschnitt \"Hauptattribute\".",
             "task1": "Wähle einen Namen für das Thermostat",
             "task2": "Stelle den Temperatursensor des Raumes ein",
-            "task3": "Wenn das Zigbee-Protokoll verwendet wird und eine \"last_seen\"-Entität für den Temperatursensor vorhanden ist, diesen dann bitte eintragen."
+            "task3": "Wenn das Zigbee-Protokoll verwendet wird und eine \"last_seen\"-Entität für den Temperatursensor vorhanden ist, diesen dann bitte eintragen.",
+            "no_central_main": "Deaktiviere \"Zusätzliche zentrale Konfiguration verwenden\" und bestätige die Eingabe.",
+            "step_temperature": "Setze im nächsten Dialogfenster {{step}} als Temperaturschritt."
         },
         "step3": {
             "title": "Gerätezuordnung",

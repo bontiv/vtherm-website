@@ -73,6 +73,10 @@ const DeviceConfig: React.FC<{ config: DeviceDefinition['config'], lng: string }
             <li>{t('conf.step2.task1')}</li>
             <li>{t('conf.step2.task2')}</li>
             <li>{t('conf.step2.task3')}</li>
+            {config.step_temperature !== undefined && <>
+                <li>{t('conf.step2.no_central_main')}</li>
+                <li>{t('conf.step2.step_temperature', { step: config.step_temperature })}</li>
+            </>}
         </ol>
         <p>{t('conf.finnaly')}</p>
 

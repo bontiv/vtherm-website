@@ -1,0 +1,12 @@
+{
+    "title": "Sonoff TRV-ZBT",
+    "config": {
+        "thermostat_type": "thermostat_over_climate",
+        "underlying_entity_ids": [
+            "climate.*"
+        ],
+        "auto_regulation_mode": "none",
+        "use_main_central_config": false,
+        "step_temperature": 0.5
+    }
+}
