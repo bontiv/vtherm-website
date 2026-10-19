@@ -21,7 +21,7 @@
         "description": "<p>Home Assistant plugin for heating and cooling failure detection with Versatile Thermostat.</p><p>It monitors how temperature responds to commands from the thermostat's proportional algorithm. When an abnormal condition persists, it publishes a Versatile Thermostat-compatible event and exposes a binary sensor for automations.</p>",
         "certification": "official",
         "type": "integration",
-        "family": "algorithm",
+        "family": "feature",
         "slug": "jmcollin78/vtherm_heating_failure_detection",
         "author": "jmcollin78"
     },
@@ -66,7 +66,7 @@
         "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
         "certification": "community",
         "type": "integration",
-        "family": "interface",
+        "family": "feature",
         "slug": "armellarcier/ha-chauffage",
         "author": "armellarcier"
     },
@@ -84,7 +84,7 @@
         "description": "<p>For every over_climate VTherm exposing fan_modes, the plugin creates a set of configuration entities and, at each control cycle:</p>\n<ol>\n<li>Computes the temperature gap dtemp = target − current.\n2; Selects the underlying fan_mode whose activation threshold is the greatest one that is > 0 and ≤ |dtemp|, provided it is coherent with the current HVAC mode (heating/cooling/off).</li>\n<li>Otherwise it applies the configured rest fan_mode.</li>\n<li>The chosen fan_mode is only sent to the underlying when it actually changes.</li>\n</ol>\n<p>Each fan_mode gets its own user-configurable threshold (a threshold of 0 means the fan_mode never participates), so non-normalized fan_modes (e.g. on_low / on_high / auto_low / off) are supported out of the box.</p>",
         "certification": "community",
         "type": "integration",
-        "family": "algorithm",
+        "family": "feature",
         "slug": "jmcollin78/vtherm_auto_fan_extended",
         "author": "jmcollin78"
     },
@@ -102,7 +102,7 @@
         "description": "<p>Home Assistant plugin that lets a Versatile Thermostat (VTherm) step back while another device takes over the room: an electric heater running on PV surplus, an air conditioner heating or cooling, a person heating manually at the valve...</p>\n<p>It can also be used to prevent VTherm from controlling its underlying devices, allowing the user to control them directly without any VTherm interaction.</p>",
         "certification": "community",
         "type": "integration",
-        "family": "algorithm",
+        "family": "feature",
         "slug": "alexlenk/vtherm_inhibition",
         "author": "alexlenk"
     }

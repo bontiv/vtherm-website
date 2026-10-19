@@ -69,7 +69,8 @@
                 "enum": [
                     "algorithm",
                     "interface",
-                    "device-helper"
+                    "device-helper",
+                    "feature"
                 ]
             }
         },

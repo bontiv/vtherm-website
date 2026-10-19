@@ -15,12 +15,32 @@
         "all": "Tous types",
         "blueprint": "Blueprint",
         "integration": "Intégration",
-        "interface": "Interface"
+        "interface": "Interface",
+        "addon": "Add-on"
     },
     "families": {
         "all": "Toutes familles",
         "algorithm": "Algorithme",
-        "interface": "Interface",
-        "device-helper": "Compatibilité d'appareils"
-    }
+        "interface": "Affichage",
+        "device-helper": "Compatibilité d'appareils",
+        "feature": "Fonctionnalité"
+    },
+    "search_placeholder": "Rechercher un complément : SmartPI, carte, vanne…",
+    "search_label": "Rechercher un complément",
+    "search_clear": "Effacer la recherche",
+    "sort": {
+        "certification": "Recommandés d'abord",
+        "stars": "Plus d'étoiles",
+        "name": "Nom (A → Z)"
+    },
+    "filters": {
+        "certification": "Niveau",
+        "family": "Rôle"
+    },
+    "results_one": "{{count}} complément",
+    "results_other": "{{count}} compléments",
+    "stars_one": "{{count}} étoile sur GitHub",
+    "stars_other": "{{count}} étoiles sur GitHub",
+    "reset_filters": "Réinitialiser les filtres",
+    "no_results": "Aucun complément ne correspond à ces critères."
 }

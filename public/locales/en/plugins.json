@@ -21,7 +21,26 @@
     "families": {
         "all": "All families",
         "algorithm": "Algorithm",
-        "interface": "Interface",
-        "device-helper": "Device helper"
-    }
+        "interface": "Display",
+        "device-helper": "Device helper",
+        "feature": "Feature"
+    },
+    "search_placeholder": "Search plugins: SmartPI, card, valve…",
+    "search_label": "Search plugins",
+    "search_clear": "Clear search",
+    "sort": {
+        "certification": "Recommended first",
+        "stars": "Most stars",
+        "name": "Name (A → Z)"
+    },
+    "filters": {
+        "certification": "Level",
+        "family": "Role"
+    },
+    "results_one": "{{count}} plugin",
+    "results_other": "{{count}} plugins",
+    "stars_one": "{{count}} star on GitHub",
+    "stars_other": "{{count}} stars on GitHub",
+    "reset_filters": "Reset filters",
+    "no_results": "No plugin matches these criteria."
 }

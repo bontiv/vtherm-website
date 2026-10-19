@@ -62,6 +62,7 @@ const TYPE_MAP = {
 const FAMILY_MAP = {
     Algorithm: 'algorithm',
     'Device helper': 'device-helper',
+    Feature: 'feature',
     Interface: 'interface',
 };
 

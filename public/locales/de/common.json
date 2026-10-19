@@ -7,7 +7,8 @@
         "devices": "Gerätekompatibilität",
         "log-analyzer": "Log-Analyser",
         "github": "GitHub-Repository",
-        "docs": "Dokumentation"
+        "docs": "Dokumentation",
+        "plugins": "Erweiterungen"
     },
     "bmc": {
         "message": "Danke, dass Sie meine Website besucht haben. Wenn diese App Sie irgendwie geholfen hat, erwägen Sie bitte, uns einen Kaffee zu kaufen. ✨😎",
