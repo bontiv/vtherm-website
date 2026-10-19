@@ -156,3 +156,24 @@ export class GitHubAPI {
         }
     }
 }
+
+/**
+ * Returns the stargazers count of a GitHub repository ("owner/repo"), or undefined if it cannot be fetched.
+ * Called at build time, so the value is a snapshot refreshed on each deployment.
+ */
+export async function getRepoStars(slug: string): Promise<number | undefined> {
+    try {
+        const response = await cachedFetch(`https://api.github.com/repos/${slug}`, {
+            headers: process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : undefined,
+            signal: AbortSignal.timeout(5000),
+        });
+        if (!response?.ok) {
+            return undefined;
+        }
+        const repo = await response.json() as { stargazers_count?: number };
+        return repo.stargazers_count;
+    } catch (error) {
+        console.warn(`Error fetching stars for ${slug}:`, error);
+        return undefined;
+    }
+}

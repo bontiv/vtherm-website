@@ -39,6 +39,7 @@ body:
       options:
         - Algorithm
         - Device helper
+        - Feature
         - Interface
       default: 0
     validations:

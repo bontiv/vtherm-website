@@ -1,17 +1,17 @@
 import { useT } from "@/app/i18n/client";
-import { certConfig, typeConfig, familyConfig, VTPlugin } from "@/lib/plugindb";
-import Image from "next/image";
+import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
+import { ChevronRightIcon, StarIcon } from "@heroicons/react/24/outline";
 import { Trans } from "react-i18next";
 
 interface PluginCardProps {
     plugin: VTPlugin;
-    index: number;
 }
 
 export function PluginCard({ plugin }: PluginCardProps) {
     const typeStyle = typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
-    const familyStyle = plugin.family ? familyConfig[plugin.family] : null;
+    const TypeIcon = typeStyle.icon;
+    const CertIcon = certStyle.Icon;
     const { t, i18n } = useT('plugins');
 
     const nameKey = `name_${i18n.language}` as keyof VTPlugin;
@@ -21,131 +21,78 @@ export function PluginCard({ plugin }: PluginCardProps) {
 
     return (
         <div
-            className={`group relative rounded-xl
+            className="group h-full flex flex-col gap-3 p-4 rounded-xl
             bg-white dark:bg-gray-800
-            transition-all duration-200
-            p-2
-            border border-slate-300 dark:border-slate-600
-            hover:border-(--card-color)/30
-            hover:shadow-(color:--card-color)
-            shadow-sm hover:shadow-xl/60
-            hover:-translate-y-2
-            flex flex-col
-            `}
+            border border-slate-200 dark:border-slate-700
+            shadow-sm hover:shadow-md hover:border-(--card-color)/50
+            transition-all duration-200"
             style={{
                 '--card-color': `${typeStyle.color}`
             } as React.CSSProperties & { '--card-color': string }}
         >
-            {/* Header with name and type badge */}
-            <div className="flex items-start justify-between gap-3 mb-3">
+            {/* Header: type icon, name, author and certification */}
+            <div className="flex items-start gap-3">
+                <div
+                    className="flex items-center justify-center size-10 rounded-lg shrink-0"
+                    style={{ background: typeStyle.bgColor, color: typeStyle.color }}
+                >
+                    <TypeIcon className="size-5" aria-hidden="true" />
+                </div>
+
                 <div className="flex-1 min-w-0">
-                    <h3
-                        className="m-0 mb-1.5 truncate text-lg font-medium"
-                    >
+                    <h3 className="m-0 p-0 line-clamp-2 text-base font-semibold text-slate-900 dark:text-white">
                         {name}
                     </h3>
-                    <div
-                        className="flex items-center gap-1.5 text-sm"
-                    >
+                    <p className="m-0 p-0 truncate text-xs text-slate-500 dark:text-slate-400">
+                        {t(`types.${plugin.type}`)} ·{' '}
                         <Trans t={t} i18nKey="from" values={{ author: plugin.author ?? plugin?.slug?.split('/')[0] }}
                             components={[
-                                <span key="0" className="font-medium"></span>
+                                <span key="0" className="font-medium text-slate-600 dark:text-slate-300"></span>
                             ]}
                         />
-
-                        {plugin?.slug && (
-                            <a href={"https://github.com/" + plugin?.slug} target="_blank" rel="noreferrer noopener" className="py-2 text-blue-500 hover:underline shrink">
-                                <Image
-                                    width={80} height={20}
-                                    style={{ height: '1.4em', width: 'auto' }}
-                                    alt="GitHub Repo stars" src={"https://img.shields.io/github/stars/" + plugin?.slug}
-                                />
-                            </a>
-                        )}
-                    </div>
+                    </p>
                 </div>
 
-                <div
-                    className="px-2.5 py-1 rounded-md group-hover:scale-105 font-mono text-[0.6875rem] font-medium transition-all duration-200 uppercase shrink-0 text-nowrap"
-                    style={{
-                        background: typeStyle.bgColor,
-                        color: typeStyle.color,
-                        border: `1px solid ${typeStyle.color}20`,
-                    }}
-                >
-                    {t(`types.${plugin.type}`)}
-                </div>
+                {plugin.certification !== 'community' && (
+                    <span
+                        className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium shrink-0"
+                        style={{
+                            background: `color-mix(in srgb, ${certStyle.color}, transparent 88%)`,
+                            color: certStyle.color,
+                        }}
+                    >
+                        <CertIcon className="size-3.5" aria-hidden="true" />
+                        {t(`certification.${plugin.certification}`)}
+                    </span>
+                )}
             </div>
 
-            {/* Description */}
+            {/* Description, clamped so that every card keeps the same rhythm */}
             <div
-                className="m-0 mb-4 dark:text-slate-300 text-slate-600 text-sm flex-1" dangerouslySetInnerHTML={{ __html: description }}
+                className="flex-1 m-0 text-sm leading-relaxed text-slate-600 dark:text-slate-300 line-clamp-3
+                [&_*]:inline [&_p+p]:before:content-['_'] [&_li+li]:before:content-['_·_']"
+                dangerouslySetInnerHTML={{ __html: description }}
             >
             </div>
 
-            {/* Footer with certification */}
-            <div className="flex items-center justify-between pt-2 border-t" style={{ borderColor: 'rgba(18, 18, 20, 0.06)' }}>
-                <div className="flex gap-3">
-                    <div
-                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md"
-                        style={{
-                            background: `color-mix(in srgb, ${certStyle.color}, transparent 90%)`,
-                            border: `1px solid color-mix(in srgb, ${certStyle.color}, transparent 20%)`
-                        }}
-                    >
-                        <span
-                            className="text-xs leading-none"
-                            style={{
-                                color: certStyle.color,
-                            }}
-                        >
-                            {certStyle.icon}
-                        </span>
-                        <span
-                            className="text-xs font-semibold"
-                            style={{
-                                color: certStyle.color,
-                            }}
-                        >
-                            {t(`certification.${plugin.certification}`)}
-                        </span>
-                    </div>
-                    {familyStyle && (
-                        <div
-                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-black"
-                            style={{
-                                background: `color-mix(in srgb, ${familyStyle.color}, transparent 80%)`,
-                                border: `1px solid color-mix(in srgb, ${familyStyle.color}, transparent 20%)`
-                            }}
-                        >
-                            <span
-                                className="text-xs leading-none"
-                                style={{
-                                    color: familyStyle.color,
-                                }}
-                            >
-                                {familyStyle.icon}
-                            </span>
-                            <span
-                                className="text-xs font-semibold"
-                                style={{
-                                    color: familyStyle.color,
-                                }}
-                            >
-                                {t(`families.${plugin.family}`)}
-                            </span>
-                        </div>)}
-                </div>
-
-                {/* Hover indicator */}
-                <div
-                    className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-2xl pe-3"
-                    style={{
-                        color: typeStyle.color,
-                    }}
-                >
-                    →
-                </div>
+            {/* Footer: family, stars and details hint */}
+            <div className="flex items-center gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
+                {plugin.family && (
+                    <span className="px-2 py-0.5 rounded-md text-xs bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+                        {t(`families.${plugin.family}`)}
+                    </span>
+                )}
+                <span className="flex-1" />
+                {!!plugin.stars && (
+                    <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400" title={t('stars', { count: plugin.stars })}>
+                        <StarIcon className="size-4" aria-hidden="true" />
+                        {plugin.stars}
+                    </span>
+                )}
+                <ChevronRightIcon
+                    className="size-4 text-slate-400 group-hover:text-(--card-color) group-hover:translate-x-0.5 transition-all duration-200"
+                    aria-hidden="true"
+                />
             </div>
         </div>
     );

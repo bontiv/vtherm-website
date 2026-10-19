@@ -4,6 +4,7 @@ import { getAlternatesMetadata, getT } from '@/app/i18n';
 import { opengraph_defaults } from '@/lib/opengraph';
 import plugins from '@/pluginsdb/plugins.json';
 import { VTPlugin } from '@/lib/plugindb';
+import { getRepoStars } from '@/lib/github';
 
 export const generateMetadata = async ({ params }: { params: Promise<{ lng: string, plugins: VTPlugin[] }> }): Promise<Metadata> => {
     const { lng } = await params;
@@ -21,8 +22,13 @@ export const generateMetadata = async ({ params }: { params: Promise<{ lng: stri
     }
 };
 
-const pluginPage: React.FC = () => {
-    return (<PluginTable plugins={plugins as VTPlugin[]} />);
+const pluginPage = async () => {
+    const pluginsWithStars = await Promise.all((plugins as VTPlugin[]).map(async plugin => ({
+        ...plugin,
+        stars: plugin.slug ? await getRepoStars(plugin.slug) : undefined,
+    })));
+
+    return (<PluginTable plugins={pluginsWithStars} />);
 }
 
 export default pluginPage;
