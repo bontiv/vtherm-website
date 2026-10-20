@@ -1,32 +1,10 @@
 @reference '../../globals.css';
 
-div.debugger {
-    @apply bg-blue-50/25 border w-full block p-2 cursor-text font-mono overflow-y-auto text-nowrap text-xs dark:bg-neutral-800 font-light;
-}
+/* Hatched background for periods without data and disabled features */
+.vt-hatch {
+    background-image: repeating-linear-gradient(135deg, var(--color-slate-300) 0 6px, transparent 6px 12px);
 
-.debugger .info {
-    @apply dark:text-green-400 text-green-500;
-}
-
-.debugger .error {
-    @apply dark:text-red-500 text-red-600 font-semibold;
-}
-
-.debugger .warning {
-    @apply dark:text-yellow-500 text-yellow-600;
-}
-
-.debugger .nodata {
-    @apply italic text-neutral-500 dark:text-neutral-300;
-}
-
-input,
-main select {
     @variant dark {
-        @apply bg-neutral-400 text-black;
+        background-image: repeating-linear-gradient(135deg, var(--color-slate-700) 0 6px, transparent 6px 12px);
     }
-}
-
-.chart {
-    @apply rounded;
 }
