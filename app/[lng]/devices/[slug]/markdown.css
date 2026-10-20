@@ -11,3 +11,17 @@
     padding: 0.2rem 0.4rem;
     border-radius: 0.3rem;
 }
+
+.device-doc ul { list-style-type: disc; }
+.device-doc ol { list-style-type: decimal; }
+.device-doc ul ul,
+.device-doc ol ul { list-style-type: circle; }
+.device-doc ul ul ul,
+.device-doc ol ul ul { list-style-type: square; }
+.device-doc ul ol,
+.device-doc ol ol { list-style-type: lower-roman; }
+.device-doc ul ul ol,
+.device-doc ul ol ol,
+.device-doc ol ul ol,
+.device-doc ol ol ol { list-style-type: lower-alpha; }
+.device-doc li.task-list-item { list-style-type: none; }
