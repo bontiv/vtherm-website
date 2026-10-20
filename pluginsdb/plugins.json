@@ -105,5 +105,16 @@
         "family": "feature",
         "slug": "alexlenk/vtherm_inhibition",
         "author": "alexlenk"
+    },
+    {
+        "name": "Météo-France Observation",
+        "description": "<p>Real-time measurements of Météo-France ground stations (France and overseas territories), updated every 6 minutes. Provides an accurate outdoor temperature sensor for Versatile Thermostat, plus humidity, pressure, wind and precipitation.</p><p>Credentials are stored in Home Assistant application credentials and tokens are renewed automatically. The station is found around a point on the map, by department or by ID.</p>",
+        "description_fr": "<p>Mesures en temps réel des stations au sol de Météo-France (métropole et outre-mer), mises à jour toutes les 6 minutes. Fournit à Versatile Thermostat un capteur de température extérieure précis, ainsi que l'humidité, la pression, le vent et les précipitations.</p><p>Les identifiants sont stockés dans les identifiants d'application de Home Assistant et les jetons sont renouvelés automatiquement. La station se choisit autour d'un point sur la carte, par département ou par identifiant.</p>",
+        "description_de": "<p>Echtzeit-Messwerte der Bodenstationen von Météo-France (Frankreich und Überseegebiete), alle 6 Minuten aktualisiert. Liefert Versatile Thermostat einen genauen Außentemperatursensor sowie Luftfeuchtigkeit, Luftdruck, Wind und Niederschlag.</p><p>Die Zugangsdaten werden in den Anwendungsanmeldeinformationen von Home Assistant gespeichert und die Tokens automatisch erneuert. Die Station wird um einen Punkt auf der Karte, nach Département oder per ID gewählt.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "device-helper",
+        "slug": "bontiv/ha-meteofrance-observation",
+        "author": "bontiv"
     }
 ]
