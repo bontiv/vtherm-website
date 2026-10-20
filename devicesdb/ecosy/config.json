@@ -1,0 +1,6 @@
+{
+    "title": "eCosy",
+    "config": {
+        "thermostat_type": "thermostat_over_switch"
+    }
+}

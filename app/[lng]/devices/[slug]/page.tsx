@@ -157,7 +157,7 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
                 {affiliateUrl && <a href={affiliateUrl} target='_blank' rel='noopener noreferrer' className='rounded-full no-underline border-2 border-sky-600 text-sky-600 px-4 py-3 inline-block hover:bg-sky-600 hover:text-white transition-colors'>{t('buy')} <ShoppingCartIcon className='h-lh inline' /></a>}
             </div>
             {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
-            <DeviceConfig config={config.config} lng={lng} />
+            {config.config.thermostat_type && <DeviceConfig config={config.config} lng={lng} />}
         </div>
     </>
 }

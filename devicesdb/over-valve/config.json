@@ -1,0 +1,6 @@
+{
+    "title": "Vannes (over_valve)",
+    "config": {
+        "thermostat_type": "thermostat_over_valve"
+    }
+}

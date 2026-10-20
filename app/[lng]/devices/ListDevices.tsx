@@ -71,12 +71,14 @@ const ListDevices: React.FC<{ devices: DeviceSpec[] }> = ({ devices }) => {
                     <option className="text-green-500" value='supported'>{t('states.supported')}</option>
                     <option className="text-blue-500" value='community'>{t('states.community')}</option>
                     <option className="text-yellow-500" value='partially'>{t('states.partially')}</option>
+                    <option className="text-red-500" value='unsupported'>{t('states.unsupported')}</option>
                 </select>
                 <select name="type" onChange={(evt) => setUserFilter({ ...user_filter, type: evt.target.value })} className="bg-slate-50 dark:bg-vtherm-secondary/60 flex-1 px-2 py-1">
                     <option value=''>{t('all-types')}</option>
                     <option value='trv'>{t('types.trv')}</option>
                     <option value='climate'>{t('types.climate')}</option>
                     <option value='electric'>{t('types.electric')}</option>
+                    <option value='sensor'>{t('types.sensor')}</option>
                 </select>
                 {/* <button type="submit" className="text-blue-900 duration-300 transition-all hover:text-blue-600 cursor-pointer">
                     <MagnifyingGlassCircleIcon className="w-7.5 " />

@@ -40,7 +40,8 @@
                 "enum": [
                     "trv",
                     "climate",
-                    "electric"
+                    "electric",
+                    "sensor"
                 ],
                 "description": "Type of device"
             },

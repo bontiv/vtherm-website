@@ -12,7 +12,8 @@
     "types": {
         "electric": "Elektrische Heizung",
         "trv": "TRVs (Heizköperventile)",
-        "climate": "Thermostate und Wärmepumpen"
+        "climate": "Thermostate und Wärmepumpen",
+        "sensor": "Temperatursensoren"
     },
     "states": {
         "supported": "Unterstützt",
