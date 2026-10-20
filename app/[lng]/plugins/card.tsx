@@ -1,5 +1,5 @@
 import { useT } from "@/app/i18n/client";
-import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
+import { certConfig, familyConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
 import { ChevronRightIcon, StarIcon } from "@heroicons/react/24/outline";
 import { Trans } from "react-i18next";
 
@@ -8,9 +8,9 @@ interface PluginCardProps {
 }
 
 export function PluginCard({ plugin }: PluginCardProps) {
-    const typeStyle = typeConfig[plugin.type];
+    const familyStyle = plugin.family ? familyConfig[plugin.family] : typeConfig[plugin.type];
     const certStyle = certConfig[plugin.certification];
-    const TypeIcon = typeStyle.icon;
+    const FamilyIcon = familyStyle.icon;
     const CertIcon = certStyle.Icon;
     const { t, i18n } = useT('plugins');
 
@@ -27,16 +27,16 @@ export function PluginCard({ plugin }: PluginCardProps) {
             shadow-sm hover:shadow-md hover:border-(--card-color)/50
             transition-all duration-200"
             style={{
-                '--card-color': `${typeStyle.color}`
+                '--card-color': `${familyStyle.color}`
             } as React.CSSProperties & { '--card-color': string }}
         >
-            {/* Header: type icon, name, author and certification */}
+            {/* Header: family icon, name, author and certification */}
             <div className="flex items-start gap-3">
                 <div
                     className="flex items-center justify-center size-10 rounded-lg shrink-0"
-                    style={{ background: typeStyle.bgColor, color: typeStyle.color }}
+                    style={{ background: familyStyle.bgColor, color: familyStyle.color }}
                 >
-                    <TypeIcon className="size-5" aria-hidden="true" />
+                    <FamilyIcon className="size-5" aria-hidden="true" />
                 </div>
 
                 <div className="flex-1 min-w-0">
@@ -44,7 +44,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
                         {name}
                     </h3>
                     <p className="m-0 p-0 truncate text-xs text-slate-500 dark:text-slate-400">
-                        {t(`types.${plugin.type}`)} ·{' '}
+                        {plugin.family && <>{t(`families.${plugin.family}`)} ·{' '}</>}
                         <Trans t={t} i18nKey="from" values={{ author: plugin.author ?? plugin?.slug?.split('/')[0] }}
                             components={[
                                 <span key="0" className="font-medium text-slate-600 dark:text-slate-300"></span>
@@ -75,13 +75,11 @@ export function PluginCard({ plugin }: PluginCardProps) {
             >
             </div>
 
-            {/* Footer: family, stars and details hint */}
+            {/* Footer: type, stars and details hint */}
             <div className="flex items-center gap-2 pt-3 border-t border-slate-100 dark:border-slate-700">
-                {plugin.family && (
-                    <span className="px-2 py-0.5 rounded-md text-xs bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
-                        {t(`families.${plugin.family}`)}
-                    </span>
-                )}
+                <span className="px-2 py-0.5 rounded-md text-xs bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
+                    {t(`types.${plugin.type}`)}
+                </span>
                 <span className="flex-1" />
                 {!!plugin.stars && (
                     <span className="inline-flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400" title={t('stars', { count: plugin.stars })}>

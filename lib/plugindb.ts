@@ -1,5 +1,5 @@
 import type { ComponentType, SVGProps } from 'react';
-import { CheckBadgeIcon, ClipboardDocumentListIcon, CubeIcon, HandThumbUpIcon, PuzzlePieceIcon, Squares2X2Icon, UserGroupIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, CheckBadgeIcon, ClipboardDocumentListIcon, ComputerDesktopIcon, CubeIcon, HandThumbUpIcon, PuzzlePieceIcon, SparklesIcon, Squares2X2Icon, UserGroupIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 
 type HeroIcon = ComponentType<SVGProps<SVGSVGElement>>;
 
@@ -116,22 +116,26 @@ export const certConfig: Record<VTCertificationLevel, { color: string, icon: str
     }
 };
 
-export const familyConfig = {
+export const familyConfig: Record<VTPluginFamily, { color: string, bgColor: string, icon: HeroIcon }> = {
     algorithm: {
-        color: 'var(--color-vtherm-tertiary)',
-        icon: '',
+        color: '#306BE5',
+        bgColor: 'rgba(48, 107, 229, 0.12)',
+        icon: AdjustmentsHorizontalIcon,
     },
     interface: {
-        color: 'var(--color-vtherm-quaternary)',
-        icon: '',
+        color: '#3EB0F2',
+        bgColor: 'rgba(62, 176, 242, 0.12)',
+        icon: ComputerDesktopIcon,
     },
     'device-helper': {
-        color: 'var(--color-vtherm-secondary)',
-        icon: '',
+        color: '#E67249',
+        bgColor: 'rgba(230, 114, 73, 0.12)',
+        icon: WrenchScrewdriverIcon,
     },
     feature: {
         color: '#9F7EEA',
-        icon: '',
+        bgColor: 'rgba(159, 126, 234, 0.12)',
+        icon: SparklesIcon,
     }
 };
 

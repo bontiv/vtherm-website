@@ -5,7 +5,7 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { PluginCard } from './card';
 import { useT } from '@/app/i18n/client';
-import { certConfig, pluginAnchor, typeConfig, VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
+import { certConfig, familyConfig, pluginAnchor, typeConfig, VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
 import { Trans } from 'react-i18next';
 import dynamic from 'next/dynamic';
 const PluginModal = dynamic(() => import('./modal'), { ssr: false });
@@ -120,7 +120,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
             <Suspense>
                 <PluginModal plugin={modalPlugin} onClose={() => setHash('')} />
             </Suspense>
-            <div className="max-w-[1400px] mx-auto px-6 py-12">
+            <div className="max-w-[1400px] mx-auto sm:px-6 py-12">
                 {/* Header */}
                 <div className="mb-10">
                     <h1 className='p-0 mb-4 text-orange-500'>
@@ -170,28 +170,24 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
 
                 {/* Filters */}
                 <div className="flex flex-col gap-3 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
-                    <div className="flex flex-wrap gap-2">
-                        <Chip
-                            active={selectedType === 'all'}
-                            count={countFor('type', () => true)}
-                            onClick={() => setSelectedType('all')}
-                        >
-                            {t('types.all')}
-                        </Chip>
-                        {pluginTypes.map(type => {
-                            const TypeIcon = typeConfig[type].icon;
+
+                    <div className="flex flex-wrap gap-2 items-center">
+                        <span className="text-xs text-slate-500 dark:text-slate-400 me-1">{t('filters.family')}</span>
+                        {pluginFamilies.map(family => {
+                            const FamilyIcon = familyConfig[family].icon;
                             return (
                                 <Chip
-                                    key={type}
-                                    active={selectedType === type}
-                                    count={countFor('type', plugin => plugin.type === type)}
-                                    onClick={() => setSelectedType(selectedType === type ? 'all' : type)}
+                                    key={family}
+                                    active={selectedFamilies.has(family)}
+                                    count={countFor('family', plugin => plugin.family === family)}
+                                    onClick={() => setSelectedFamilies(toggle(selectedFamilies, family))}
                                 >
-                                    <TypeIcon className="size-4" style={{ color: selectedType === type ? undefined : typeConfig[type].color }} aria-hidden="true" />
-                                    {t(`types.${type}`)}
+                                    <FamilyIcon className="size-4" style={{ color: selectedFamilies.has(family) ? undefined : familyConfig[family].color }} aria-hidden="true" />
+                                    {t(`families.${family}`)}
                                 </Chip>
                             );
                         })}
+
                     </div>
 
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
@@ -215,18 +211,28 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
 
                         <span className="hidden sm:block w-px h-5 bg-slate-300 dark:bg-slate-600" aria-hidden="true" />
 
-                        <div className="flex flex-wrap items-center gap-2">
-                            <span className="text-xs text-slate-500 dark:text-slate-400 me-1">{t('filters.family')}</span>
-                            {pluginFamilies.map(family => (
-                                <Chip
-                                    key={family}
-                                    active={selectedFamilies.has(family)}
-                                    count={countFor('family', plugin => plugin.family === family)}
-                                    onClick={() => setSelectedFamilies(toggle(selectedFamilies, family))}
-                                >
-                                    {t(`families.${family}`)}
-                                </Chip>
-                            ))}
+                        <div className="md:flex flex-wrap items-center gap-2 hidden">
+                            <Chip
+                                active={selectedType === 'all'}
+                                count={countFor('type', () => true)}
+                                onClick={() => setSelectedType('all')}
+                            >
+                                {t('types.all')}
+                            </Chip>
+                            {pluginTypes.map(type => {
+                                const TypeIcon = typeConfig[type].icon;
+                                return (
+                                    <Chip
+                                        key={type}
+                                        active={selectedType === type}
+                                        count={countFor('type', plugin => plugin.type === type)}
+                                        onClick={() => setSelectedType(selectedType === type ? 'all' : type)}
+                                    >
+                                        <TypeIcon className="size-4" style={{ color: selectedType === type ? undefined : typeConfig[type].color }} aria-hidden="true" />
+                                        {t(`types.${type}`)}
+                                    </Chip>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
