@@ -13,7 +13,8 @@
     "types": {
         "electric": "Chauffage électrique",
         "trv": "Vannes TRV",
-        "climate": "Thermostats et PAC"
+        "climate": "Thermostats et PAC",
+        "sensor": "Thermomètres"
     },
     "states": {
         "supported": "Supporté",
