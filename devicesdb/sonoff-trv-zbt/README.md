@@ -15,9 +15,12 @@ Unlike the first generation (TRVZB), this TRV exposes two valve opening values i
 
 VTherm accepts only one opening degree entity per valve. If you only set `heating_valve_position` as the opening degree entity, the valve does not always open, even when the heating position is above 0.
 
-### Workaround: sync the idle position
+### Unconfirmed / partial workaround: sync the idle position
 
-If you want to use the [self-regulation with direct valve control](/en/docs/self-regulation/), you can add the following automation. It keeps `idle_valve_position` just below `heating_valve_position` (the idle value must be lower than the heating one). Use `heating_valve_position` as the opening degree entity in VTherm, and replace the entity IDs with yours.
+> [!WARNING]
+> This synchronization has not been validated as a reliable solution and may not be sufficient. According to [user feedback](https://github.com/jmcollin78/versatile_thermostat/discussions/2067#discussioncomment-19050461), the valve can stay closed even when both positions are positive: the TRV's internal thermostat keeps the heating decision based on the setpoint, the measured temperature and its hysteresis (`temperature_accuracy`). The same feedback also reports that, while idle, raising `idle_valve_position` from 0 to a positive value does not open the valve, whereas the reverse change triggers closing — this is an observation, not an established rule. See the [ongoing discussion](https://github.com/jmcollin78/versatile_thermostat/discussions/2067) for details.
+
+If you want to experiment with the [self-regulation with direct valve control](/en/docs/self-regulation/), you can try the following automation, with no guarantee it will work. It keeps `idle_valve_position` just below `heating_valve_position` (the idle value must be lower than the heating one). Use `heating_valve_position` as the opening degree entity in VTherm, and replace the entity IDs with yours.
 
 ```yaml
 alias: Sonoff TRV-ZBT - Sync valve positions
