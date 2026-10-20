@@ -5,3 +5,17 @@ pre:has(code.language-mermaid) {
     background-color: transparent;
     color: transparent;
 }
+
+.markdown-body ul { list-style-type: disc; }
+.markdown-body ol { list-style-type: decimal; }
+.markdown-body ul ul,
+.markdown-body ol ul { list-style-type: circle; }
+.markdown-body ul ul ul,
+.markdown-body ol ul ul { list-style-type: square; }
+.markdown-body ul ol,
+.markdown-body ol ol { list-style-type: lower-roman; }
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol { list-style-type: lower-alpha; }
+.markdown-body li.task-list-item { list-style-type: none; }
