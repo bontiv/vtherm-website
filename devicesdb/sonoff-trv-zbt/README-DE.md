@@ -15,9 +15,12 @@ Im Gegensatz zur ersten Generation (TRVZB) stellt dieses Ventil zwei Öffnungswe
 
 VTherm akzeptiert nur eine Entität für den Öffnungsgrad pro Ventil. Wird nur `heating_valve_position` als Entität für den Öffnungsgrad eingetragen, öffnet sich das Ventil nicht immer, selbst wenn die Heizposition über 0 liegt.
 
-### Workaround: Ruheposition synchronisieren
+### Nicht bestätigter / teilweiser Workaround: Ruheposition synchronisieren
 
-Wenn die [Selbstregelung mit direkter Ventilsteuerung](/de/docs/self-regulation/) verwendet werden soll, kann die folgende Automatisierung hinzugefügt werden. Sie hält `idle_valve_position` knapp unter `heating_valve_position` (der Ruhewert muss niedriger als der Heizwert sein). `heating_valve_position` als Entität für den Öffnungsgrad in VTherm verwenden und die Entitäts-IDs durch die eigenen ersetzen.
+> [!WARNING]
+> Diese Synchronisierung ist nicht als zuverlässige Lösung bestätigt und kann unzureichend sein. Laut [Benutzerfeedback](https://github.com/jmcollin78/versatile_thermostat/discussions/2067#discussioncomment-19050461) kann das Ventil geschlossen bleiben, obwohl beide Positionen positiv sind: Das interne Thermostat des TRV trifft die Heizentscheidung weiterhin anhand von Sollwert, gemessener Temperatur und Hysterese (`temperature_accuracy`). Dasselbe Feedback berichtet außerdem, dass im Ruhezustand das Anheben von `idle_valve_position` von 0 auf einen positiven Wert das Ventil nicht öffnet, während die umgekehrte Änderung das Schließen auslöst — dies ist eine Beobachtung, keine bestätigte Regel. Details in der [laufenden Diskussion](https://github.com/jmcollin78/versatile_thermostat/discussions/2067).
+
+Wenn Sie die [Selbstregelung mit direkter Ventilsteuerung](/de/docs/self-regulation/) experimentell ausprobieren möchten, können Sie die folgende Automatisierung versuchen, ohne Garantie auf Funktion. Sie hält `idle_valve_position` knapp unter `heating_valve_position` (der Ruhewert muss niedriger als der Heizwert sein). `heating_valve_position` als Entität für den Öffnungsgrad in VTherm verwenden und die Entitäts-IDs durch die eigenen ersetzen.
 
 ```yaml
 alias: Sonoff TRV-ZBT - Sync valve positions

@@ -15,9 +15,12 @@ Contrairement à la première génération (TRVZB), cette vanne expose deux vale
 
 VTherm n'accepte qu'une seule entité de degré d'ouverture par vanne. Si vous renseignez uniquement `heating_valve_position` comme entité de degré d'ouverture, la vanne ne s'ouvre pas toujours, même quand la position de chauffe est supérieure à 0.
 
-### Contournement : synchroniser la position au repos
+### Contournement non confirmé / partiel : synchroniser la position au repos
 
-Si vous voulez utiliser l'[auto-régulation avec contrôle direct de la vanne](/fr/docs/self-regulation/), vous pouvez ajouter l'automatisation suivante. Elle maintient `idle_valve_position` juste en dessous de `heating_valve_position` (la valeur au repos doit être inférieure à celle de chauffe). Utilisez `heating_valve_position` comme entité de degré d'ouverture dans VTherm, et remplacez les identifiants d'entités par les vôtres.
+> [!WARNING]
+> Cette synchronisation n'est pas validée comme solution fiable et peut être insuffisante. Selon un [retour utilisateur](https://github.com/jmcollin78/versatile_thermostat/discussions/2067#discussioncomment-19050461), la vanne peut rester fermée même quand les deux positions sont positives : le thermostat interne de la TRV conserve la décision de chauffe en fonction de la consigne, de la température mesurée et de son hystérésis (`temperature_accuracy`). Le même retour signale aussi qu'au repos, passer `idle_valve_position` de 0 à une valeur positive ne déclenche pas l'ouverture, alors que le passage inverse déclenche la fermeture — il s'agit d'une observation, pas d'une règle établie. Voir la [discussion en cours](https://github.com/jmcollin78/versatile_thermostat/discussions/2067) pour plus de détails.
+
+Si vous voulez expérimenter l'[auto-régulation avec contrôle direct de la vanne](/fr/docs/self-regulation/), vous pouvez essayer l'automatisation suivante, sans garantie de fonctionnement. Elle maintient `idle_valve_position` juste en dessous de `heating_valve_position` (la valeur au repos doit être inférieure à celle de chauffe). Utilisez `heating_valve_position` comme entité de degré d'ouverture dans VTherm, et remplacez les identifiants d'entités par les vôtres.
 
 ```yaml
 alias: Sonoff TRV-ZBT - Sync valve positions
