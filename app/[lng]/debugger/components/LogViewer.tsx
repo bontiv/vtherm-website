@@ -320,7 +320,7 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
                 : (
                     <div ref={listRef} role="listbox" aria-multiselectable="true" aria-label={t('logs.title')} tabIndex={0}
                         onKeyDown={onListKeyDown} onCopy={onListCopy}
-                        className="outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-500">
+                        className="vt-loglist">
                         <VirtualList count={filtered.length} rowHeight={ROW_HEIGHT} renderRow={renderRow} scrollToPosition={cursor ?? selectedPosition} className="h-[60vh] min-h-80" />
                     </div>
                 )}
