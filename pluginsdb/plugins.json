@@ -80,6 +80,26 @@
         "author": "KipK"
     },
     {
+        "name": "Météo-France Observation",
+        "description": "<p>Real-time measurements of Météo-France ground stations (France and overseas territories), updated every 6 minutes. Provides an accurate outdoor temperature sensor for Versatile Thermostat, plus humidity, pressure, wind and precipitation.</p><p>Credentials are stored in Home Assistant application credentials and tokens are renewed automatically. The station is found around a point on the map, by department or by ID.</p>",
+        "description_fr": "<p>Mesures en temps réel des stations au sol de Météo-France (métropole et outre-mer), mises à jour toutes les 6 minutes. Fournit à Versatile Thermostat un capteur de température extérieure précis, ainsi que l'humidité, la pression, le vent et les précipitations.</p><p>Les identifiants sont stockés dans les identifiants d'application de Home Assistant et les jetons sont renouvelés automatiquement. La station se choisit autour d'un point sur la carte, par département ou par identifiant.</p>",
+        "description_de": "<p>Echtzeit-Messwerte der Bodenstationen von Météo-France (Frankreich und Überseegebiete), alle 6 Minuten aktualisiert. Liefert Versatile Thermostat einen genauen Außentemperatursensor sowie Luftfeuchtigkeit, Luftdruck, Wind und Niederschlag.</p><p>Die Zugangsdaten werden in den Anwendungsanmeldeinformationen von Home Assistant gespeichert und die Tokens automatisch erneuert. Die Station wird um einen Punkt auf der Karte, nach Département oder per ID gewählt.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "device-helper",
+        "slug": "bontiv/ha-meteofrance-observation",
+        "author": "bontiv"
+    },
+    {
+        "name": "The Holm Climate Card",
+        "description": "<p>A compact, dynamic AC/heating card: see instantly if it's heating or cooling, and adjust the target temperature with a single swipe.</p>\n<p>HOLM Climate Card replaces the default thermostat card for your climate entities (air conditioners, heat pumps, smart radiators, etc.). It fits two-side-by-side on a smartphone screen, expands beautifully full-width, and its visual atmosphere changes based on what the device is doing: rising embers when heating, snowflakes when cooling, and a softly breathing grey mist when turned off.</p>",
+        "certification": "community",
+        "type": "interface",
+        "family": "interface",
+        "slug": "kaaribou/climate-card-holm",
+        "author": "kaaribou"
+    },
+    {
         "name": "VTherm auto fan extended",
         "description": "<p>For every over_climate VTherm exposing fan_modes, the plugin creates a set of configuration entities and, at each control cycle:</p>\n<ol>\n<li>Computes the temperature gap dtemp = target − current.\n2; Selects the underlying fan_mode whose activation threshold is the greatest one that is > 0 and ≤ |dtemp|, provided it is coherent with the current HVAC mode (heating/cooling/off).</li>\n<li>Otherwise it applies the configured rest fan_mode.</li>\n<li>The chosen fan_mode is only sent to the underlying when it actually changes.</li>\n</ol>\n<p>Each fan_mode gets its own user-configurable threshold (a threshold of 0 means the fan_mode never participates), so non-normalized fan_modes (e.g. on_low / on_high / auto_low / off) are supported out of the box.</p>",
         "certification": "community",
@@ -105,16 +125,5 @@
         "family": "feature",
         "slug": "alexlenk/vtherm_inhibition",
         "author": "alexlenk"
-    },
-    {
-        "name": "Météo-France Observation",
-        "description": "<p>Real-time measurements of Météo-France ground stations (France and overseas territories), updated every 6 minutes. Provides an accurate outdoor temperature sensor for Versatile Thermostat, plus humidity, pressure, wind and precipitation.</p><p>Credentials are stored in Home Assistant application credentials and tokens are renewed automatically. The station is found around a point on the map, by department or by ID.</p>",
-        "description_fr": "<p>Mesures en temps réel des stations au sol de Météo-France (métropole et outre-mer), mises à jour toutes les 6 minutes. Fournit à Versatile Thermostat un capteur de température extérieure précis, ainsi que l'humidité, la pression, le vent et les précipitations.</p><p>Les identifiants sont stockés dans les identifiants d'application de Home Assistant et les jetons sont renouvelés automatiquement. La station se choisit autour d'un point sur la carte, par département ou par identifiant.</p>",
-        "description_de": "<p>Echtzeit-Messwerte der Bodenstationen von Météo-France (Frankreich und Überseegebiete), alle 6 Minuten aktualisiert. Liefert Versatile Thermostat einen genauen Außentemperatursensor sowie Luftfeuchtigkeit, Luftdruck, Wind und Niederschlag.</p><p>Die Zugangsdaten werden in den Anwendungsanmeldeinformationen von Home Assistant gespeichert und die Tokens automatisch erneuert. Die Station wird um einen Punkt auf der Karte, nach Département oder per ID gewählt.</p>",
-        "certification": "community",
-        "type": "integration",
-        "family": "device-helper",
-        "slug": "bontiv/ha-meteofrance-observation",
-        "author": "bontiv"
     }
 ]
