@@ -1,5 +1,12 @@
 @reference '../../globals.css';
 
+/* Log list: focusable for the keyboard shortcuts, the selected rows already show where the focus is.
+   Overrides the global *:focus-visible outline of globals.css. */
+.vt-loglist:focus,
+.vt-loglist:focus-visible {
+    outline: none;
+}
+
 /* Hatched background for periods without data and disabled features */
 .vt-hatch {
     background-image: repeating-linear-gradient(135deg, var(--color-slate-300) 0 6px, transparent 6px 12px);

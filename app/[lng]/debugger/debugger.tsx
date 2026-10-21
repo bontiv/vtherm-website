@@ -90,20 +90,20 @@ const Debugger: React.FC = () => {
     const p = parser.current;
     const config = thermostat ? p.getConfig(thermostat) : undefined;
 
-    // Time domain: the export period when known, the logged timestamps otherwise
+    // Time domain: the logged timestamps (the header period is a requested window, not the content).
+    // The beginning of the file may hold logs without any temperature: that part is shown as "no data yet".
     const timing = useMemo(() => {
         if (phase !== 'done') return undefined;
-        const bounds = p.getTimeBounds();
-        const period = p.header?.period;
-        if (!bounds && !period) return undefined;
-        const start = Math.min(period?.start.getTime() ?? Infinity, bounds?.start.getTime() ?? Infinity);
-        const end = Math.max(period?.end.getTime() ?? -Infinity, bounds?.end.getTime() ?? -Infinity);
+        const period = p.getAnalysisPeriod();
+        if (!period) return undefined;
+        const domain = { start: period.start.getTime(), end: period.end.getTime() };
+        const firstData = thermostat ? p.getFirstDataTime(thermostat)?.getTime() : undefined;
         return {
-            domain: { start, end },
-            dataEnd: bounds?.end.getTime() ?? end,
-            noDataEnd: period && bounds && bounds.start > period.start ? bounds.start.getTime() : undefined,
+            domain,
+            dataEnd: domain.end,
+            noDataEnd: firstData !== undefined && firstData - domain.start > (domain.end - domain.start) / 100 ? firstData : undefined,
         };
-    }, [phase, p]);
+    }, [phase, p, thermostat]);
 
     const range = timing && (zoom.enabled && zoom.mindate && zoom.maxdate
         ? { start: zoom.mindate.getTime(), end: zoom.maxdate.getTime() }

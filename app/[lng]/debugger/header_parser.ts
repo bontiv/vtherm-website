@@ -28,7 +28,9 @@ const THERMOSTAT_RE = /^(.*?)\s*\(([^()]+)\)\s*$/;
  * Parse the lines of an export header, delimiters included.
  * Returns undefined when the block is not a Versatile Thermostat export header.
  */
-export function parseHeader(lines: string[]): LogHeader | undefined {
+export function parseHeader(rawLines: string[]): LogHeader | undefined {
+    // Files saved on Windows end their lines with \r\n
+    const lines = rawLines.map(l => l.replace(/\r$/, ''));
     if (!lines.some(l => HEADER_TITLE.test(l))) return undefined;
 
     const fields = new Map<string, string>();

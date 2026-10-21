@@ -109,6 +109,8 @@ class VThermLogParser {
     public startstop_state: { timestamp: Date, value: FeatureState }[] = [];
     public preset: { timestamp: Date, value: string }[] = [];
     public hvac_mode: { timestamp: Date, value: string }[] = [];
+    /** hvac_action reported by each underlying climate (heating, idle, off…) */
+    public underlying_hvac_actions: { timestamp: Date, value: string, entity: string }[] = [];
 
     public constructor(name: string) {
         this.name = name;
@@ -129,9 +131,18 @@ class VThermLogParser {
             return;
         }
 
-        match = log.match(/Underlying climate .* changed from .* to new_state .* current_temperature=([\d.]+),/)
+        // Only the new state is read: the old state of the same line has its own values
+        match = log.match(/Underlying climate .* changed from .* to new_state <state ([\w.]+)=[^;>]*;(.*)$/)
         if (match) {
-            this.underlying_temps.push({ timestamp, value: parseFloat(match[1]) })
+            const newState = match[2];
+            const temp = newState.match(/\bcurrent_temperature=([\d.]+),/);
+            if (temp) {
+                this.underlying_temps.push({ timestamp, value: parseFloat(temp[1]) })
+            }
+            const action = newState.match(/\bhvac_action=(\w+)/);
+            if (action) {
+                this.underlying_hvac_actions.push({ timestamp, value: action[1], entity: match[1] })
+            }
             return;
         }
 
@@ -321,6 +332,28 @@ export class LogParser {
             counts[LOG_LEVELS[level[i]]]++;
         }
         return counts;
+    }
+
+    /**
+     * Period actually covered by the file: the logged timestamps.
+     * The export header period is only a fallback when no line has a timestamp:
+     * it is the requested window (often since the last VTherm startup), not the content.
+     */
+    public getAnalysisPeriod(): { start: Date, end: Date } | undefined {
+        return this.getTimeBounds() ?? this.header?.period;
+    }
+
+    /** Timestamp of the first temperature value of a thermostat (the first point drawn on the chart) */
+    public getFirstDataTime(name: string): Date | undefined {
+        const vtherm = this.thermostats.get(name);
+        if (!vtherm) return undefined;
+        let min = Infinity;
+        for (const serie of [vtherm.room_temps, vtherm.target_temps, vtherm.ext_temps, vtherm.underlying_setpoints, vtherm.underlying_temps, vtherm.regulated_temps]) {
+            for (const event of serie) {
+                if (event.timestamp.getTime() < min) min = event.timestamp.getTime();
+            }
+        }
+        return min < Infinity ? new Date(min) : undefined;
     }
 
     /** First and last timestamps of the indexed lines */

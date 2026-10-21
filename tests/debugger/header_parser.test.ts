@@ -68,7 +68,7 @@ describe('parsePythonLiteral', () => {
     });
 
     it('parses the async_setup_entry value of the fixture', () => {
-        const line = fixture('without_header.log').split('\n')[1];
+        const line = fixture('without_header.log').split(/\r?\n/)[1];
         const literal = line.match(/value='(\{.*\})'$/)![1];
         const value = parsePythonLiteral(literal) as Record<string, unknown>;
         expect(value.name).toBe('Test Clim');

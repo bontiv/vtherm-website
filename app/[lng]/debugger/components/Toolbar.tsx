@@ -21,7 +21,7 @@ type ToolbarProps = {
 const Toolbar: React.FC<ToolbarProps> = ({ file, parser, thermostat, onThermostat, zoom, onZoomReset, displayTz, onDisplayTz, onChangeFile }) => {
     const { t, i18n } = useAnalyzerT();
     const { header } = parser;
-    const period = header?.period ?? parser.getTimeBounds();
+    const period = parser.getAnalysisPeriod();
     const fmt = (d: Date) => formatTime(d, { tz: displayTz, lng: i18n.language, withSeconds: false });
     const thermostats = parser.getThermostats();
     const singleFromHeader = header && thermostats.length === 1 && thermostats[0] === header.thermostatName;

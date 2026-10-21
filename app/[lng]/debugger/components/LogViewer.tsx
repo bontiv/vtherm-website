@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from "react";
-import { ArrowDownTrayIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { ClipboardEvent, KeyboardEvent, MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ArrowDownTrayIcon, CheckIcon, ClipboardDocumentIcon, MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAnalyzerT } from "./useAnalyzerT";
 import { advFilterLog, LogParser, yieldToMain, ZoomType } from "../log_parser";
 import { LOG_LEVELS, NO_THERMOSTAT } from "../log_index";
@@ -48,6 +48,12 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
     const [noise, setNoise] = useState(false);
     const [filtered, setFiltered] = useState<number[]>([]);
     const [filtering, setFiltering] = useState(false);
+    // Multi-line selection: parser index ids, plus the range anchor and the cursor (positions in `filtered`)
+    const [picked, setPicked] = useState<Set<number>>(new Set());
+    const [anchor, setAnchor] = useState<number | undefined>(undefined);
+    const [cursor, setCursor] = useState<number | undefined>(undefined);
+    const [copied, setCopied] = useState(false);
+    const listRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => setDebouncedQuery(query), 300);
@@ -106,8 +112,13 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
                 out.push(i);
             }
             if (!cancelled) {
+                const visible = new Set(out);
                 setFiltered(out);
                 setFiltering(false);
+                // Keep only the selected lines which are still displayed
+                setPicked(p => new Set([...p].filter(i => visible.has(i))));
+                setAnchor(undefined);
+                setCursor(undefined);
             }
         };
         run();
@@ -115,6 +126,87 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
     }, [index, thermoIdx, levels, noise, matcher, zoom]);
 
     const selectedPosition = useMemo(() => selected === undefined ? undefined : filtered.indexOf(selected), [filtered, selected]);
+
+    const pickedText = useCallback(() => [...picked].sort((a, b) => a - b).map(i => index.lines[i]).join('\n'), [picked, index]);
+
+    const showCopied = () => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const copyPicked = () => {
+        if (picked.size === 0) return;
+        navigator.clipboard.writeText(pickedText()).then(showCopied);
+    };
+
+    /** Select one line, a range (shift) or toggle a line (ctrl/cmd), like a file explorer */
+    const selectAt = (position: number, range: boolean, toggle: boolean) => {
+        const i = filtered[position];
+        if (i === undefined) return;
+        if (range && anchor !== undefined) {
+            const [from, to] = anchor < position ? [anchor, position] : [position, anchor];
+            setPicked(new Set(filtered.slice(from, to + 1)));
+        } else if (toggle) {
+            setPicked(p => {
+                const next = new Set(p);
+                if (next.has(i)) next.delete(i); else next.add(i);
+                return next;
+            });
+            setAnchor(position);
+        } else {
+            setPicked(new Set([i]));
+            setAnchor(position);
+        }
+        setCursor(position);
+        onSelect(i);
+    };
+
+    const onRowMouseDown = (e: MouseEvent) => {
+        // Shift+click selects lines, not text
+        if (e.shiftKey) e.preventDefault();
+    };
+
+    const onRowClick = (e: MouseEvent, position: number) => {
+        // The user is selecting text with the mouse: keep the native selection
+        if (window.getSelection()?.toString()) return;
+        selectAt(position, e.shiftKey, e.ctrlKey || e.metaKey);
+    };
+
+    const onListKeyDown = (e: KeyboardEvent) => {
+        const mod = e.ctrlKey || e.metaKey;
+        if (mod && e.key.toLowerCase() === 'a') {
+            e.preventDefault();
+            setPicked(new Set(filtered));
+            setAnchor(0);
+            setCursor(filtered.length - 1);
+        } else if (e.key === 'Escape') {
+            setPicked(new Set());
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            const from = cursor ?? (e.key === 'ArrowDown' ? -1 : filtered.length);
+            const next = Math.min(filtered.length - 1, Math.max(0, from + (e.key === 'ArrowDown' ? 1 : -1)));
+            selectAt(next, e.shiftKey, false);
+        }
+    };
+
+    const onListCopy = (e: ClipboardEvent) => {
+        const selection = window.getSelection();
+        if (selection && selection.toString()) {
+            // A text selection over several rows copies the full raw lines; within one row, keep the native copy
+            const rows = [...(listRef.current?.querySelectorAll<HTMLElement>('[data-log-index]') ?? [])]
+                .filter(el => selection.containsNode(el, true));
+            if (rows.length > 1) {
+                e.preventDefault();
+                e.clipboardData.setData('text/plain', rows.map(el => index.lines[Number(el.dataset.logIndex)]).join('\n'));
+            }
+            return;
+        }
+        if (picked.size > 0) {
+            e.preventDefault();
+            e.clipboardData.setData('text/plain', pickedText());
+            showCopied();
+        }
+    };
 
     const exportExtract = () => {
         const lines = filtered.map(i => index.lines[i]);
@@ -133,15 +225,19 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
         const ts = index.ts[i];
         const level = index.level[i];
         const { source, message } = isNaN(ts) ? { source: "", message: line } : splitLine(line);
-        const isSelected = i === selected;
+        const isPicked = picked.has(i);
+        const isMarked = i === selected;
         return (
-            <button
+            <div
                 key={i}
-                type="button"
-                onClick={() => onSelect(i)}
-                aria-pressed={isSelected}
-                className={`grid grid-cols-[56px_100px_72px_190px_auto] gap-2.5 items-center w-full px-3 text-left font-mono text-xs whitespace-nowrap cursor-pointer border-0
-                    ${isSelected ? 'bg-blue-100 dark:bg-blue-900/60' : 'bg-transparent hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                role="option"
+                aria-selected={isPicked}
+                data-log-index={i}
+                onMouseDown={onRowMouseDown}
+                onClick={(e) => onRowClick(e, position)}
+                className={`grid grid-cols-[56px_100px_72px_190px_auto] gap-2.5 items-center w-full px-3 text-left font-mono text-xs whitespace-nowrap cursor-default select-text
+                    ${isPicked ? 'bg-blue-100 dark:bg-blue-900/60' : 'hover:bg-slate-100 dark:hover:bg-slate-800'}
+                    ${isMarked ? 'shadow-[inset_3px_0_0_var(--color-blue-600)]' : ''}`}
                 style={{ height: ROW_HEIGHT }}
             >
                 <span className="text-right text-slate-400 dark:text-slate-500">{index.lineNo[i]}</span>
@@ -149,7 +245,7 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
                 <span className={LEVEL_STYLES[level]}>{isNaN(ts) ? '' : LOG_LEVELS[level]}</span>
                 <span className="truncate text-slate-500 dark:text-slate-400" title={source}>{source}</span>
                 <span className={`pr-4 ${isNaN(ts) ? 'italic text-slate-500 dark:text-slate-400' : 'text-slate-900 dark:text-slate-100'}`}>{message}</span>
-            </button>
+            </div>
         );
     };
 
@@ -204,10 +300,30 @@ const LogViewer: React.FC<LogViewerProps> = ({ parser, thermostat, zoom, selecte
                     end: formatTime(zoom.maxdate, { tz: displayTz, lng: i18n.language, withSeconds: false }),
                 })}</span>}
                 <span>{t('logs.click_hint')}</span>
+                {picked.size > 0 && (
+                    <span className="inline-flex items-center gap-2 ml-auto">
+                        <span className="font-semibold text-slate-700 dark:text-slate-200">{t('logs.selected', { count: picked.size })}</span>
+                        <button type="button" onClick={copyPicked}
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md border border-slate-300 dark:border-slate-600 font-medium text-slate-800 dark:text-slate-100 hover:bg-white dark:hover:bg-slate-700 cursor-pointer">
+                            {copied ? <CheckIcon className="size-3.5" aria-hidden="true" /> : <ClipboardDocumentIcon className="size-3.5" aria-hidden="true" />}
+                            {copied ? t('copied') : t('copy')}
+                        </button>
+                        <button type="button" onClick={() => setPicked(new Set())} aria-label={t('logs.clear_selection')} title={t('logs.clear_selection')}
+                            className="p-0.5 rounded-md text-slate-500 hover:text-slate-800 hover:bg-white dark:hover:bg-slate-700 dark:hover:text-slate-100 cursor-pointer">
+                            <XMarkIcon className="size-4" aria-hidden="true" />
+                        </button>
+                    </span>
+                )}
             </div>
             {filtered.length === 0 && !filtering
                 ? <div className="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">{t('logs.empty')}</div>
-                : <VirtualList count={filtered.length} rowHeight={ROW_HEIGHT} renderRow={renderRow} scrollToPosition={selectedPosition} className="h-[60vh] min-h-80" />}
+                : (
+                    <div ref={listRef} role="listbox" aria-multiselectable="true" aria-label={t('logs.title')} tabIndex={0}
+                        onKeyDown={onListKeyDown} onCopy={onListCopy}
+                        className="vt-loglist">
+                        <VirtualList count={filtered.length} rowHeight={ROW_HEIGHT} renderRow={renderRow} scrollToPosition={cursor ?? selectedPosition} className="h-[60vh] min-h-80" />
+                    </div>
+                )}
         </div>
     );
 };

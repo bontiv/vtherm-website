@@ -33,7 +33,7 @@
         "config_count": "Configuration : {{count}} paramètres",
         "config_tab": "Consultable dans l'onglet Configuration",
         "config_invalid": "Configuration de l'en-tête illisible",
-        "period": "Période : {{start}} → {{end}} {{tz}}",
+        "period": "Période demandée à l'export : {{start}} → {{end}} {{tz}}",
         "utc": "Les horodatages du fichier sont interprétés en UTC",
         "no_header": "Pas d'en-tête d'export",
         "no_header_detail": "Fichier de log Home Assistant classique",
@@ -100,7 +100,6 @@
         "hvac_mode": "Mode CVC",
         "target": "Cible",
         "room": "Pièce",
-        "from_header": "d'après l'en-tête",
         "from_timestamps": "d'après les horodatages",
         "entries_detail": "{{debug}} DEBUG · {{info}} INFO",
         "no_problem": "aucun problème signalé",
@@ -121,9 +120,10 @@
         "scale": "Échelle",
         "scale_auto": "Toutes les séries",
         "scale_room": "Pièce",
-        "no_data": "Pas encore de log (premier log à {{time}})",
+        "no_data": "Pas encore de température (première valeur à {{time}})",
         "line": "ligne {{line}}",
         "hvac_mode": "Mode CVC",
+        "hvac_action": "Action CVC",
         "preset": "Preset",
         "window": "Ouverture",
         "safety": "Sécurité",
@@ -141,7 +141,8 @@
     "timeline": {
         "disabled_short": "désactivée (config)",
         "disabled": "Fonction désactivée dans la configuration",
-        "no_event": "Aucun évènement"
+        "no_event": "Aucun évènement",
+        "underlying": "sous-jacent"
     },
     "logs": {
         "title": "Logs",
@@ -154,8 +155,10 @@
         "count": "{{shown}} lignes affichées sur {{total}}",
         "regex_error": "Expression régulière invalide",
         "zoom": "· limité au zoom {{start}} → {{end}}",
-        "click_hint": "· cliquez sur une ligne pour la repérer sur les graphiques",
-        "empty": "Aucune ligne ne correspond aux filtres."
+        "click_hint": "· clic : repérer sur les graphiques · Maj/Ctrl+clic : sélectionner plusieurs lignes · Ctrl+C : copier",
+        "empty": "Aucune ligne ne correspond aux filtres.",
+        "selected": "{{count}} ligne(s) sélectionnée(s)",
+        "clear_selection": "Désélectionner"
     },
     "config": {
         "empty_title": "Aucune configuration dans ce fichier",
@@ -170,7 +173,7 @@
         "raw_json": "JSON brut",
         "meta": {
             "entity": "Entité",
-            "period": "Période exportée",
+            "period": "Période demandée à l'export",
             "level": "Niveau",
             "entries": "Entrées",
             "generated": "Générée le",
