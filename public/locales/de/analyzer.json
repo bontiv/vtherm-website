@@ -33,7 +33,7 @@
         "config_count": "Konfiguration: {{count}} Parameter",
         "config_tab": "Im Tab Konfiguration verfügbar",
         "config_invalid": "Header-Konfiguration nicht lesbar",
-        "period": "Zeitraum: {{start}} → {{end}} {{tz}}",
+        "period": "Für den Export angeforderter Zeitraum: {{start}} → {{end}} {{tz}}",
         "utc": "Die Zeitstempel der Datei werden als UTC gelesen",
         "no_header": "Kein Export-Header",
         "no_header_detail": "Normale Home-Assistant-Log-Datei",
@@ -100,7 +100,6 @@
         "hvac_mode": "HVAC-Modus",
         "target": "Sollwert",
         "room": "Raum",
-        "from_header": "laut Header",
         "from_timestamps": "laut Zeitstempeln",
         "entries_detail": "{{debug}} DEBUG · {{info}} INFO",
         "no_problem": "kein Problem gemeldet",
@@ -121,9 +120,10 @@
         "scale": "Skala",
         "scale_auto": "Alle Reihen",
         "scale_room": "Raum",
-        "no_data": "Noch kein Log (erstes Log um {{time}})",
+        "no_data": "Noch keine Temperatur (erster Wert um {{time}})",
         "line": "Zeile {{line}}",
         "hvac_mode": "HVAC-Modus",
+        "hvac_action": "HVAC-Aktion",
         "preset": "Preset",
         "window": "Öffnung",
         "safety": "Sicherheit",
@@ -141,7 +141,8 @@
     "timeline": {
         "disabled_short": "deaktiviert (Konfig.)",
         "disabled": "Funktion in der Konfiguration deaktiviert",
-        "no_event": "Kein Ereignis"
+        "no_event": "Kein Ereignis",
+        "underlying": "Gerät"
     },
     "logs": {
         "title": "Logs",
@@ -170,7 +171,7 @@
         "raw_json": "Roh-JSON",
         "meta": {
             "entity": "Entität",
-            "period": "Exportierter Zeitraum",
+            "period": "Für den Export angeforderter Zeitraum",
             "level": "Level",
             "entries": "Einträge",
             "generated": "Erstellt am",

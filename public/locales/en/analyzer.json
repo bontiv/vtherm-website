@@ -33,7 +33,7 @@
         "config_count": "Configuration: {{count}} parameters",
         "config_tab": "Available in the Configuration tab",
         "config_invalid": "Unreadable header configuration",
-        "period": "Period: {{start}} → {{end}} {{tz}}",
+        "period": "Period requested for the export: {{start}} → {{end}} {{tz}}",
         "utc": "File timestamps are read as UTC",
         "no_header": "No export header",
         "no_header_detail": "Regular Home Assistant log file",
@@ -100,7 +100,6 @@
         "hvac_mode": "HVAC mode",
         "target": "Target",
         "room": "Room",
-        "from_header": "from the header",
         "from_timestamps": "from timestamps",
         "entries_detail": "{{debug}} DEBUG · {{info}} INFO",
         "no_problem": "no issue reported",
@@ -121,9 +120,10 @@
         "scale": "Scale",
         "scale_auto": "All series",
         "scale_room": "Room",
-        "no_data": "No log yet (first log at {{time}})",
+        "no_data": "No temperature yet (first value at {{time}})",
         "line": "line {{line}}",
         "hvac_mode": "HVAC Mode",
+        "hvac_action": "HVAC action",
         "preset": "Preset",
         "window": "Opening",
         "safety": "Safety guard",
@@ -141,7 +141,8 @@
     "timeline": {
         "disabled_short": "disabled (config)",
         "disabled": "Feature disabled in the configuration",
-        "no_event": "No event"
+        "no_event": "No event",
+        "underlying": "underlying"
     },
     "logs": {
         "title": "Logs",
@@ -170,7 +171,7 @@
         "raw_json": "Raw JSON",
         "meta": {
             "entity": "Entity",
-            "period": "Exported period",
+            "period": "Period requested for the export",
             "level": "Level",
             "entries": "Entries",
             "generated": "Generated on",

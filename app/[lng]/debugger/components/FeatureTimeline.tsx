@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useAnalyzerT } from "./useAnalyzerT";
 import { FeatureState, LogParser } from "../log_parser";
-import { buildFeatureSegments, buildSegments, Segment } from "../feature_series";
+import { buildFeatureSegments, buildSegments, Segment, underlyingEntities } from "../feature_series";
 import { formatTime, TimeZoneMode } from "../time";
 
 type TimelineProps = {
@@ -21,6 +21,9 @@ type TimelineProps = {
 
 type Row = {
     id: string,
+    /** Translation key of the label (graph.<kind>) and kind of values */
+    kind: string,
+    sub?: string,
     segments: Segment<string | FeatureState>[],
     disabled: boolean,
 }
@@ -33,6 +36,15 @@ const HVAC_COLORS: Record<string, string> = {
     heat_cool: 'bg-teal-600 text-white',
     dry: 'bg-amber-300 text-slate-900',
     fan_only: 'bg-cyan-300 text-slate-900',
+};
+const HVAC_ACTION_COLORS: Record<string, string> = {
+    heating: 'bg-orange-500 text-white',
+    preheating: 'bg-orange-300 text-slate-950',
+    cooling: 'bg-blue-600 text-white',
+    drying: 'bg-amber-300 text-slate-900',
+    fan: 'bg-cyan-300 text-slate-900',
+    idle: 'bg-slate-300 text-slate-900 dark:bg-slate-600 dark:text-white',
+    off: 'bg-slate-500 text-white',
 };
 const PRESET_COLORS = [
     'bg-indigo-300 text-indigo-950', 'bg-emerald-300 text-emerald-950', 'bg-sky-300 text-sky-950',
@@ -55,23 +67,41 @@ const FeatureTimeline: React.FC<TimelineProps> = ({ parser, thermostat, range, d
         const vtherm = parser.getThermostat(thermostat);
         if (!vtherm) return [];
         const disabled = (key: string) => config?.[key] === false;
+
+        // One "HVAC action" row per underlying climate: a VTherm may drive several devices,
+        // each one reporting its own hvac_action. Configured underlyings without any event still get a row.
+        const isClimate = config?.thermostat_type === 'thermostat_over_climate';
+        const entities = underlyingEntities(config, vtherm.underlying_hvac_actions);
+        const actionRows: Row[] = entities.map(entity => ({
+            id: `hvac_action:${entity}`,
+            kind: 'hvac_action',
+            sub: entity,
+            segments: buildSegments(vtherm.underlying_hvac_actions.filter(a => a.entity === entity), dataEnd),
+            disabled: false,
+        }));
+        if (actionRows.length === 0 && isClimate) {
+            actionRows.push({ id: 'hvac_action', kind: 'hvac_action', sub: t('timeline.underlying'), segments: [], disabled: false });
+        }
+
         return [
-            { id: 'hvac_mode', segments: buildSegments(vtherm.hvac_mode, dataEnd), disabled: false },
-            { id: 'preset', segments: buildSegments(vtherm.preset, dataEnd), disabled: false },
-            { id: 'startstop_state', segments: buildFeatureSegments(vtherm.startstop_state, dataEnd), disabled: disabled('use_auto_start_stop_feature') },
-            { id: 'safety', segments: buildFeatureSegments(vtherm.safety_state, dataEnd), disabled: false },
-            { id: 'window', segments: buildFeatureSegments(vtherm.window_state, dataEnd), disabled: disabled('use_window_feature') },
+            { id: 'hvac_mode', kind: 'hvac_mode', segments: buildSegments(vtherm.hvac_mode, dataEnd), disabled: false },
+            ...actionRows,
+            { id: 'preset', kind: 'preset', segments: buildSegments(vtherm.preset, dataEnd), disabled: false },
+            { id: 'startstop_state', kind: 'startstop_state', segments: buildFeatureSegments(vtherm.startstop_state, dataEnd), disabled: disabled('use_auto_start_stop_feature') },
+            { id: 'safety', kind: 'safety', segments: buildFeatureSegments(vtherm.safety_state, dataEnd), disabled: false },
+            { id: 'window', kind: 'window', segments: buildFeatureSegments(vtherm.window_state, dataEnd), disabled: disabled('use_window_feature') },
         ];
-    }, [parser, thermostat, dataEnd, config]);
+    }, [parser, thermostat, dataEnd, config, t]);
 
     const segmentStyle = (row: Row, value: string | FeatureState): string => {
-        if (row.id === 'hvac_mode') return HVAC_COLORS[String(value)] ?? 'bg-slate-300 text-slate-900';
-        if (row.id === 'preset') return presetColor(String(value));
+        if (row.kind === 'hvac_mode') return HVAC_COLORS[String(value)] ?? 'bg-slate-300 text-slate-900';
+        if (row.kind === 'hvac_action') return HVAC_ACTION_COLORS[String(value)] ?? 'bg-slate-300 text-slate-900';
+        if (row.kind === 'preset') return presetColor(String(value));
         return value === FeatureState.BYPASS ? 'bg-amber-400 text-slate-950' : 'bg-red-600 text-white';
     };
 
     const segmentLabel = (row: Row, value: string | FeatureState): string => {
-        if (row.id === 'hvac_mode' || row.id === 'preset') return String(value);
+        if (row.kind === 'hvac_mode' || row.kind === 'hvac_action' || row.kind === 'preset') return String(value);
         return value === FeatureState.BYPASS ? t('graph.bypass') : t('graph.trigger');
     };
 
@@ -88,7 +118,8 @@ const FeatureTimeline: React.FC<TimelineProps> = ({ parser, thermostat, range, d
                 return (
                     <div key={row.id} className="grid grid-cols-[110px_minmax(0,1fr)] sm:grid-cols-[150px_minmax(0,1fr)] gap-1.5 items-center">
                         <div className="flex flex-col leading-tight">
-                            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">{t(`graph.${row.id}`)}</span>
+                            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">{t(`graph.${row.kind}`)}</span>
+                            {row.sub && <span className="truncate font-mono text-[11px] text-slate-500 dark:text-slate-400" title={row.sub}>{row.sub}</span>}
                             {row.disabled && <span className="text-xs text-slate-500 dark:text-slate-400">{t('timeline.disabled_short')}</span>}
                         </div>
                         <div className="relative h-7 rounded-md bg-slate-100 dark:bg-slate-800 overflow-hidden">

@@ -22,7 +22,7 @@ const KpiStrip: React.FC<{ parser: LogParser, thermostat: string }> = ({ parser,
         const vtherm = parser.getThermostat(thermostat);
         const counts = parser.getLevelCounts(thermostat);
         const total = counts.DEBUG + counts.INFO + counts.WARNING + counts.ERROR;
-        const period = parser.header?.period ?? parser.getTimeBounds();
+        const period = parser.getAnalysisPeriod();
         const temp = (v?: number) => v === undefined ? '—' : `${formatNumber(v, lng)} °C`;
 
         const room = vtherm?.room_temps.map(e => e.value) ?? [];
@@ -34,7 +34,7 @@ const KpiStrip: React.FC<{ parser: LogParser, thermostat: string }> = ({ parser,
             {
                 id: 'period',
                 value: period ? formatDuration(period.end.getTime() - period.start.getTime()) : '—',
-                sub: parser.header?.period ? t('kpi.from_header') : t('kpi.from_timestamps'),
+                sub: t('kpi.from_timestamps'),
             },
             {
                 id: 'entries',

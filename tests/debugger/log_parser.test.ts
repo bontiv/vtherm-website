@@ -123,3 +123,64 @@ describe('LogParser valve opening', () => {
         expect(vtherm.room_temps[0].value).toBe(20.2);
     });
 });
+
+describe('LogParser analysis period', () => {
+    const header = [
+        '='.repeat(80),
+        'Versatile Thermostat - Log Export',
+        'Thermostat : Test Bedroom (climate.test_bedroom)',
+        'Period     : 2026-10-18 21:00:00 → 2026-10-21 05:00:00 UTC',
+        'Entries    : 3',
+        'Generated  : 2026-10-21 07:50:49 UTC',
+        '',
+        'Configuration:',
+        '{"name": "Test Bedroom"}',
+        '='.repeat(80),
+        '',
+    ];
+    const lines = [
+        "2026-10-21 03:34:52.214 DEBUG   [feature_auto_start_stop_manager] AutoStartStopManager-Test Bedroom - auto start/stop is disabled (or not configured)",
+        "2026-10-21 03:44:52.218 DEBUG   [base_thermostat   ] Test Bedroom - End of cycle. current_state: {'hvac_mode': 'auto', 'target_temperature': 20.5, 'preset': 'eco', 'room_temperature': 22.81, 'outdoor_temperature': 5.9, 'hvac_action': 'idle', 'power_percent': None}, managers_states: {'FeaturePresenceManager': True}",
+        "2026-10-21 04:54:52.226 DEBUG   [thermostat_climate] Test Bedroom - added energy is 0.000 . Total energy is now: 52491.387",
+    ];
+    const parser = new LogParser([...header, ...lines].join('\n'));
+
+    it('uses the logged timestamps, not the requested export period', () => {
+        expect(parser.header?.period?.start.getTime()).toBe(Date.UTC(2026, 9, 18, 21, 0, 0));
+        const period = parser.getAnalysisPeriod()!;
+        expect(period.start.getTime()).toBe(Date.UTC(2026, 9, 21, 3, 34, 52, 214));
+        expect(period.end.getTime()).toBe(Date.UTC(2026, 9, 21, 4, 54, 52, 226));
+    });
+
+    it('finds the first temperature after logs without data', () => {
+        expect(parser.getFirstDataTime('Test Bedroom')?.getTime()).toBe(Date.UTC(2026, 9, 21, 3, 44, 52, 218));
+        expect(parser.getFirstDataTime('Unknown')).toBeUndefined();
+    });
+
+    it('falls back to the header period when no line has a timestamp', () => {
+        const empty = new LogParser(header.join('\n'));
+        expect(empty.getAnalysisPeriod()?.start.getTime()).toBe(Date.UTC(2026, 9, 18, 21, 0, 0));
+    });
+});
+
+describe('LogParser underlying hvac_action', () => {
+    const state = (entity: string, temp: string, action: string) =>
+        `<state ${entity}=auto; hvac_modes=[<HVACMode.AUTO: 'auto'>, <HVACMode.OFF: 'off'>, <HVACMode.HEAT: 'heat'>], min_temp=5.0, max_temp=35.0, target_temp_step=0.5, preset_modes=['none', 'manual', 'eco'], current_temperature=${temp}, temperature=20.5, hvac_action=${action}, preset_mode=manual, friendly_name=Test TRV, supported_features=401 @ 2026-10-19T12:53:50.370941+03:00>`;
+    const changed = (time: string, entity: string, from: string, to: string, temp: string) =>
+        `2026-10-21 ${time} INFO    [thermostat_climate] Test Room - ---------------------> NEW EVENT: Underlying climate ${entity}state changed from ${state(entity, '19.5', from)} to new_state ${state(entity, temp, to)} --------------------------------------------------------------`;
+    const parser = new LogParser([
+        changed('03:37:16.645', 'climate.test_trv', 'idle', 'heating', '19.5'),
+        changed('03:37:56.636', 'climate.test_trv', 'heating', 'idle', '20.0'),
+        changed('03:38:10.000', 'climate.test_trv_2', 'idle', 'heating', '19.0'),
+    ].join('\n'));
+
+    it('reads hvac_action and temperature from the new state only, per underlying', () => {
+        const vtherm = parser.getThermostat('Test Room')!;
+        expect(vtherm.underlying_hvac_actions.map(a => [a.entity, a.value])).toEqual([
+            ['climate.test_trv', 'heating'],
+            ['climate.test_trv', 'idle'],
+            ['climate.test_trv_2', 'heating'],
+        ]);
+        expect(vtherm.underlying_temps.map(t => t.value)).toEqual([19.5, 20.0, 19.0]);
+    });
+});
