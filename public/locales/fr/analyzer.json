@@ -155,8 +155,10 @@
         "count": "{{shown}} lignes affichées sur {{total}}",
         "regex_error": "Expression régulière invalide",
         "zoom": "· limité au zoom {{start}} → {{end}}",
-        "click_hint": "· cliquez sur une ligne pour la repérer sur les graphiques",
-        "empty": "Aucune ligne ne correspond aux filtres."
+        "click_hint": "· clic : repérer sur les graphiques · Maj/Ctrl+clic : sélectionner plusieurs lignes · Ctrl+C : copier",
+        "empty": "Aucune ligne ne correspond aux filtres.",
+        "selected": "{{count}} ligne(s) sélectionnée(s)",
+        "clear_selection": "Désélectionner"
     },
     "config": {
         "empty_title": "Aucune configuration dans ce fichier",

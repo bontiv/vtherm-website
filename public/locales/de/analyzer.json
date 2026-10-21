@@ -155,8 +155,10 @@
         "count": "{{shown}} von {{total}} Zeilen angezeigt",
         "regex_error": "Ungültiger regulärer Ausdruck",
         "zoom": "· auf Zoom begrenzt {{start}} → {{end}}",
-        "click_hint": "· Zeile anklicken, um sie in den Diagrammen zu markieren",
-        "empty": "Keine Zeile entspricht den Filtern."
+        "click_hint": "· Klick: in den Diagrammen markieren · Umschalt/Strg+Klick: mehrere Zeilen auswählen · Strg+C: kopieren",
+        "empty": "Keine Zeile entspricht den Filtern.",
+        "selected": "{{count}} Zeile(n) ausgewählt",
+        "clear_selection": "Auswahl aufheben"
     },
     "config": {
         "empty_title": "Keine Konfiguration in dieser Datei",

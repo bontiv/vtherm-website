@@ -155,8 +155,10 @@
         "count": "{{shown}} lines shown out of {{total}}",
         "regex_error": "Invalid regular expression",
         "zoom": "· limited to zoom {{start}} → {{end}}",
-        "click_hint": "· click a line to mark it on the charts",
-        "empty": "No line matches the filters."
+        "click_hint": "· click: mark on the charts · Shift/Ctrl+click: select several lines · Ctrl+C: copy",
+        "empty": "No line matches the filters.",
+        "selected": "{{count}} line(s) selected",
+        "clear_selection": "Clear selection"
     },
     "config": {
         "empty_title": "No configuration in this file",
