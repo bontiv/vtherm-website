@@ -1,0 +1,317 @@
+{
+    "index": {
+        "meta": {
+            "title": "Quick start by heating type",
+            "description": "Thermostatic valve, pilot wire (fil pilote) electric radiator, heat pump or pellet stove: set up Versatile Thermostat for your heating with a step-by-step tutorial."
+        },
+        "title": "Quick start",
+        "intro": "Pick your heating type: you'll find Versatile Thermostat's strengths and a step-by-step tutorial to create your first thermostat.",
+        "other": "Your heating isn't listed? Check out"
+    },
+    "common": {
+        "vtherm_type": "Recommended thermostat type",
+        "strengths_title": "Versatile Thermostat's strengths",
+        "further_title": "Going further",
+        "docs_title": "Documentation",
+        "devices_title": "Tested devices",
+        "docs_quickstart": "the quick start in the documentation",
+        "cta": {
+            "title": "What's next?",
+            "desc": "Install Versatile Thermostat and find out why it outperforms the alternatives.",
+            "install": "Installation guide",
+            "versus": "See the comparisons"
+        }
+    },
+    "trv": {
+        "meta": {
+            "title": "Thermostatic valve (TRV): quick start",
+            "description": "Control your Zigbee thermostatic valves (Sonoff TRVZB...) with Versatile Thermostat: direct valve control, external sensor, Auto-TPI and central boiler.",
+            "keywords": "thermostatic valve,TRV,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
+        },
+        "name": "Thermostatic valve",
+        "tagline": "Zigbee thermostatic heads on hot-water radiators.",
+        "title": "Thermostatic valve (TRV)",
+        "intro": "A thermostatic head measures the temperature right next to the radiator, so it regulates poorly. Versatile Thermostat recalibrates it against a real room sensor and can directly control the valve opening.",
+        "vtherm_type": "“Thermostat over a climate” (over_climate) with self-regulation by direct valve control. For valves that don't expose their opening, use light or medium self-regulation.",
+        "strengths": {
+            "valve_regulation": {
+                "title": "Direct valve control",
+                "desc": "Versatile Thermostat computes the opening percentage with the TPI algorithm and sends it to the valve, instead of juggling its setpoint."
+            },
+            "external_sensor": {
+                "title": "Room sensor and calibration",
+                "desc": "The room temperature comes from a real sensor. It can be copied into the valve (calibration offset or external temperature)."
+            },
+            "auto_tpi": {
+                "title": "Auto-TPI",
+                "desc": "Regulation coefficients are learned automatically over successive cycles, room by room."
+            },
+            "window": {
+                "title": "Open windows",
+                "desc": "Valves close when a window opens, via a sensor or automatic detection of the temperature drop."
+            },
+            "central_boiler": {
+                "title": "Central boiler",
+                "desc": "The boiler switches on when enough valves call for heat and switches off when all of them are closed."
+            },
+            "multi": {
+                "title": "Several valves per room",
+                "desc": "A single thermostat controls all the valves in a room, with a minimum and maximum opening per valve."
+            }
+        },
+        "tutorial": {
+            "title": "Tutorial: a living room with two Sonoff TRVZB",
+            "example": "Example: a living room heated by two hot-water radiators, each fitted with a Sonoff TRVZB paired through Zigbee2MQTT, and a Zigbee temperature sensor in the middle of the room.",
+            "tip": "With the Sonoff TRVZB, keep a regulation threshold of at least 3%: below that, the valve may lose its calibration. If that happens, use the valve recalibration service.",
+            "steps": {
+                "pair": {
+                    "title": "Pair the valves and the sensor",
+                    "text": "Pair both valves and the sensor in Zigbee2MQTT. Check that each valve exposes the number entities “valve opening degree”, “valve closing degree” and “local temperature calibration”."
+                },
+                "install": {
+                    "title": "Install Versatile Thermostat",
+                    "text": "Install the integration from HACS, then restart Home Assistant."
+                },
+                "create": {
+                    "title": "Create the thermostat",
+                    "text": "Settings > Devices & services > Add integration > Versatile Thermostat. Choose “Thermostat over a climate”, name it “Living room” and select the temperature sensor."
+                },
+                "underlying": {
+                    "title": "Add the valves",
+                    "text": "In “Underlyings”, add the two valve climate entities."
+                },
+                "regulation": {
+                    "title": "Enable direct valve control",
+                    "text": "In “Self-regulation”, choose direct valve control. For each valve, fill in the opening, closing and calibration entities. Leave the TPI coefficients at their defaults: Auto-TPI will tune them."
+                },
+                "presets": {
+                    "title": "Set the presets",
+                    "text": "Define the Eco, Comfort, Boost and Frost protection temperatures, for example 18, 20, 21 and 7 °C."
+                },
+                "features": {
+                    "title": "Windows and boiler",
+                    "text": "Enable open window detection (sensor or automatic). If a boiler feeds the radiators, declare it in the central configuration so it follows the valves' demand."
+                }
+            }
+        }
+    },
+    "pilot_wire": {
+        "meta": {
+            "title": "Pilot wire electric radiator: quick start",
+            "description": "Control your pilot wire (fil pilote) electric radiators (Nodon, Heatzy, relay + diode) with Versatile Thermostat: TPI algorithm, power shedding, presence and windows.",
+            "keywords": "pilot wire,fil pilote,electric radiator,Nodon,Heatzy,power shedding,Home Assistant,Versatile Thermostat"
+        },
+        "name": "Electric pilot wire",
+        "tagline": "Electric radiators driven by pilot wire or relay.",
+        "title": "Pilot wire electric radiator",
+        "intro": "The pilot wire (fil pilote) only understands a few orders: Comfort, Eco, Frost protection, off. Versatile Thermostat turns it into precise regulation, alternating Comfort and Frost protection at the right pace thanks to the TPI algorithm.",
+        "vtherm_type": "“Thermostat over a switch” (over_switch). The underlying device can be a relay, a select entity (pilot wire module) or a climate (Heatzy) driven by custom commands.",
+        "strengths": {
+            "pilot_wire": {
+                "title": "Every pilot wire module",
+                "desc": "Nodon, Heatzy, eCosy or relay + diode: custom commands send the right order (Comfort / Frost protection) and the “Invert command” option handles diode wiring."
+            },
+            "tpi": {
+                "title": "TPI algorithm",
+                "desc": "On each cycle, Versatile Thermostat computes the heating time from the gap to the setpoint and the outdoor temperature: the room stays stable to a tenth of a degree."
+            },
+            "power_shedding": {
+                "title": "Power shedding",
+                "desc": "Radiators are cut by priority when consumption approaches your subscribed power. Start-ups are staggered to smooth out current peaks."
+            },
+            "presence_motion": {
+                "title": "Presence and motion",
+                "desc": "Heating automatically lowers when you're away and returns to Comfort as soon as motion is detected."
+            },
+            "window": {
+                "title": "Open windows",
+                "desc": "The radiator switches off when a window opens, with or without a sensor."
+            },
+            "central_mode": {
+                "title": "Centralized control",
+                "desc": "A single selector puts the whole home in Eco, Frost protection or off."
+            }
+        },
+        "tutorial": {
+            "title": "Tutorial: a bedroom with a Nodon pilot wire module",
+            "example": "Example: a bedroom heated by an electric radiator wired to a Nodon SIN-4-FP-21 module, with a Zigbee temperature sensor and a window opening sensor.",
+            "tip": "On the radiator, set the internal setpoint above Versatile Thermostat's highest setpoint (24 °C for example): Versatile Thermostat does the regulating, so the radiator must not cut off before it does.",
+            "steps": {
+                "wiring": {
+                    "title": "Wire the module",
+                    "text": "Wire the pilot wire module to the radiator and add it to Home Assistant. It exposes a select entity with the Comfort, Eco, Frost protection and off orders."
+                },
+                "install": {
+                    "title": "Install Versatile Thermostat",
+                    "text": "Install the integration from HACS, then restart Home Assistant."
+                },
+                "create": {
+                    "title": "Create the thermostat",
+                    "text": "Add the Versatile Thermostat integration, choose “Thermostat over a switch”, name it “Bedroom” and select the temperature sensor and the outdoor sensor."
+                },
+                "underlying": {
+                    "title": "Add the radiator",
+                    "text": "In “Underlyings”, select the module's select entity. Turn-on command: select_option/option:comfort. Turn-off command: select_option/option:frost_protection."
+                },
+                "tpi": {
+                    "title": "Set the cycle",
+                    "text": "Choose a cycle of 5 to 10 minutes and a minimum activation delay of 30 seconds. Keep the default TPI coefficients or enable Auto-TPI."
+                },
+                "presets": {
+                    "title": "Set the presets",
+                    "text": "Define the Eco, Comfort, Boost and Frost protection temperatures, for example 17, 19, 20 and 7 °C."
+                },
+                "features": {
+                    "title": "Window and power shedding",
+                    "text": "Link the window opening sensor. In the central configuration, declare the home's power sensor and the maximum power to enable power shedding."
+                }
+            }
+        }
+    },
+    "heat_pump": {
+        "meta": {
+            "title": "Heat pump and air conditioning: quick start",
+            "description": "Regulate your air-to-air heat pump or air conditioner with Versatile Thermostat: self-regulation, automatic stop and restart, heating and cooling.",
+            "keywords": "heat pump,air conditioning,air-to-air heat pump,auto start stop,Home Assistant,Versatile Thermostat"
+        },
+        "name": "Heat pump",
+        "tagline": "Air-to-air heat pump or reversible air conditioner driven by Home Assistant.",
+        "title": "Heat pump and air conditioning",
+        "intro": "A heat pump measures the temperature at the indoor unit, often far from the reality of the room. Versatile Thermostat corrects its setpoint with a real sensor and stops it when it's no longer needed.",
+        "vtherm_type": "“Thermostat over a climate” (over_climate), with cooling mode if your heat pump is reversible.",
+        "strengths": {
+            "self_regulation": {
+                "title": "Self-regulation",
+                "desc": "Versatile Thermostat adjusts the setpoint sent to the heat pump so the room sensor reaches the target temperature. Four levels, from light to expert."
+            },
+            "auto_start_stop": {
+                "title": "Automatic stop and restart",
+                "desc": "When the room is at temperature, the heat pump is stopped (or switched to fan or dehumidification) then restarted at the right time: less consumption and noise."
+            },
+            "heat_cool": {
+                "title": "Heating and cooling",
+                "desc": "The same thermostat heats in winter and cools in summer, with presets dedicated to cooling. Auto-Fan adapts the fan speed."
+            },
+            "window": {
+                "title": "Open windows",
+                "desc": "The heat pump stops or switches to fan mode when a window opens."
+            },
+            "presence": {
+                "title": "Presence",
+                "desc": "Away setpoints apply automatically, for both heating and cooling."
+            },
+            "power": {
+                "title": "Power shedding and central mode",
+                "desc": "The heat pump takes part in power shedding. Central mode forces the whole home to heating only or cooling only."
+            }
+        },
+        "tutorial": {
+            "title": "Tutorial: a living room with a Mitsubishi heat pump",
+            "example": "Example: a living room cooled by a Mitsubishi air-to-air heat pump integrated via MELCloud, with a temperature sensor placed far from the indoor unit.",
+            "tip": "Start with light self-regulation and raise the level only if the room doesn't reach its setpoint. Avoid aggressive settings with heat pumps that cut their compressor too often.",
+            "steps": {
+                "integration": {
+                    "title": "Integrate the heat pump",
+                    "text": "Add your heat pump's integration (MELCloud, Daikin, SmartIR...) in Home Assistant and check that its climate entity responds."
+                },
+                "install": {
+                    "title": "Install Versatile Thermostat",
+                    "text": "Install the integration from HACS, then restart Home Assistant."
+                },
+                "create": {
+                    "title": "Create the thermostat",
+                    "text": "Add the Versatile Thermostat integration, choose “Thermostat over a climate”, name it “Living room” and select the temperature sensor and the outdoor sensor."
+                },
+                "underlying": {
+                    "title": "Add the heat pump",
+                    "text": "In “Underlyings”, select the heat pump's climate entity and tick cooling mode if it is reversible."
+                },
+                "regulation": {
+                    "title": "Enable self-regulation",
+                    "text": "In “Self-regulation”, choose the light level. It corrects the setpoint sent to the heat pump by up to 1.5 °C."
+                },
+                "auto_start_stop": {
+                    "title": "Enable automatic stop and restart",
+                    "text": "Choose the responsiveness (slow for a living room, fast for a small room) and the stop action: turn off, fan only or dehumidification."
+                },
+                "presets": {
+                    "title": "Set the presets",
+                    "text": "Define the heating temperatures (for example 18 / 20 / 21 °C) and the cooling temperatures (for example 26 / 25 / 24 °C)."
+                }
+            }
+        }
+    },
+    "pellet_stove": {
+        "meta": {
+            "title": "Pellet stove: quick start",
+            "description": "Regulate your pellet stove with Versatile Thermostat: dry contact or integration, suitable long cycles, presence, windows and failure detection.",
+            "keywords": "pellet stove,pellet heater,dry contact,Home Assistant,Versatile Thermostat"
+        },
+        "name": "Pellet stove",
+        "tagline": "Stove driven by dry contact, relay or dedicated integration.",
+        "title": "Pellet stove",
+        "intro": "A pellet stove doesn't tolerate repeated ignitions well: each start-up uses electricity and fouls the burn pot. Versatile Thermostat drives it with long cycles for stable comfort without multiplying ignitions.",
+        "vtherm_type": "“Thermostat over a switch” (over_switch) if the stove is controlled through its room thermostat dry contact via a relay. “Thermostat over a climate” (over_climate) if a Home Assistant integration exposes the stove as a climate.",
+        "strengths": {
+            "long_cycle": {
+                "title": "Long cycles",
+                "desc": "The cycle duration and the minimum on and off delays can be set to respect the stove's start-up time."
+            },
+            "external_sensor": {
+                "title": "Room sensor",
+                "desc": "Temperature is measured where you live, not next to the stove, which would otherwise overheat the main room."
+            },
+            "auto_start_stop": {
+                "title": "Automatic stop and restart",
+                "desc": "With a stove exposed as a climate, automatic stop and restart avoid leaving it idling when the room is at temperature."
+            },
+            "presence": {
+                "title": "Presence",
+                "desc": "The stove switches to Eco when the home is empty and restores Comfort before you return."
+            },
+            "window": {
+                "title": "Open windows",
+                "desc": "The stove switches off when a window stays open."
+            },
+            "failure_detection": {
+                "title": "Failure detection",
+                "desc": "If the temperature doesn't rise while the stove is supposed to be heating (empty hopper, ignition fault), Versatile Thermostat flags it."
+            }
+        },
+        "tutorial": {
+            "title": "Tutorial: a stove controlled by dry contact",
+            "example": "Example: a pellet stove with a “room thermostat” input (dry contact), wired to a Zigbee relay module, with a temperature sensor in the living room.",
+            "tip": "The pellet stove doesn't have a dedicated profile in the documentation yet: these settings are inspired by high-inertia heating. Adjust the cycle duration to your stove's manual and share your settings with the community.",
+            "steps": {
+                "control": {
+                    "title": "Wire the dry contact",
+                    "text": "Wire the stove's room thermostat input to a relay integrated in Home Assistant, following the stove's manual. Configure the stove to obey this contact."
+                },
+                "install": {
+                    "title": "Install Versatile Thermostat",
+                    "text": "Install the integration from HACS, then restart Home Assistant."
+                },
+                "create": {
+                    "title": "Create the thermostat",
+                    "text": "Add the Versatile Thermostat integration, choose “Thermostat over a switch”, name it “Stove” and select the temperature sensor and the outdoor sensor."
+                },
+                "underlying": {
+                    "title": "Add the relay",
+                    "text": "In “Underlyings”, select the relay's switch entity."
+                },
+                "cycle": {
+                    "title": "Set a long cycle",
+                    "text": "Choose a long cycle (30 to 60 minutes) and minimum on and off delays of several minutes, so a start-up always runs to completion."
+                },
+                "presets": {
+                    "title": "Set the presets",
+                    "text": "Define the Eco, Comfort, Boost and Frost protection temperatures, for example 18, 20, 21 and 10 °C."
+                },
+                "features": {
+                    "title": "Presence, windows and failure",
+                    "text": "Link the presence sensor and the window opening sensors, then enable heating failure detection to be alerted if the stove doesn't start."
+                }
+            }
+        }
+    }
+}

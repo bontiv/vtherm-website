@@ -1,0 +1,199 @@
+{
+    "index": {
+        "meta": {
+            "title": "Versatile Thermostat im Vergleich zu Alternativen",
+            "description": "Vergleichen Sie Versatile Thermostat mit Better Thermostat, Smart Autotune Thermostat (SAT) und dem Generic Thermostat von Home Assistant: Funktionen, Algorithmen und Anwendungsfälle."
+        },
+        "title": "Versatile Thermostat im Vergleich zu Alternativen",
+        "intro": "Mehrere Integrationen ermöglichen die Heizungsregelung in Home Assistant. Diese Vergleiche zeigen Punkt für Punkt, was jede Lösung kann und in welchen Fällen Versatile Thermostat weiter geht."
+    },
+    "common": {
+        "read": "Vergleich lesen",
+        "about": "Was ist {{competitor}}?",
+        "official": "Offizielle Website von {{competitor}}",
+        "table_title": "Funktionsvergleich",
+        "feature": "Funktion",
+        "support": {
+            "yes": "Ja",
+            "partial": "Teilweise",
+            "no": "Nein"
+        },
+        "disclaimer": "Vergleich auf Grundlage der öffentlichen Dokumentation von Versatile Thermostat und {{competitor}} (Stand Oktober 2026). Beide Projekte entwickeln sich schnell weiter: Melden Sie uns Fehler bitte auf GitHub.",
+        "strengths_title": "Warum Versatile Thermostat wählen?",
+        "when_competitor": "Wann {{competitor}} die bessere Wahl bleibt",
+        "migration_title": "Von {{competitor}} zu Versatile Thermostat wechseln",
+        "cta": {
+            "title": "Bereit, Versatile Thermostat auszuprobieren?",
+            "desc": "Wählen Sie Ihre Heizungsart und folgen Sie der Anleitung: Ihr erstes Thermostat läuft in wenigen Minuten.",
+            "quickstart": "Schnellstart",
+            "install": "Installationsanleitung"
+        }
+    },
+    "features": {
+        "builtin": "In Home Assistant integriert, ohne Installation",
+        "switch_devices": "Elektroheizkörper, Relais und Steuerleitung (Fil Pilote)",
+        "climate_devices": "Thermostatköpfe, Wärmepumpen und Klimaanlagen (climate-Entitäten)",
+        "opentherm": "Kesselmodulation über OpenTherm / EMS (Vorlauftemperatur)",
+        "valve": "Direkte Steuerung der Ventilöffnung",
+        "trv_calibration": "Kalibrierung / Synchronisierung des Ventilsensors",
+        "multi": "Mehrere Geräte pro Thermostat",
+        "proportional": "Proportionale Regelung (TPI) statt Ein/Aus",
+        "learning": "Selbstlernende Koeffizienten",
+        "outdoor": "Berücksichtigung der Außentemperatur",
+        "presets": "Voreinstellungen (Eco, Komfort, Boost, Frostschutz …)",
+        "presence": "Automatische Anwesenheitserkennung per Sensor",
+        "motion": "Bewegungserkennung",
+        "window": "Offenes Fenster per Sensor",
+        "window_auto": "Offenes Fenster automatisch erkannt (Temperaturabfall)",
+        "power": "Lastabwurf",
+        "central_boiler": "Steuerung eines Zentralheizkessels",
+        "central_mode": "Zentraler Modus für alle Thermostate",
+        "auto_start_stop": "Automatisches Ausschalten / Wiedereinschalten von Wärmepumpen",
+        "heat_cool": "Heizen und Kühlen",
+        "failure": "Erkennung von Heizungsausfällen",
+        "safety": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet",
+        "lock": "Sperrfunktion des Thermostats",
+        "ui_card": "Eigene Lovelace-Karte"
+    },
+    "better_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Better Thermostat: Vergleich",
+            "description": "Versatile Thermostat oder Better Thermostat? Thermostatköpfe, Elektroheizkörper, Wärmepumpen, Anwesenheit, Lastabwurf: detaillierter Vergleich für Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Better Thermostat",
+        "intro": "Better Thermostat überzeugt bei Thermostatköpfen. Versatile Thermostat steht dem in nichts nach und deckt zusätzlich Elektroheizkörper, Wärmepumpen und das Management des gesamten Hauses ab.",
+        "about": "Better Thermostat (KartoffelToby) ist eine sehr beliebte HACS-Integration, die Thermostatköpfe (TRV) verbessert, indem sie diese auf einen externen Sensor abgleicht. Sie bietet mehrere Kalibrierungsmodi (AI Time Based, MPC, PID, TPI), unterstützt Öffnungssensoren und kann die Ventilöffnung kompatibler Ventile direkt steuern. Sie steuert ausschließlich climate-Entitäten.",
+        "notes": {
+            "switch_devices": "Better Thermostat erfordert, einen Schalter in einen Generic Thermostat einzubinden.",
+            "outdoor": "Better Thermostat nutzt die Außentemperatur, um die Heizung im Sommer abzuschalten.",
+            "heat_cool": "Better Thermostat benötigt eine separate climate-Entität für die Klimaanlage.",
+            "lock": "Better Thermostat ignoriert Einstellungen am Ventil („Child Lock“).",
+            "window_auto": "Versatile Thermostat erkennt ein geöffnetes Fenster ohne Sensor anhand der Temperaturkurve."
+        },
+        "strengths": {
+            "all_heating": {
+                "title": "Ein Werkzeug für alle Heizungen",
+                "desc": "Ventile, Elektroheizkörper mit Steuerleitung (Fil Pilote), Wärmepumpen und Klimaanlagen: dieselbe Integration, dieselbe Konfiguration und dieselbe Karte für das ganze Haus."
+            },
+            "presence": {
+                "title": "Automatische Anwesenheits- und Bewegungserkennung",
+                "desc": "Versatile Thermostat wechselt dank eines Anwesenheitssensors selbstständig in den Abwesenheitsmodus und schaltet bei Bewegung wieder auf Komfort, ganz ohne selbst geschriebene Automatisierung."
+            },
+            "power": {
+                "title": "Lastabwurf und Zentralheizkessel",
+                "desc": "Lastabwurf, um den Anschlusswert nicht zu überschreiten, und Einschalten des Heizkessels, sobald Ventile Wärme anfordern."
+            },
+            "central": {
+                "title": "Zentrale Steuerung",
+                "desc": "Ein zentraler Modus (einzelner Wahlschalter) schaltet das ganze Haus mit einem Klick auf Eco, Frostschutz oder Aus."
+            },
+            "auto_tpi": {
+                "title": "Direkte Ventilregelung mit Selbstlernfunktion",
+                "desc": "Die direkte Steuerung der Ventilöffnung kombiniert den TPI-Algorithmus mit Auto-TPI, der die Koeffizienten Ihres Raums über die Zyklen hinweg lernt."
+            },
+            "safety": {
+                "title": "Sicherheit und Diagnose",
+                "desc": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet, Erkennung von Heizungsausfällen, Sperre per Code und Online-Log-Analyser."
+            }
+        },
+        "when_competitor": {
+            "trv_only": "Ihre Installation besteht nur aus Thermostatköpfen und Sie möchten die Raummodelle MPC oder PID ausprobieren.",
+            "homematic": "Sie verwenden Homematic-IP-Ventile, deren Kalibrierung bei Better Thermostat besser dokumentiert ist.",
+            "summer": "Sie möchten die automatische Ventilwartung im Sommer.",
+            "google": "Sie stellen Ihre Thermostate Google Home zur Verfügung, eine von Better Thermostat hervorgehobene Kompatibilität."
+        },
+        "migration": "Beide Integrationen verwenden dieselben climate-Entitäten Ihrer Thermostatköpfe: Für die Migration ist keine neue Hardware nötig.\n1. Installieren Sie Versatile Thermostat über HACS.\n2. Erstellen Sie pro Raum ein Thermostat „auf einem climate“ mit denselben Ventilen und demselben Temperatursensor.\n3. Wählen Sie die Selbstregelung durch direkte Ventilsteuerung, wenn Ihre Ventile diese bereitstellen.\n4. Deaktivieren Sie anschließend die entsprechende Better-Thermostat-Entität, damit nicht beide Integrationen dasselbe Ventil steuern."
+    },
+    "smart_autotune_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Smart Autotune Thermostat (SAT): Vergleich",
+            "description": "Versatile Thermostat oder Smart Autotune Thermostat (SAT)? Raumweise Regelung oder OpenTherm-Heizkessel: der Vergleich für die richtige Wahl in Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Smart Autotune Thermostat",
+        "intro": "SAT ist auf OpenTherm-Heizkessel zugeschnitten. Versatile Thermostat regelt jeden Raum, unabhängig vom Wärmeerzeuger, und kümmert sich um den Alltag im Haus.",
+        "about": "Smart Autotune Thermostat (SAT, von Alexwijn) ist eine HACS-Integration, die einen Heizkessel über ein OpenTherm- oder EMS-ESP-Gateway steuert. Sie moduliert die Vorlauftemperatur anhand einer Heizkurve und eines selbst abgestimmten PID-Reglers. Ein PWM-Modus ermöglicht auch die Steuerung eines einfachen Schalters. Sie unterstützt nur das Heizen.",
+        "notes": {
+            "opentherm": "Versatile Thermostat schaltet den Heizkessel ein oder aus, ohne dessen Vorlauftemperatur zu modulieren.",
+            "climate_devices": "SAT bindet die Ventile als „Räume“ ein, die Wärme anfordern.",
+            "central_mode": "SAT bietet einen Komfort-/Eco-Modus für mehrere Räume."
+        },
+        "strengths": {
+            "per_room": {
+                "title": "Echte raumweise Regelung",
+                "desc": "Jeder Raum hat sein eigenes Thermostat, seinen Sensor, seine Voreinstellungen und seine Fenster. Der Heizkessel schaltet sich nur ein, wenn ein Raum Wärme anfordert."
+            },
+            "all_heating": {
+                "title": "Alle Wärmeerzeuger, nicht nur der Heizkessel",
+                "desc": "Thermostatköpfe, Elektroheizkörper mit Steuerleitung (Fil Pilote), Luft-Luft-Wärmepumpen, Öfen: Versatile Thermostat steuert sie alle."
+            },
+            "cooling": {
+                "title": "Heizen und Kühlen",
+                "desc": "Kühlmodus, automatisches Ausschalten und Wiedereinschalten von Wärmepumpen, Auto-Fan: dort, wo SAT nur heizt."
+            },
+            "presence": {
+                "title": "Anwesenheit, Bewegung und Fenster",
+                "desc": "Automatisches Umschalten je nach Anwesenheit und Bewegung, Fenstererkennung per Sensor oder anhand des Temperaturabfalls."
+            },
+            "power": {
+                "title": "Lastabwurf",
+                "desc": "Unverzichtbar bei Elektroheizkörpern: Geräte werden nach Priorität abgeschaltet, damit Ihr Anschlusswert nicht überschritten wird."
+            },
+            "ecosystem": {
+                "title": "Community und Dokumentation",
+                "desc": "Vollständige Dokumentation in drei Sprachen, Datenbank getesteter Geräte, eigene Karte, Erweiterungen und Log-Analyser."
+            }
+        },
+        "when_competitor": {
+            "opentherm": "Sie haben einen OpenTherm- oder EMS-Heizkessel und möchten dessen Vorlauftemperatur über eine Heizkurve modulieren.",
+            "dhw": "Sie möchten das Warmwasser des Heizkessels steuern.",
+            "complementary": "Beide Werkzeuge können sich ergänzen: SAT am Heizkessel, Versatile Thermostat in jedem Raum. Diese Kombination wurde noch nicht offiziell getestet."
+        },
+        "migration": "Wenn Sie SAT im PWM-Modus an einem Schalter verwendet haben, erstellen Sie einfach ein Versatile-Thermostat „auf einem switch“ mit demselben Schalter und demselben Sensor: Der TPI-Algorithmus ersetzt den PID-Regler.\nWenn SAT Ihren OpenTherm-Heizkessel steuert, behalten Sie es für den Heizkessel und ergänzen Sie Versatile Thermostat an den Ventilen jedes Raums."
+    },
+    "generic_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Generic Thermostat: Vergleich",
+            "description": "Generic Thermostat oder Versatile Thermostat? Hysterese gegen TPI, Anwesenheit, Fenster, Lastabwurf: warum sich der Umstieg auf das erweiterte Thermostat für Home Assistant lohnt."
+        },
+        "title": "Versatile Thermostat vs Generic Thermostat",
+        "intro": "Der Generic Thermostat ist der Ausgangspunkt in Home Assistant. Versatile Thermostat behält dessen einfache Konfiguration bei und ergänzt eine echte Regelung sowie das Management des gesamten Hauses.",
+        "about": "Generic Thermostat ist die native Integration von Home Assistant. Sie schaltet einen einzelnen Schalter anhand eines Temperatursensors ein oder aus, mit einer Toleranz (Hysterese) und manuellen Voreinstellungen. Je nach Konfiguration kann sie nur heizen oder nur kühlen.",
+        "notes": {
+            "builtin": "Versatile Thermostat wird mit einem Klick über HACS installiert.",
+            "heat_cool": "Generic Thermostat heizt oder kühlt, aber nicht beides in derselben Entität.",
+            "proportional": "Generic Thermostat arbeitet im Ein/Aus-Betrieb mit einer Hysterese."
+        },
+        "strengths": {
+            "tpi": {
+                "title": "Stabile Temperatur ohne Jo-Jo-Effekt",
+                "desc": "Der TPI-Algorithmus dosiert die Heizleistung in jedem Zyklus anhand der Abweichung vom Sollwert und der Außentemperatur. Schluss mit dem Überschwingen der Hysterese."
+            },
+            "devices": {
+                "title": "Viel mehr als ein Schalter",
+                "desc": "Ventile, Wärmepumpen, Klimaanlagen, Steuerleitung (Fil Pilote), mehrere Geräte pro Raum: Versatile Thermostat passt sich Ihrer Installation an."
+            },
+            "automation": {
+                "title": "Keine Automatisierung nötig",
+                "desc": "Anwesenheit, Bewegung, Abwesenheit und Rückkehr: alles wird in der Oberfläche konfiguriert, ohne YAML."
+            },
+            "window": {
+                "title": "Offene Fenster",
+                "desc": "Die Heizung schaltet sich ab, wenn ein Fenster geöffnet wird, mit oder ohne Sensor, und läuft beim Schließen weiter."
+            },
+            "power": {
+                "title": "Lastabwurf und Heizkessel",
+                "desc": "Lastabwurf für Elektroheizkörper und Steuerung eines Zentralheizkessels."
+            },
+            "safety": {
+                "title": "Sicherheit",
+                "desc": "Wenn der Sensor nicht mehr antwortet, verhindert der Sicherheitsmodus, dass auf voller Leistung geheizt wird oder der Raum auskühlt."
+            }
+        },
+        "when_competitor": {
+            "builtin": "Sie möchten nichts außerhalb von Home Assistant installieren.",
+            "simple": "Sie steuern nur einen einzelnen Schalter mit einem präzisen Sensor, und Ein/Aus genügt Ihnen.",
+            "low_inertia": "Ihre Heizung hat sehr wenig Trägheit (Zusatzheizung) und eine feine Regelung bringt nichts."
+        },
+        "migration": "Versatile Thermostat wird wie der Generic Thermostat konfiguriert, vollständig in der Oberfläche.\n1. Installieren Sie Versatile Thermostat über HACS.\n2. Erstellen Sie ein Thermostat „auf einem switch“ mit demselben Schalter und demselben Sensor.\n3. Behalten Sie die TPI-Standardkoeffizienten bei oder aktivieren Sie Auto-TPI.\n4. Ersetzen Sie die alte Entität in Ihren Dashboards und Automatisierungen und löschen Sie dann den Generic Thermostat."
+    }
+}

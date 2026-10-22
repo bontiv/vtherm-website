@@ -8,7 +8,9 @@
         "log-analyzer": "Analyseur de logs",
         "github": "Dépôt github",
         "docs": "Documentation",
-        "plugins": "Compléments"
+        "plugins": "Compléments",
+        "quickstart": "Démarrage rapide",
+        "versus": "Comparatifs"
     },
     "bmc": {
         "message": "Merci de visiter mon site web. Si cette intégration vous a aidé d'une manière ou d'une autre, envisagez de m'offrir un café. ✨😎",
@@ -51,5 +53,7 @@
         "self-regulation": "Auto régulation",
         "troubleshooting": "Dépannage",
         "tuning-examples": "Exemples de réglages"
-    }
+    },
+    "footer_versus": "Comparatifs",
+    "footer_versus_link": "VTherm vs {{competitor}}"
 }

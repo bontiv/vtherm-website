@@ -1,0 +1,199 @@
+{
+    "index": {
+        "meta": {
+            "title": "Versatile Thermostat face aux alternatives : comparatifs",
+            "description": "Comparez Versatile Thermostat à Better Thermostat, Smart Autotune Thermostat (SAT) et au Generic Thermostat de Home Assistant : fonctionnalités, algorithmes et cas d'usage."
+        },
+        "title": "Versatile Thermostat face aux alternatives",
+        "intro": "Plusieurs intégrations permettent de réguler le chauffage dans Home Assistant. Ces comparatifs détaillent, point par point, ce que chacune sait faire et dans quels cas Versatile Thermostat va plus loin."
+    },
+    "common": {
+        "read": "Lire le comparatif",
+        "about": "Qu'est-ce que {{competitor}} ?",
+        "official": "Site officiel de {{competitor}}",
+        "table_title": "Comparatif des fonctionnalités",
+        "feature": "Fonctionnalité",
+        "support": {
+            "yes": "Oui",
+            "partial": "Partiel",
+            "no": "Non"
+        },
+        "disclaimer": "Comparatif établi à partir de la documentation publique de Versatile Thermostat et de {{competitor}} en octobre 2026. Les deux projets évoluent vite : signalez-nous toute erreur sur GitHub.",
+        "strengths_title": "Pourquoi choisir Versatile Thermostat ?",
+        "when_competitor": "Quand {{competitor}} reste un bon choix",
+        "migration_title": "Passer de {{competitor}} à Versatile Thermostat",
+        "cta": {
+            "title": "Prêt à essayer Versatile Thermostat ?",
+            "desc": "Choisissez votre type de chauffage et suivez le tutoriel : votre premier thermostat est opérationnel en quelques minutes.",
+            "quickstart": "Démarrage rapide",
+            "install": "Guide d'installation"
+        }
+    },
+    "features": {
+        "builtin": "Intégré à Home Assistant, sans installation",
+        "switch_devices": "Radiateurs électriques, relais et fil pilote",
+        "climate_devices": "Têtes thermostatiques, PAC et climatisations (entités climate)",
+        "opentherm": "Modulation de chaudière OpenTherm / EMS (température de départ)",
+        "valve": "Pilotage direct de l'ouverture des vannes",
+        "trv_calibration": "Calibration / synchronisation de la sonde des vannes",
+        "multi": "Plusieurs équipements par thermostat",
+        "proportional": "Régulation proportionnelle (TPI) plutôt que tout-ou-rien",
+        "learning": "Auto-apprentissage des coefficients",
+        "outdoor": "Prise en compte de la température extérieure",
+        "presets": "Préréglages (éco, confort, boost, hors-gel…)",
+        "presence": "Présence automatique par capteur",
+        "motion": "Détection de mouvement",
+        "window": "Fenêtre ouverte par capteur",
+        "window_auto": "Fenêtre ouverte détectée automatiquement (chute de température)",
+        "power": "Délestage de puissance",
+        "central_boiler": "Commande d'une chaudière centrale",
+        "central_mode": "Mode central pour tous les thermostats",
+        "auto_start_stop": "Arrêt / relance automatique des PAC",
+        "heat_cool": "Chauffage et climatisation",
+        "failure": "Détection de panne de chauffage",
+        "safety": "Mode sécurité si le capteur ne répond plus",
+        "lock": "Verrouillage du thermostat",
+        "ui_card": "Carte Lovelace dédiée"
+    },
+    "better_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Better Thermostat : comparatif",
+            "description": "Versatile Thermostat ou Better Thermostat ? Têtes thermostatiques, radiateurs électriques, PAC, présence, délestage : comparatif détaillé pour Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Better Thermostat",
+        "intro": "Better Thermostat excelle sur les têtes thermostatiques. Versatile Thermostat fait jeu égal sur ce terrain et couvre en plus les radiateurs électriques, les pompes à chaleur et la gestion globale de la maison.",
+        "about": "Better Thermostat (KartoffelToby) est une intégration HACS très populaire qui améliore les têtes thermostatiques (TRV) en les recalant sur une sonde externe. Elle propose plusieurs modes de calibration (AI Time Based, MPC, PID, TPI), gère les capteurs d'ouverture et peut piloter directement l'ouverture des vannes compatibles. Elle ne pilote que des entités climate.",
+        "notes": {
+            "switch_devices": "Better Thermostat nécessite d'envelopper un interrupteur dans un Generic Thermostat.",
+            "outdoor": "Better Thermostat utilise l'extérieur pour couper le chauffage en été.",
+            "heat_cool": "Better Thermostat nécessite une entité climate de climatisation séparée.",
+            "lock": "Better Thermostat ignore les réglages faits sur la vanne (« child lock »).",
+            "window_auto": "Versatile Thermostat détecte une ouverture sans capteur, par la pente de température."
+        },
+        "strengths": {
+            "all_heating": {
+                "title": "Un seul outil pour tous vos chauffages",
+                "desc": "Vannes, radiateurs électriques et fil pilote, PAC et climatisations : la même intégration, la même configuration et la même carte pour toute la maison."
+            },
+            "presence": {
+                "title": "Présence et mouvement automatiques",
+                "desc": "Versatile Thermostat bascule seul en mode absence grâce à un capteur de présence et relance le confort à la détection de mouvement, sans automatisation à écrire."
+            },
+            "power": {
+                "title": "Délestage et chaudière centrale",
+                "desc": "Délestage de puissance pour éviter de dépasser l'abonnement, et allumage de la chaudière dès que des vannes réclament de la chaleur."
+            },
+            "central": {
+                "title": "Pilotage centralisé",
+                "desc": "Un mode central (sélecteur unique) permet de passer toute la maison en éco, hors-gel ou arrêt en un clic."
+            },
+            "auto_tpi": {
+                "title": "Régulation directe des vannes avec auto-apprentissage",
+                "desc": "Le pilotage direct de l'ouverture combine l'algorithme TPI et l'Auto-TPI, qui apprend les coefficients de votre pièce au fil des cycles."
+            },
+            "safety": {
+                "title": "Sécurité et diagnostic",
+                "desc": "Mode sécurité si la sonde ne répond plus, détection de panne de chauffage, verrouillage par code et analyseur de logs en ligne."
+            }
+        },
+        "when_competitor": {
+            "trv_only": "Votre installation ne comporte que des têtes thermostatiques et vous voulez tester ses modèles de pièce MPC ou PID.",
+            "homematic": "Vous utilisez des vannes Homematic IP, dont la calibration est mieux documentée chez Better Thermostat.",
+            "summer": "Vous voulez l'entretien automatique des vannes pendant l'été.",
+            "google": "Vous exposez vos thermostats à Google Home, compatibilité mise en avant par Better Thermostat."
+        },
+        "migration": "Les deux intégrations utilisent les mêmes entités climate de vos têtes thermostatiques : la migration ne demande aucun matériel.\n1. Installez Versatile Thermostat depuis HACS.\n2. Créez un thermostat « sur un climate » par pièce avec les mêmes vannes et la même sonde de température.\n3. Choisissez l'auto-régulation par contrôle direct de la vanne si vos vannes l'exposent.\n4. Désactivez ensuite l'entité Better Thermostat correspondante pour éviter que les deux intégrations pilotent la même vanne."
+    },
+    "smart_autotune_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Smart Autotune Thermostat (SAT) : comparatif",
+            "description": "Versatile Thermostat ou Smart Autotune Thermostat (SAT) ? Régulation pièce par pièce ou chaudière OpenTherm : le comparatif pour bien choisir dans Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Smart Autotune Thermostat",
+        "intro": "SAT est taillé pour les chaudières OpenTherm. Versatile Thermostat régule chaque pièce, quel que soit l'émetteur de chaleur, et gère la vie de la maison.",
+        "about": "Smart Autotune Thermostat (SAT, d'Alexwijn) est une intégration HACS qui pilote une chaudière via une passerelle OpenTherm ou EMS-ESP. Elle module la température de départ selon une courbe de chauffe et un PID auto-ajusté. Un mode PWM permet aussi de piloter un simple interrupteur. Elle ne gère que le chauffage.",
+        "notes": {
+            "opentherm": "Versatile Thermostat allume ou éteint la chaudière, sans moduler sa température de départ.",
+            "climate_devices": "SAT intègre les vannes comme « pièces » qui demandent de la chaleur.",
+            "central_mode": "SAT propose un mode confort/éco multi-pièces."
+        },
+        "strengths": {
+            "per_room": {
+                "title": "Une vraie régulation pièce par pièce",
+                "desc": "Chaque pièce a son thermostat, sa sonde, ses préréglages et ses fenêtres. La chaudière s'allume seulement quand une pièce le demande."
+            },
+            "all_heating": {
+                "title": "Tous les émetteurs, pas seulement la chaudière",
+                "desc": "Têtes thermostatiques, radiateurs électriques et fil pilote, PAC air/air, poêles : Versatile Thermostat les pilote tous."
+            },
+            "cooling": {
+                "title": "Chauffage et climatisation",
+                "desc": "Mode climatisation, arrêt et relance automatiques des PAC, Auto-Fan : là où SAT ne fait que chauffer."
+            },
+            "presence": {
+                "title": "Présence, mouvement et fenêtres",
+                "desc": "Bascule automatique selon la présence et le mouvement, détection de fenêtre par capteur ou par chute de température."
+            },
+            "power": {
+                "title": "Délestage de puissance",
+                "desc": "Indispensable avec des radiateurs électriques : les équipements sont coupés par priorité pour ne pas dépasser votre abonnement."
+            },
+            "ecosystem": {
+                "title": "Communauté et documentation",
+                "desc": "Documentation complète en trois langues, base d'appareils testés, carte dédiée, plugins et analyseur de logs."
+            }
+        },
+        "when_competitor": {
+            "opentherm": "Vous avez une chaudière OpenTherm ou EMS et voulez moduler sa température de départ avec une courbe de chauffe.",
+            "dhw": "Vous voulez piloter l'eau chaude sanitaire de la chaudière.",
+            "complementary": "Les deux outils peuvent se compléter : SAT sur la chaudière, Versatile Thermostat dans chaque pièce. Cette combinaison n'est pas encore testée officiellement."
+        },
+        "migration": "Si vous utilisiez SAT en mode PWM sur un interrupteur, créez simplement un thermostat Versatile « sur un switch » avec le même interrupteur et la même sonde : l'algorithme TPI remplace le PID.\nSi SAT pilote votre chaudière OpenTherm, gardez-le pour la chaudière et ajoutez Versatile Thermostat sur les vannes de chaque pièce."
+    },
+    "generic_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Generic Thermostat : comparatif",
+            "description": "Generic Thermostat ou Versatile Thermostat ? Hystérésis contre TPI, présence, fenêtres, délestage : pourquoi passer au thermostat avancé de Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Generic Thermostat",
+        "intro": "Le Generic Thermostat est le point de départ de Home Assistant. Versatile Thermostat garde sa simplicité de configuration et y ajoute une vraie régulation et toute la gestion de la maison.",
+        "about": "Generic Thermostat est l'intégration native de Home Assistant. Elle allume ou éteint un interrupteur unique selon une sonde de température, avec une tolérance (hystérésis) et des préréglages manuels. Elle ne fait que chauffer ou que refroidir, selon sa configuration.",
+        "notes": {
+            "builtin": "Versatile Thermostat s'installe en un clic depuis HACS.",
+            "heat_cool": "Generic Thermostat chauffe ou refroidit, mais pas les deux dans la même entité.",
+            "proportional": "Generic Thermostat fonctionne en tout-ou-rien avec une hystérésis."
+        },
+        "strengths": {
+            "tpi": {
+                "title": "Une température stable, sans yo-yo",
+                "desc": "L'algorithme TPI dose la chauffe à chaque cycle selon l'écart à la consigne et la température extérieure. Fini les dépassements de l'hystérésis."
+            },
+            "devices": {
+                "title": "Bien plus qu'un interrupteur",
+                "desc": "Vannes, PAC, climatisations, fil pilote, plusieurs équipements par pièce : Versatile Thermostat s'adapte à votre installation."
+            },
+            "automation": {
+                "title": "Zéro automatisation à écrire",
+                "desc": "Présence, mouvement, absence et retour : tout se configure dans l'interface, sans YAML."
+            },
+            "window": {
+                "title": "Fenêtres ouvertes",
+                "desc": "Le chauffage se coupe quand une fenêtre s'ouvre, avec ou sans capteur, et reprend à la fermeture."
+            },
+            "power": {
+                "title": "Délestage et chaudière",
+                "desc": "Délestage de puissance pour les radiateurs électriques et commande d'une chaudière centrale."
+            },
+            "safety": {
+                "title": "Sécurité",
+                "desc": "Si la sonde ne répond plus, le mode sécurité évite de chauffer à fond ou de laisser la pièce geler."
+            }
+        },
+        "when_competitor": {
+            "builtin": "Vous ne voulez rien installer en dehors de Home Assistant.",
+            "simple": "Vous pilotez un seul interrupteur, avec une sonde précise, et le tout-ou-rien vous suffit.",
+            "low_inertia": "Votre chauffage a très peu d'inertie (convecteur d'appoint) et la régulation fine n'apporte rien."
+        },
+        "migration": "Versatile Thermostat se configure comme le Generic Thermostat, entièrement dans l'interface.\n1. Installez Versatile Thermostat depuis HACS.\n2. Créez un thermostat « sur un switch » avec le même interrupteur et la même sonde.\n3. Gardez les coefficients TPI par défaut ou activez l'Auto-TPI.\n4. Remplacez l'ancienne entité dans vos tableaux de bord et automatisations, puis supprimez le Generic Thermostat."
+    }
+}

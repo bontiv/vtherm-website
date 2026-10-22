@@ -43,5 +43,26 @@
             "title": "Lastabwurf",
             "desc": "Bei elektrischen Heizkörpern wird die Leistung automatisch reduziert, um ein Auslösen des Schutzschalters zu vermeiden."
         }
+    },
+    "main-features": "Hauptfunktionen",
+    "heating": {
+        "title": "Wie heizen Sie?",
+        "desc": "Wählen Sie Ihre Heizungsart: Stärken von Versatile Thermostat und eine Schritt-für-Schritt-Anleitung.",
+        "trv": {
+            "title": "Thermostatventil",
+            "desc": "Zigbee-Thermostatköpfe an Warmwasserheizkörpern."
+        },
+        "pilot_wire": {
+            "title": "Elektroheizung mit Steuerleitung",
+            "desc": "Elektroheizkörper über Steuerleitung (fil pilote) oder Relais."
+        },
+        "heat_pump": {
+            "title": "Wärmepumpe",
+            "desc": "Luft-Luft-Wärmepumpe oder reversible Klimaanlage, gesteuert von Home Assistant."
+        },
+        "pellet_stove": {
+            "title": "Pelletofen",
+            "desc": "Ofen über potentialfreien Kontakt, Relais oder eine eigene Integration."
+        }
     }
 }

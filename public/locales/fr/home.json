@@ -44,5 +44,25 @@
             "title": "Délestage de puissance",
             "desc": "Sur les radiateurs électriques, réduction automatique de la puissance pour éviter un déclenchement du disjoncteur."
         }
+    },
+    "heating": {
+        "title": "Quel est votre chauffage ?",
+        "desc": "Choisissez votre type de chauffage : points forts de Versatile Thermostat et tutoriel pas à pas.",
+        "trv": {
+            "title": "Vanne thermostatique",
+            "desc": "Têtes thermostatiques Zigbee sur radiateurs à eau chaude."
+        },
+        "pilot_wire": {
+            "title": "Électrique fil pilote",
+            "desc": "Radiateurs électriques pilotés par fil pilote ou relais."
+        },
+        "heat_pump": {
+            "title": "Pompe à chaleur",
+            "desc": "PAC air/air ou climatisation réversible pilotée par Home Assistant."
+        },
+        "pellet_stove": {
+            "title": "Poêle à granulés",
+            "desc": "Poêle piloté par contact sec, relais ou intégration dédiée."
+        }
     }
 }

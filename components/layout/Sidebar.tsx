@@ -54,6 +54,11 @@ export const Sidebar: React.FC<{ docfiles?: (string | undefined)[] }> = ({ docfi
                     label={t('menu.home')}
                     onClick={closeMobileMenu}
                 />
+                <NavItem
+                    href="/quick-start"
+                    label={t('menu.quickstart')}
+                    onClick={closeMobileMenu}
+                />
                 <NavAccordion
                     label={t('menu.docs')}
                     subItems={qnaSubItems}
