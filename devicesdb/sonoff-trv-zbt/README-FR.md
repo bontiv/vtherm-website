@@ -2,56 +2,18 @@
 
 ## Informations sur l'appareil
 
-Le TRV-ZBT est la deuxième génération (Gen2) de la vanne Sonoff TRV. Nous recommandons de l'utiliser avec [Zigbee2MQTT](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html).
+Le TRV-ZBT est la deuxième génération (Gen2) de la vanne Sonoff TRV. Nous recommandons de l'utiliser avec [Zigbee2MQTT](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html). Le comportement est le même avec ZHA.
 
 > [!WARNING]
-> Cet appareil n'est que **partiellement** compatible avec VTherm. Le contrôle direct de la vanne ne fonctionne pas tel quel. La configuration recommandée est un thermostat sur climate sans contrôle direct de la vanne.
+> Cet appareil n'est que **partiellement** compatible avec VTherm. Le contrôle direct de la vanne ne fonctionne pas : le thermostat interne de la vanne garde le contrôle, quelles que soient les valeurs de `heating_valve_position` et `idle_valve_position`. Utilisez un thermostat sur climate sans contrôle direct de la vanne.
 
-## Entités d'ouverture de la vanne
+## Réglages recommandés de la vanne
 
-Contrairement à la première génération (TRVZB), cette vanne expose deux valeurs d'ouverture au lieu d'une :
-- [`heating_valve_position`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#heating-valve-position-numeric) : l'ouverture de la vanne utilisée quand la TRV chauffe,
-- [`idle_valve_position`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#idle-valve-position-numeric) : l'ouverture de la vanne utilisée quand la TRV est au repos.
-
-VTherm n'accepte qu'une seule entité de degré d'ouverture par vanne. Si vous renseignez uniquement `heating_valve_position` comme entité de degré d'ouverture, la vanne ne s'ouvre pas toujours, même quand la position de chauffe est supérieure à 0.
-
-### Contournement non confirmé / partiel : synchroniser la position au repos
-
-> [!WARNING]
-> Cette synchronisation n'est pas validée comme solution fiable et peut être insuffisante. Selon un [retour utilisateur](https://github.com/jmcollin78/versatile_thermostat/discussions/2067#discussioncomment-19050461), la vanne peut rester fermée même quand les deux positions sont positives : le thermostat interne de la TRV conserve la décision de chauffe en fonction de la consigne, de la température mesurée et de son hystérésis (`temperature_accuracy`). Le même retour signale aussi qu'au repos, passer `idle_valve_position` de 0 à une valeur positive ne déclenche pas l'ouverture, alors que le passage inverse déclenche la fermeture — il s'agit d'une observation, pas d'une règle établie. Voir la [discussion en cours](https://github.com/jmcollin78/versatile_thermostat/discussions/2067) pour plus de détails.
-
-Si vous voulez expérimenter l'[auto-régulation avec contrôle direct de la vanne](/fr/docs/self-regulation/), vous pouvez essayer l'automatisation suivante, sans garantie de fonctionnement. Elle maintient `idle_valve_position` juste en dessous de `heating_valve_position` (la valeur au repos doit être inférieure à celle de chauffe). Utilisez `heating_valve_position` comme entité de degré d'ouverture dans VTherm, et remplacez les identifiants d'entités par les vôtres.
-
-```yaml
-alias: Sonoff TRV-ZBT - Sync valve positions
-description: Keep idle valve position just below heating valve position
-triggers:
-  - trigger: state
-    entity_id: number.my_trv_heating_valve_position
-  - trigger: homeassistant
-    event: start
-conditions:
-  - condition: template
-    value_template: >
-      {{ is_number(states('number.my_trv_heating_valve_position')) }}
-  - condition: template
-    value_template: >
-      {% set heating = states('number.my_trv_heating_valve_position') | float %}
-      {% set idle = [0, heating - 1] | max %}
-      {{ states('number.my_trv_idle_valve_position') | float(-1) != idle }}
-actions:
-  - action: number.set_value
-    target:
-      entity_id: number.my_trv_idle_valve_position
-    data:
-      value: >
-        {% set heating = states('number.my_trv_heating_valve_position') | float %}
-        {{ [0, heating - 1] | max }}
-mode: restart
-```
+- Désactivez [`smart_temperature_control`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#smart-temperature-control-binary) (appelé « adaptive mode » dans ZHA).
+- Réglez [`temperature_accuracy`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#temperature-accuracy-numeric) à -0,2 °C, pour que la vanne suive la consigne au plus près.
 
 ## Pas de température
 
-La vanne n'accepte que des consignes par pas de 0,5 °C. Si VTherm utilise un pas de 0,1 °C, la consigne envoyée à la vanne est arrondie (par exemple 22,2 °C devient 22 °C). Dans ce cas, la vanne peut rester fermée alors que VTherm demande de l'ouvrir. C'est pourquoi la configuration ci-dessous utilise un pas de température de 0,5 °C.
+La vanne n'accepte que des consignes par pas de 0,5 °C. C'est pourquoi la configuration ci-dessous utilise un pas de température de 0,5 °C.
 
 *Source : [discussion « Support for the new SONOFF TRV Gen2 »](https://github.com/jmcollin78/versatile_thermostat/discussions/2067).*
