@@ -22,7 +22,7 @@ const FEATURES: { key: string, vtherm: Support, competitor: Support }[] = [
     { key: 'valve', vtherm: 'yes', competitor: 'yes' },
     { key: 'trv_calibration', vtherm: 'yes', competitor: 'yes' },
     { key: 'learning', vtherm: 'yes', competitor: 'yes' },
-    { key: 'outdoor', vtherm: 'yes', competitor: 'partial' },
+    { key: 'outdoor', vtherm: 'yes', competitor: 'yes' },
     { key: 'presence', vtherm: 'yes', competitor: 'no' },
     { key: 'motion', vtherm: 'yes', competitor: 'no' },
     { key: 'window', vtherm: 'yes', competitor: 'yes' },

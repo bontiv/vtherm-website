@@ -66,7 +66,7 @@
         "about": "Better Thermostat (von KartoffelToby) ist eine sehr beliebte HACS-Integration, die Heizkörperthermostate (TRV) verbessert, indem sie sie an einem externen Sensor ausrichtet. Sie wirkt auf den Sollwert, auf den Kalibrierungsoffset oder direkt auf die Ventilöffnung, mit mehreren Algorithmen: AI Time Based (Standard), MPC und MPC v2, selbstoptimierender PID, TPI oder aggressiver Modus. Sie unterstützt Fenster- und Türsensoren, ein optionales Kühlgerät und schaltet die Heizung im Sommer abhängig von der Außentemperatur ab. Sie steuert nur Climate-Entitäten. Version 2.0, noch in der Beta, baut die Entscheidungslogik neu auf und ergänzt einen Notbetrieb bei Sensorausfall.",
         "notes": {
             "switch_devices": "Better Thermostat erfordert, einen Schalter in einen Generic Thermostat einzubinden.",
-            "outdoor": "Better Thermostat nutzt die Außentemperatur für die Sommerabschaltung und als Eingang seines MPC-Modells.",
+            "outdoor": "Better Thermostat nutzt sie in seinem TPI (fester Koeffizient), seinem MPC-Modell und der Sommerabschaltung. Bei Versatile Thermostat lässt sich dieser Koeffizient einstellen, und Auto-TPI lernt ihn.",
             "heat_cool": "Better Thermostat benötigt eine separate climate-Entität für die Klimaanlage.",
             "lock": "Die Sperre von Better Thermostat macht Änderungen am Ventil selbst rückgängig. Die Sperre von Versatile Thermostat blockiert Änderungen aus Home Assistant, mit PIN-Code.",
             "window_auto": "Versatile Thermostat erkennt ein geöffnetes Fenster ohne Sensor anhand der Temperaturkurve.",

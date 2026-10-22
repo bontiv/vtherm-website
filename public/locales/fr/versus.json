@@ -66,7 +66,7 @@
         "about": "Better Thermostat (KartoffelToby) est une intégration HACS très populaire qui améliore les têtes thermostatiques (TRV) en les recalant sur une sonde externe. Elle agit sur la consigne, sur l'offset de calibration ou directement sur l'ouverture de la vanne, avec plusieurs algorithmes : AI Time Based (par défaut), MPC et MPC v2, PID auto-ajusté, TPI ou mode agressif. Elle gère les capteurs de fenêtre et de porte, une climatisation optionnelle et coupe le chauffage en été selon la température extérieure. Elle ne pilote que des entités climate. La version 2.0, en bêta, refond son moteur de décision et ajoute un mode dégradé en cas de panne de capteur.",
         "notes": {
             "switch_devices": "Better Thermostat nécessite d'envelopper un interrupteur dans un Generic Thermostat.",
-            "outdoor": "Better Thermostat utilise l'extérieur pour couper le chauffage en été et comme entrée de son modèle MPC.",
+            "outdoor": "Better Thermostat l'utilise dans son TPI (coefficient fixe), son modèle MPC et la coupure en été. Versatile Thermostat permet de régler ce coefficient, et l'Auto-TPI l'apprend.",
             "heat_cool": "Better Thermostat nécessite une entité climate de climatisation séparée.",
             "lock": "Le verrouillage de Better Thermostat annule les réglages faits sur la vanne. Celui de Versatile Thermostat bloque les changements depuis Home Assistant, avec code PIN.",
             "window_auto": "Versatile Thermostat détecte une ouverture sans capteur, par la pente de température.",

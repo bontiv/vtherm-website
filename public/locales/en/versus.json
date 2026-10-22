@@ -66,7 +66,7 @@
         "about": "Better Thermostat (by KartoffelToby) is a very popular HACS integration that improves thermostatic radiator valves (TRVs) by aligning them with an external sensor. It acts on the setpoint, on the calibration offset or directly on the valve opening, with several algorithms: AI Time Based (default), MPC and MPC v2, self-tuning PID, TPI or aggressive mode. It handles window and door sensors, an optional cooling device, and turns heating off in summer based on the outdoor temperature. It only drives climate entities. Version 2.0, in beta, rebuilds its decision engine and adds a degraded mode when a sensor fails.",
         "notes": {
             "switch_devices": "Better Thermostat requires wrapping a switch in a Generic Thermostat.",
-            "outdoor": "Better Thermostat uses the outdoor temperature to switch heating off in summer and as an input of its MPC model.",
+            "outdoor": "Better Thermostat uses it in its TPI (fixed coefficient), its MPC model and the summer cut-off. Versatile Thermostat lets you tune this coefficient, and Auto-TPI learns it.",
             "heat_cool": "Better Thermostat requires a separate air conditioning climate entity.",
             "lock": "Better Thermostat's lock reverts changes made on the valve itself. Versatile Thermostat's lock blocks changes from Home Assistant, with a PIN code.",
             "window_auto": "Versatile Thermostat detects an open window without a sensor, using the temperature slope.",
