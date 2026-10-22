@@ -62,6 +62,17 @@
         "family": "device-helper"
     },
     {
+        "name": "[Experimental] Sonoff TRV-ZBT",
+        "author": "bontiv",
+        "description": "Experimental blueprint to use the direct valve control with the Sonoff TRV-ZBT (Gen2). The TRV only moves its motor when its internal thermostat changes state. On each valve opening change, the blueprint briefly sends a fake external temperature to force the motor to apply it, without changing the setpoint.",
+        "description_fr": "Blueprint expérimental pour utiliser le contrôle direct de la vanne avec la Sonoff TRV-ZBT (Gen2). La vanne ne bouge son moteur que lorsque son thermostat interne change d'état. À chaque changement d'ouverture, le blueprint envoie brièvement une fausse température externe pour forcer le moteur à l'appliquer, sans modifier la consigne.",
+        "description_de": "Experimenteller Blueprint, um die direkte Ventilsteuerung mit dem Sonoff TRV-ZBT (Gen2) zu verwenden. Das TRV bewegt seinen Motor nur, wenn sein internes Thermostat den Zustand wechselt. Bei jeder Änderung der Ventilöffnung sendet der Blueprint kurz eine falsche externe Temperatur, damit der Motor sie übernimmt, ohne den Sollwert zu ändern.",
+        "type": "blueprint",
+        "certification": "community",
+        "url": "https://gist.githubusercontent.com/bontiv/af2d59adb15bf3d522282edd662a75e4/raw/sonoff_trv_zbt_vtherm.yaml",
+        "family": "device-helper"
+    },
+    {
         "name": "A graphical Scheduler",
         "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
         "certification": "community",
