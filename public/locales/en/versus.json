@@ -18,7 +18,7 @@
             "partial": "Partial",
             "no": "No"
         },
-        "disclaimer": "Comparison based on the public documentation of Versatile Thermostat and {{competitor}} as of October 2026. Both projects evolve quickly: please report any mistake on GitHub.",
+        "disclaimer": "Comparison checked against the documentation and source code of Versatile Thermostat and {{competitor}} ({{version}}) in October 2026. Both projects move fast: please report any mistake on GitHub.",
         "strengths_title": "Why choose Versatile Thermostat?",
         "when_competitor": "When {{competitor}} remains a good choice",
         "migration_title": "Switching from {{competitor}} to Versatile Thermostat",
@@ -53,6 +53,7 @@
         "failure": "Heating failure detection",
         "safety": "Safety mode when the sensor stops responding",
         "lock": "Thermostat lock",
+        "valve_maintenance": "Automatic periodic valve maintenance",
         "ui_card": "Dedicated Lovelace card"
     },
     "better_thermostat": {
@@ -62,13 +63,16 @@
         },
         "title": "Versatile Thermostat vs Better Thermostat",
         "intro": "Better Thermostat excels with thermostatic valves. Versatile Thermostat matches it there and also covers electric radiators, heat pumps and whole-home management.",
-        "about": "Better Thermostat (KartoffelToby) is a very popular HACS integration that improves thermostatic radiator valves (TRVs) by recalibrating them against an external sensor. It offers several calibration modes (AI Time Based, MPC, PID, TPI), handles window sensors and can directly control the opening of compatible valves. It only drives climate entities.",
+        "about": "Better Thermostat (by KartoffelToby) is a very popular HACS integration that improves thermostatic radiator valves (TRVs) by aligning them with an external sensor. It acts on the setpoint, on the calibration offset or directly on the valve opening, with several algorithms: AI Time Based (default), MPC and MPC v2, self-tuning PID, TPI or aggressive mode. It handles window and door sensors, an optional cooling device, and turns heating off in summer based on the outdoor temperature. It only drives climate entities. Version 2.0, in beta, rebuilds its decision engine and adds a degraded mode when a sensor fails.",
         "notes": {
             "switch_devices": "Better Thermostat requires wrapping a switch in a Generic Thermostat.",
-            "outdoor": "Better Thermostat uses the outdoor temperature to switch heating off in summer.",
+            "outdoor": "Better Thermostat uses the outdoor temperature to switch heating off in summer and as an input of its MPC model.",
             "heat_cool": "Better Thermostat requires a separate air conditioning climate entity.",
-            "lock": "Better Thermostat ignores settings made on the valve itself (child lock).",
-            "window_auto": "Versatile Thermostat detects an open window without a sensor, using the temperature slope."
+            "lock": "Better Thermostat's lock reverts changes made on the valve itself. Versatile Thermostat's lock blocks changes from Home Assistant, with a PIN code.",
+            "window_auto": "Versatile Thermostat detects an open window without a sensor, using the temperature slope.",
+            "safety": "Better Thermostat falls back to the valves' internal sensors, then holds the last valve opening.",
+            "learning": "Better Thermostat learns the room heating power (AI Time Based), an MPC model or PID gains.",
+            "valve_maintenance": "Versatile Thermostat offers an on-demand valve recalibration service."
         },
         "strengths": {
             "all_heating": {
@@ -97,9 +101,9 @@
             }
         },
         "when_competitor": {
-            "trv_only": "Your setup only has thermostatic valves and you want to try its MPC or PID room models.",
-            "homematic": "You use Homematic IP valves, whose calibration is better documented in Better Thermostat.",
-            "summer": "You want automatic valve maintenance during the summer.",
+            "trv_only": "Your setup only has thermostatic valves and you want to try its MPC v2 room models or its self-tuning PID.",
+            "homematic": "You use Homematic IP valves: a dedicated option spaces out commands to respect their duty cycle.",
+            "maintenance": "You want the valves exercised automatically every week so they don't seize.",
             "google": "You expose your thermostats to Google Home, a compatibility Better Thermostat highlights."
         },
         "migration": "Both integrations use the same climate entities from your thermostatic valves: migrating requires no new hardware.\n1. Install Versatile Thermostat from HACS.\n2. Create one “Thermostat over a climate” per room with the same valves and the same temperature sensor.\n3. Choose self-regulation by direct valve control if your valves expose it.\n4. Then disable the matching Better Thermostat entity so the two integrations don't drive the same valve."
