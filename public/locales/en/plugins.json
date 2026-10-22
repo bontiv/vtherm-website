@@ -18,6 +18,31 @@
         "interface": "Interface",
         "addon": "Addon"
     },
+    "manual_install": {
+        "title": "Manual installation",
+        "integration": {
+            "step1": "Open HACS in Home Assistant (HACS icon in the sidebar).",
+            "step2": "If the integration is not listed, open the ⋮ menu at the top right, then \"Custom repositories\", and add the URL https://github.com/{{slug}} with the \"Integration\" category.",
+            "step3": "Search for the integration in HACS and click \"Download\".",
+            "step4": "Restart Home Assistant, then add the integration via Settings → Devices & services → Add Integration."
+        },
+        "interface": {
+            "step1": "Open HACS in Home Assistant (HACS icon in the sidebar).",
+            "step2": "If the card is not listed, open the ⋮ menu at the top right, then \"Custom repositories\", and add the URL https://github.com/{{slug}} with the \"Plugin\" (Lovelace) category.",
+            "step3": "Search for the card in HACS and click \"Download\".",
+            "step4": "Add the card to your dashboard (resources are registered by HACS automatically)."
+        },
+        "blueprint": {
+            "step1": "Copy the blueprint URL: {{url}}.",
+            "step2": "In Home Assistant, open Settings → Automations & Scenes → Blueprints.",
+            "step3": "Click \"Import blueprint\", paste the URL and confirm."
+        },
+        "addon": {
+            "step1": "Open Settings → Add-ons → Add-on Store.",
+            "step2": "Open the ⋮ menu at the top right, then \"Repositories\", and add the URL https://github.com/{{slug}}.",
+            "step3": "Search for the add-on in the store and click \"Install\"."
+        }
+    },
     "families": {
         "all": "All families",
         "algorithm": "Algorithm",

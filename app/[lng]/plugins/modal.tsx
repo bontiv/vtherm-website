@@ -2,6 +2,7 @@ import { useT } from "@/app/i18n/client";
 import { certConfig, typeConfig, VTPlugin } from "@/lib/plugindb";
 import { CloseButton, Description, Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
 import { HeartIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { HTMLProps, useCallback, useEffect, useState } from "react";
 import { Trans } from "react-i18next";
@@ -148,7 +149,7 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                         setReadme(data);
                     })
                     .catch(error => {
-                        console.warn("Error fetching README data:", error);
+                        console.warn("Error fetching README data: README not found at", url);
                     });
 
             tryFetchReadme(readme_urls[0], () => tryFetchReadme(readme_urls[1], () => setReadme('')));
@@ -166,6 +167,15 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
             return `https://www.github.com/${plugin?.slug || ''}/blob/HEAD/${link_url}`;
         return `https://raw.githubusercontent.com/${plugin?.slug || ''}/HEAD/${link_url}`;;
     }, [plugin]);
+
+    const installSteps: string[] = [];
+    if (plugin) {
+        for (let i = 1; i <= 9; i++) {
+            const key = `manual_install.${plugin.type}.step${i}`;
+            if (!i18n.exists(key, { ns: 'plugins' })) break;
+            installSteps.push(t(key, { slug: plugin.slug, url: plugin.url, interpolation: { escapeValue: false } }));
+        }
+    }
 
     return (
         <AnimatePresence>
@@ -272,6 +282,17 @@ const PluginModal: React.FC<PluginModalProps> = ({ plugin, onClose }) => {
                                             >{readme}</Markdown>
                                         </div>
                                         : <div dangerouslySetInnerHTML={{ __html: plugin?.description ?? '' }} />}
+                                    {plugin && installSteps.length > 0 && (
+                                        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+                                            <h3 className="flex items-center gap-2 m-0 text-base font-semibold text-slate-900 dark:text-white">
+                                                <WrenchScrewdriverIcon className="size-5 shrink-0" style={{ color: typeStyle.color }} aria-hidden="true" />
+                                                {t('manual_install.title')}
+                                            </h3>
+                                            <ol className="mt-2 list-decimal list-outside pl-5 space-y-1.5">
+                                                {installSteps.map((step, i) => <li key={i}>{step}</li>)}
+                                            </ol>
+                                        </div>
+                                    )}
                                 </Description>
                             </motion.div>
 
