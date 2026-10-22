@@ -2,56 +2,28 @@
 
 ## Geräteinformationen
 
-Der TRV-ZBT ist die zweite Generation (Gen2) des Sonoff TRV. Wir empfehlen, ihn mit [Zigbee2MQTT](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html) zu verwenden.
+Der TRV-ZBT ist die zweite Generation (Gen2) des Sonoff TRV. Wir empfehlen, ihn mit [Zigbee2MQTT](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html) zu verwenden. Mit ZHA verhält er sich genauso.
 
 > [!WARNING]
-> Dieses Gerät ist nur **teilweise** mit VTherm kompatibel. Die direkte Ventilsteuerung funktioniert nicht ohne Weiteres. Die empfohlene Konfiguration ist ein VTherm auf Thermostat ohne direkte Ventilsteuerung.
+> Dieses Gerät ist nur **teilweise** mit VTherm kompatibel. Die direkte Ventilsteuerung funktioniert nicht: Das interne Thermostat des TRV behält die Kontrolle über das Ventil, unabhängig von den Werten von `heating_valve_position` und `idle_valve_position`. Einen VTherm auf Thermostat ohne direkte Ventilsteuerung verwenden oder den experimentellen Blueprint unten ausprobieren.
 
-## Entitäten für die Ventilöffnung
+## Empfohlene TRV-Einstellungen
 
-Im Gegensatz zur ersten Generation (TRVZB) stellt dieses Ventil zwei Öffnungswerte statt einem bereit:
-- [`heating_valve_position`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#heating-valve-position-numeric): die Ventilöffnung, wenn das TRV heizt,
-- [`idle_valve_position`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#idle-valve-position-numeric): die Ventilöffnung, wenn das TRV im Ruhezustand ist.
+- [`smart_temperature_control`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#smart-temperature-control-binary) deaktivieren (in ZHA „adaptive mode“ genannt).
+- [`temperature_accuracy`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#temperature-accuracy-numeric) auf -0,2 °C setzen, damit das TRV dem Sollwert genauer folgt.
 
-VTherm akzeptiert nur eine Entität für den Öffnungsgrad pro Ventil. Wird nur `heating_valve_position` als Entität für den Öffnungsgrad eingetragen, öffnet sich das Ventil nicht immer, selbst wenn die Heizposition über 0 liegt.
+## Direkte Ventilsteuerung (experimentell)
 
-### Nicht bestätigter / teilweiser Workaround: Ruheposition synchronisieren
+Der Blueprint [Sonoff TRV-ZBT valve kick](https://gist.github.com/bontiv/af2d59adb15bf3d522282edd662a75e4) zwingt das TRV, jede von VTherm gesendete Ventilöffnung zu übernehmen, ohne den Sollwert zu ändern.
 
-> [!WARNING]
-> Diese Synchronisierung ist nicht als zuverlässige Lösung bestätigt und kann unzureichend sein. Laut [Benutzerfeedback](https://github.com/jmcollin78/versatile_thermostat/discussions/2067#discussioncomment-19050461) kann das Ventil geschlossen bleiben, obwohl beide Positionen positiv sind: Das interne Thermostat des TRV trifft die Heizentscheidung weiterhin anhand von Sollwert, gemessener Temperatur und Hysterese (`temperature_accuracy`). Dasselbe Feedback berichtet außerdem, dass im Ruhezustand das Anheben von `idle_valve_position` von 0 auf einen positiven Wert das Ventil nicht öffnet, während die umgekehrte Änderung das Schließen auslöst — dies ist eine Beobachtung, keine bestätigte Regel. Details in der [laufenden Diskussion](https://github.com/jmcollin78/versatile_thermostat/discussions/2067).
+[![Öffne deine Home Assistant-Instanz und zeige den Blueprint-Importdialog mit einem vorausgefüllten Blueprint.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgist.githubusercontent.com%2Fbontiv%2Faf2d59adb15bf3d522282edd662a75e4%2Fraw%2Fsonoff_trv_zbt_vtherm.yaml)
 
-Wenn Sie die [Selbstregelung mit direkter Ventilsteuerung](/de/docs/self-regulation/) experimentell ausprobieren möchten, können Sie die folgende Automatisierung versuchen, ohne Garantie auf Funktion. Sie hält `idle_valve_position` knapp unter `heating_valve_position` (der Ruhewert muss niedriger als der Heizwert sein). `heating_valve_position` als Entität für den Öffnungsgrad in VTherm verwenden und die Entitäts-IDs durch die eigenen ersetzen.
-
-```yaml
-alias: Sonoff TRV-ZBT - Sync valve positions
-description: Keep idle valve position just below heating valve position
-triggers:
-  - trigger: state
-    entity_id: number.my_trv_heating_valve_position
-  - trigger: homeassistant
-    event: start
-conditions:
-  - condition: template
-    value_template: >
-      {{ is_number(states('number.my_trv_heating_valve_position')) }}
-  - condition: template
-    value_template: >
-      {% set heating = states('number.my_trv_heating_valve_position') | float %}
-      {% set idle = [0, heating - 1] | max %}
-      {{ states('number.my_trv_idle_valve_position') | float(-1) != idle }}
-actions:
-  - action: number.set_value
-    target:
-      entity_id: number.my_trv_idle_valve_position
-    data:
-      value: >
-        {% set heating = states('number.my_trv_heating_valve_position') | float %}
-        {{ [0, heating - 1] | max }}
-mode: restart
-```
+- In VTherm die Selbstregelung mit direkter Ventilsteuerung wählen, mit `heating_valve_position` als Entität für den Öffnungsgrad und ohne Entität für den Schließgrad.
+- In VTherm „Follow underlying temp change“ und die Synchronisierung der Gerätetemperatur deaktivieren.
+- [`open_window`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#open-window-binary) am TRV deaktivieren.
 
 ## Temperaturschritte
 
-Das Ventil akzeptiert Sollwerte nur in Schritten von 0,5 °C. Verwendet VTherm Schritte von 0,1 °C, wird der an das Ventil gesendete Sollwert gerundet (z. B. wird 22,2 °C zu 22 °C). In diesem Fall kann das Ventil geschlossen bleiben, obwohl VTherm es öffnen möchte. Deshalb verwendet die folgende Konfiguration einen Temperaturschritt von 0,5 °C.
+Das Ventil akzeptiert Sollwerte nur in Schritten von 0,5 °C. Deshalb verwendet die folgende Konfiguration einen Temperaturschritt von 0,5 °C.
 
 *Quelle: [Diskussion „Support for the new SONOFF TRV Gen2“](https://github.com/jmcollin78/versatile_thermostat/discussions/2067).*
