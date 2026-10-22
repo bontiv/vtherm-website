@@ -108,7 +108,7 @@ export default async function SmartAutotuneThermostatVersusPage({ params }: { pa
                     competitor: row.competitor,
                 }))}
             />
-            <p className="text-sm opacity-70">{vs_t('common.disclaimer', competitor)}</p>
+            <p className="text-sm opacity-70">{vs_t('common.disclaimer', { ...competitor, version: PAGE.checkedVersion, interpolation: { escapeValue: false } })}</p>
         </section>
 
         <section className="space-y-6">
