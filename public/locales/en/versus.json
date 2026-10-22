@@ -1,0 +1,199 @@
+{
+    "index": {
+        "meta": {
+            "title": "Versatile Thermostat vs the alternatives: comparisons",
+            "description": "Compare Versatile Thermostat with Better Thermostat, Smart Autotune Thermostat (SAT) and Home Assistant's Generic Thermostat: features, algorithms and use cases."
+        },
+        "title": "Versatile Thermostat vs the alternatives",
+        "intro": "Several integrations can regulate heating in Home Assistant. These comparisons detail, point by point, what each one can do and where Versatile Thermostat goes further."
+    },
+    "common": {
+        "read": "Read the comparison",
+        "about": "What is {{competitor}}?",
+        "official": "{{competitor}} official website",
+        "table_title": "Feature comparison",
+        "feature": "Feature",
+        "support": {
+            "yes": "Yes",
+            "partial": "Partial",
+            "no": "No"
+        },
+        "disclaimer": "Comparison based on the public documentation of Versatile Thermostat and {{competitor}} as of October 2026. Both projects evolve quickly: please report any mistake on GitHub.",
+        "strengths_title": "Why choose Versatile Thermostat?",
+        "when_competitor": "When {{competitor}} remains a good choice",
+        "migration_title": "Switching from {{competitor}} to Versatile Thermostat",
+        "cta": {
+            "title": "Ready to try Versatile Thermostat?",
+            "desc": "Pick your heating type and follow the tutorial: your first thermostat is up and running in a few minutes.",
+            "quickstart": "Quick start",
+            "install": "Installation guide"
+        }
+    },
+    "features": {
+        "builtin": "Built into Home Assistant, no installation",
+        "switch_devices": "Electric radiators, relays and pilot wire",
+        "climate_devices": "Thermostatic valves, heat pumps and air conditioners (climate entities)",
+        "opentherm": "OpenTherm / EMS boiler modulation (flow temperature)",
+        "valve": "Direct control of valve opening",
+        "trv_calibration": "Valve sensor calibration / synchronization",
+        "multi": "Several devices per thermostat",
+        "proportional": "Proportional regulation (TPI) instead of on/off",
+        "learning": "Automatic coefficient learning",
+        "outdoor": "Outdoor temperature compensation",
+        "presets": "Presets (Eco, Comfort, Boost, Frost protection...)",
+        "presence": "Automatic presence via sensor",
+        "motion": "Motion detection",
+        "window": "Open window detection via sensor",
+        "window_auto": "Automatic open window detection (temperature drop)",
+        "power": "Power shedding",
+        "central_boiler": "Central boiler control",
+        "central_mode": "Central mode for all thermostats",
+        "auto_start_stop": "Automatic stop / restart of heat pumps",
+        "heat_cool": "Heating and cooling",
+        "failure": "Heating failure detection",
+        "safety": "Safety mode when the sensor stops responding",
+        "lock": "Thermostat lock",
+        "ui_card": "Dedicated Lovelace card"
+    },
+    "better_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Better Thermostat: comparison",
+            "description": "Versatile Thermostat or Better Thermostat? Thermostatic valves, electric radiators, heat pumps, presence, power shedding: detailed comparison for Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Better Thermostat",
+        "intro": "Better Thermostat excels with thermostatic valves. Versatile Thermostat matches it there and also covers electric radiators, heat pumps and whole-home management.",
+        "about": "Better Thermostat (KartoffelToby) is a very popular HACS integration that improves thermostatic radiator valves (TRVs) by recalibrating them against an external sensor. It offers several calibration modes (AI Time Based, MPC, PID, TPI), handles window sensors and can directly control the opening of compatible valves. It only drives climate entities.",
+        "notes": {
+            "switch_devices": "Better Thermostat requires wrapping a switch in a Generic Thermostat.",
+            "outdoor": "Better Thermostat uses the outdoor temperature to switch heating off in summer.",
+            "heat_cool": "Better Thermostat requires a separate air conditioning climate entity.",
+            "lock": "Better Thermostat ignores settings made on the valve itself (child lock).",
+            "window_auto": "Versatile Thermostat detects an open window without a sensor, using the temperature slope."
+        },
+        "strengths": {
+            "all_heating": {
+                "title": "One tool for all your heating",
+                "desc": "Valves, electric radiators and pilot wire, heat pumps and air conditioners: the same integration, the same configuration and the same card for the whole home."
+            },
+            "presence": {
+                "title": "Automatic presence and motion",
+                "desc": "Versatile Thermostat switches to away mode on its own thanks to a presence sensor and restores comfort when motion is detected, with no automation to write."
+            },
+            "power": {
+                "title": "Power shedding and central boiler",
+                "desc": "Power shedding to avoid exceeding your subscribed power, and boiler switch-on as soon as valves call for heat."
+            },
+            "central": {
+                "title": "Centralized control",
+                "desc": "A central mode (single selector) puts the whole home in Eco, Frost protection or off with one click."
+            },
+            "auto_tpi": {
+                "title": "Direct valve regulation with self-learning",
+                "desc": "Direct opening control combines the TPI algorithm with Auto-TPI, which learns your room's coefficients over successive cycles."
+            },
+            "safety": {
+                "title": "Safety and diagnostics",
+                "desc": "Safety mode when the sensor stops responding, heating failure detection, code-based lock and an online log analyzer."
+            }
+        },
+        "when_competitor": {
+            "trv_only": "Your setup only has thermostatic valves and you want to try its MPC or PID room models.",
+            "homematic": "You use Homematic IP valves, whose calibration is better documented in Better Thermostat.",
+            "summer": "You want automatic valve maintenance during the summer.",
+            "google": "You expose your thermostats to Google Home, a compatibility Better Thermostat highlights."
+        },
+        "migration": "Both integrations use the same climate entities from your thermostatic valves: migrating requires no new hardware.\n1. Install Versatile Thermostat from HACS.\n2. Create one “Thermostat over a climate” per room with the same valves and the same temperature sensor.\n3. Choose self-regulation by direct valve control if your valves expose it.\n4. Then disable the matching Better Thermostat entity so the two integrations don't drive the same valve."
+    },
+    "smart_autotune_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Smart Autotune Thermostat (SAT): comparison",
+            "description": "Versatile Thermostat or Smart Autotune Thermostat (SAT)? Room-by-room regulation or OpenTherm boiler: the comparison to choose well in Home Assistant."
+        },
+        "title": "Versatile Thermostat vs Smart Autotune Thermostat",
+        "intro": "SAT is built for OpenTherm boilers. Versatile Thermostat regulates each room, whatever the heat emitter, and manages everyday life in the home.",
+        "about": "Smart Autotune Thermostat (SAT, by Alexwijn) is a HACS integration that drives a boiler through an OpenTherm or EMS-ESP gateway. It modulates the flow temperature using a heating curve and a self-tuning PID. A PWM mode also lets it drive a simple switch. It only handles heating.",
+        "notes": {
+            "opentherm": "Versatile Thermostat switches the boiler on or off without modulating its flow temperature.",
+            "climate_devices": "SAT integrates valves as “rooms” that call for heat.",
+            "central_mode": "SAT offers a multi-room comfort/eco mode."
+        },
+        "strengths": {
+            "per_room": {
+                "title": "True room-by-room regulation",
+                "desc": "Each room has its own thermostat, sensor, presets and windows. The boiler only switches on when a room asks for it."
+            },
+            "all_heating": {
+                "title": "Every emitter, not just the boiler",
+                "desc": "Thermostatic valves, electric radiators and pilot wire, air-to-air heat pumps, stoves: Versatile Thermostat drives them all."
+            },
+            "cooling": {
+                "title": "Heating and cooling",
+                "desc": "Cooling mode, automatic heat pump stop and restart, Auto-Fan: where SAT only heats."
+            },
+            "presence": {
+                "title": "Presence, motion and windows",
+                "desc": "Automatic switching based on presence and motion, window detection via sensor or temperature drop."
+            },
+            "power": {
+                "title": "Power shedding",
+                "desc": "Essential with electric radiators: devices are cut by priority so you don't exceed your subscribed power."
+            },
+            "ecosystem": {
+                "title": "Community and documentation",
+                "desc": "Full documentation in three languages, a database of tested devices, a dedicated card, plugins and a log analyzer."
+            }
+        },
+        "when_competitor": {
+            "opentherm": "You have an OpenTherm or EMS boiler and want to modulate its flow temperature with a heating curve.",
+            "dhw": "You want to control the boiler's domestic hot water.",
+            "complementary": "The two tools can complement each other: SAT on the boiler, Versatile Thermostat in each room. This combination has not been officially tested yet."
+        },
+        "migration": "If you used SAT in PWM mode on a switch, simply create a “Thermostat over a switch” in Versatile Thermostat with the same switch and the same sensor: the TPI algorithm replaces the PID.\nIf SAT drives your OpenTherm boiler, keep it for the boiler and add Versatile Thermostat on the valves in each room."
+    },
+    "generic_thermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs Generic Thermostat: comparison",
+            "description": "Generic Thermostat or Versatile Thermostat? Hysteresis vs TPI, presence, windows, power shedding: why upgrade to Home Assistant's advanced thermostat."
+        },
+        "title": "Versatile Thermostat vs Generic Thermostat",
+        "intro": "Generic Thermostat is Home Assistant's starting point. Versatile Thermostat keeps its simple configuration and adds real regulation and whole-home management.",
+        "about": "Generic Thermostat is Home Assistant's native integration. It switches a single switch on or off based on a temperature sensor, with a tolerance (hysteresis) and manual presets. It either heats or cools, depending on its configuration.",
+        "notes": {
+            "builtin": "Versatile Thermostat installs in one click from HACS.",
+            "heat_cool": "Generic Thermostat heats or cools, but not both in the same entity.",
+            "proportional": "Generic Thermostat works on/off with a hysteresis."
+        },
+        "strengths": {
+            "tpi": {
+                "title": "Stable temperature, no yo-yo effect",
+                "desc": "The TPI algorithm doses the heating on each cycle based on the gap to the setpoint and the outdoor temperature. No more hysteresis overshoots."
+            },
+            "devices": {
+                "title": "Much more than a switch",
+                "desc": "Valves, heat pumps, air conditioners, pilot wire, several devices per room: Versatile Thermostat adapts to your setup."
+            },
+            "automation": {
+                "title": "Zero automations to write",
+                "desc": "Presence, motion, away and return: everything is configured in the interface, no YAML."
+            },
+            "window": {
+                "title": "Open windows",
+                "desc": "Heating stops when a window opens, with or without a sensor, and resumes when it closes."
+            },
+            "power": {
+                "title": "Power shedding and boiler",
+                "desc": "Power shedding for electric radiators and central boiler control."
+            },
+            "safety": {
+                "title": "Safety",
+                "desc": "If the sensor stops responding, safety mode prevents heating at full blast or letting the room freeze."
+            }
+        },
+        "when_competitor": {
+            "builtin": "You don't want to install anything outside Home Assistant.",
+            "simple": "You control a single switch, with an accurate sensor, and on/off is enough for you.",
+            "low_inertia": "Your heating has very little inertia (supplementary convector) and fine regulation adds nothing."
+        },
+        "migration": "Versatile Thermostat is configured like Generic Thermostat, entirely in the interface.\n1. Install Versatile Thermostat from HACS.\n2. Create a “Thermostat over a switch” with the same switch and the same sensor.\n3. Keep the default TPI coefficients or enable Auto-TPI.\n4. Replace the old entity in your dashboards and automations, then delete the Generic Thermostat."
+    }
+}

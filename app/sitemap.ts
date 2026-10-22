@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { fallbackLng, languages } from './i18n/settings'
 import devicesDB from '@/devicesdb/devices.json'
 import { GitHubAPI } from '@/lib/github';
+import { QUICKSTART_PAGES, VERSUS_PAGES } from '@/lib/pages';
 
 export const dynamic = "force-static";
 
@@ -27,6 +28,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     addPage('/', { priority: 1 });
     addPage('/devices/', { priority: 0.8 });
+
+    addPage('/quick-start/', { priority: 0.9 });
+    for (const page of QUICKSTART_PAGES) {
+        addPage(`/quick-start/${page.slug}/`, { priority: 0.8 });
+    }
+
+    addPage('/versus/', { priority: 0.8 });
+    for (const page of VERSUS_PAGES) {
+        addPage(`/versus/${page.slug}/`);
+    }
 
 
     for (const device of devicesDB.map(x => x.slug).filter((x, i, a) => a.indexOf(x) === i)) {

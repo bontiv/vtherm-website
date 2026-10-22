@@ -8,7 +8,9 @@
         "log-analyzer": "Log analyzer",
         "github": "GitHub Repository",
         "docs": "Documentation",
-        "plugins": "Plugins"
+        "plugins": "Plugins",
+        "quickstart": "Quick start",
+        "versus": "Comparisons"
     },
     "bmc": {
         "message": "Thank you for visiting my website. If this app has helped you in anyway, consider buying us a coffee. ✨😎",
@@ -51,5 +53,7 @@
         "self-regulation": "Self regulation",
         "troubleshooting": "Troubleshooting",
         "tuning-examples": "Tuning examples"
-    }
+    },
+    "footer_versus": "Comparisons",
+    "footer_versus_link": "VTherm vs {{competitor}}"
 }

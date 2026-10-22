@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { getT } from '@/app/i18n';
+import { VERSUS_PAGES } from '@/lib/pages';
 
 export const Footer: React.FC<{ lng: string }> = async ({ lng }) => {
     const currentYear = new Date().getFullYear();
@@ -10,6 +11,17 @@ export const Footer: React.FC<{ lng: string }> = async ({ lng }) => {
         <footer className="mt-auto w-full border-t border-[#3a3a3a] bg-blue-400">
             <div className="container px-6 py-6">
                 <div className="flex flex-col gap-4 text-sm text-gray-900">
+                    <nav aria-label={t('footer_versus')} className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mx-auto">
+                        <Link href={`/${lng}/versus/`} className="font-medium hover:text-[#7CFC00] transition-colors">
+                            {t('footer_versus')}
+                        </Link>
+                        {VERSUS_PAGES.map(page => <React.Fragment key={page.slug}>
+                            <span className="hidden sm:inline">•</span>
+                            <Link href={`/${lng}/versus/${page.slug}/`} className="hover:text-[#7CFC00] transition-colors">
+                                {t('footer_versus_link', { competitor: page.competitor })}
+                            </Link>
+                        </React.Fragment>)}
+                    </nav>
                     <div className="flex flex-wrap items-center gap-4 mx-auto">
                         © {currentYear} Remi BONNET
                         <span className="hidden sm:inline">•</span>

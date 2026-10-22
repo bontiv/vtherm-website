@@ -1,0 +1,317 @@
+{
+    "index": {
+        "meta": {
+            "title": "Schnellstart nach Heizungsart",
+            "description": "Thermostatventil, Elektroheizkörper mit Steuerleitung, Wärmepumpe oder Pelletofen: Konfigurieren Sie Versatile Thermostat für Ihre Heizung mit einer Schritt-für-Schritt-Anleitung."
+        },
+        "title": "Schnellstart",
+        "intro": "Wählen Sie Ihre Heizungsart: Dort finden Sie die Stärken von Versatile Thermostat und eine Schritt-für-Schritt-Anleitung, um Ihr erstes Thermostat zu erstellen.",
+        "other": "Ihre Heizung ist nicht in der Liste? Schauen Sie in"
+    },
+    "common": {
+        "vtherm_type": "Empfohlener Thermostattyp",
+        "strengths_title": "Die Stärken von Versatile Thermostat",
+        "further_title": "Weiterführende Informationen",
+        "docs_title": "Dokumentation",
+        "devices_title": "Getestete Geräte",
+        "docs_quickstart": "den Schnellstart in der Dokumentation",
+        "cta": {
+            "title": "Und jetzt?",
+            "desc": "Installieren Sie Versatile Thermostat und entdecken Sie, warum es besser ist als die Alternativen.",
+            "install": "Installationsanleitung",
+            "versus": "Vergleiche ansehen"
+        }
+    },
+    "trv": {
+        "meta": {
+            "title": "Thermostatventil (TRV): Schnellstart",
+            "description": "Steuern Sie Ihre Zigbee-Thermostatköpfe (Sonoff TRVZB …) mit Versatile Thermostat: direkte Ventilsteuerung, externer Sensor, Auto-TPI und Zentralheizkessel.",
+            "keywords": "Thermostatventil,Thermostatkopf,TRV,Heizkörperthermostat,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
+        },
+        "name": "Thermostatventil",
+        "tagline": "Zigbee-Thermostatköpfe an Warmwasserheizkörpern.",
+        "title": "Thermostatventil (TRV)",
+        "intro": "Ein Thermostatkopf misst die Temperatur direkt am Heizkörper und regelt daher schlecht. Versatile Thermostat gleicht ihn mit einem echten Raumsensor ab und kann die Ventilöffnung direkt steuern.",
+        "vtherm_type": "„Auf einem climate“ (over_climate) mit Selbstregelung durch direkte Ventilsteuerung. Für Ventile, die ihre Öffnung nicht bereitstellen, verwenden Sie die leichte oder mittlere Selbstregelung.",
+        "strengths": {
+            "valve_regulation": {
+                "title": "Direkte Ventilsteuerung",
+                "desc": "Versatile Thermostat berechnet den Öffnungsgrad mit dem TPI-Algorithmus und sendet ihn an das Ventil, anstatt dessen Solltemperatur zu verändern."
+            },
+            "external_sensor": {
+                "title": "Raumsensor und Kalibrierung",
+                "desc": "Die Raumtemperatur stammt von einem echten Sensor. Sie kann ans Ventil übertragen werden (Kalibrierungs-Offset oder externe Temperatur)."
+            },
+            "auto_tpi": {
+                "title": "Auto-TPI",
+                "desc": "Die Regelkoeffizienten werden automatisch über die Zyklen hinweg gelernt, Raum für Raum."
+            },
+            "window": {
+                "title": "Offene Fenster",
+                "desc": "Die Ventile schließen sich, wenn ein Fenster geöffnet wird, per Sensor oder durch automatische Erkennung des Temperaturabfalls."
+            },
+            "central_boiler": {
+                "title": "Zentralheizkessel",
+                "desc": "Der Heizkessel schaltet sich ein, wenn genügend Ventile Wärme anfordern, und aus, wenn alle geschlossen sind."
+            },
+            "multi": {
+                "title": "Mehrere Ventile pro Raum",
+                "desc": "Ein einzelnes Thermostat steuert alle Ventile eines Raums, mit minimaler und maximaler Öffnung pro Ventil."
+            }
+        },
+        "tutorial": {
+            "title": "Anleitung: ein Wohnzimmer mit zwei Sonoff TRVZB",
+            "example": "Beispiel: ein Wohnzimmer, beheizt von zwei Warmwasserheizkörpern, jeweils mit einem Sonoff TRVZB ausgestattet, der über Zigbee2MQTT gekoppelt ist, und einem Zigbee-Temperatursensor in der Raummitte.",
+            "tip": "Halten Sie beim Sonoff TRVZB einen Regelschwellenwert von mindestens 3 % ein: Darunter kann das Ventil seine Kalibrierung verlieren. Falls das passiert, nutzen Sie den Dienst zur Ventilkalibrierung.",
+            "steps": {
+                "pair": {
+                    "title": "Ventile und Sensor koppeln",
+                    "text": "Koppeln Sie die beiden Ventile und den Sensor in Zigbee2MQTT. Prüfen Sie, dass jedes Ventil die number-Entitäten „valve opening degree“, „valve closing degree“ und „local temperature calibration“ bereitstellt."
+                },
+                "install": {
+                    "title": "Versatile Thermostat installieren",
+                    "text": "Installieren Sie die Integration über HACS und starten Sie anschließend Home Assistant neu."
+                },
+                "create": {
+                    "title": "Thermostat erstellen",
+                    "text": "Einstellungen > Geräte & Dienste > Integration hinzufügen > Versatile Thermostat. Wählen Sie „Thermostat auf einem climate“, nennen Sie es „Wohnzimmer“ und wählen Sie den Temperatursensor aus."
+                },
+                "underlying": {
+                    "title": "Ventile hinzufügen",
+                    "text": "Fügen Sie unter „Zugrunde liegende Geräte“ die beiden climate-Entitäten der Ventile hinzu."
+                },
+                "regulation": {
+                    "title": "Direkte Ventilsteuerung aktivieren",
+                    "text": "Wählen Sie unter „Selbstregelung“ die direkte Ventilsteuerung. Tragen Sie für jedes Ventil die Entitäten für Öffnung, Schließung und Kalibrierung ein. Lassen Sie die TPI-Koeffizienten auf den Standardwerten: Auto-TPI passt sie an."
+                },
+                "presets": {
+                    "title": "Voreinstellungen festlegen",
+                    "text": "Legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz fest, zum Beispiel 18, 20, 21 und 7 °C."
+                },
+                "features": {
+                    "title": "Fenster und Heizkessel",
+                    "text": "Aktivieren Sie die Öffnungserkennung (Sensor oder automatisch). Wenn ein Heizkessel die Heizkörper versorgt, deklarieren Sie ihn in der zentralen Konfiguration, damit er der Nachfrage der Ventile folgt."
+                }
+            }
+        }
+    },
+    "pilot_wire": {
+        "meta": {
+            "title": "Elektroheizung mit Steuerleitung: Schnellstart",
+            "description": "Steuern Sie Ihre Elektroheizkörper mit Steuerleitung (Fil Pilote: Nodon, Heatzy, Relais + Diode) mit Versatile Thermostat: TPI-Algorithmus, Lastabwurf, Anwesenheit und Fenster.",
+            "keywords": "Steuerleitung,Fil Pilote,Elektroheizung,Elektroheizkörper,Nodon,Heatzy,Lastabwurf,Home Assistant,Versatile Thermostat"
+        },
+        "name": "Elektroheizung mit Steuerleitung",
+        "tagline": "Elektroheizkörper, gesteuert über Steuerleitung oder Relais.",
+        "title": "Elektroheizung mit Steuerleitung (Fil Pilote)",
+        "intro": "Die Steuerleitung (Fil Pilote) kennt nur wenige Befehle: Komfort, Eco, Frostschutz, Aus. Versatile Thermostat macht daraus eine präzise Regelung, indem es dank des TPI-Algorithmus im richtigen Takt zwischen Komfort und Frostschutz wechselt.",
+        "vtherm_type": "„Auf einem switch“ (over_switch). Das zugrunde liegende Gerät kann ein Relais, eine select-Entität (Steuerleitungsmodul) oder ein climate (Heatzy) sein, das über benutzerdefinierte Befehle gesteuert wird.",
+        "strengths": {
+            "pilot_wire": {
+                "title": "Alle Steuerleitungsmodule",
+                "desc": "Nodon, Heatzy, eCosy oder Relais + Diode: Die benutzerdefinierten Befehle senden den passenden Befehl (Komfort / Frostschutz), und die Option „Befehl invertieren“ deckt Schaltungen mit Diode ab."
+            },
+            "tpi": {
+                "title": "TPI-Algorithmus",
+                "desc": "In jedem Zyklus berechnet Versatile Thermostat die Heizdauer anhand der Abweichung vom Sollwert und der Außentemperatur: Der Raum bleibt auf ein Zehntelgrad stabil."
+            },
+            "power_shedding": {
+                "title": "Lastabwurf",
+                "desc": "Die Heizkörper werden nach Priorität abgeschaltet, wenn der Verbrauch Ihrem Anschlusswert nahekommt. Die Einschaltzeitpunkte werden versetzt, um Stromspitzen zu glätten."
+            },
+            "presence_motion": {
+                "title": "Anwesenheit und Bewegung",
+                "desc": "Die Heizung senkt sich bei Ihrer Abwesenheit automatisch ab und schaltet bei erkannter Bewegung wieder auf Komfort."
+            },
+            "window": {
+                "title": "Offene Fenster",
+                "desc": "Der Heizkörper schaltet sich ab, wenn ein Fenster geöffnet wird, mit oder ohne Sensor."
+            },
+            "central_mode": {
+                "title": "Zentrale Steuerung",
+                "desc": "Ein einzelner Wahlschalter schaltet das ganze Haus auf Eco, Frostschutz oder Aus."
+            }
+        },
+        "tutorial": {
+            "title": "Anleitung: ein Schlafzimmer mit einem Nodon-Steuerleitungsmodul",
+            "example": "Beispiel: ein Schlafzimmer, beheizt von einem Elektroheizkörper, der an ein Nodon-Modul SIN-4-FP-21 angeschlossen ist, mit einem Zigbee-Temperatursensor und einem Öffnungssensor am Fenster.",
+            "tip": "Stellen Sie am Heizkörper den internen Sollwert höher ein als den höchsten Sollwert von Versatile Thermostat (zum Beispiel 24 °C): Versatile Thermostat regelt, der Heizkörper darf nicht vorher abschalten.",
+            "steps": {
+                "wiring": {
+                    "title": "Modul anschließen",
+                    "text": "Schließen Sie das Steuerleitungsmodul an den Heizkörper an und binden Sie es in Home Assistant ein. Es stellt eine select-Entität mit den Befehlen Komfort, Eco, Frostschutz und Aus bereit."
+                },
+                "install": {
+                    "title": "Versatile Thermostat installieren",
+                    "text": "Installieren Sie die Integration über HACS und starten Sie anschließend Home Assistant neu."
+                },
+                "create": {
+                    "title": "Thermostat erstellen",
+                    "text": "Fügen Sie die Integration Versatile Thermostat hinzu, wählen Sie „Thermostat auf einem switch“, nennen Sie es „Schlafzimmer“ und wählen Sie den Temperatursensor und den Außensensor aus."
+                },
+                "underlying": {
+                    "title": "Heizkörper hinzufügen",
+                    "text": "Wählen Sie unter „Zugrunde liegende Geräte“ die select-Entität des Moduls. Einschaltbefehl: select_option/option:comfort. Ausschaltbefehl: select_option/option:frost_protection."
+                },
+                "tpi": {
+                    "title": "Zyklus einstellen",
+                    "text": "Wählen Sie einen Zyklus von 5 bis 10 Minuten und eine minimale Aktivierungsdauer von 30 Sekunden. Behalten Sie die TPI-Standardkoeffizienten bei oder aktivieren Sie Auto-TPI."
+                },
+                "presets": {
+                    "title": "Voreinstellungen festlegen",
+                    "text": "Legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz fest, zum Beispiel 17, 19, 20 und 7 °C."
+                },
+                "features": {
+                    "title": "Fenster und Lastabwurf",
+                    "text": "Verknüpfen Sie den Öffnungssensor des Fensters. Deklarieren Sie in der zentralen Konfiguration den Leistungssensor des Hauses und die maximale Leistung, um den Lastabwurf zu aktivieren."
+                }
+            }
+        }
+    },
+    "heat_pump": {
+        "meta": {
+            "title": "Wärmepumpe und Klimaanlage: Schnellstart",
+            "description": "Regeln Sie Ihre Luft-Luft-Wärmepumpe oder Klimaanlage mit Versatile Thermostat: Selbstregelung, automatisches Ausschalten und Wiedereinschalten, Heizen und Kühlen.",
+            "keywords": "Wärmepumpe,Luft-Luft-Wärmepumpe,Klimaanlage,Auto Start Stop,Home Assistant,Versatile Thermostat"
+        },
+        "name": "Wärmepumpe",
+        "tagline": "Luft-Luft-Wärmepumpe oder reversible Klimaanlage, gesteuert von Home Assistant.",
+        "title": "Wärmepumpe und Klimaanlage",
+        "intro": "Eine Wärmepumpe misst die Temperatur am Split-Gerät, oft weit entfernt von den tatsächlichen Verhältnissen im Raum. Versatile Thermostat korrigiert deren Sollwert mit einem echten Sensor und schaltet sie ab, wenn sie nicht mehr gebraucht wird.",
+        "vtherm_type": "„Auf einem climate“ (over_climate), mit Kühlmodus, wenn Ihre Wärmepumpe reversibel ist.",
+        "strengths": {
+            "self_regulation": {
+                "title": "Selbstregelung",
+                "desc": "Versatile Thermostat passt den an die Wärmepumpe gesendeten Sollwert an, damit der Raumsensor die gewünschte Temperatur erreicht. Vier Stufen, von leicht bis Experte."
+            },
+            "auto_start_stop": {
+                "title": "Automatisches Ausschalten und Wiedereinschalten",
+                "desc": "Ist die Raumtemperatur erreicht, wird die Wärmepumpe ausgeschaltet (oder auf Lüften bzw. Entfeuchten umgestellt) und zum richtigen Zeitpunkt wieder gestartet: weniger Verbrauch und weniger Lärm."
+            },
+            "heat_cool": {
+                "title": "Heizen und Kühlen",
+                "desc": "Dasselbe Thermostat heizt im Winter und kühlt im Sommer, mit eigenen Voreinstellungen für die Kühlung. Auto-Fan passt die Lüftung an."
+            },
+            "window": {
+                "title": "Offene Fenster",
+                "desc": "Die Wärmepumpe schaltet sich ab oder wechselt in den Lüftungsmodus, wenn ein Fenster geöffnet wird."
+            },
+            "presence": {
+                "title": "Anwesenheit",
+                "desc": "Die Abwesenheits-Sollwerte werden automatisch angewendet, sowohl beim Heizen als auch beim Kühlen."
+            },
+            "power": {
+                "title": "Lastabwurf und zentraler Modus",
+                "desc": "Die Wärmepumpe nimmt am Lastabwurf teil. Der zentrale Modus erzwingt für das ganze Haus nur Heizen oder nur Kühlen."
+            }
+        },
+        "tutorial": {
+            "title": "Anleitung: ein Wohnzimmer mit einer Mitsubishi-Wärmepumpe",
+            "example": "Beispiel: ein Wohnzimmer, klimatisiert von einer über MELCloud eingebundenen Mitsubishi-Luft-Luft-Wärmepumpe, mit einem Temperatursensor, der weit vom Split-Gerät entfernt platziert ist.",
+            "tip": "Beginnen Sie mit der leichten Selbstregelung und erhöhen Sie die Stufe nur, wenn der Raum seinen Sollwert nicht erreicht. Vermeiden Sie aggressive Einstellungen bei Wärmepumpen, die ihren Kompressor zu häufig abschalten.",
+            "steps": {
+                "integration": {
+                    "title": "Wärmepumpe einbinden",
+                    "text": "Fügen Sie die Integration Ihrer Wärmepumpe (MELCloud, Daikin, SmartIR …) in Home Assistant hinzu und prüfen Sie, dass ihre climate-Entität reagiert."
+                },
+                "install": {
+                    "title": "Versatile Thermostat installieren",
+                    "text": "Installieren Sie die Integration über HACS und starten Sie anschließend Home Assistant neu."
+                },
+                "create": {
+                    "title": "Thermostat erstellen",
+                    "text": "Fügen Sie die Integration Versatile Thermostat hinzu, wählen Sie „Thermostat auf einem climate“, nennen Sie es „Wohnzimmer“ und wählen Sie den Temperatursensor und den Außensensor aus."
+                },
+                "underlying": {
+                    "title": "Wärmepumpe hinzufügen",
+                    "text": "Wählen Sie unter „Zugrunde liegende Geräte“ die climate-Entität der Wärmepumpe und aktivieren Sie den Kühlmodus, wenn sie reversibel ist."
+                },
+                "regulation": {
+                    "title": "Selbstregelung aktivieren",
+                    "text": "Wählen Sie unter „Selbstregelung“ die leichte Stufe. Sie korrigiert den an die Wärmepumpe gesendeten Sollwert um bis zu 1,5 °C."
+                },
+                "auto_start_stop": {
+                    "title": "Automatisches Ausschalten und Wiedereinschalten aktivieren",
+                    "text": "Wählen Sie die Reaktionsgeschwindigkeit (langsam für ein Wohnzimmer, schnell für einen kleinen Raum) und die Ausschaltaktion: ausschalten, nur Lüftung oder Entfeuchtung."
+                },
+                "presets": {
+                    "title": "Voreinstellungen festlegen",
+                    "text": "Legen Sie die Temperaturen für das Heizen (zum Beispiel 18 / 20 / 21 °C) und das Kühlen (zum Beispiel 26 / 25 / 24 °C) fest."
+                }
+            }
+        }
+    },
+    "pellet_stove": {
+        "meta": {
+            "title": "Pelletofen: Schnellstart",
+            "description": "Regeln Sie Ihren Pelletofen mit Versatile Thermostat: potentialfreier Kontakt oder Integration, passende lange Zyklen, Anwesenheit, Fenster und Störungserkennung.",
+            "keywords": "Pelletofen,Pellet-Ofen,Pelletheizung,potentialfreier Kontakt,Home Assistant,Versatile Thermostat"
+        },
+        "name": "Pelletofen",
+        "tagline": "Ofen, gesteuert über potentialfreien Kontakt, Relais oder eine eigene Integration.",
+        "title": "Pelletofen",
+        "intro": "Ein Pelletofen verträgt wiederholtes Anzünden schlecht: Jeder Start verbraucht Strom und verschmutzt den Brennraum. Versatile Thermostat steuert ihn mit langen Zyklen für stabilen Komfort, ohne die Zahl der Zündungen zu vervielfachen.",
+        "vtherm_type": "„Auf einem switch“ (over_switch), wenn der Ofen über seinen potentialfreien Raumthermostat-Kontakt per Relais gesteuert wird. „Auf einem climate“ (over_climate), wenn eine Home-Assistant-Integration den Ofen als climate bereitstellt.",
+        "strengths": {
+            "long_cycle": {
+                "title": "Lange Zyklen",
+                "desc": "Zyklusdauer sowie minimale Ein- und Ausschaltzeiten lassen sich so einstellen, dass die Startzeit des Ofens eingehalten wird."
+            },
+            "external_sensor": {
+                "title": "Raumsensor",
+                "desc": "Die Temperatur wird dort gemessen, wo Sie sich aufhalten, nicht neben dem Ofen, der sonst den Hauptraum überhitzen würde."
+            },
+            "auto_start_stop": {
+                "title": "Automatisches Ausschalten und Wiedereinschalten",
+                "desc": "Bei einem als climate bereitgestellten Ofen verhindern das automatische Ausschalten und Wiedereinschalten, dass er im Leerlauf weiterläuft, wenn die Raumtemperatur erreicht ist."
+            },
+            "presence": {
+                "title": "Anwesenheit",
+                "desc": "Der Ofen wechselt auf Eco, wenn das Haus leer ist, und schaltet vor Ihrer Rückkehr wieder auf Komfort."
+            },
+            "window": {
+                "title": "Offene Fenster",
+                "desc": "Der Ofen schaltet sich ab, wenn ein Fenster geöffnet bleibt."
+            },
+            "failure_detection": {
+                "title": "Störungserkennung",
+                "desc": "Steigt die Temperatur nicht, obwohl der Ofen heizen sollte (leerer Tank, Zündfehler), meldet Versatile Thermostat dies."
+            }
+        },
+        "tutorial": {
+            "title": "Anleitung: ein Ofen, gesteuert über potentialfreien Kontakt",
+            "example": "Beispiel: ein Pelletofen mit einem Eingang „Raumthermostat“ (potentialfreier Kontakt), der an ein Zigbee-Relaismodul angeschlossen ist, mit einem Temperatursensor im Wohnraum.",
+            "tip": "Für den Pelletofen gibt es in der Dokumentation noch kein eigenes Profil: Diese Einstellungen orientieren sich an Heizungen mit hoher Trägheit. Passen Sie die Zyklusdauer an die Anleitung Ihres Ofens an und teilen Sie Ihre Einstellungen mit der Community.",
+            "steps": {
+                "control": {
+                    "title": "Potentialfreien Kontakt anschließen",
+                    "text": "Schließen Sie den Raumthermostat-Eingang des Ofens gemäß der Ofenanleitung an ein in Home Assistant eingebundenes Relais an. Stellen Sie den Ofen so ein, dass er diesem Kontakt folgt."
+                },
+                "install": {
+                    "title": "Versatile Thermostat installieren",
+                    "text": "Installieren Sie die Integration über HACS und starten Sie anschließend Home Assistant neu."
+                },
+                "create": {
+                    "title": "Thermostat erstellen",
+                    "text": "Fügen Sie die Integration Versatile Thermostat hinzu, wählen Sie „Thermostat auf einem switch“, nennen Sie es „Ofen“ und wählen Sie den Temperatursensor und den Außensensor aus."
+                },
+                "underlying": {
+                    "title": "Relais hinzufügen",
+                    "text": "Wählen Sie unter „Zugrunde liegende Geräte“ die switch-Entität des Relais."
+                },
+                "cycle": {
+                    "title": "Langen Zyklus einstellen",
+                    "text": "Wählen Sie einen langen Zyklus (30 bis 60 Minuten) und minimale Ein- und Ausschaltzeiten von mehreren Minuten, damit ein Start immer vollständig durchläuft."
+                },
+                "presets": {
+                    "title": "Voreinstellungen festlegen",
+                    "text": "Legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz fest, zum Beispiel 18, 20, 21 und 10 °C."
+                },
+                "features": {
+                    "title": "Anwesenheit, Fenster und Störung",
+                    "text": "Verknüpfen Sie den Anwesenheitssensor und die Öffnungssensoren und aktivieren Sie dann die Erkennung von Heizungsausfällen, um benachrichtigt zu werden, wenn der Ofen nicht startet."
+                }
+            }
+        }
+    }
+}

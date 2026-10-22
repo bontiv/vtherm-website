@@ -17,6 +17,9 @@ import Image from "next/image";
 import { Metadata } from "next";
 import { opengraph_defaults } from "@/lib/opengraph";
 import Semantic from "@/components/Semantic";
+import { HeatingTypeCard } from "@/components/HeatingTypeCard";
+import { HeatingIcon } from "@/components/icons/HeatingIcon";
+import { QUICKSTART_PAGES } from "@/lib/pages";
 
 /// Last stable release pattern
 const stable_release = "9.3.*";
@@ -111,39 +114,58 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                 </div>
             </section>
 
+            {/* Heating types */}
+            <section className="space-y-6 rounded-2xl p-6 md:p-10 bg-blue-50 dark:bg-sky-950/60 border border-blue-200 dark:border-vtherm-tertiary/60">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl md:text-4xl font-normal py-0">{t('heating.title')}</h2>
+                    <p className="text-lg text-[#71717a] dark:text-[#a1a1aa]">{t('heating.desc')}</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {QUICKSTART_PAGES.map(page => <HeatingTypeCard
+                        key={page.slug}
+                        href={`/quick-start/${page.slug}/`}
+                        icon={<HeatingIcon type={page.slug} className="w-12 h-12" />}
+                        title={t(`heating.${page.key}.title`)}
+                        description={t(`heating.${page.key}.desc`)}
+                    />)}
+                </div>
+            </section>
+
             {/* Features Grid */}
-            <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <h2 className="hidden">{t('main-features')}</h2>
-                <FeatureCard
-                    icon={<Cpu className="w-8 h-8" />}
-                    title={t('cards.algo.title')}
-                    description={t('cards.algo.desc')}
-                />
-                <FeatureCard
-                    icon={<Settings className="w-8 h-8" />}
-                    title={t('cards.flex.title')}
-                    description={t('cards.flex.desc')}
-                />
-                <FeatureCard
-                    icon={<Gauge className="w-8 h-8" />}
-                    title={t('cards.valve.title')}
-                    description={t('cards.valve.desc')}
-                />
-                <FeatureCard
-                    icon={<Network className="w-8 h-8" />}
-                    title={t('cards.presence.title')}
-                    description={t('cards.presence.desc')}
-                />
-                <FeatureCard
-                    icon={<Thermometer className="w-8 h-8" />}
-                    title={t('cards.boiler.title')}
-                    description={t('cards.boiler.desc')}
-                />
-                <FeatureCard
-                    icon={<Bolt className="w-8 h-8" />}
-                    title={t('cards.power.title')}
-                    description={t('cards.power.desc')}
-                />
+            <section className="space-y-6">
+                <h2 className="text-center text-3xl md:text-4xl font-normal py-0">{t('main-features')}</h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <FeatureCard
+                        icon={<Cpu className="w-8 h-8" />}
+                        title={t('cards.algo.title')}
+                        description={t('cards.algo.desc')}
+                    />
+                    <FeatureCard
+                        icon={<Settings className="w-8 h-8" />}
+                        title={t('cards.flex.title')}
+                        description={t('cards.flex.desc')}
+                    />
+                    <FeatureCard
+                        icon={<Gauge className="w-8 h-8" />}
+                        title={t('cards.valve.title')}
+                        description={t('cards.valve.desc')}
+                    />
+                    <FeatureCard
+                        icon={<Network className="w-8 h-8" />}
+                        title={t('cards.presence.title')}
+                        description={t('cards.presence.desc')}
+                    />
+                    <FeatureCard
+                        icon={<Thermometer className="w-8 h-8" />}
+                        title={t('cards.boiler.title')}
+                        description={t('cards.boiler.desc')}
+                    />
+                    <FeatureCard
+                        icon={<Bolt className="w-8 h-8" />}
+                        title={t('cards.power.title')}
+                        description={t('cards.power.desc')}
+                    />
+                </div>
             </section>
 
             {/* About Section */}
@@ -159,7 +181,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
 
                 <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-3">
-                        <h3 className="text-2xl font-medium ">Caractéristiques principales</h3>
+                        <h3 className="text-2xl font-medium ">{t('main-features')}</h3>
                         <ul className="space-y-2 ">
                             {[
                                 'compatibility',

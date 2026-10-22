@@ -44,5 +44,25 @@
             "title": "Power Shedding",
             "desc": "For electric radiators, automatically reduces power to prevent the circuit breaker from tripping."
         }
+    },
+    "heating": {
+        "title": "What is your heating system?",
+        "desc": "Pick your heating type: Versatile Thermostat strengths and a step-by-step tutorial.",
+        "trv": {
+            "title": "Thermostatic valve",
+            "desc": "Zigbee thermostatic heads on hot-water radiators."
+        },
+        "pilot_wire": {
+            "title": "Electric pilot wire",
+            "desc": "Electric radiators driven by pilot wire or relay."
+        },
+        "heat_pump": {
+            "title": "Heat pump",
+            "desc": "Air-to-air heat pump or reversible AC controlled by Home Assistant."
+        },
+        "pellet_stove": {
+            "title": "Pellet stove",
+            "desc": "Stove driven by dry contact, relay or a dedicated integration."
+        }
     }
 }
