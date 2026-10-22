@@ -18,6 +18,31 @@
         "interface": "Oberfläche",
         "addon": "Add-on"
     },
+    "manual_install": {
+        "title": "Manuelle Installation",
+        "integration": {
+            "step1": "Öffnen Sie HACS in Home Assistant (HACS-Symbol in der Seitenleiste).",
+            "step2": "Wenn die Integration nicht aufgelistet ist, öffnen Sie das Menü ⋮ oben rechts, dann „Benutzerdefinierte Repositories“, und fügen Sie die URL https://github.com/{{slug}} mit der Kategorie „Integration“ hinzu.",
+            "step3": "Suchen Sie die Integration in HACS und klicken Sie auf „Herunterladen“.",
+            "step4": "Starten Sie Home Assistant neu und fügen Sie die Integration über Einstellungen → Geräte & Dienste → Integration hinzufügen hinzu."
+        },
+        "interface": {
+            "step1": "Öffnen Sie HACS in Home Assistant (HACS-Symbol in der Seitenleiste).",
+            "step2": "Wenn die Karte nicht aufgelistet ist, öffnen Sie das Menü ⋮ oben rechts, dann „Benutzerdefinierte Repositories“, und fügen Sie die URL https://github.com/{{slug}} mit der Kategorie „Plugin“ (Lovelace) hinzu.",
+            "step3": "Suchen Sie die Karte in HACS und klicken Sie auf „Herunterladen“.",
+            "step4": "Fügen Sie die Karte zu Ihrem Dashboard hinzu (Ressourcen werden von HACS automatisch registriert)."
+        },
+        "blueprint": {
+            "step1": "Kopieren Sie die URL des Blueprints: {{url}}.",
+            "step2": "Öffnen Sie in Home Assistant Einstellungen → Automatisierungen & Szenen → Blueprints.",
+            "step3": "Klicken Sie auf „Blueprint importieren“, fügen Sie die URL ein und bestätigen Sie."
+        },
+        "addon": {
+            "step1": "Öffnen Sie Einstellungen → Add-ons → Add-on-Store.",
+            "step2": "Öffnen Sie das Menü ⋮ oben rechts, dann „Repositories“, und fügen Sie die URL https://github.com/{{slug}} hinzu.",
+            "step3": "Suchen Sie das Add-on im Store und klicken Sie auf „Installieren“."
+        }
+    },
     "families": {
         "all": "Alle Kategorien",
         "algorithm": "Algorithmus",

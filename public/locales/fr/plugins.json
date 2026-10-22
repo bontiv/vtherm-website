@@ -18,6 +18,31 @@
         "interface": "Interface",
         "addon": "Add-on"
     },
+    "manual_install": {
+        "title": "Installation manuelle",
+        "integration": {
+            "step1": "Ouvrez HACS dans Home Assistant (icône HACS de la barre latérale).",
+            "step2": "Si l'intégration n'apparaît pas dans la liste, ouvrez le menu ⋮ en haut à droite, puis « Dépôts personnalisés » et ajoutez l'URL https://github.com/{{slug}} avec la catégorie « Intégration ».",
+            "step3": "Recherchez l'intégration dans HACS et cliquez sur « Télécharger ».",
+            "step4": "Redémarrez Home Assistant, puis ajoutez l'intégration via Paramètres → Appareils et services → Ajouter une intégration."
+        },
+        "interface": {
+            "step1": "Ouvrez HACS dans Home Assistant (icône HACS de la barre latérale).",
+            "step2": "Si la carte n'apparaît pas dans la liste, ouvrez le menu ⋮ en haut à droite, puis « Dépôts personnalisés » et ajoutez l'URL https://github.com/{{slug}} avec la catégorie « Plugin » (Lovelace).",
+            "step3": "Recherchez la carte dans HACS et cliquez sur « Télécharger ».",
+            "step4": "Ajoutez la carte à votre tableau de bord (les ressources sont enregistrées automatiquement par HACS)."
+        },
+        "blueprint": {
+            "step1": "Copiez l'URL du blueprint : {{url}}.",
+            "step2": "Dans Home Assistant, ouvrez Paramètres → Automatismes et scènes → Blueprints.",
+            "step3": "Cliquez sur « Importer un blueprint », collez l'URL puis validez."
+        },
+        "addon": {
+            "step1": "Ouvrez Paramètres → Modules complémentaires → Boutique des modules complémentaires.",
+            "step2": "Ouvrez le menu ⋮ en haut à droite, puis « Dépôts » et ajoutez l'URL https://github.com/{{slug}}.",
+            "step3": "Recherchez le module complémentaire dans la boutique et cliquez sur « Installer »."
+        }
+    },
     "families": {
         "all": "Toutes familles",
         "algorithm": "Algorithme",
