@@ -24,6 +24,8 @@ export interface VersusPage {
     key: string;
     competitor: string;
     competitorUrl: string;
+    /** Competitor version(s) the comparison was checked against */
+    checkedVersion: string;
 }
 
 export const VERSUS_PAGES: VersusPage[] = [
@@ -32,18 +34,21 @@ export const VERSUS_PAGES: VersusPage[] = [
         key: 'better_thermostat',
         competitor: 'Better Thermostat',
         competitorUrl: 'https://github.com/KartoffelToby/better_thermostat',
+        checkedVersion: '1.9.3 / 2.0.0 Beta 1',
     },
     {
         slug: 'smart-autotune-thermostat',
         key: 'smart_autotune_thermostat',
         competitor: 'Smart Autotune Thermostat',
         competitorUrl: 'https://github.com/Alexwijn/SAT',
+        checkedVersion: '4.2.1',
     },
     {
         slug: 'generic-thermostat',
         key: 'generic_thermostat',
         competitor: 'Generic Thermostat',
         competitorUrl: 'https://www.home-assistant.io/integrations/generic_thermostat/',
+        checkedVersion: 'Home Assistant 2026.10',
     },
 ];
 

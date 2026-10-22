@@ -35,12 +35,13 @@ const FEATURES: { key: string, vtherm: Support, competitor: Support }[] = [
     { key: 'failure', vtherm: 'yes', competitor: 'no' },
     { key: 'safety', vtherm: 'yes', competitor: 'yes' },
     { key: 'lock', vtherm: 'yes', competitor: 'partial' },
+    { key: 'valve_maintenance', vtherm: 'no', competitor: 'yes' },
     { key: 'ui_card', vtherm: 'yes', competitor: 'yes' },
 ];
 /** Keys of `versus.<page>.strengths` */
 const STRENGTHS = ['all_heating', 'presence', 'power', 'central', 'auto_tpi', 'safety'];
 /** Keys of `versus.<page>.when_competitor` */
-const WHEN_COMPETITOR = ['trv_only', 'homematic', 'summer', 'google'];
+const WHEN_COMPETITOR = ['trv_only', 'homematic', 'maintenance', 'google'];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
@@ -110,7 +111,7 @@ export default async function BetterThermostatVersusPage({ params }: { params: P
                     competitor: row.competitor,
                 }))}
             />
-            <p className="text-sm opacity-70">{vs_t('common.disclaimer', competitor)}</p>
+            <p className="text-sm opacity-70">{vs_t('common.disclaimer', { ...competitor, version: PAGE.checkedVersion, interpolation: { escapeValue: false } })}</p>
         </section>
 
         <section className="space-y-6">

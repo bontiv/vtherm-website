@@ -18,7 +18,7 @@
             "partial": "Teilweise",
             "no": "Nein"
         },
-        "disclaimer": "Vergleich auf Grundlage der öffentlichen Dokumentation von Versatile Thermostat und {{competitor}} (Stand Oktober 2026). Beide Projekte entwickeln sich schnell weiter: Melden Sie uns Fehler bitte auf GitHub.",
+        "disclaimer": "Vergleich anhand der Dokumentation und des Quellcodes von Versatile Thermostat und {{competitor}} ({{version}}) im Oktober 2026 geprüft. Beide Projekte entwickeln sich schnell: Melden Sie uns Fehler bitte auf GitHub.",
         "strengths_title": "Warum Versatile Thermostat wählen?",
         "when_competitor": "Wann {{competitor}} die bessere Wahl bleibt",
         "migration_title": "Von {{competitor}} zu Versatile Thermostat wechseln",
@@ -53,6 +53,7 @@
         "failure": "Erkennung von Heizungsausfällen",
         "safety": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet",
         "lock": "Sperrfunktion des Thermostats",
+        "valve_maintenance": "Automatische regelmäßige Ventilwartung",
         "ui_card": "Eigene Lovelace-Karte"
     },
     "better_thermostat": {
@@ -62,13 +63,16 @@
         },
         "title": "Versatile Thermostat vs Better Thermostat",
         "intro": "Better Thermostat überzeugt bei Thermostatköpfen. Versatile Thermostat steht dem in nichts nach und deckt zusätzlich Elektroheizkörper, Wärmepumpen und das Management des gesamten Hauses ab.",
-        "about": "Better Thermostat (KartoffelToby) ist eine sehr beliebte HACS-Integration, die Thermostatköpfe (TRV) verbessert, indem sie diese auf einen externen Sensor abgleicht. Sie bietet mehrere Kalibrierungsmodi (AI Time Based, MPC, PID, TPI), unterstützt Öffnungssensoren und kann die Ventilöffnung kompatibler Ventile direkt steuern. Sie steuert ausschließlich climate-Entitäten.",
+        "about": "Better Thermostat (von KartoffelToby) ist eine sehr beliebte HACS-Integration, die Heizkörperthermostate (TRV) verbessert, indem sie sie an einem externen Sensor ausrichtet. Sie wirkt auf den Sollwert, auf den Kalibrierungsoffset oder direkt auf die Ventilöffnung, mit mehreren Algorithmen: AI Time Based (Standard), MPC und MPC v2, selbstoptimierender PID, TPI oder aggressiver Modus. Sie unterstützt Fenster- und Türsensoren, ein optionales Kühlgerät und schaltet die Heizung im Sommer abhängig von der Außentemperatur ab. Sie steuert nur Climate-Entitäten. Version 2.0, noch in der Beta, baut die Entscheidungslogik neu auf und ergänzt einen Notbetrieb bei Sensorausfall.",
         "notes": {
             "switch_devices": "Better Thermostat erfordert, einen Schalter in einen Generic Thermostat einzubinden.",
-            "outdoor": "Better Thermostat nutzt die Außentemperatur, um die Heizung im Sommer abzuschalten.",
+            "outdoor": "Better Thermostat nutzt die Außentemperatur für die Sommerabschaltung und als Eingang seines MPC-Modells.",
             "heat_cool": "Better Thermostat benötigt eine separate climate-Entität für die Klimaanlage.",
-            "lock": "Better Thermostat ignoriert Einstellungen am Ventil („Child Lock“).",
-            "window_auto": "Versatile Thermostat erkennt ein geöffnetes Fenster ohne Sensor anhand der Temperaturkurve."
+            "lock": "Die Sperre von Better Thermostat macht Änderungen am Ventil selbst rückgängig. Die Sperre von Versatile Thermostat blockiert Änderungen aus Home Assistant, mit PIN-Code.",
+            "window_auto": "Versatile Thermostat erkennt ein geöffnetes Fenster ohne Sensor anhand der Temperaturkurve.",
+            "safety": "Better Thermostat weicht auf die internen Sensoren der Ventile aus und hält dann die letzte Ventilöffnung.",
+            "learning": "Better Thermostat lernt die Heizleistung des Raums (AI Time Based), ein MPC-Modell oder PID-Parameter.",
+            "valve_maintenance": "Versatile Thermostat bietet einen Dienst zur Neukalibrierung der Ventile, der bei Bedarf gestartet wird."
         },
         "strengths": {
             "all_heating": {
@@ -97,9 +101,9 @@
             }
         },
         "when_competitor": {
-            "trv_only": "Ihre Installation besteht nur aus Thermostatköpfen und Sie möchten die Raummodelle MPC oder PID ausprobieren.",
-            "homematic": "Sie verwenden Homematic-IP-Ventile, deren Kalibrierung bei Better Thermostat besser dokumentiert ist.",
-            "summer": "Sie möchten die automatische Ventilwartung im Sommer.",
+            "trv_only": "Ihre Installation besteht nur aus Thermostatventilen und Sie möchten die MPC-v2-Raummodelle oder den selbstoptimierenden PID ausprobieren.",
+            "homematic": "Sie nutzen Homematic-IP-Ventile: Eine eigene Option sendet Befehle seltener, damit der Duty Cycle eingehalten wird.",
+            "maintenance": "Sie möchten, dass die Ventile jede Woche automatisch durchbewegt werden, damit sie nicht festsitzen.",
             "google": "Sie stellen Ihre Thermostate Google Home zur Verfügung, eine von Better Thermostat hervorgehobene Kompatibilität."
         },
         "migration": "Beide Integrationen verwenden dieselben climate-Entitäten Ihrer Thermostatköpfe: Für die Migration ist keine neue Hardware nötig.\n1. Installieren Sie Versatile Thermostat über HACS.\n2. Erstellen Sie pro Raum ein Thermostat „auf einem climate“ mit denselben Ventilen und demselben Temperatursensor.\n3. Wählen Sie die Selbstregelung durch direkte Ventilsteuerung, wenn Ihre Ventile diese bereitstellen.\n4. Deaktivieren Sie anschließend die entsprechende Better-Thermostat-Entität, damit nicht beide Integrationen dasselbe Ventil steuern."
