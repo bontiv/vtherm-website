@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useMemo, useState, useSyncExternalStore } from 'react';
+import { Suspense, useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { PluginCard } from './card';
@@ -8,6 +8,7 @@ import { useT } from '@/app/i18n/client';
 import { certConfig, familyConfig, pluginAnchor, typeConfig, VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
 import { Trans } from 'react-i18next';
 import dynamic from 'next/dynamic';
+import { push } from '@socialgouv/matomo-next';
 const PluginModal = dynamic(() => import('./modal'), { ssr: false });
 
 type SortOrder = 'certification' | 'stars' | 'name';
@@ -27,24 +28,100 @@ const toggle = <T,>(set: Set<T>, value: T): Set<T> => {
     return next;
 };
 
-// The opened plugin is kept in the URL hash (e.g. #kipk/vtherm_smartpi) so that a plugin card can be shared.
-// The hash is updated with replaceState, which fires no event: local listeners are notified explicitly.
-const hashListeners = new Set<() => void>();
+interface Filters {
+    type: VTPluginType | 'all';
+    certs: Set<VTCertificationLevel>;
+    families: Set<VTPluginFamily>;
+    query: string;
+    sort: SortOrder;
+}
 
-const subscribeToHash = (onChange: () => void) => {
-    hashListeners.add(onChange);
-    window.addEventListener('hashchange', onChange);
-    return () => {
-        hashListeners.delete(onChange);
-        window.removeEventListener('hashchange', onChange);
+const sortOrders: SortOrder[] = ['certification', 'stars', 'name'];
+
+const listParam = <T extends string,>(params: URLSearchParams, name: string, allowed: T[]): Set<T> =>
+    new Set((params.get(name)?.split(',') ?? []).filter((value): value is T => allowed.includes(value as T)));
+
+// Unknown values are ignored, so that a hand-edited or outdated link still shows a valid page.
+const parseFilters = (search: string): Filters => {
+    const params = new URLSearchParams(search);
+    const type = params.get('type') as VTPluginType;
+    const sort = params.get('sort') as SortOrder;
+    return {
+        type: pluginTypes.includes(type) ? type : 'all',
+        certs: listParam(params, 'cert', certificationLevels),
+        families: listParam(params, 'family', pluginFamilies),
+        query: params.get('q') ?? '',
+        sort: sortOrders.includes(sort) ? sort : 'certification',
     };
 };
 
-const setHash = (anchor: string) => {
-    const url = anchor ? `#${anchor}` : window.location.pathname + window.location.search;
-    window.history.replaceState(window.history.state, '', url);
-    hashListeners.forEach(listener => listener());
+// Default values are left out and lists keep their display order, so that a given selection always gives the same URL.
+const serializeFilters = (filters: Filters): string => {
+    const params: string[] = [];
+    if (filters.families.size > 0) {
+        params.push(`family=${pluginFamilies.filter(family => filters.families.has(family)).join(',')}`);
+    }
+    if (filters.certs.size > 0) {
+        params.push(`cert=${certificationLevels.filter(level => filters.certs.has(level)).join(',')}`);
+    }
+    if (filters.type !== 'all') {
+        params.push(`type=${filters.type}`);
+    }
+    if (filters.query !== '') {
+        params.push(`q=${encodeURIComponent(filters.query)}`);
+    }
+    if (filters.sort !== 'certification') {
+        params.push(`sort=${filters.sort}`);
+    }
+    return params.length > 0 ? `?${params.join('&')}` : '';
 };
+
+// The page state is kept in the URL so that it can be shared: the filters in the query string
+// (e.g. ?family=algorithm&cert=official) and the opened plugin in the hash (e.g. #kipk/vtherm_smartpi).
+// The URL is updated with replaceState, which fires no event: local listeners are notified explicitly.
+const locationListeners = new Set<() => void>();
+
+const subscribeToLocation = (onChange: () => void) => {
+    locationListeners.add(onChange);
+    window.addEventListener('hashchange', onChange);
+    window.addEventListener('popstate', onChange);
+    return () => {
+        locationListeners.delete(onChange);
+        window.removeEventListener('hashchange', onChange);
+        window.removeEventListener('popstate', onChange);
+    };
+};
+
+const replaceUrl = (url: string) => {
+    window.history.replaceState(window.history.state, '', url);
+    locationListeners.forEach(listener => listener());
+};
+
+const setHash = (anchor: string) =>
+    replaceUrl(window.location.pathname + window.location.search + (anchor ? `#${anchor}` : ''));
+
+// Statistics only tracks the path and query string, so opening a plugin is tracked here as a page view.
+// A shared link is not tracked again: its hash is already part of the initial page view.
+const openPlugin = (plugin: VTPlugin) => {
+    const listUrl = window.location.pathname + window.location.search;
+    setHash(pluginAnchor(plugin));
+    push(['setReferrerUrl', listUrl]);
+    push(['setCustomUrl', listUrl + window.location.hash]);
+    push(['setDocumentTitle', `${plugin.name} - ${document.title}`]);
+    push(['trackPageView']);
+};
+
+// Later events (outlinks, heartbeat) are attributed back to the list once the plugin is closed.
+const closePlugin = () => {
+    setHash('');
+    push(['setCustomUrl', window.location.pathname + window.location.search]);
+    push(['setDocumentTitle', document.title]);
+};
+
+// Changes are applied to the filters currently in the URL rather than to a render-time copy,
+// so that a delayed update (the search input) does not revert a filter changed in the meantime.
+const updateFilters = (changes: Partial<Filters>) =>
+    replaceUrl(window.location.pathname + serializeFilters({ ...parseFilters(window.location.search), ...changes }) + window.location.hash);
 
 const decodeHash = (hash: string): string => {
     try {
@@ -66,13 +143,28 @@ const searchableText = (plugin: VTPlugin): string =>
         .toLowerCase();
 
 const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
-    const [selectedType, setSelectedType] = useState<VTPluginType | 'all'>('all');
-    const [selectedCerts, setSelectedCerts] = useState<Set<VTCertificationLevel>>(new Set());
-    const [selectedFamilies, setSelectedFamilies] = useState<Set<VTPluginFamily>>(new Set());
-    const [query, setQuery] = useState('');
-    const [sortOrder, setSortOrder] = useState<SortOrder>('certification');
-    const hash = useSyncExternalStore(subscribeToHash, () => window.location.hash, () => '');
+    const search = useSyncExternalStore(subscribeToLocation, () => window.location.search, () => '');
+    const hash = useSyncExternalStore(subscribeToLocation, () => window.location.hash, () => '');
+    const filters = useMemo(() => parseFilters(search), [search]);
+    const { type: selectedType, certs: selectedCerts, families: selectedFamilies, sort: sortOrder } = filters;
     const { t } = useT('plugins');
+
+    // The search input is filtered on immediately but written to the URL once typing pauses,
+    // as browsers throttle replaceState. It follows the URL when the query is changed from elsewhere.
+    const [query, setQuery] = useState(filters.query);
+    const [urlQuery, setUrlQuery] = useState(filters.query);
+    if (filters.query !== urlQuery) {
+        setUrlQuery(filters.query);
+        setQuery(filters.query);
+    }
+
+    useEffect(() => {
+        if (query === filters.query) {
+            return;
+        }
+        const timer = setTimeout(() => updateFilters({ query }), 300);
+        return () => clearTimeout(timer);
+    }, [query, filters.query]);
 
     const modalPlugin = useMemo(() => {
         const anchor = decodeHash(hash).toLowerCase();
@@ -109,16 +201,14 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
     const hasActiveFilters = selectedType !== 'all' || selectedCerts.size > 0 || selectedFamilies.size > 0 || normalizedQuery !== '';
 
     const resetFilters = () => {
-        setSelectedType('all');
-        setSelectedCerts(new Set());
-        setSelectedFamilies(new Set());
         setQuery('');
+        updateFilters({ type: 'all', certs: new Set(), families: new Set(), query: '' });
     };
 
     return (
         <div className="size-full min-h-screen overflow-auto">
             <Suspense>
-                <PluginModal plugin={modalPlugin} onClose={() => setHash('')} />
+                <PluginModal plugin={modalPlugin} onClose={closePlugin} />
             </Suspense>
             <div className="max-w-[1400px] mx-auto sm:px-6 py-12">
                 {/* Header */}
@@ -159,7 +249,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
 
                     <FilterSelect<SortOrder>
                         value={sortOrder}
-                        onChange={setSortOrder}
+                        onChange={sort => updateFilters({ sort })}
                         options={[
                             { value: 'certification', label: t('sort.certification') },
                             { value: 'stars', label: t('sort.stars') },
@@ -180,7 +270,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                                     key={family}
                                     active={selectedFamilies.has(family)}
                                     count={countFor('family', plugin => plugin.family === family)}
-                                    onClick={() => setSelectedFamilies(toggle(selectedFamilies, family))}
+                                    onClick={() => updateFilters({ families: toggle(selectedFamilies, family) })}
                                 >
                                     <FamilyIcon className="size-4" style={{ color: selectedFamilies.has(family) ? undefined : familyConfig[family].color }} aria-hidden="true" />
                                     {t(`families.${family}`)}
@@ -200,7 +290,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                                         key={level}
                                         active={selectedCerts.has(level)}
                                         count={countFor('certification', plugin => plugin.certification === level)}
-                                        onClick={() => setSelectedCerts(toggle(selectedCerts, level))}
+                                        onClick={() => updateFilters({ certs: toggle(selectedCerts, level) })}
                                     >
                                         <CertIcon className="size-4" style={{ color: selectedCerts.has(level) ? undefined : certConfig[level].color }} aria-hidden="true" />
                                         {t(`certification.${level}`)}
@@ -215,7 +305,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                             <Chip
                                 active={selectedType === 'all'}
                                 count={countFor('type', () => true)}
-                                onClick={() => setSelectedType('all')}
+                                onClick={() => updateFilters({ type: 'all' })}
                             >
                                 {t('types.all')}
                             </Chip>
@@ -226,7 +316,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                                         key={type}
                                         active={selectedType === type}
                                         count={countFor('type', plugin => plugin.type === type)}
-                                        onClick={() => setSelectedType(selectedType === type ? 'all' : type)}
+                                        onClick={() => updateFilters({ type: selectedType === type ? 'all' : type })}
                                     >
                                         <TypeIcon className="size-4" style={{ color: selectedType === type ? undefined : typeConfig[type].color }} aria-hidden="true" />
                                         {t(`types.${type}`)}
@@ -254,7 +344,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                             {filteredPlugins.map(plugin => (
                                 <button
                                     key={pluginAnchor(plugin)}
-                                    onClick={() => setHash(pluginAnchor(plugin))}
+                                    onClick={() => openPlugin(plugin)}
                                     className='h-full cursor-pointer text-left rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-primary) focus-visible:ring-offset-2'
                                 >
                                     <PluginCard plugin={plugin} />
