@@ -27,6 +27,17 @@
             "desc": "Wählen Sie Ihre Heizungsart und folgen Sie der Anleitung: Ihr erstes Thermostat läuft in wenigen Minuten.",
             "quickstart": "Schnellstart",
             "install": "Installationsanleitung"
+        },
+        "strengths": {
+            "learn_more": "Mehr erfahren",
+            "debugger": {
+                "title": "Online-Log-Analyse",
+                "desc": "Laden Sie Ihre Logs und sehen Sie Temperaturen, Sollwerte und Auslöser (Fenster, Sicherheit, Start-Stop) in einem Diagramm. Die Analyse läuft im Browser: Ihre Logs bleiben bei Ihnen."
+            },
+            "plugins": {
+                "title": "Erweiterbar mit Plugins",
+                "desc": "Seit Version 10 ergänzen offizielle und Community-Plugins Regelalgorithmen, Karten, Blueprints und Integrationen, um Versatile Thermostat an Ihre Installation anzupassen."
+            }
         }
     },
     "features": {
@@ -54,7 +65,9 @@
         "safety": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet",
         "lock": "Sperrfunktion des Thermostats",
         "valve_maintenance": "Automatische regelmäßige Ventilwartung",
-        "ui_card": "Eigene Lovelace-Karte"
+        "ui_card": "Eigene Lovelace-Karte",
+        "log_analyzer": "Online-Log-Analyse",
+        "plugins": "Plugins (Algorithmen, Karten, Integrationen)"
     },
     "better_thermostat": {
         "meta": {
@@ -72,7 +85,8 @@
             "window_auto": "Versatile Thermostat erkennt ein geöffnetes Fenster ohne Sensor anhand der Temperaturkurve.",
             "safety": "Better Thermostat weicht auf die internen Sensoren der Ventile aus und hält dann die letzte Ventilöffnung.",
             "learning": "Better Thermostat lernt die Heizleistung des Raums (AI Time Based), ein MPC-Modell oder PID-Parameter.",
-            "valve_maintenance": "Versatile Thermostat bietet einen Dienst zur Neukalibrierung der Ventile, der bei Bedarf gestartet wird."
+            "valve_maintenance": "Versatile Thermostat bietet einen Dienst zur Neukalibrierung der Ventile, der bei Bedarf gestartet wird.",
+            "plugins": "Das offizielle Plugin SmartPI ergänzt eine Regelung auf Basis eines gelernten Wärmemodells (Leistung, Verluste, Totzeit)."
         },
         "strengths": {
             "all_heating": {
@@ -97,7 +111,7 @@
             },
             "safety": {
                 "title": "Sicherheit und Diagnose",
-                "desc": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet, Erkennung von Heizungsausfällen, Sperre per Code und Online-Log-Analyser."
+                "desc": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet, Erkennung von Heizungsausfällen und Sperre per Code."
             }
         },
         "when_competitor": {
@@ -144,7 +158,7 @@
             },
             "ecosystem": {
                 "title": "Community und Dokumentation",
-                "desc": "Vollständige Dokumentation in drei Sprachen, Datenbank getesteter Geräte, eigene Karte, Erweiterungen und Log-Analyser."
+                "desc": "Vollständige Dokumentation in drei Sprachen, Datenbank getesteter Geräte und eigene Karte."
             }
         },
         "when_competitor": {
@@ -165,7 +179,8 @@
         "notes": {
             "builtin": "Versatile Thermostat wird mit einem Klick über HACS installiert.",
             "heat_cool": "Generic Thermostat heizt oder kühlt, aber nicht beides in derselben Entität.",
-            "proportional": "Generic Thermostat arbeitet im Ein/Aus-Betrieb mit einer Hysterese."
+            "proportional": "Generic Thermostat arbeitet im Ein/Aus-Betrieb mit einer Hysterese.",
+            "plugins": "Das Plugin VTherm Hysteresis bildet die Ein/Aus-Regelung des Generic Thermostat nach, falls Sie diese bevorzugen."
         },
         "strengths": {
             "tpi": {

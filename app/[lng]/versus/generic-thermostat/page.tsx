@@ -9,7 +9,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { ComparisonTable, Support } from "@/components/versus/ComparisonTable";
 import { StrengthList } from "@/components/versus/StrengthList";
 import { pageMetadata } from "@/lib/metadata";
-import { getVersusPage } from "@/lib/pages";
+import { getVersusPage, VERSUS_SHARED_STRENGTHS } from "@/lib/pages";
 import { breadcrumb, pageUrl, SITE_ID, SOFTWARE_ID } from "@/lib/semantic";
 
 const PAGE = getVersusPage('generic-thermostat');
@@ -34,6 +34,8 @@ const FEATURES: { key: string, vtherm: Support, competitor: Support }[] = [
     { key: 'safety', vtherm: 'yes', competitor: 'no' },
     { key: 'heat_cool', vtherm: 'yes', competitor: 'partial' },
     { key: 'ui_card', vtherm: 'yes', competitor: 'no' },
+    { key: 'log_analyzer', vtherm: 'yes', competitor: 'no' },
+    { key: 'plugins', vtherm: 'yes', competitor: 'no' },
 ];
 /** Keys of `versus.<page>.strengths` */
 const STRENGTHS = ['tpi', 'devices', 'automation', 'window', 'power', 'safety'];
@@ -113,10 +115,17 @@ export default async function GenericThermostatVersusPage({ params }: { params: 
 
         <section className="space-y-6">
             <h2 className="text-3xl font-normal">{vs_t('common.strengths_title')}</h2>
-            <StrengthList items={STRENGTHS.map(key => ({
-                title: t(`strengths.${key}.title`),
-                description: t(`strengths.${key}.desc`),
-            }))} />
+            <StrengthList moreLabel={vs_t('common.strengths.learn_more')} items={[
+                ...STRENGTHS.map(key => ({
+                    title: t(`strengths.${key}.title`),
+                    description: t(`strengths.${key}.desc`),
+                })),
+                ...VERSUS_SHARED_STRENGTHS.map(({ key, href }) => ({
+                    title: vs_t(`common.strengths.${key}.title`),
+                    description: vs_t(`common.strengths.${key}.desc`),
+                    href,
+                })),
+            ]} />
         </section>
 
         <section className="space-y-4">

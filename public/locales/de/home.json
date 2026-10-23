@@ -1,47 +1,40 @@
 {
     "subtitle": "Eine erweiterte Klima-Integration für Home Assistant, die mit jeder vorhandenen Thermostatentität funktioniert",
-    "start-guide": "Konfiguration",
     "install-guide": "Installation",
     "easy-install": "Einfache Installation",
-    "easy-install-explain": "Versatile Thermostat lässt sich einfach über HACS (Home Assistant Community Store) installieren. Nach der Installation kann sofort, dank der intuitiven Benutzeroberfläche, das erste Thermostat in wenigen Minuten konfiguriert werden.",
+    "easy-install-explain": "Versatile Thermostat wird mit einem Klick über HACS (Home Assistant Community Store) installiert. Anschließend wird alles in der Oberfläche konfiguriert, ohne YAML und mit zahlreichen Optionen für jede Installation: Das erste Thermostat ist in wenigen Minuten bereit.",
     "why": "Warum Versatile Thermostat verwenden?",
     "why-explain": "Versatile Thermostat wurde entwickelt, um die Einschränkungen von Standard-Thermostaten in Home Assistant zu überwinden. Das Ziel ist es, eine intelligente und effiziente Klimaregelung zu bieten, die sich an persönliche spezifische Bedürfnisse anpasst.",
     "config-guide": "Konfigurationshandbuch",
-    "features": {
-        "compatibility": "Kompatibel mit Wärmepumpen, Ventilen und Schaltern",
-        "algorithms": "Intelligenter TPI-Algorithmus",
-        "window": "Offene-Fenster-Verwaltung",
-        "boiler": "Zentralheizkessel-Verwaltung",
-        "presence": "Heizung basierend auf Anwesenheitserkennung"
-    },
     "cta": {
         "title": "Bereit, Ihr Heizsystem zu verbessern?",
-        "desc": "Schließen Sie sich Tausenden von Nutzern an, die bereits ihren Komfort und Energieverbrauch optimiert haben"
+        "desc": "Schließen Sie sich Tausenden von Nutzern an, die bereits ihren Komfort und Energieverbrauch optimiert haben",
+        "quickstart": "Schnellstart"
     },
     "cards": {
-        "algo": {
-            "title": "Intelligente Leistung",
-            "desc": "Erweiterte Kalibrierungsalgorithmen für optimale Temperaturgenauigkeit. Automatische Anpassung basierend auf realen Bedingungen."
+        "tpi": {
+            "title": "Selbstlernende TPI-Regelung",
+            "desc": "Der TPI-Algorithmus dosiert die Heizleistung in jedem Zyklus nach Abweichung vom Sollwert und Außentemperatur. Auto-TPI lernt die Koeffizienten jedes Raums, und Ventile lassen sich direkt über ihre Öffnung steuern."
         },
-        "flex": {
-            "title": "Flexible Konfiguration",
-            "desc": "Intuitive Konfigurationsoberfläche mit zahlreichen anpassbaren Optionen für alle Systeme."
-        },
-        "valve": {
-            "title": "Ventilsteuerung",
-            "desc": "Präzise Steuerung der TRV-Ventilöffnung inklusive Unterstützung des Boost- und Anti-Frost-Modus."
+        "window": {
+            "title": "Offene Fenster, auch ohne Sensor",
+            "desc": "Die Heizung schaltet ab, wenn ein Fenster geöffnet wird, erkannt per Sensor oder an einem plötzlichen Temperaturabfall, und läuft nach dem Schließen weiter."
         },
         "presence": {
-            "title": "Anwesenheitserkennung",
-            "desc": "Erkennt die Anwesenheit der Bewohner und passt die Temperatur bei Abwesenheit an."
-        },
-        "boiler": {
-            "title": "Zentralheizkessel",
-            "desc": "Unterstützt die automatische Aktivierung und Deaktivierung des Zentralheizkessels."
+            "title": "Automatische Anwesenheit und Bewegung",
+            "desc": "Wechsel in den Abwesenheitsmodus, wenn das Haus leer ist, und zurück zu Komfort, sobald Bewegung erkannt wird: ohne eigene Automatisierung."
         },
         "power": {
             "title": "Lastabwurf",
-            "desc": "Bei elektrischen Heizkörpern wird die Leistung automatisch reduziert, um ein Auslösen des Schutzschalters zu vermeiden."
+            "desc": "Elektroheizkörper werden nach Priorität abgeschaltet, damit die vertraglich vereinbarte Leistung nie überschritten wird."
+        },
+        "central": {
+            "title": "Zentralheizkessel und Zentralmodus",
+            "desc": "Der Kessel startet, sobald ein Raum Wärme anfordert, und stoppt, wenn keiner mehr heizt. Ein einziger Wahlschalter setzt alle Thermostate auf Eco, Frostschutz oder Aus."
+        },
+        "safety": {
+            "title": "Sicherheit und Ausfallerkennung",
+            "desc": "Antwortet der Sensor nicht mehr, verhindert der Sicherheitsmodus Überhitzen oder Einfrieren des Raums. Eine Warnung meldet eine Heizung, die nicht heizt."
         }
     },
     "main-features": "Hauptfunktionen",
@@ -63,6 +56,21 @@
         "pellet_stove": {
             "title": "Pelletofen",
             "desc": "Ofen über potentialfreien Kontakt, Relais oder eine eigene Integration."
+        }
+    },
+    "main-features-desc": "Was Versatile Thermostat von anderen Thermostaten in Home Assistant unterscheidet.",
+    "versus-link": "Zu den Vergleichen",
+    "learn-more": "Mehr erfahren",
+    "tools": {
+        "title": "Werkzeuge der Community",
+        "desc": "Zum Diagnostizieren und Erweitern Ihrer Regelung.",
+        "debugger": {
+            "title": "Log-Analyse",
+            "desc": "Laden Sie Ihre Logs und sehen Sie Temperaturen, Sollwerte und Auslöser in einem Diagramm. Alles bleibt in Ihrem Browser."
+        },
+        "plugins": {
+            "title": "Plugins",
+            "desc": "Regelalgorithmen, Karten, Blueprints und Integrationen, offiziell oder aus der Community."
         }
     }
 }

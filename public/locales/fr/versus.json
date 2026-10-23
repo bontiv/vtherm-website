@@ -27,6 +27,17 @@
             "desc": "Choisissez votre type de chauffage et suivez le tutoriel : votre premier thermostat est opérationnel en quelques minutes.",
             "quickstart": "Démarrage rapide",
             "install": "Guide d'installation"
+        },
+        "strengths": {
+            "learn_more": "En savoir plus",
+            "debugger": {
+                "title": "Analyseur de logs en ligne",
+                "desc": "Chargez vos logs et visualisez températures, consignes et déclenchements (fenêtre, sécurité, start-stop) sur un graphique. L'analyse se fait dans votre navigateur : vos logs restent chez vous."
+            },
+            "plugins": {
+                "title": "Extensible par plugins",
+                "desc": "Depuis la version 10, des plugins officiels ou communautaires ajoutent algorithmes de régulation, cartes, blueprints et intégrations pour adapter Versatile Thermostat à votre installation."
+            }
         }
     },
     "features": {
@@ -54,7 +65,9 @@
         "safety": "Mode sécurité si le capteur ne répond plus",
         "lock": "Verrouillage du thermostat",
         "valve_maintenance": "Entretien périodique automatique des vannes",
-        "ui_card": "Carte Lovelace dédiée"
+        "ui_card": "Carte Lovelace dédiée",
+        "log_analyzer": "Analyseur de logs en ligne",
+        "plugins": "Plugins (algorithmes, cartes, intégrations)"
     },
     "better_thermostat": {
         "meta": {
@@ -72,7 +85,8 @@
             "window_auto": "Versatile Thermostat détecte une ouverture sans capteur, par la pente de température.",
             "safety": "Better Thermostat bascule sur la sonde interne des vannes, puis garde la dernière ouverture.",
             "learning": "Better Thermostat apprend la puissance de chauffe de la pièce (AI Time Based), un modèle MPC ou des gains PID.",
-            "valve_maintenance": "Versatile Thermostat propose un service de recalibrage des vannes, à lancer à la demande."
+            "valve_maintenance": "Versatile Thermostat propose un service de recalibrage des vannes, à lancer à la demande.",
+            "plugins": "Le plugin officiel SmartPI ajoute une régulation par modèle thermique appris (puissance, pertes, temps mort)."
         },
         "strengths": {
             "all_heating": {
@@ -97,7 +111,7 @@
             },
             "safety": {
                 "title": "Sécurité et diagnostic",
-                "desc": "Mode sécurité si la sonde ne répond plus, détection de panne de chauffage, verrouillage par code et analyseur de logs en ligne."
+                "desc": "Mode sécurité si la sonde ne répond plus, détection de panne de chauffage et verrouillage par code."
             }
         },
         "when_competitor": {
@@ -144,7 +158,7 @@
             },
             "ecosystem": {
                 "title": "Communauté et documentation",
-                "desc": "Documentation complète en trois langues, base d'appareils testés, carte dédiée, plugins et analyseur de logs."
+                "desc": "Documentation complète en trois langues, base d'appareils testés et carte dédiée."
             }
         },
         "when_competitor": {
@@ -165,7 +179,8 @@
         "notes": {
             "builtin": "Versatile Thermostat s'installe en un clic depuis HACS.",
             "heat_cool": "Generic Thermostat chauffe ou refroidit, mais pas les deux dans la même entité.",
-            "proportional": "Generic Thermostat fonctionne en tout-ou-rien avec une hystérésis."
+            "proportional": "Generic Thermostat fonctionne en tout-ou-rien avec une hystérésis.",
+            "plugins": "Le plugin VTherm Hysteresis reproduit la régulation tout-ou-rien du Generic Thermostat, si vous la préférez."
         },
         "strengths": {
             "tpi": {
