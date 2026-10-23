@@ -32,8 +32,9 @@ export const Header: React.FC = () => {
     const handleLangChange = (lang: string) => {
         const currentLang = i18n.language;
         if (pathname.startsWith(`/${currentLang}`)) {
+            // The query string and hash are kept, as some pages (e.g. plugins) store their state there.
             const rest = pathname.replace(`/${currentLang}`, `/${lang}`);
-            router.push(rest);
+            router.push(rest + window.location.search + window.location.hash);
         }
         i18n.changeLanguage(lang);
     };
