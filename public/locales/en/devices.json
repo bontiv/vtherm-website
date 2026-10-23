@@ -13,7 +13,8 @@
     "types": {
         "electric": "Electric heater",
         "trv": "Valves TRV",
-        "climate": "PAC and climates"
+        "climate": "PAC and climates",
+        "sensor": "Thermometers"
     },
     "states": {
         "supported": "Supported",

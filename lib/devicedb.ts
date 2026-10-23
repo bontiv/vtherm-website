@@ -1,7 +1,7 @@
 export type EntityList = string[]
 
 export type DeviceConfig = {
-    thermostat_type: "thermostat_over_climate" | "thermostat_over_switch" | "thermostat_over_valve",
+    thermostat_type?: "thermostat_over_climate" | "thermostat_over_switch" | "thermostat_over_valve",
     underlying_entity_ids: EntityList,
     auto_regulation_mode?: "auto_regulation_none" | "auto_regulation_valve" | "auto_regulation_slow" | "auto_regulation_light" | "auto_regulation_medium" | "auto_regulation_strong" | "auto_regulation_expert",
     auto_regulation_dtemp?: number,

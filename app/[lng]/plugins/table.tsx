@@ -9,6 +9,7 @@ import { certConfig, familyConfig, pluginAnchor, typeConfig, VTCertificationLeve
 import { Trans } from 'react-i18next';
 import dynamic from 'next/dynamic';
 import { push } from '@socialgouv/matomo-next';
+import { replaceUrl, subscribeToLocation } from '@/lib/location';
 const PluginModal = dynamic(() => import('./modal'), { ssr: false });
 
 type SortOrder = 'certification' | 'stars' | 'name';
@@ -78,25 +79,6 @@ const serializeFilters = (filters: Filters): string => {
 
 // The page state is kept in the URL so that it can be shared: the filters in the query string
 // (e.g. ?family=algorithm&cert=official) and the opened plugin in the hash (e.g. #kipk/vtherm_smartpi).
-// The URL is updated with replaceState, which fires no event: local listeners are notified explicitly.
-const locationListeners = new Set<() => void>();
-
-const subscribeToLocation = (onChange: () => void) => {
-    locationListeners.add(onChange);
-    window.addEventListener('hashchange', onChange);
-    window.addEventListener('popstate', onChange);
-    return () => {
-        locationListeners.delete(onChange);
-        window.removeEventListener('hashchange', onChange);
-        window.removeEventListener('popstate', onChange);
-    };
-};
-
-const replaceUrl = (url: string) => {
-    window.history.replaceState(window.history.state, '', url);
-    locationListeners.forEach(listener => listener());
-};
-
 const setHash = (anchor: string) =>
     replaceUrl(window.location.pathname + window.location.search + (anchor ? `#${anchor}` : ''));
 

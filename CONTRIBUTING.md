@@ -75,8 +75,8 @@ The [devices.json](devicesdb/devices.json) is the main database of devices. It's
 The file is an array of devices objects like this:
 ```json
 {
-    "manufacturer": "Eutronic",
-    "title": "Eutronic Comet",
+    "manufacturer": "Eurotronic",
+    "title": "Eurotronic Comet",
     "model": "CoZB_dha",
     "img": "https://www.zigbee2mqtt.io/images/devices/CoZB_dha.png",
     "state": "community",

@@ -109,7 +109,7 @@
         "strengths": {
             "pilot_wire": {
                 "title": "Tous les modules fil pilote",
-                "desc": "Nodon, Heatzy, eCosy ou relais + diode : les commandes personnalisées envoient le bon ordre (confort / hors-gel) et l'option « Inverser la commande » gère les montages à diode."
+                "desc": "Nodon, Heatzy ou relais + diode : les commandes personnalisées envoient le bon ordre (confort / hors-gel) et l'option « Inverser la commande » gère les montages à diode."
             },
             "tpi": {
                 "title": "Algorithme TPI",
