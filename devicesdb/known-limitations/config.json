@@ -1,4 +1,6 @@
 {
     "title": "Known limitations",
-    "config": {}
+    "config": {
+        "thermostat_type": "thermostat_over_climate"
+    }
 }

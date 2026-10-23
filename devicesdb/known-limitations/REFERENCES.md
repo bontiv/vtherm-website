@@ -1,7 +1,3 @@
-- Airwell
-  - [#392 Randomly set to "off" the vTherm](https://github.com/jmcollin78/versatile_thermostat/issues/392)
-  - [Discussion #783 TRV demand doesn't trigger boiler to switch on](https://github.com/jmcollin78/versatile_thermostat/discussions/783)
-  - [#1685 AutoTPI calculated heat rate is too high](https://github.com/jmcollin78/versatile_thermostat/issues/1685)
 - Homematic
   - [#133 Homematic Thermostat: Temperature switches to 5C after window open/close](https://github.com/jmcollin78/versatile_thermostat/issues/133)
   - [#228 Documentation change for Homematic thermostats](https://github.com/jmcollin78/versatile_thermostat/issues/228)
@@ -46,6 +42,3 @@
 - Atlantic Naviclim
   - [#807 Set temperature action was used with the target temperature parameter but the entity does not support it over_climate from Atlantic AC binded with Zigbee2mqtt](https://github.com/jmcollin78/versatile_thermostat/issues/807)
   - [#518 Google Nest issues after upgrade -> 6.3.0](https://github.com/jmcollin78/versatile_thermostat/issues/518)
-- MOES pilot wire thermostat
-  - [#1721 \[Feature request\] Intégration MOES RP5Z-PM (zht-pt01-m-ms)](https://github.com/jmcollin78/versatile_thermostat/issues/1721)
-  - [#1303 over_switch sur entité climate ne fonctionne pas](https://github.com/jmcollin78/versatile_thermostat/issues/1303)

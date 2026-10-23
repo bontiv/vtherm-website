@@ -1,0 +1,2 @@
+- [#1721 \[Feature request\] Intégration MOES RP5Z-PM (zht-pt01-m-ms)](https://github.com/jmcollin78/versatile_thermostat/issues/1721)
+- [#1303 over_switch sur entité climate ne fonctionne pas](https://github.com/jmcollin78/versatile_thermostat/issues/1303)

@@ -12,7 +12,7 @@
         "manufacturer": "Midea",
         "model": "",
         "title": "Midea",
-        "slug": "over-climate",
+        "slug": "midea",
         "state": "supported",
         "type": "climate"
     },
@@ -33,7 +33,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-21.png",
         "manufacturer": "NodOn",
         "model": "SIN-4-FP-20 / SIN-4-FP-21",
-        "slug": "over-switch",
+        "slug": "pilot-wire-module",
         "state": "supported",
         "type": "electric",
         "affiliate": {
@@ -131,7 +131,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-21.png",
         "manufacturer": "Equation",
         "model": "SIN-4-FP-21_EQU",
-        "slug": "over-switch",
+        "slug": "pilot-wire-module",
         "state": "community",
         "title": "Equation pilot wire module (NodOn)",
         "type": "electric"
@@ -140,7 +140,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/COZB0001.png",
         "manufacturer": "Eurotronic",
         "model": "COZB0001",
-        "slug": "over-climate-valve",
+        "slug": "eurotronic-comet",
         "state": "community",
         "type": "trv"
     },
@@ -148,7 +148,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/CoZB_dha.png",
         "manufacturer": "Eurotronic",
         "model": "CoZB_dha",
-        "slug": "over-climate-valve",
+        "slug": "eurotronic-comet",
         "state": "community",
         "title": "Eurotronic Comet",
         "type": "trv"
@@ -157,7 +157,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/064882.png",
         "manufacturer": "Legrand",
         "model": "064879 / 064882",
-        "slug": "over-switch",
+        "slug": "pilot-wire-module",
         "state": "community",
         "title": "Legrand Celiane with Netatmo cable outlet",
         "type": "electric"
@@ -330,7 +330,7 @@
         "manufacturer": "Airwell",
         "model": "",
         "title": "Airwell (Midea AC LAN)",
-        "slug": "known-limitations",
+        "slug": "midea",
         "state": "partially",
         "type": "climate"
     },
@@ -525,7 +525,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/ZHT-PT01-M-MS.png",
         "manufacturer": "Moes",
         "model": "RP5Z-PM-MS / ZHT-PT01",
-        "slug": "known-limitations",
+        "slug": "moes-rp5z",
         "state": "partially",
         "title": "Moes pilot wire thermostat",
         "type": "electric",

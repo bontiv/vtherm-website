@@ -1,0 +1,14 @@
+{
+    "title": "Eurotronic Comet",
+    "config": {
+        "thermostat_type": "thermostat_over_climate",
+        "underlying_entity_ids": [
+            "climate.*"
+        ],
+        "auto_regulation_mode": "auto_regulation_valve",
+        "opening_degree_entity_ids": [
+            "number.*_valve_position"
+        ],
+        "max_opening_degrees": "255"
+    }
+}
