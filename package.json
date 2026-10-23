@@ -13,6 +13,7 @@
     "start": "next start",
     "lint": "eslint",
     "add-plugin": "node scripts/add-plugin-from-issue.mjs",
+    "sort-devices": "node scripts/sort-devices.mjs",
     "test": "vitest run"
   },
   "dependencies": {
