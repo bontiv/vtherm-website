@@ -1,0 +1,1 @@
+- [Discussion #583 Target temperature jumping to high values without input](https://github.com/jmcollin78/versatile_thermostat/discussions/583)

@@ -1,0 +1,8 @@
+- [Discussion #1468 Bosch Radiator Thermostat II \[+M\] seems to revert to internal algorithm after 15 minutes](https://github.com/jmcollin78/versatile_thermostat/discussions/1468)
+- [Discussion #1003 Bosch TRV will soon be directly controllable!](https://github.com/jmcollin78/versatile_thermostat/discussions/1003)
+- [Discussion #1775 Vtherm and Shelly TRV BLU valve opening values not always consistent](https://github.com/jmcollin78/versatile_thermostat/discussions/1775)
+- [#334 Endless loop created by turning VTherm with multiple climate devices on and off very quickly](https://github.com/jmcollin78/versatile_thermostat/issues/334)
+- [#576 Ignore set temperature changes from underlying if outside of configured min/max range](https://github.com/jmcollin78/versatile_thermostat/issues/576)
+- [#1249 Central Mode "stopped" not working](https://github.com/jmcollin78/versatile_thermostat/issues/1249)
+- [#533 Percentage of valve opening blocked between 0 and the regulation threshold](https://github.com/jmcollin78/versatile_thermostat/issues/533)
+- [#536 Option for Min Percentage of regulation for Thermostat over valve / in addition to delta percentage of regulation](https://github.com/jmcollin78/versatile_thermostat/issues/536)

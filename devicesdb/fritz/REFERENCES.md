@@ -1,0 +1,3 @@
+- [Discussion #1992 Error in HA with fritz_dect_301 Thermostat](https://github.com/jmcollin78/versatile_thermostat/discussions/1992)
+- [Discussion #1151 'over_switch' Mode | How to setup VT for low temperature underfloor heating systems correctly?](https://github.com/jmcollin78/versatile_thermostat/discussions/1151)
+- [#126 Ability to limit virtual climates to heat + off only](https://github.com/jmcollin78/versatile_thermostat/issues/126)

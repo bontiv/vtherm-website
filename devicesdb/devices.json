@@ -1,19 +1,5 @@
 [
     {
-        "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
-        "manufacturer": "Aqara",
-        "model": "W600",
-        "slug": "aqara-w600",
-        "state": "supported",
-        "title": "Aqara W600",
-        "type": "trv",
-        "affiliate": {
-            "fr": "https://www.domadoo.fr/fr/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97",
-            "en": "https://www.domadoo.fr/en/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97",
-            "de": "https://www.domadoo.fr/de/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97"
-        }
-    },
-    {
         "img": "https://images.squarespace-cdn.com/content/v1/57d112cb9f7456d72f62cd0f/1937c67e-c931-40b9-a66c-ae0fea0a4d43/heatzy-pilote-co%CC%82te%CC%81.jpg",
         "manufacturer": "heatzy",
         "model": "pilote",
@@ -26,7 +12,7 @@
         "manufacturer": "Midea",
         "model": "",
         "title": "Midea",
-        "slug": "over-climate",
+        "slug": "midea",
         "state": "supported",
         "type": "climate"
     },
@@ -47,7 +33,7 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-21.png",
         "manufacturer": "NodOn",
         "model": "SIN-4-FP-20 / SIN-4-FP-21",
-        "slug": "over-switch",
+        "slug": "pilot-wire-module",
         "state": "supported",
         "type": "electric",
         "affiliate": {
@@ -114,27 +100,47 @@
         "type": "electric"
     },
     {
-        "img": "https://www.zigbee2mqtt.io/images/devices/TRV06.png",
-        "manufacturer": "Avatto",
-        "model": "TRV06",
-        "slug": "over-climate",
+        "img": "https://www.zigbee2mqtt.io/images/devices/WSDCGQ12LM.png",
+        "manufacturer": "Aqara",
+        "model": "WSDCGQ12LM",
+        "slug": "thermometer",
         "state": "community",
-        "type": "trv"
+        "title": "Aqara T1",
+        "type": "sensor",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/thermometre-connecte/6705-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-t1-th-s02d-6975833352159.html?domid=97",
+            "en": "https://www.domadoo.fr/en/thermometre-connecte/6705-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-t1-th-s02d-6975833352159.html?domid=97",
+            "de": "https://www.domadoo.fr/de/thermometre-connecte/6705-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-t1-th-s02d-6975833352159.html?domid=97"
+        }
     },
     {
-        "img": "/img/daikin.png",
-        "manufacturer": "Daikin",
-        "model": "",
-        "title": "Daikin",
-        "slug": "over-climate",
+        "img": "https://www.zigbee2mqtt.io/images/devices/LLKZMK12LM.png",
+        "manufacturer": "Aqara",
+        "model": "LLKZMK12LM / DCM-K01",
+        "slug": "over-switch",
         "state": "community",
-        "type": "climate"
+        "title": "Aqara T2 relay",
+        "type": "electric",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/module-connecte/6749-aqara-micromodule-double-onoff-zigbee-30-t2-dcm-k01-6970504218635.html?domid=97",
+            "en": "https://www.domadoo.fr/en/module-connecte/6749-aqara-micromodule-double-onoff-zigbee-30-t2-dcm-k01-6970504218635.html?domid=97",
+            "de": "https://www.domadoo.fr/de/module-connecte/6749-aqara-micromodule-double-onoff-zigbee-30-t2-dcm-k01-6970504218635.html?domid=97"
+        }
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-21.png",
+        "manufacturer": "Equation",
+        "model": "SIN-4-FP-21_EQU",
+        "slug": "pilot-wire-module",
+        "state": "community",
+        "title": "Equation pilot wire module (NodOn)",
+        "type": "electric"
     },
     {
         "img": "https://www.zigbee2mqtt.io/images/devices/COZB0001.png",
         "manufacturer": "Eurotronic",
         "model": "COZB0001",
-        "slug": "over-climate-valve",
+        "slug": "eurotronic-comet",
         "state": "community",
         "type": "trv"
     },
@@ -142,32 +148,27 @@
         "img": "https://www.zigbee2mqtt.io/images/devices/CoZB_dha.png",
         "manufacturer": "Eurotronic",
         "model": "CoZB_dha",
-        "slug": "over-climate-valve",
+        "slug": "eurotronic-comet",
         "state": "community",
         "title": "Eurotronic Comet",
         "type": "trv"
     },
     {
-        "manufacturer": "Mitsubishi Electric",
-        "model": "MSZ-HR35VFK",
+        "img": "https://www.zigbee2mqtt.io/images/devices/064882.png",
+        "manufacturer": "Legrand",
+        "model": "064879 / 064882",
+        "slug": "pilot-wire-module",
         "state": "community",
-        "title": "Mitsubishi MELCloud",
-        "type": "climate",
-        "slug": "MELCloud",
-        "img": "/img/MELCloud.jpg"
+        "title": "Legrand Celiane with Netatmo cable outlet",
+        "type": "electric"
     },
     {
-        "img": "https://www.zigbee2mqtt.io/images/devices/BRT-100-TRV.png",
+        "img": "https://www.zigbee2mqtt.io/images/devices/BHT-002.png",
         "manufacturer": "Moes",
-        "model": "BRT-100-TRV",
+        "model": "BHT-006",
         "slug": "over-climate",
         "state": "community",
-        "type": "trv",
-        "affiliate": {
-            "fr": "https://www.domadoo.fr/fr/peripheriques/5783-moes-tete-thermostatique-intelligente-zigbee-30-brt-100-trv-blanc.html?domid=97",
-            "en": "https://www.domadoo.fr/en/peripheriques/5783-moes-tete-thermostatique-intelligente-zigbee-30-brt-100-trv-blanc.html?domid=97",
-            "de": "https://www.domadoo.fr/de/peripheriques/5783-moes-tete-thermostatique-intelligente-zigbee-30-brt-100-trv-blanc.html?domid=97"
-        }
+        "type": "climate"
     },
     {
         "manufacturer": "MOES",
@@ -209,6 +210,15 @@
         }
     },
     {
+        "img": "/img/netatmo-weather.jpg",
+        "manufacturer": "Netatmo",
+        "model": "Weather Station",
+        "slug": "thermometer",
+        "state": "community",
+        "title": "Netatmo Weather Station",
+        "type": "sensor"
+    },
+    {
         "img": "https://www.zigbee2mqtt.io/images/devices/B2Z.png",
         "manufacturer": "Nous",
         "model": "B2Z",
@@ -217,30 +227,55 @@
         "type": "electric"
     },
     {
-        "img": "https://www.zigbee2mqtt.io/images/devices/CCTFR6100Z3.png",
-        "manufacturer": "Schneider Electric",
-        "model": "CCTFR6100Z3",
-        "slug": "over-climate",
+        "img": "/img/shelly-1-gen4.png",
+        "manufacturer": "Shelly",
+        "model": "1 Gen4",
+        "slug": "over-switch",
         "state": "community",
-        "title": "Schneider Wiser",
-        "type": "trv",
+        "type": "electric",
         "affiliate": {
-            "fr": "https://www.domadoo.fr/fr/controle-chauffage-clim/5497-schneider-electric-tete-de-vanne-thermostatique-connectee-zigbee-3606489582821.html?domid=97",
-            "en": "https://www.domadoo.fr/en/controle-chauffage-clim/5497-schneider-electric-tete-de-vanne-thermostatique-connectee-zigbee-3606489582821.html?domid=97",
-            "de": "https://www.domadoo.fr/de/controle-chauffage-clim/5497-schneider-electric-tete-de-vanne-thermostatique-connectee-zigbee-3606489582821.html?domid=97"
+            "fr": "https://www.domadoo.fr/fr/produits-zigbee/7750-shelly-module-commutateur-contact-sec-wifi-zigbee-et-matter-shelly-1-gen4-3800238070687.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-zigbee/7750-shelly-module-commutateur-contact-sec-wifi-zigbee-et-matter-shelly-1-gen4-3800238070687.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-zigbee/7750-shelly-module-commutateur-contact-sec-wifi-zigbee-et-matter-shelly-1-gen4-3800238070687.html?domid=97"
         }
     },
     {
-        "img": "https://www.domadoo.fr/31597-large_default/shelly-bluetooth-thermostatic-radiator-valve-shelly-blu-trv.jpg",
+        "img": "/img/shelly-1-mini-gen4.png",
         "manufacturer": "Shelly",
-        "model": "BLU TRV",
-        "slug": "over-valve",
+        "model": "1 Mini Gen4",
+        "slug": "over-switch",
         "state": "community",
-        "type": "trv",
+        "type": "electric",
         "affiliate": {
-            "fr": "https://www.domadoo.fr/fr/black-friday-domotique/7567-shelly-robinet-thermostatique-de-radiateur-a-commande-bluetooth-shelly-blu-trv-3800235264980.html?domid=97",
-            "en": "https://www.domadoo.fr/en/black-friday-domotique/7567-shelly-robinet-thermostatique-de-radiateur-a-commande-bluetooth-shelly-blu-trv-3800235264980.html?domid=97",
-            "de": "https://www.domadoo.fr/de/black-friday-domotique/7567-shelly-robinet-thermostatique-de-radiateur-a-commande-bluetooth-shelly-blu-trv-3800235264980.html?domid=97"
+            "fr": "https://www.domadoo.fr/fr/produits-zigbee/7752-shelly-micromodule-commutateur-wi-fi-zigbee-et-matter-8a-shelly-1-mini-gen4-contact-sec-3800238070786.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-zigbee/7752-shelly-micromodule-commutateur-wi-fi-zigbee-et-matter-8a-shelly-1-mini-gen4-contact-sec-3800238070786.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-zigbee/7752-shelly-micromodule-commutateur-wi-fi-zigbee-et-matter-8a-shelly-1-mini-gen4-contact-sec-3800238070786.html?domid=97"
+        }
+    },
+    {
+        "img": "/img/shelly-1pm-gen4.png",
+        "manufacturer": "Shelly",
+        "model": "1PM Gen4",
+        "slug": "over-switch",
+        "state": "community",
+        "type": "electric",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-zigbee/7751-shelly-module-commutateur-wi-fi-zigbee-et-matter-avec-mesure-de-consommation-shelly-1-pm-gen4-3800238070717.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-zigbee/7751-shelly-module-commutateur-wi-fi-zigbee-et-matter-avec-mesure-de-consommation-shelly-1-pm-gen4-3800238070717.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-zigbee/7751-shelly-module-commutateur-wi-fi-zigbee-et-matter-avec-mesure-de-consommation-shelly-1-pm-gen4-3800238070717.html?domid=97"
+        }
+    },
+    {
+        "img": "/img/shelly-pro-4pm.png",
+        "manufacturer": "Shelly",
+        "model": "Pro 4PM",
+        "slug": "over-switch",
+        "state": "community",
+        "type": "electric",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/objets-communicants/5890-shelly-pro-4pm-module-rail-din-4-canaux-wi-fi-avec-mesure-d-energie-3800235268049.html?domid=97",
+            "en": "https://www.domadoo.fr/en/objets-communicants/5890-shelly-pro-4pm-module-rail-din-4-canaux-wi-fi-avec-mesure-d-energie-3800235268049.html?domid=97",
+            "de": "https://www.domadoo.fr/de/objets-communicants/5890-shelly-pro-4pm-module-rail-din-4-canaux-wi-fi-avec-mesure-d-energie-3800235268049.html?domid=97"
         }
     },
     {
@@ -257,6 +292,19 @@
         }
     },
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/SNZB-02P.png",
+        "manufacturer": "Sonoff",
+        "model": "SNZB-02P",
+        "slug": "thermometer",
+        "state": "community",
+        "type": "sensor",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/chauffage-connecte/6732-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-support.html?domid=97",
+            "en": "https://www.domadoo.fr/en/chauffage-connecte/6732-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-support.html?domid=97",
+            "de": "https://www.domadoo.fr/de/chauffage-connecte/6732-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-support.html?domid=97"
+        }
+    },
+    {
         "img": "https://www.zigbee2mqtt.io/images/devices/ZBMINI.png",
         "manufacturer": "Sonoff",
         "model": "ZBMINI",
@@ -265,13 +313,140 @@
         "type": "electric"
     },
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/ZBMINIL2.png",
+        "manufacturer": "Sonoff",
+        "model": "ZBMINIL2",
+        "slug": "over-switch",
+        "state": "community",
+        "type": "electric",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/peripheriques/6619-sonoff-zbminil2-commutateur-intelligent-sans-neutre-zigbee-30-6920075778298.html?domid=97",
+            "en": "https://www.domadoo.fr/en/peripheriques/6619-sonoff-zbminil2-commutateur-intelligent-sans-neutre-zigbee-30-6920075778298.html?domid=97",
+            "de": "https://www.domadoo.fr/de/peripheriques/6619-sonoff-zbminil2-commutateur-intelligent-sans-neutre-zigbee-30-6920075778298.html?domid=97"
+        }
+    },
+    {
         "img": "/img/airwell.png",
         "manufacturer": "Airwell",
         "model": "",
         "title": "Airwell (Midea AC LAN)",
-        "slug": "incompatible",
+        "slug": "midea",
         "state": "partially",
         "type": "climate"
+    },
+    {
+        "img": "/img/airzone-aidoo.png",
+        "manufacturer": "Airzone",
+        "model": "Aidoo",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "Airzone Aidoo",
+        "type": "climate"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/SRTS-A01.png",
+        "manufacturer": "Aqara",
+        "model": "SRTS-A01",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "title": "Aqara E1",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/peripheriques/6286-aqara-tete-thermostatique-zigbee-30-aqara-radiator-thermostat-e1-srts-a01-6970504217058.html?domid=97",
+            "en": "https://www.domadoo.fr/en/peripheriques/6286-aqara-tete-thermostatique-zigbee-30-aqara-radiator-thermostat-e1-srts-a01-6970504217058.html?domid=97",
+            "de": "https://www.domadoo.fr/de/peripheriques/6286-aqara-tete-thermostatique-zigbee-30-aqara-radiator-thermostat-e1-srts-a01-6970504217058.html?domid=97"
+        }
+    },
+    {
+        "img": "https://www.robot-advance.com/ori-thermostat-de-radiateur-w600-aqara-6436.jpg",
+        "manufacturer": "Aqara",
+        "model": "W600",
+        "slug": "aqara-w600",
+        "state": "partially",
+        "title": "Aqara W600",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-de-domotique/8472-aqara-tete-thermostatique-zigbee-thread-radiator-thermostat-w600-6975833359363.html?domid=97"
+        }
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/GW003-AS-IN-TE-FC.png",
+        "manufacturer": "Atlantic",
+        "model": "GW003-AS-IN-TE-FC",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "Atlantic Naviclim",
+        "type": "climate"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/TRV06.png",
+        "manufacturer": "Avatto",
+        "model": "TRV06",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "type": "trv"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/BTH-RA.png",
+        "manufacturer": "Bosch",
+        "model": "BTH-RA",
+        "slug": "bosch-bth-ra",
+        "state": "partially",
+        "title": "Bosch Radiator Thermostat II [+M]",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/compatible-amazon-echo/7687-bosch-smart-home-tete-thermostatique-connectee-ii-compatible-matter-et-zigbee-bht-rad-4062321894702.html?domid=97",
+            "en": "https://www.domadoo.fr/en/compatible-amazon-echo/7687-bosch-smart-home-tete-thermostatique-connectee-ii-compatible-matter-et-zigbee-bht-rad-4062321894702.html?domid=97",
+            "de": "https://www.domadoo.fr/de/compatible-amazon-echo/7687-bosch-smart-home-tete-thermostatique-connectee-ii-compatible-matter-et-zigbee-bht-rad-4062321894702.html?domid=97"
+        }
+    },
+    {
+        "img": "/img/daikin.png",
+        "manufacturer": "Daikin",
+        "model": "",
+        "title": "Daikin",
+        "slug": "daikin",
+        "state": "partially",
+        "type": "climate"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/014G2461.png",
+        "manufacturer": "Danfoss",
+        "model": "014G2420 / 014G2461",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "title": "Danfoss Ally",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/peripheriques/5156-danfoss-tete-thermostatique-electronique-ally-zigbee-5702425245008.html?domid=97",
+            "en": "https://www.domadoo.fr/en/peripheriques/5156-danfoss-tete-thermostatique-electronique-ally-zigbee-5702425245008.html?domid=97",
+            "de": "https://www.domadoo.fr/de/peripheriques/5156-danfoss-tete-thermostatique-electronique-ally-zigbee-5702425245008.html?domid=97"
+        }
+    },
+    {
+        "img": "/img/ecobee.jpg",
+        "manufacturer": "ecobee",
+        "model": "Smart Thermostat",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "ecobee",
+        "type": "climate"
+    },
+    {
+        "img": "/img/eve-thermo.jpg",
+        "manufacturer": "Eve",
+        "model": "Thermo",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "title": "Eve Thermo",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-de-domotique/9008-eve-thermo-vanne-thermostatique-matter-over-thread-compatible-home-assistant-5e-gen-4260195392236.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-de-domotique/9008-eve-thermo-vanne-thermostatique-matter-over-thread-compatible-home-assistant-5e-gen-4260195392236.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-de-domotique/9008-eve-thermo-vanne-thermostatique-matter-over-thread-compatible-home-assistant-5e-gen-4260195392236.html?domid=97"
+        }
     },
     {
         "manufacturer": "Fritz!",
@@ -282,29 +457,100 @@
         "img": "/img/fritzdect_301.png"
     },
     {
+        "img": "/img/gree.png",
+        "manufacturer": "Gree",
+        "model": "Gree+ Wi-Fi",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "Gree",
+        "type": "climate"
+    },
+    {
         "img": "/img/homematic.png",
         "manufacturer": "eQ-3",
         "model": "",
         "title": "Homematic / Homematic IP",
-        "slug": "incompatible",
+        "slug": "known-limitations",
         "state": "partially",
         "type": "climate"
+    },
+    {
+        "img": "/img/lg-thinq.jpg",
+        "manufacturer": "LG",
+        "model": "ThinQ",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "LG ThinQ",
+        "type": "climate"
+    },
+    {
+        "img": "/img/wf-rac.jpg",
+        "manufacturer": "Mitsubishi Heavy Industries",
+        "model": "WF-RAC",
+        "slug": "known-limitations",
+        "state": "partially",
+        "type": "climate"
+    },
+    {
+        "manufacturer": "Mitsubishi Electric",
+        "model": "MSZ-HR35VFK",
+        "state": "partially",
+        "title": "Mitsubishi MELCloud",
+        "type": "climate",
+        "slug": "MELCloud",
+        "img": "/img/MELCloud.jpg"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/BRT-100-TRV.png",
+        "manufacturer": "Moes",
+        "model": "BRT-100-TRV",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/peripheriques/5783-moes-tete-thermostatique-intelligente-zigbee-30-brt-100-trv-blanc.html?domid=97",
+            "en": "https://www.domadoo.fr/en/peripheriques/5783-moes-tete-thermostatique-intelligente-zigbee-30-brt-100-trv-blanc.html?domid=97",
+            "de": "https://www.domadoo.fr/de/peripheriques/5783-moes-tete-thermostatique-intelligente-zigbee-30-brt-100-trv-blanc.html?domid=97"
+        }
     },
     {
         "img": "https://www.zigbee2mqtt.io/images/devices/TV01-ZB.png",
         "manufacturer": "MOES",
         "model": "TV01-ZB",
-        "slug": "incompatible",
+        "slug": "trv-no-valve",
         "state": "partially",
         "type": "trv"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/ZHT-PT01-M-MS.png",
+        "manufacturer": "Moes",
+        "model": "RP5Z-PM-MS / ZHT-PT01",
+        "slug": "moes-rp5z",
+        "state": "partially",
+        "title": "Moes pilot wire thermostat",
+        "type": "electric",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/chauffage/7153-moes-thermostat-programmable-zigbee-tuya-fil-pilote-mesure-conso.html?domid=97",
+            "en": "https://www.domadoo.fr/en/chauffage/7153-moes-thermostat-programmable-zigbee-tuya-fil-pilote-mesure-conso.html?domid=97",
+            "de": "https://www.domadoo.fr/de/chauffage/7153-moes-thermostat-programmable-zigbee-tuya-fil-pilote-mesure-conso.html?domid=97"
+        }
     },
     {
         "img": "/img/netatmo.png",
         "manufacturer": "Netatmo",
         "model": "",
         "title": "Netatmo",
-        "slug": "incompatible",
+        "slug": "known-limitations",
         "state": "partially",
+        "type": "climate"
+    },
+    {
+        "img": "/img/panasonic-cz-tacg1.png",
+        "manufacturer": "Panasonic",
+        "model": "CZ-TACG1",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "Panasonic Comfort Cloud",
         "type": "climate"
     },
     {
@@ -312,9 +558,45 @@
         "manufacturer": "Rointe",
         "model": "",
         "title": "Rointe",
-        "slug": "incompatible",
+        "slug": "known-limitations",
         "state": "partially",
         "type": "climate"
+    },
+    {
+        "img": "https://www.zigbee2mqtt.io/images/devices/CCTFR6100Z3.png",
+        "manufacturer": "Schneider Electric",
+        "model": "CCTFR6100Z3",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "title": "Schneider Wiser",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/controle-chauffage-clim/5497-schneider-electric-tete-de-vanne-thermostatique-connectee-zigbee-3606489582821.html?domid=97",
+            "en": "https://www.domadoo.fr/en/controle-chauffage-clim/5497-schneider-electric-tete-de-vanne-thermostatique-connectee-zigbee-3606489582821.html?domid=97",
+            "de": "https://www.domadoo.fr/de/controle-chauffage-clim/5497-schneider-electric-tete-de-vanne-thermostatique-connectee-zigbee-3606489582821.html?domid=97"
+        }
+    },
+    {
+        "img": "/img/sensibo.jpg",
+        "manufacturer": "Sensibo",
+        "model": "Sky / Air",
+        "slug": "known-limitations",
+        "state": "partially",
+        "title": "Sensibo",
+        "type": "climate"
+    },
+    {
+        "img": "https://www.domadoo.fr/31597-large_default/shelly-bluetooth-thermostatic-radiator-valve-shelly-blu-trv.jpg",
+        "manufacturer": "Shelly",
+        "model": "BLU TRV",
+        "slug": "over-valve",
+        "state": "partially",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/black-friday-domotique/7567-shelly-robinet-thermostatique-de-radiateur-a-commande-bluetooth-shelly-blu-trv-3800235264980.html?domid=97",
+            "en": "https://www.domadoo.fr/en/black-friday-domotique/7567-shelly-robinet-thermostatique-de-radiateur-a-commande-bluetooth-shelly-blu-trv-3800235264980.html?domid=97",
+            "de": "https://www.domadoo.fr/de/black-friday-domotique/7567-shelly-robinet-thermostatique-de-radiateur-a-commande-bluetooth-shelly-blu-trv-3800235264980.html?domid=97"
+        }
     },
     {
         "img": "https://sonoff.tech/cdn/shop/files/TRV-ZBT-1.avif?v=1787121997&width=800",
@@ -327,6 +609,20 @@
             "fr": "https://www.domadoo.fr/fr/produits-de-domotique/9944-sonoff-trv-vanne-thermostatique-zigbee-ble-gen2-avec-ecran-couleur-ips.html?domid=97",
             "de": "https://www.domadoo.fr/de/produits-de-domotique/9944-sonoff-trv-vanne-thermostatique-zigbee-ble-gen2-avec-ecran-couleur-ips.html?domid=97",
             "en": "https://www.domadoo.fr/en/produits-de-domotique/9944-sonoff-trv-vanne-thermostatique-zigbee-ble-gen2-avec-ecran-couleur-ips.html?domid=97"
+        }
+    },
+    {
+        "img": "/img/tado-x.jpg",
+        "manufacturer": "tado",
+        "model": "X Smart Radiator Thermostat",
+        "slug": "trv-no-valve",
+        "state": "partially",
+        "title": "tado X",
+        "type": "trv",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-de-domotique/9800-tado-tete-thermostatique-intelligente-x-4260328612040.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-de-domotique/9800-tado-tete-thermostatique-intelligente-x-4260328612040.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-de-domotique/9800-tado-tete-thermostatique-intelligente-x-4260328612040.html?domid=97"
         }
     },
     {
@@ -347,6 +643,14 @@
         "type": "trv"
     },
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/BHT-002.png",
+        "manufacturer": "Moes",
+        "model": "BHT-002",
+        "slug": "incompatible",
+        "state": "unsupported",
+        "type": "climate"
+    },
+    {
         "img": "/img/overkiz.png",
         "manufacturer": "Overkiz",
         "model": "",
@@ -354,5 +658,14 @@
         "slug": "incompatible",
         "state": "unsupported",
         "type": "climate"
+    },
+    {
+        "img": "/img/tuya-wifi-trv.png",
+        "manufacturer": "Tuya",
+        "model": "Wi-Fi Smart TRV",
+        "slug": "incompatible",
+        "state": "unsupported",
+        "title": "Tuya Wi-Fi TRV",
+        "type": "trv"
     }
 ]

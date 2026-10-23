@@ -1,0 +1,7 @@
+- [#437 Mode chauffage ne se déclenche pas lors du changement de consigne/preset](https://github.com/jmcollin78/versatile_thermostat/issues/437)
+- [#56 In thermostat_over_climate mode, error when underlying climate is not available on startup](https://github.com/jmcollin78/versatile_thermostat/issues/56)
+- [#32 Error with Fan Modes on thermostat over climate type](https://github.com/jmcollin78/versatile_thermostat/issues/32)
+- [#76 In thermostat_over_climate, overpowering is checked even if thermostat is OFF](https://github.com/jmcollin78/versatile_thermostat/issues/76)
+- [#77 In thermostat_over_climate, when underlying is off, the VTherm can be on](https://github.com/jmcollin78/versatile_thermostat/issues/77)
+- [#78 In thermostat_over_climate, at the end of overpowering the climate still stays off.](https://github.com/jmcollin78/versatile_thermostat/issues/78)
+- [Discussion #1668 \[FR\] Auto régulation expert - démo et réglage](https://github.com/jmcollin78/versatile_thermostat/discussions/1668)

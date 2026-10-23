@@ -1,12 +1,10 @@
 # Incompatibilités connues
 
-Certains thermostats de type TRV sont connus pour être incompatibles avec Versatile Thermostat. Cela inclut les vannes suivantes :
+Les appareils suivants sont connus pour ne pas fonctionner avec Versatile Thermostat. Les appareils qui fonctionnent avec des limitations sont listés sur la page des [limitations connues](/fr/devices/known-limitations/).
 
 1. Les vannes **Danfoss POPP** avec retour de température. Il est impossible d'éteindre cette vanne car elle s'auto-régule elle-même, ce qui provoque des conflits avec VTherm.
-2. Les thermostats **Homematic** (et peut-être Homematic IP) sont connus pour poser des problèmes avec Versatile Thermostat en raison des limitations du protocole RF sous-jacent. Ce problème se pose en particulier lorsqu'on essaie de contrôler plusieurs thermostats Homematic à la fois dans une même instance VTherm. Pour réduire la charge des cycles de service, vous pouvez par exemple grouper les thermostats avec les procédures propres à Homematic (par exemple en utilisant un thermostat mural) et laisser Versatile Thermostat ne contrôler directement que le thermostat mural. Une autre option consiste à contrôler un seul thermostat et à propager les changements de mode et de température via une automatisation.
-3. Les thermostats de type **Heatzy** qui ne supportent pas les commandes `set_temperature`. Seuls les modèles sans `set_temperature` sont concernés : le Heatzy pilote est supporté (voir [Heatzy](/fr/devices/heatzy/)).
-4. Les thermostats de type **Rointe** ont tendance à se réveiller d'eux-mêmes. Le reste semble fonctionner normalement.
-5. Les TRV comme **Aqara SRTS-A01** et **MOES TV01-ZB**, qui ne disposent pas du retour d'état `hvac_action` permettant de savoir s'ils chauffent ou non. Le retour d'état est donc inexact, mais le reste semble fonctionnel.
-6. Les climatiseurs **Airwell** avec l'intégration "Midea AC LAN". Si deux commandes VTherm sont trop rapprochées, le climatiseur s'arrête de lui-même.
-7. Les climatisations basées sur l'intégration **Overkiz** ne fonctionnent pas. Il semble impossible d'éteindre ces systèmes ou même d'en changer la température.
-8. Les systèmes de chauffage basés sur **Netatmo** fonctionnent mal. Les programmations Netatmo entrent en conflit avec la programmation de _VTherm_. Les appareils Netatmo reviennent constamment en mode `Auto`, qui est mal géré avec _VTherm_. Dans ce mode, _VTherm_ ne peut pas déterminer si le système chauffe ou refroidit, ce qui rend impossible le choix du bon algorithme. Certains utilisateurs ont réussi à le faire fonctionner en utilisant un switch virtuel entre _VTherm_ et le système sous-jacent, mais la stabilité n'est pas garantie. Un exemple est donné dans la section [dépannage](/fr/docs/troubleshooting/).
+2. Les thermostats de type **Heatzy** qui ne supportent pas les commandes `set_temperature`. Seuls les modèles sans `set_temperature` sont concernés : le Heatzy pilote est supporté (voir [Heatzy](/fr/devices/heatzy/)).
+3. Les climatisations basées sur l'intégration **Overkiz** ne fonctionnent pas. Il semble impossible d'éteindre ces systèmes ou même d'en changer la température.
+4. **Tuya Wi-Fi Smart TRV** : quand la température de la pièce est synchronisée par le décalage de calibration, ce décalage dérive sans fin. L'appareil ne peut pas être régulé par _VTherm_.
+5. Les thermostats **MOES BHT-002** : la consigne saute vers des valeurs aberrantes. Le modèle BHT-006 n'a pas ce problème.
+6. Les thermostats qui n'exposent que le mode `heat_cool` (par exemple certains thermostats Beok ou Tuya). _VTherm_ ne peut pas savoir si l'appareil chauffe ou refroidit.

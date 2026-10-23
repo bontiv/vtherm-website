@@ -1,0 +1,44 @@
+- Homematic
+  - [#133 Homematic Thermostat: Temperature switches to 5C after window open/close](https://github.com/jmcollin78/versatile_thermostat/issues/133)
+  - [#228 Documentation change for Homematic thermostats](https://github.com/jmcollin78/versatile_thermostat/issues/228)
+  - [#661 central boiler doesn't work anymore woth 6.8.0beta](https://github.com/jmcollin78/versatile_thermostat/issues/661)
+  - [#698 nb_device_active_for_boiler not updating](https://github.com/jmcollin78/versatile_thermostat/issues/698)
+  - [Discussion #320 combining over_switch with over_climate](https://github.com/jmcollin78/versatile_thermostat/discussions/320)
+- Netatmo
+  - [#2092 \[BUG\] Central Boiler Manager stays is_on: false with custom service calls despite active devices > 0](https://github.com/jmcollin78/versatile_thermostat/issues/2092)
+  - [#386 "nb device active for boiler" remains zero. My boiler won't turn on when vtherm ask for heat.](https://github.com/jmcollin78/versatile_thermostat/issues/386)
+  - [#1520 When underlying temperature stops reporting, trv switched off](https://github.com/jmcollin78/versatile_thermostat/issues/1520)
+  - [#2055 \[Issue\] climate.turn_on do not restore the last active hvac_mode instead it forces COOL (ac_mode)](https://github.com/jmcollin78/versatile_thermostat/issues/2055)
+  - [#2127 Restored off state always becomes hvac_off_manual: hvac_off_reason is read from the root level instead of specific_states](https://github.com/jmcollin78/versatile_thermostat/issues/2127)
+- Rointe
+  - [Discussion #159 Does Off not mean Off?](https://github.com/jmcollin78/versatile_thermostat/discussions/159)
+- Sensibo
+  - [#847 VTherm sends fan command after turning off the VTherm](https://github.com/jmcollin78/versatile_thermostat/issues/847)
+  - [Discussion #843 When I set hvac mode: off , Versatile continue to send command with effect to power on the air conditioner](https://github.com/jmcollin78/versatile_thermostat/discussions/843)
+  - [#1984 over_climate AC: spurious set_hvac_mode: off after set_temperature, and infinite loop with follow_underlying_temp_change](https://github.com/jmcollin78/versatile_thermostat/issues/1984)
+  - [#585 \[Feature Request\] - Add an auto-start/stop feature for over_climate VTherm](https://github.com/jmcollin78/versatile_thermostat/issues/585)
+  - [Discussion #1128 Fighting with the fan mode (and some other confusions)](https://github.com/jmcollin78/versatile_thermostat/discussions/1128)
+- LG ThinQ
+  - [Discussion #1051 Is there a way to disable target_temperature_low/target_temperature_high being set on the vtherm climate entities in cooling/heating mode?](https://github.com/jmcollin78/versatile_thermostat/discussions/1051)
+  - [#2003 over_climate: set_temperature() crashes with "TypeError: argument of type 'int' is not a container or iterable" when the underlying's supported_features is a plain int](https://github.com/jmcollin78/versatile_thermostat/issues/2003)
+  - [Discussion #1310 Can't get Versatile Thermostat to work on my AC](https://github.com/jmcollin78/versatile_thermostat/discussions/1310)
+- Gree
+  - [#1976 \[over_climate\] auto_stop nenvoie pas hvac_mode: off à lentité climate sous-jacente](https://github.com/jmcollin78/versatile_thermostat/issues/1976)
+  - [#1975 over_climate: `set_hvac_mode: off` propagates only to first underlying when multiple are configured](https://github.com/jmcollin78/versatile_thermostat/issues/1975)
+- Airzone Aidoo
+  - [Discussion #216 Stronge behaviour with airzone thermostat](https://github.com/jmcollin78/versatile_thermostat/discussions/216)
+  - [#2135 over_climate + auto-start/stop: heat order received while auto-stopped turns the underlying ON, VTherm stays OFF and never sends OFF again](https://github.com/jmcollin78/versatile_thermostat/issues/2135)
+  - [Discussion #363 TRVs with air to water heat pump](https://github.com/jmcollin78/versatile_thermostat/discussions/363)
+- Panasonic Comfort Cloud
+  - [#1935 \[Feature Request\] - Case-insensitive fan mode detection for auto-fan feature](https://github.com/jmcollin78/versatile_thermostat/issues/1935)
+  - [Discussion #569 Using the internal temperature option, but to prevent heating when over target.](https://github.com/jmcollin78/versatile_thermostat/discussions/569)
+- Mitsubishi Heavy Industries WF-RAC
+  - [#873 HA becomes unstable when Vtherm runs](https://github.com/jmcollin78/versatile_thermostat/issues/873)
+  - [#299 System turning off immediately after turning on after 5.1.0 update](https://github.com/jmcollin78/versatile_thermostat/issues/299)
+- ecobee
+  - [#1803 Over climate VTherm consistently placing setpoint at underlying thermostat minimun](https://github.com/jmcollin78/versatile_thermostat/issues/1803)
+  - [#1796 9.0.1 Unable to control over_climate - computed target temperature out of valid temperature range](https://github.com/jmcollin78/versatile_thermostat/issues/1796)
+  - [#2086 \[Feature request\] Expose last sent temperature and datetime of underlyings as attributes](https://github.com/jmcollin78/versatile_thermostat/issues/2086)
+- Atlantic Naviclim
+  - [#807 Set temperature action was used with the target temperature parameter but the entity does not support it over_climate from Atlantic AC binded with Zigbee2mqtt](https://github.com/jmcollin78/versatile_thermostat/issues/807)
+  - [#518 Google Nest issues after upgrade -> 6.3.0](https://github.com/jmcollin78/versatile_thermostat/issues/518)

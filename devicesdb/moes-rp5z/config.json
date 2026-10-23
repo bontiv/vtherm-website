@@ -1,0 +1,6 @@
+{
+    "title": "Moes pilot wire thermostat",
+    "config": {
+        "thermostat_type": "thermostat_over_switch"
+    }
+}

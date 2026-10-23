@@ -1,0 +1,18 @@
+- Shelly relays
+  - [Discussion #1084 VT, shelly and heat pump](https://github.com/jmcollin78/versatile_thermostat/discussions/1084)
+  - [#1506 \[Feature request\] - Keep alive for central heating control in central configuration is missing](https://github.com/jmcollin78/versatile_thermostat/issues/1506)
+  - [#1762 Central boiler stays ON indefinitely when heating stops during delayed activation window](https://github.com/jmcollin78/versatile_thermostat/issues/1762)
+  - [#1375 Minimum deactivation delay keeps the VTherm in Heating indefinitely](https://github.com/jmcollin78/versatile_thermostat/issues/1375)
+  - [Discussion #1818 Central heating switch](https://github.com/jmcollin78/versatile_thermostat/discussions/1818)
+  - [Discussion #1417 How to prevent floor overheating ?](https://github.com/jmcollin78/versatile_thermostat/discussions/1417)
+  - [Discussion #1851 \[Feature Request\] Support for Multiple Central Configurations](https://github.com/jmcollin78/versatile_thermostat/discussions/1851)
+- Sonoff relays
+  - [#1705 VTherms demanding heat but central configuration not activating boiler](https://github.com/jmcollin78/versatile_thermostat/issues/1705)
+  - [Discussion #783 TRV demand doesn't trigger boiler to switch on](https://github.com/jmcollin78/versatile_thermostat/discussions/783)
+  - [Discussion #869 Heater is turned-off while VTherm is 'off'](https://github.com/jmcollin78/versatile_thermostat/discussions/869)
+  - [#850 Forced HVAC not kept](https://github.com/jmcollin78/versatile_thermostat/issues/850)
+  - [#498 Controlling 230 V valve over switch](https://github.com/jmcollin78/versatile_thermostat/issues/498)
+- Aqara relays
+  - [Discussion #1123 "correct" usage](https://github.com/jmcollin78/versatile_thermostat/discussions/1123)
+  - [Discussion #1481 Versatile setup](https://github.com/jmcollin78/versatile_thermostat/discussions/1481)
+  - [#617 Action climate.set_preset_mode is not working on VTherm + Overkiz not compatible](https://github.com/jmcollin78/versatile_thermostat/issues/617)

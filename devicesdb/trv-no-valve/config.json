@@ -1,0 +1,6 @@
+{
+    "title": "TRV without direct valve control",
+    "config": {
+        "thermostat_type": "thermostat_over_climate"
+    }
+}

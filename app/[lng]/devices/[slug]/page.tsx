@@ -102,17 +102,26 @@ const DeviceConfig: React.FC<{ config: DeviceDefinition['config'], lng: string }
     </section>
 }
 
+/**
+ * Read a markdown file from the device directory
+ * @param slug Device directory in devicesdb
+ * @param name File name
+ * @returns File content or undefined if the file does not exist
+ */
+function readSlugFile(slug: string, name: string): string | undefined {
+    const filePath = path.join(process.cwd(), 'devicesdb', slug, name);
+    return IO.existsSync(filePath) ? IO.readFileSync(filePath, {}).toString() : undefined
+}
+
 const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> = async ({ params }) => {
     const { slug, lng } = await params;
     const { t } = await getT('devices', { lng });
     const { t: commont } = await getT('common', { lng });
 
     const config: DeviceDefinition = (await import(`@/devicesdb/${slug}/config.json`)).default;
-    const readMePathLng = path.join(process.cwd(), 'devicesdb', slug, `README${lng != fallbackLng ? `-${lng.toUpperCase()}` : ''}.md`);
-    const readMePathFallback = path.join(process.cwd(), 'devicesdb', slug, 'README.md');
-    const readMePath = IO.existsSync(readMePathLng) ? readMePathLng : readMePathFallback
-
-    const readme: string | undefined = IO.existsSync(readMePath) ? IO.readFileSync(readMePath, {}).toString() : undefined
+    const readme = (lng != fallbackLng ? readSlugFile(slug, `README-${lng.toUpperCase()}.md`) : undefined) ?? readSlugFile(slug, 'README.md');
+    // Community references are not translated
+    const references = readSlugFile(slug, 'REFERENCES.md');
     const t_opts = { device: config.title ?? slug }
 
     const deviceEntry = devices.find(device => device.slug === slug && device.affiliate);
@@ -158,6 +167,12 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
             </div>
             {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
             {config.config.thermostat_type && <DeviceConfig config={config.config} lng={lng} />}
+            {references && <section>
+                <h2>{t('references')}</h2>
+                <div lang='en'>
+                    <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{references}</Markdown>
+                </div>
+            </section>}
         </div>
     </>
 }

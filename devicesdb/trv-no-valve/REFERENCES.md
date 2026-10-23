@@ -1,0 +1,38 @@
+- Aqara E1 (SRTS-A01)
+  - [#534 Vtherm Aqara Thermostat E1 as underlining: Can't use vtherm presets](https://github.com/jmcollin78/versatile_thermostat/issues/534)
+  - [Discussion #213 Is it possible to use an Aqara RTV E1 thermostat in combination with versatile thermostat with a heater switch?](https://github.com/jmcollin78/versatile_thermostat/discussions/213)
+  - [#1960 External temperature sync: Missing decimal places on Aqara SRTS-A01](https://github.com/jmcollin78/versatile_thermostat/issues/1960)
+  - [#1779 v9.0.0 - Vtherms are set active for boiler on heat mode, whatever the regulation](https://github.com/jmcollin78/versatile_thermostat/issues/1779)
+  - [#1852 Bug: hvac_action simulation using wrong data/no heat action when needed](https://github.com/jmcollin78/versatile_thermostat/issues/1852)
+  - [#121 radiator valve stuck in loop ("changed to heat / turned off / … triggered by service Climate: Set HVAC mode") until HA reboot](https://github.com/jmcollin78/versatile_thermostat/issues/121)
+- Danfoss Ally
+  - [#2140 Danfoss Ally external Temperature](https://github.com/jmcollin78/versatile_thermostat/issues/2140)
+  - [#700 Cannot change temperature - TRV and valve regulation](https://github.com/jmcollin78/versatile_thermostat/issues/700)
+  - [#91 Boiler Thermostat](https://github.com/jmcollin78/versatile_thermostat/issues/91)
+  - [Discussion #1643 Rooms not reaching temperature](https://github.com/jmcollin78/versatile_thermostat/discussions/1643)
+  - [Discussion #1639 Temperatures not being reached](https://github.com/jmcollin78/versatile_thermostat/discussions/1639)
+- tado X
+  - [Discussion #1270 Is possible to integrate Tado X](https://github.com/jmcollin78/versatile_thermostat/discussions/1270)
+  - [Discussion #1615 Tado Thermostat does not follow room temperature sensor](https://github.com/jmcollin78/versatile_thermostat/discussions/1615)
+  - [Discussion #893 Behavior of auto_regulation_use_device_temp](https://github.com/jmcollin78/versatile_thermostat/discussions/893)
+- Eve Thermo
+  - [#121 radiator valve stuck in loop ("changed to heat / turned off / … triggered by service Climate: Set HVAC mode") until HA reboot](https://github.com/jmcollin78/versatile_thermostat/issues/121)
+  - [#129 Add an adaptative regulation in over climate mode](https://github.com/jmcollin78/versatile_thermostat/issues/129)
+  - [#519 6.3.0: Changing preset will revert to other temperature ("period (0.0) min is < 5 min -> forget the regulation send")](https://github.com/jmcollin78/versatile_thermostat/issues/519)
+  - [#104 missing documentation: is this for a boiler and/or for thermostatic radiator valves?](https://github.com/jmcollin78/versatile_thermostat/issues/104)
+  - [#348 Add offset criteria for self-regulation when in over_climate which underlying that have a temperature sensor](https://github.com/jmcollin78/versatile_thermostat/issues/348)
+  - [#1779 v9.0.0 - Vtherms are set active for boiler on heat mode, whatever the regulation](https://github.com/jmcollin78/versatile_thermostat/issues/1779)
+- MOES BRT-100-TRV
+  - [Discussion #191 versatile is draining my TRV battery](https://github.com/jmcollin78/versatile_thermostat/discussions/191)
+  - [Discussion #926 Clarification about "opening control entities"](https://github.com/jmcollin78/versatile_thermostat/discussions/926)
+- MOES TV01-ZB
+  - [#386 "nb device active for boiler" remains zero. My boiler won't turn on when vtherm ask for heat.](https://github.com/jmcollin78/versatile_thermostat/issues/386)
+- Avatto TRV06
+  - [#535 Current temperature of Avatto TRV06 not read properly](https://github.com/jmcollin78/versatile_thermostat/issues/535)
+  - [Discussion #1346 Incessant yoyoing](https://github.com/jmcollin78/versatile_thermostat/discussions/1346)
+  - [Discussion #1674 Proper way to control the central boiler with big inertia](https://github.com/jmcollin78/versatile_thermostat/discussions/1674)
+  - [Discussion #1294 Versatile Thermostat Configuration Feedback & TPI Question](https://github.com/jmcollin78/versatile_thermostat/discussions/1294)
+- Schneider Wiser CCTFR6100Z3
+  - [Discussion #191 versatile is draining my TRV battery](https://github.com/jmcollin78/versatile_thermostat/discussions/191)
+  - [#766 \[Feature request\] - Enhance the power management (shedding)](https://github.com/jmcollin78/versatile_thermostat/issues/766)
+  - [#428 AttributeError: 'ThermostatOverClimate' object has no attribute '__attr_preset_modes'. Did you mean: '__attr_preset_mode'?](https://github.com/jmcollin78/versatile_thermostat/issues/428)

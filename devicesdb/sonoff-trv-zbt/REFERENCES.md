@@ -1,0 +1,1 @@
+- [Discussion #2067 Support for the new SONOFF TRV Gen2?](https://github.com/jmcollin78/versatile_thermostat/discussions/2067)

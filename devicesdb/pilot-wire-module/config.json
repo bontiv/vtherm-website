@@ -1,0 +1,15 @@
+{
+    "title": "Zigbee pilot wire modules",
+    "config": {
+        "thermostat_type": "thermostat_over_switch",
+        "underlying_entity_ids": [
+            "select.*_pilot_wire_mode"
+        ],
+        "vswitch_on_command": [
+            "select_option/option:comfort"
+        ],
+        "vswitch_off_command": [
+            "select_option/option:frost_protection"
+        ]
+    }
+}
