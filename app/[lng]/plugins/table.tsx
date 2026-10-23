@@ -8,6 +8,7 @@ import { useT } from '@/app/i18n/client';
 import { certConfig, familyConfig, pluginAnchor, typeConfig, VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
 import { Trans } from 'react-i18next';
 import dynamic from 'next/dynamic';
+import { push } from '@socialgouv/matomo-next';
 const PluginModal = dynamic(() => import('./modal'), { ssr: false });
 
 type SortOrder = 'certification' | 'stars' | 'name';
@@ -99,6 +100,24 @@ const replaceUrl = (url: string) => {
 const setHash = (anchor: string) =>
     replaceUrl(window.location.pathname + window.location.search + (anchor ? `#${anchor}` : ''));
 
+// Statistics only tracks the path and query string, so opening a plugin is tracked here as a page view.
+// A shared link is not tracked again: its hash is already part of the initial page view.
+const openPlugin = (plugin: VTPlugin) => {
+    const listUrl = window.location.pathname + window.location.search;
+    setHash(pluginAnchor(plugin));
+    push(['setReferrerUrl', listUrl]);
+    push(['setCustomUrl', listUrl + window.location.hash]);
+    push(['setDocumentTitle', `${plugin.name} - ${document.title}`]);
+    push(['trackPageView']);
+};
+
+// Later events (outlinks, heartbeat) are attributed back to the list once the plugin is closed.
+const closePlugin = () => {
+    setHash('');
+    push(['setCustomUrl', window.location.pathname + window.location.search]);
+    push(['setDocumentTitle', document.title]);
+};
+
 // Changes are applied to the filters currently in the URL rather than to a render-time copy,
 // so that a delayed update (the search input) does not revert a filter changed in the meantime.
 const updateFilters = (changes: Partial<Filters>) =>
@@ -189,7 +208,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
     return (
         <div className="size-full min-h-screen overflow-auto">
             <Suspense>
-                <PluginModal plugin={modalPlugin} onClose={() => setHash('')} />
+                <PluginModal plugin={modalPlugin} onClose={closePlugin} />
             </Suspense>
             <div className="max-w-[1400px] mx-auto sm:px-6 py-12">
                 {/* Header */}
@@ -325,7 +344,7 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                             {filteredPlugins.map(plugin => (
                                 <button
                                     key={pluginAnchor(plugin)}
-                                    onClick={() => setHash(pluginAnchor(plugin))}
+                                    onClick={() => openPlugin(plugin)}
                                     className='h-full cursor-pointer text-left rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-primary) focus-visible:ring-offset-2'
                                 >
                                     <PluginCard plugin={plugin} />
