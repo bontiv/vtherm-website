@@ -1,0 +1,7 @@
+- [#2036 \[BUG\] Over-climate sometimes fails to turn on MELCloud heat pump](https://github.com/jmcollin78/versatile_thermostat/issues/2036)
+- [#787 Auto-fan seems not work with MelCloud](https://github.com/jmcollin78/versatile_thermostat/issues/787)
+- [Discussion #1365 Use Auto fan with MelCloud Climate exposing fan speed 1 2 3 4 5 Auto](https://github.com/jmcollin78/versatile_thermostat/discussions/1365)
+- [#1391 Auto-start seems broken with two AC splits](https://github.com/jmcollin78/versatile_thermostat/issues/1391)
+- [#1654 At startup, VTherm in auto stop mode stop can be not in sync with underlying Heat Pump Split.](https://github.com/jmcollin78/versatile_thermostat/issues/1654)
+- [Discussion #2056 Feature request: prevent repair_incorrect_state from fighting manual control of the underlying climate when VTherm is off](https://github.com/jmcollin78/versatile_thermostat/discussions/2056)
+- [#2018 `unrecorded_attributes` no longer match since the v8 attribute reorganization -> recorder database bloat (~2.5 KB unique blob per update)](https://github.com/jmcollin78/versatile_thermostat/issues/2018)

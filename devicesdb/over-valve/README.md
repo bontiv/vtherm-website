@@ -26,3 +26,7 @@ It is possible to choose a `thermostat_over_valve` to control an air conditioner
 `over_valve` supports sleep mode. Selecting `sleep`, or calling the `versatile_thermostat.set_hvac_mode_sleep` action, presents VTherm as off while sending a raw 100 % opening request to every underlying valve. Sleep mode does not request central boiler heating; `is_sleeping` identifies this state.
 
 See the full [`over_valve` documentation](/en/docs/over-valve/) for more details.
+
+## Shelly BLU TRV
+
+The Shelly BLU TRV exposes its valve position as a `number` entity and needs a Shelly BLU gateway. It is partially compatible: some valve commands are lost over Bluetooth, the device has no `off` mode, and it can become unavailable when the Bluetooth link drops.

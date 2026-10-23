@@ -1,0 +1,2 @@
+- [#1660 Max open valve is limited to 100, but Eurotronics Comet uses 255 steps for valve opening degree](https://github.com/jmcollin78/versatile_thermostat/issues/1660)
+- [#1734 Comet Zigbee TRV automatically switches to "Auto" mode](https://github.com/jmcollin78/versatile_thermostat/issues/1734)

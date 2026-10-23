@@ -1,0 +1,15 @@
+- Sonoff SNZB-02D / SNZB-02P
+  - [#398 Use last_seen for temperature sensor](https://github.com/jmcollin78/versatile_thermostat/issues/398)
+  - [Discussion #1733 Fluctulating temperature with climate / valve control (Sonoff)](https://github.com/jmcollin78/versatile_thermostat/discussions/1733)
+  - [Discussion #1292 Uneven Heating in over_climate mode with 2 TRVZB](https://github.com/jmcollin78/versatile_thermostat/discussions/1292)
+  - [#72 Delta t is 2 < 10 which should be not possible](https://github.com/jmcollin78/versatile_thermostat/issues/72)
+  - [#462 Getting 'current_temp (None) is null' on all vtherms](https://github.com/jmcollin78/versatile_thermostat/issues/462)
+  - [Discussion #1409 Temperature slope jumps with stable temperature](https://github.com/jmcollin78/versatile_thermostat/discussions/1409)
+- Aqara T1
+  - [#1111 Sonoff TRVZB valve keeps opening and closing due to endless offset corrections](https://github.com/jmcollin78/versatile_thermostat/issues/1111)
+  - [#496 last_seen and "…the configured sensor for room temperature is unavailable"](https://github.com/jmcollin78/versatile_thermostat/issues/496)
+  - [#1487 Température dépassée et chauffe en continue ?](https://github.com/jmcollin78/versatile_thermostat/issues/1487)
+  - [Discussion #987 Fallback temperature sensor when unavailable](https://github.com/jmcollin78/versatile_thermostat/discussions/987)
+- Netatmo Weather Station
+  - [#479 Open window on start not detected](https://github.com/jmcollin78/versatile_thermostat/issues/479)
+  - [#386 "nb device active for boiler" remains zero. My boiler won't turn on when vtherm ask for heat.](https://github.com/jmcollin78/versatile_thermostat/issues/386)

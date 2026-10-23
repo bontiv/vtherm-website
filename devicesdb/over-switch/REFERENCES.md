@@ -1,0 +1,32 @@
+- NodOn SIN-4-FP-21
+  - [Discussion #613 Using select from NodOn SIN-4-FP-21 (or other)](https://github.com/jmcollin78/versatile_thermostat/discussions/613)
+  - [Discussion #950 NoDon SIN-4-FP-21 Versatile don't change status mode](https://github.com/jmcollin78/versatile_thermostat/discussions/950)
+  - [Discussion #431 Adaptation du code switch pour les modules NodOn SIN-4-FP-21](https://github.com/jmcollin78/versatile_thermostat/discussions/431)
+  - [Discussion #1834 Problème régulation puissance 1 Vtherm pour 2 Switch Nodon](https://github.com/jmcollin78/versatile_thermostat/discussions/1834)
+  - [#872 \[Feature request\] - Add native support of virtual switch in `over_switch` VTherm](https://github.com/jmcollin78/versatile_thermostat/issues/872)
+  - [#1487 Température dépassée et chauffe en continue ?](https://github.com/jmcollin78/versatile_thermostat/issues/1487)
+  - [#1783 v9.0.0 could not convert string to float: 'Jaune'](https://github.com/jmcollin78/versatile_thermostat/issues/1783)
+  - [Discussion #1539 Electric radiator with internal thermostat vs TPI (noise & power behavior)](https://github.com/jmcollin78/versatile_thermostat/discussions/1539)
+- Shelly relays
+  - [Discussion #1084 VT, shelly and heat pump](https://github.com/jmcollin78/versatile_thermostat/discussions/1084)
+  - [#1506 \[Feature request\] - Keep alive for central heating control in central configuration is missing](https://github.com/jmcollin78/versatile_thermostat/issues/1506)
+  - [#1762 Central boiler stays ON indefinitely when heating stops during delayed activation window](https://github.com/jmcollin78/versatile_thermostat/issues/1762)
+  - [#1375 Minimum deactivation delay keeps the VTherm in Heating indefinitely](https://github.com/jmcollin78/versatile_thermostat/issues/1375)
+  - [Discussion #1818 Central heating switch](https://github.com/jmcollin78/versatile_thermostat/discussions/1818)
+  - [Discussion #1417 How to prevent floor overheating ?](https://github.com/jmcollin78/versatile_thermostat/discussions/1417)
+  - [Discussion #1851 \[Feature Request\] Support for Multiple Central Configurations](https://github.com/jmcollin78/versatile_thermostat/discussions/1851)
+- Sonoff relays
+  - [#1705 VTherms demanding heat but central configuration not activating boiler](https://github.com/jmcollin78/versatile_thermostat/issues/1705)
+  - [Discussion #783 TRV demand doesn't trigger boiler to switch on](https://github.com/jmcollin78/versatile_thermostat/discussions/783)
+  - [Discussion #869 Heater is turned-off while VTherm is 'off'](https://github.com/jmcollin78/versatile_thermostat/discussions/869)
+  - [#850 Forced HVAC not kept](https://github.com/jmcollin78/versatile_thermostat/issues/850)
+  - [#498 Controlling 230 V valve over switch](https://github.com/jmcollin78/versatile_thermostat/issues/498)
+- Aqara relays
+  - [Discussion #1123 "correct" usage](https://github.com/jmcollin78/versatile_thermostat/discussions/1123)
+  - [Discussion #1481 Versatile setup](https://github.com/jmcollin78/versatile_thermostat/discussions/1481)
+  - [#617 Action climate.set_preset_mode is not working on VTherm + Overkiz not compatible](https://github.com/jmcollin78/versatile_thermostat/issues/617)
+- Legrand Celiane with Netatmo
+  - [#214 Gestion mode fils pilote](https://github.com/jmcollin78/versatile_thermostat/issues/214)
+  - [Discussion #1688 Energy calculation for over_switch becomes wrong ?](https://github.com/jmcollin78/versatile_thermostat/discussions/1688)
+  - [Discussion #996 Custom start/top commands cannot be modified? What am I doing wrong?](https://github.com/jmcollin78/versatile_thermostat/discussions/996)
+  - [Discussion #636 TPI first day of heating](https://github.com/jmcollin78/versatile_thermostat/discussions/636)

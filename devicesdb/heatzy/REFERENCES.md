@@ -1,0 +1,8 @@
+- [Discussion #177 Does Versatile thermostat work with Heatzy pilote ?](https://github.com/jmcollin78/versatile_thermostat/discussions/177)
+- [Discussion #259 Piloter le chauffage des radiateur thermor et fil pilote heatzy avec versatile thermostat](https://github.com/jmcollin78/versatile_thermostat/discussions/259)
+- [#1940 Bug: vswitch_off_command never sent to Heatzy when on_percent drops to 0 — is_device_active always False for climate underlyings with vswitch](https://github.com/jmcollin78/versatile_thermostat/issues/1940)
+- [#1299 \[Feature Request\] - Implement a keep alive like function for over_climate](https://github.com/jmcollin78/versatile_thermostat/issues/1299)
+- [Discussion #1501 \[Feature Request\] - Implement a keep alive like function for over_climate](https://github.com/jmcollin78/versatile_thermostat/discussions/1501)
+- [#1881 Over_switch : after change of preset mode, underlying keeps heating while temperature is above setpoint](https://github.com/jmcollin78/versatile_thermostat/issues/1881)
+- [#872 \[Feature request\] - Add native support of virtual switch in `over_switch` VTherm](https://github.com/jmcollin78/versatile_thermostat/issues/872)
+- [Discussion #389 Question/remarque sur les fils pilotes](https://github.com/jmcollin78/versatile_thermostat/discussions/389)

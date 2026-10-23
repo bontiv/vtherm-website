@@ -1,0 +1,2 @@
+- [#1207 \[Feature Request\] - Add the possibility to use the external temperature sensor for Sonoff TRVZB](https://github.com/jmcollin78/versatile_thermostat/issues/1207)
+- [#1222 ValueError: Unsupported HVAC mode: unavailable when underlying climate entity becomes temporarily unavailable](https://github.com/jmcollin78/versatile_thermostat/issues/1222)

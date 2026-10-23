@@ -1,0 +1,16 @@
+- Danfoss POPP
+  - [#130 Add incompatibility for Danfoss TRV](https://github.com/jmcollin78/versatile_thermostat/issues/130)
+- Overkiz
+  - [#617 Action climate.set_preset_mode is not working on VTherm + Overkiz not compatible](https://github.com/jmcollin78/versatile_thermostat/issues/617)
+- Tuya Wi-Fi Smart TRV
+  - [Discussion #1620 Tuya WiFi Smart TRV: underlying_current_temperature sometimes doesn't get updated after syncing room temperature to underlying climate](https://github.com/jmcollin78/versatile_thermostat/discussions/1620)
+  - [#1604 Tuya WiFi Smart TRV: underlying_current_temperature sometimes doesn't get updated after syncing room temperature to underlying climate](https://github.com/jmcollin78/versatile_thermostat/issues/1604)
+  - [#1593 \[Feature request\] - Internal Device Temperature Synchronization: Jitter in room temperature leads to permanent valve movements](https://github.com/jmcollin78/versatile_thermostat/issues/1593)
+- MOES BHT-002
+  - [#571 Target temperature jumping to high values without input](https://github.com/jmcollin78/versatile_thermostat/issues/571)
+  - [Discussion #583 Target temperature jumping to high values without input](https://github.com/jmcollin78/versatile_thermostat/discussions/583)
+  - [#863 Target temperature for TRV (used for underfloor heating) never hit](https://github.com/jmcollin78/versatile_thermostat/issues/863)
+  - [#1247 MOES Thermostat temperature set to 0 on preset mode](https://github.com/jmcollin78/versatile_thermostat/issues/1247)
+- Thermostats with heat_cool only
+  - [Discussion #1760 TuYa w506 beok not compatible with VTherm - don't use it](https://github.com/jmcollin78/versatile_thermostat/discussions/1760)
+  - [#1761 question on heat_cool](https://github.com/jmcollin78/versatile_thermostat/issues/1761)

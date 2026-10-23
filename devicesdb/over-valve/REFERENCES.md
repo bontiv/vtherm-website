@@ -1,0 +1,7 @@
+- [Discussion #1775 Vtherm and Shelly TRV BLU valve opening values not always consistent](https://github.com/jmcollin78/versatile_thermostat/discussions/1775)
+- [#1222 ValueError: Unsupported HVAC mode: unavailable when underlying climate entity becomes temporarily unavailable](https://github.com/jmcollin78/versatile_thermostat/issues/1222)
+- [Discussion #1223 ValueError: Unsupported HVAC mode: unavailable when underlying climate entity becomes temporarily unavailable](https://github.com/jmcollin78/versatile_thermostat/discussions/1223)
+- [#2015 Before issuing a climate.set_hvac_mode() service call with HVACMode.OFF, Versatile Thermostat should verify that OFF is actually present in the underlying entity's hvac_modes.](https://github.com/jmcollin78/versatile_thermostat/issues/2015)
+- [Discussion #1219 Presence + Motion Sensor Configuration - Guest Detection Issue](https://github.com/jmcollin78/versatile_thermostat/discussions/1219)
+- [Discussion #1238 Clogging prevention for Valves](https://github.com/jmcollin78/versatile_thermostat/discussions/1238)
+- [#1163 VHT can get stuck in heating mode on single thermostat.](https://github.com/jmcollin78/versatile_thermostat/issues/1163)

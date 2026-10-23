@@ -1,0 +1,4 @@
+- [#95 \[serious issue\] the integration would switch ac on and off rapidly and lock up home assistant if outside temp is NaN](https://github.com/jmcollin78/versatile_thermostat/issues/95)
+- [#114 \[Bug\] Thermostat not reporting on / off properly (90s delay)](https://github.com/jmcollin78/versatile_thermostat/issues/114)
+- [#325 resume from previous state](https://github.com/jmcollin78/versatile_thermostat/issues/325)
+- [#2024 PI regulator: accumulated_error explodes when regulation runs twice within one cycle (division by near-zero time_delta)](https://github.com/jmcollin78/versatile_thermostat/issues/2024)

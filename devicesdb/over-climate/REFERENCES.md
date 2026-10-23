@@ -1,0 +1,10 @@
+- Midea
+  - [#966 Midea U shaped air conditioner failing to update temp when temp is near minimum temp of underlying](https://github.com/jmcollin78/versatile_thermostat/issues/966)
+  - [#98 Thermostat instantly turning off](https://github.com/jmcollin78/versatile_thermostat/issues/98)
+  - [#272 VTherm attempts to set a temperature below the min_temp causing to set the target temp to the max_temp](https://github.com/jmcollin78/versatile_thermostat/issues/272)
+  - [#875 Auto Start/Stop Fails to restart VTerm](https://github.com/jmcollin78/versatile_thermostat/issues/875)
+  - [#2020 over_climate: underlying climate can get stuck OFF forever after a spontaneous drift (no periodic hvac_mode resync)](https://github.com/jmcollin78/versatile_thermostat/issues/2020)
+  - [#89 _is_aux_heat error](https://github.com/jmcollin78/versatile_thermostat/issues/89)
+  - [#240 Fahrenheit conversion is not correct, seems to make the conversion twice.](https://github.com/jmcollin78/versatile_thermostat/issues/240)
+- MOES BHT-006
+  - [Discussion #583 Target temperature jumping to high values without input](https://github.com/jmcollin78/versatile_thermostat/discussions/583)

@@ -26,3 +26,7 @@ Il est possible de choisir un `thermostat_over_valve` pour contrôler une climat
 `over_valve` supporte le mode veille. La sélection de `sleep`, ou l'appel de l'action `versatile_thermostat.set_hvac_mode_sleep`, présente le VTherm comme éteint tout en envoyant une demande d'ouverture brute de 100 % à chaque vanne sous-jacente. Le mode veille ne demande pas de chauffage à la chaudière centrale ; `is_sleeping` identifie cet état.
 
 Voir la [documentation complète `over_valve`](/fr/docs/over-valve/) pour plus de détails.
+
+## Shelly BLU TRV
+
+Le Shelly BLU TRV expose la position de sa vanne sous forme d'entité `number` et nécessite une passerelle Shelly BLU. Il est partiellement compatible : certaines commandes de vanne sont perdues en Bluetooth, l'appareil n'a pas de mode `off`, et il peut devenir indisponible quand la liaison Bluetooth est coupée.

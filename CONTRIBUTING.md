@@ -123,6 +123,17 @@ If you write a `README.md`, the english is mandatory. You can add a readme in an
 - `README-FR.md` for french,
 - `README-DE.md` for german.
 
+You can also add an optional `REFERENCES.md` file. It lists community references about the devices of this directory: links to known issues and discussions on the [Versatile Thermostat repository](https://github.com/jmcollin78/versatile_thermostat). When this file exists, the device page shows a "Community references" title followed by its content, after the configuration wizard.
+
+The `REFERENCES.md` file is not translated: write it in english only, without `-FR` or `-DE` variants. Use a markdown list of links:
+
+```markdown
+- [#1456 TRVZB keeps heating at 0% valve opening](https://github.com/jmcollin78/versatile_thermostat/issues/1456)
+- [Discussion #1369 Valve calibration lost](https://github.com/jmcollin78/versatile_thermostat/discussions/1369)
+```
+
+When many devices share the same directory, use a nested list with one item per device.
+
 ### Device configuration
 
 You must have a `config.json` file for each slug. This file is located on the child directory of [devicesdb](devicesdb/) with the device slug as name. It's the same directory as the device `README.md`. This file is mandatory.
