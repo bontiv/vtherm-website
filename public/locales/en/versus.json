@@ -27,6 +27,17 @@
             "desc": "Pick your heating type and follow the tutorial: your first thermostat is up and running in a few minutes.",
             "quickstart": "Quick start",
             "install": "Installation guide"
+        },
+        "strengths": {
+            "learn_more": "Learn more",
+            "debugger": {
+                "title": "Online log analyzer",
+                "desc": "Load your logs and see temperatures, setpoints and triggers (window, safety, start-stop) on a chart. The analysis runs in your browser: your logs stay with you."
+            },
+            "plugins": {
+                "title": "Extensible with plugins",
+                "desc": "Since version 10, official and community plugins add regulation algorithms, cards, blueprints and integrations to fit Versatile Thermostat to your setup."
+            }
         }
     },
     "features": {
@@ -54,7 +65,9 @@
         "safety": "Safety mode when the sensor stops responding",
         "lock": "Thermostat lock",
         "valve_maintenance": "Automatic periodic valve maintenance",
-        "ui_card": "Dedicated Lovelace card"
+        "ui_card": "Dedicated Lovelace card",
+        "log_analyzer": "Online log analyzer",
+        "plugins": "Plugins (algorithms, cards, integrations)"
     },
     "better_thermostat": {
         "meta": {
@@ -72,7 +85,8 @@
             "window_auto": "Versatile Thermostat detects an open window without a sensor, using the temperature slope.",
             "safety": "Better Thermostat falls back to the valves' internal sensors, then holds the last valve opening.",
             "learning": "Better Thermostat learns the room heating power (AI Time Based), an MPC model or PID gains.",
-            "valve_maintenance": "Versatile Thermostat offers an on-demand valve recalibration service."
+            "valve_maintenance": "Versatile Thermostat offers an on-demand valve recalibration service.",
+            "plugins": "The official SmartPI plugin adds regulation based on a learned thermal model (power, heat loss, dead time)."
         },
         "strengths": {
             "all_heating": {
@@ -97,7 +111,7 @@
             },
             "safety": {
                 "title": "Safety and diagnostics",
-                "desc": "Safety mode when the sensor stops responding, heating failure detection, code-based lock and an online log analyzer."
+                "desc": "Safety mode when the sensor stops responding, heating failure detection and code-based lock."
             }
         },
         "when_competitor": {
@@ -144,7 +158,7 @@
             },
             "ecosystem": {
                 "title": "Community and documentation",
-                "desc": "Full documentation in three languages, a database of tested devices, a dedicated card, plugins and a log analyzer."
+                "desc": "Full documentation in three languages, a database of tested devices and a dedicated card."
             }
         },
         "when_competitor": {
@@ -165,7 +179,8 @@
         "notes": {
             "builtin": "Versatile Thermostat installs in one click from HACS.",
             "heat_cool": "Generic Thermostat heats or cools, but not both in the same entity.",
-            "proportional": "Generic Thermostat works on/off with a hysteresis."
+            "proportional": "Generic Thermostat works on/off with a hysteresis.",
+            "plugins": "The VTherm Hysteresis plugin reproduces the Generic Thermostat on/off regulation, if you prefer it."
         },
         "strengths": {
             "tpi": {

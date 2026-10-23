@@ -1,48 +1,41 @@
 {
     "subtitle": "Une intégration climatique avancée pour Home Assistant qui fonctionne avec n'importe quelle entité de thermostat existant",
-    "start-guide": "Configuration",
     "install-guide": "Installation",
     "easy-install": "Installation facile",
-    "easy-install-explain": "Versatile Thermostat s'installe facilement via HACS (Home Assistant Community Store). Une fois installé, vous pouvez configurer votre premier thermostat en quelques minutes grâce à notre interface intuitive.",
+    "easy-install-explain": "Versatile Thermostat s'installe en un clic via HACS (Home Assistant Community Store). Tout se configure ensuite dans l'interface, sans YAML, avec de nombreuses options pour s'adapter à chaque installation : votre premier thermostat est prêt en quelques minutes.",
     "why": "Pourquoi utiliser Versatile Thermostat ?",
     "why-explain": "Versatile Thermostat a été conçu pour pallier les limitations des thermostats standards dans Home Assistant. Notre objectif est de vous offrir une régulation climatique intelligente et efficace qui s'adapte à vos besoins spécifiques.",
     "config-guide": "Guide de configuration",
     "main-features": "Principales fonctionnalités",
-    "features": {
-        "compatibility": "Compatible avec les PAC, vannes et commutateurs",
-        "algorithms": "Algorithme TPI intelligent",
-        "window": "Gestion des fenêtres ouvertes",
-        "boiler": "Gestion de la chaudière centrale",
-        "presence": "Chauffage suivant la détection de présence"
-    },
     "cta": {
         "title": "Prêt à améliorer votre système de chauffage ?",
-        "desc": "Rejoignez des milliers d'utilisateurs qui ont déjà optimisé leur confort et leur consommation énergétique"
+        "desc": "Rejoignez des milliers d'utilisateurs qui ont déjà optimisé leur confort et leur consommation énergétique",
+        "quickstart": "Démarrage rapide"
     },
     "cards": {
-        "algo": {
-            "title": "Puissance Intelligente",
-            "desc": "Algorithmes de calibration avancés pour une précision de température optimale. Ajustement automatique basé sur les conditions réelles."
+        "tpi": {
+            "title": "Régulation TPI auto-apprenante",
+            "desc": "L'algorithme TPI dose la chauffe à chaque cycle selon l'écart à la consigne et la température extérieure. L'Auto-TPI apprend les coefficients de chaque pièce, et les vannes peuvent être pilotées directement en ouverture."
         },
-        "flex": {
-            "title": "Configuration Flexible",
-            "desc": "Interface de configuration intuitive avec de nombreuses options personnalisables pour s'adapter à tous les systèmes."
-        },
-        "valve": {
-            "title": "Contrôle de vanne",
-            "desc": "Contrôle précis de l'ouverture des vannes TRV avec support du mode boost et anti-freeze."
+        "window": {
+            "title": "Fenêtres ouvertes, même sans capteur",
+            "desc": "Le chauffage se coupe quand une fenêtre s'ouvre, détectée par un capteur ou par la chute brutale de la température, puis reprend à la fermeture."
         },
         "presence": {
-            "title": "Détection de présence",
-            "desc": "Détecte la présence des occupants et adapte la température lors des absences."
-        },
-        "boiler": {
-            "title": "Chaudière centrale",
-            "desc": "Support l'activation et désactivation automatique de la chaudière centrale."
+            "title": "Présence et mouvement automatiques",
+            "desc": "Passage en mode absence quand la maison est vide, retour au confort dès qu'un mouvement est détecté : sans automatisation à écrire."
         },
         "power": {
             "title": "Délestage de puissance",
-            "desc": "Sur les radiateurs électriques, réduction automatique de la puissance pour éviter un déclenchement du disjoncteur."
+            "desc": "Les radiateurs électriques sont coupés par ordre de priorité pour ne jamais dépasser la puissance de votre abonnement."
+        },
+        "central": {
+            "title": "Chaudière centrale et mode central",
+            "desc": "La chaudière s'allume dès qu'une pièce demande de la chaleur et s'éteint quand aucune n'en a besoin. Un seul sélecteur passe tous les thermostats en éco, hors-gel ou arrêt."
+        },
+        "safety": {
+            "title": "Sécurité et détection de panne",
+            "desc": "Si la sonde ne répond plus, le mode sécurité évite de surchauffer ou de laisser geler la pièce. Une alerte signale un chauffage qui ne chauffe pas."
         }
     },
     "heating": {
@@ -63,6 +56,21 @@
         "pellet_stove": {
             "title": "Poêle à granulés",
             "desc": "Poêle piloté par contact sec, relais ou intégration dédiée."
+        }
+    },
+    "main-features-desc": "Ce qui distingue Versatile Thermostat des autres thermostats de Home Assistant.",
+    "versus-link": "Voir les comparatifs",
+    "learn-more": "En savoir plus",
+    "tools": {
+        "title": "Les outils de la communauté",
+        "desc": "Pour diagnostiquer et étendre votre régulation.",
+        "debugger": {
+            "title": "Analyseur de logs",
+            "desc": "Chargez vos logs et visualisez températures, consignes et déclenchements sur un graphique. Tout reste dans votre navigateur."
+        },
+        "plugins": {
+            "title": "Plugins",
+            "desc": "Algorithmes de régulation, cartes, blueprints et intégrations, officiels ou communautaires."
         }
     }
 }

@@ -52,6 +52,12 @@ export const VERSUS_PAGES: VersusPage[] = [
     },
 ];
 
+/** Strengths shown on every comparison page, `versus.common.strengths.<key>` */
+export const VERSUS_SHARED_STRENGTHS: { key: string, href: string }[] = [
+    { key: 'debugger', href: '/debugger/' },
+    { key: 'plugins', href: '/plugins/' },
+];
+
 export function getQuickStartPage(slug: HeatingType): QuickStartPage {
     return QUICKSTART_PAGES.find(page => page.slug === slug)!;
 }

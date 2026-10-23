@@ -6,6 +6,7 @@ import { LinkLocale } from "@/components/LinkLocale";
 import { HeatingIcon } from "@/components/icons/HeatingIcon";
 import { RelatedLinks } from "@/components/quickstart/RelatedLinks";
 import { TutorialSteps } from "@/components/quickstart/TutorialSteps";
+import { HacsInstallBadge } from "@/components/HacsInstallBadge";
 import { Button } from "@/components/ui/Button";
 import { CtaSection } from "@/components/ui/CtaSection";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -37,7 +38,11 @@ export default async function HeatPumpQuickStartPage({ params }: { params: Promi
     const { t: qs_t } = await getT('quickstart', { lng, keyPrefix: 'common' });
     const { t: common_t } = await getT('common', { lng });
 
-    const steps = STEPS.map(key => ({ title: t(`tutorial.steps.${key}.title`), text: t(`tutorial.steps.${key}.text`) }));
+    const steps = STEPS.map(key => ({
+        title: t(`tutorial.steps.${key}.title`),
+        text: t(`tutorial.steps.${key}.text`),
+        action: key === 'install' ? <HacsInstallBadge className="inline-block" /> : undefined,
+    }));
 
     return <article className="space-y-14 max-w-5xl mx-auto" data-pagefind-body>
         <Semantic id={`quickstart-${PAGE.slug}-${lng}`} data={{

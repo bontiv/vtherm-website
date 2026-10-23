@@ -1,16 +1,18 @@
 import { Button } from "@/components/ui/Button";
 import { BackToTop } from "@/components/ui/BackToTop";
+import { CtaSection } from "@/components/ui/CtaSection";
 import {
+    AdjustmentsHorizontalIcon,
     ArrowRightIcon,
+    BoltIcon,
+    FireIcon,
+    PresentationChartLineIcon,
+    PuzzlePieceIcon,
+    ShieldCheckIcon,
+    UserGroupIcon,
 } from "@heroicons/react/24/outline";
-import {
-    FireIcon as Thermometer,
-    Cog6ToothIcon as Settings,
-    ChartBarIcon as Gauge,
-    SignalIcon as Network,
-    BoltIcon as Bolt,
-    CpuChipIcon as Cpu
-} from "@heroicons/react/24/outline";
+import { WindowIcon } from "@/components/icons/WindowIcon";
+import { HacsInstallBadge } from "@/components/HacsInstallBadge";
 import { LinkLocale } from "@/components/LinkLocale";
 import { getAlternatesMetadata, getT } from "../i18n";
 import Image from "next/image";
@@ -23,6 +25,24 @@ import { QUICKSTART_PAGES } from "@/lib/pages";
 
 /// Last stable release pattern
 const stable_release = "9.3.*";
+
+type Icon = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
+/** Feature cards (`home.cards.<key>`), each linked to its documentation page */
+const FEATURES: { key: string, icon: Icon, href: string }[] = [
+    { key: 'tpi', icon: AdjustmentsHorizontalIcon, href: '/docs/algorithms/' },
+    { key: 'window', icon: WindowIcon, href: '/docs/feature-window/' },
+    { key: 'presence', icon: UserGroupIcon, href: '/docs/feature-presence/' },
+    { key: 'power', icon: BoltIcon, href: '/docs/feature-power/' },
+    { key: 'central', icon: FireIcon, href: '/docs/feature-central-boiler/' },
+    { key: 'safety', icon: ShieldCheckIcon, href: '/docs/feature-heating-failure-detection/' },
+];
+
+/** Community tools (`home.tools.<key>`) */
+const TOOLS: { key: string, icon: Icon, href: string }[] = [
+    { key: 'debugger', icon: PresentationChartLineIcon, href: '/debugger/' },
+    { key: 'plugins', icon: PuzzlePieceIcon, href: '/plugins/' },
+];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
@@ -77,7 +97,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                     <h1 className="text-5xl md:text-6xl font-light text-vtherm-dark dark:text-vtherm-light mb-0">
                         Versatile Thermostat
                     </h1>
-                    <div className="flex justify-center items-center gap-4 flex-wrap">
+                    <div className="flex justify-center items-center gap-x-3 gap-y-2 flex-wrap">
                         <a href="https://github.com/jmcollin78/versatile_thermostat">
                             <Image height={20} width={90} alt="GitHub Repo stars" src="https://img.shields.io/github/stars/jmcollin78/versatile_thermostat" />
                         </a>
@@ -88,29 +108,10 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         <Image height={20} width={139} alt="GitHub Stable Release" src={`https://img.shields.io/github/v/release/jmcollin78/versatile_thermostat?filter=${stable_release}&style=plastic&label=release%40stable&color=green&cacheSeconds=3600`} />
 
                     </div>
-                    <p className="text-xl md:text-2xl text-[#a1a1aa] leading-relaxed py-5">
+                    <p className="text-xl md:text-2xl text-[#52525b] dark:text-[#a1a1aa] leading-relaxed py-5">
                         {t('subtitle')}
                     </p>
-                    <a className="inline-block mx-auto"
-                        href="https://my.home-assistant.io/redirect/hacs_repository/?owner=jmcollin78&repository=versatile_thermostat"
-                        target="_blank"
-                        rel="noreferrer noopener"
-                    ><Image src="https://my.home-assistant.io/badges/hacs_repository.svg" height={40} width={297} alt="Open your Home Assistant instance and open a repository inside the Home Assistant Community Store." />
-                    </a>
-
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-                        <LinkLocale href='/docs/installation/'>
-                            <Button variant="primary" size="lg">
-                                <span>{t('install-guide')}</span>
-                                <ArrowRightIcon className="w-5 h-5 ml-2" />
-                            </Button>
-                        </LinkLocale>
-                        <LinkLocale href='/docs/creation/'>
-                            <Button size="lg" variant="secondary">
-                                {t('start-guide')}
-                            </Button>
-                        </LinkLocale>
-                    </div>
+                    <HacsInstallBadge className="inline-block mx-auto" />
                 </div>
             </section>
 
@@ -132,107 +133,86 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             </section>
 
             {/* Features Grid */}
-            <section className="space-y-6">
-                <h2 className="text-center text-3xl md:text-4xl font-normal py-0">{t('main-features')}</h2>
+            <section className="space-y-8">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl md:text-4xl font-normal py-0">{t('main-features')}</h2>
+                    <p className="text-lg text-[#71717a] dark:text-[#a1a1aa]">{t('main-features-desc')}</p>
+                </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <FeatureCard
-                        icon={<Cpu className="w-8 h-8" />}
-                        title={t('cards.algo.title')}
-                        description={t('cards.algo.desc')}
-                    />
-                    <FeatureCard
-                        icon={<Settings className="w-8 h-8" />}
-                        title={t('cards.flex.title')}
-                        description={t('cards.flex.desc')}
-                    />
-                    <FeatureCard
-                        icon={<Gauge className="w-8 h-8" />}
-                        title={t('cards.valve.title')}
-                        description={t('cards.valve.desc')}
-                    />
-                    <FeatureCard
-                        icon={<Network className="w-8 h-8" />}
-                        title={t('cards.presence.title')}
-                        description={t('cards.presence.desc')}
-                    />
-                    <FeatureCard
-                        icon={<Thermometer className="w-8 h-8" />}
-                        title={t('cards.boiler.title')}
-                        description={t('cards.boiler.desc')}
-                    />
-                    <FeatureCard
-                        icon={<Bolt className="w-8 h-8" />}
-                        title={t('cards.power.title')}
-                        description={t('cards.power.desc')}
-                    />
+                    {FEATURES.map(feature => <FeatureCard
+                        key={feature.key}
+                        href={feature.href}
+                        icon={<feature.icon className="w-6 h-6" />}
+                        title={t(`cards.${feature.key}.title`)}
+                        description={t(`cards.${feature.key}.desc`)}
+                        more={t('learn-more')}
+                    />)}
+                </div>
+                <div className="text-center">
+                    <LinkLocale
+                        href="/versus/"
+                        className="inline-flex items-center gap-2 text-lg text-cyan-600 hover:text-cyan-400 transition-colors"
+                    >
+                        {t('versus-link')}
+                        <ArrowRightIcon className="w-4 h-4" />
+                    </LinkLocale>
                 </div>
             </section>
 
             {/* About Section */}
-            <section className="max-w-4xl mx-auto space-y-14">
+            <section className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
                 <div className="space-y-4">
-                    <h2 className="text-4xl font-normal ">
-                        {t('why')}
-                    </h2>
-                    <p className="text-lg  leading-relaxed">
-                        {t('why-explain')}
-                    </p>
+                    <h2 className="text-3xl font-normal py-0">{t('why')}</h2>
+                    <p className="text-lg leading-relaxed">{t('why-explain')}</p>
                 </div>
-
-                <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-3">
-                        <h3 className="text-2xl font-medium ">{t('main-features')}</h3>
-                        <ul className="space-y-2 ">
-                            {[
-                                'compatibility',
-                                'algorithms',
-                                'window',
-                                'boiler',
-                                'presence'
-                            ].map((x, i) =>
-                                <li className="flex items-start gap-2" key={i}>
-                                    <span className="text-green-500 mt-1">✓</span>
-                                    <span>{t(`features.${x}`)}</span>
-                                </li>
-                            )}
-                        </ul>
-                    </div>
-
-                    <div className="space-y-3">
-                        <h3 className="text-2xl font-medium ">{t('easy-install')}</h3>
-                        <p className=" leading-relaxed">
-                            {t('easy-install-explain')}
-                        </p>
-                        <LinkLocale
-                            href="/docs/creation/"
-                            className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-400 transition-colors"
-                        >
-                            {t('config-guide')}
-                            <ArrowRightIcon className="w-4 h-4" />
-                        </LinkLocale>
-                    </div>
+                <div className="space-y-4">
+                    <h2 className="text-3xl font-normal py-0">{t('easy-install')}</h2>
+                    <p className="text-lg leading-relaxed">{t('easy-install-explain')}</p>
+                    <LinkLocale
+                        href="/docs/creation/"
+                        className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-400 transition-colors"
+                    >
+                        {t('config-guide')}
+                        <ArrowRightIcon className="w-4 h-4" />
+                    </LinkLocale>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="bg-linear-to-r from-blue-300 dark:from-vtherm-tertiary to-sky-200 dark:to-vtherm-quaternary/80 rounded-2xl p-8 md:p-12 text-center border border-blue-100 dark:border-vtherm-tertiary">
-                <div className="max-w-3xl mx-auto space-y-6">
-                    <h2 className="text-3xl md:text-4xl font-normal text-blue-700 dark:text-vtherm-light">
-                        {t('cta.title')}
-                    </h2>
-                    <p className="text-lg dark:text-blue-200">
-                        {t('cta.desc')}
-                    </p>
-                    {/* <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                        <Button variant="primary" size="lg">
-                            Commencer maintenant
-                        </Button>
-                        <Button variant="outline" size="lg">
-                            Voir les exemples
-                        </Button>
-                    </div> */}
+            {/* Community tools */}
+            <section className="space-y-6">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl md:text-4xl font-normal py-0">{t('tools.title')}</h2>
+                    <p className="text-lg text-[#71717a] dark:text-[#a1a1aa]">{t('tools.desc')}</p>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    {TOOLS.map(tool => <LinkLocale
+                        key={tool.key}
+                        href={tool.href}
+                        className="group flex gap-4 p-5 rounded-xl bg-vtherm-quaternary/30 dark:bg-vtherm-tertiary/30 hover:shadow-lg transition-all duration-300"
+                    >
+                        <tool.icon className="w-8 h-8 shrink-0 text-vtherm-secondary group-hover:scale-110 transition-transform" aria-hidden="true" />
+                        <span className="space-y-1">
+                            <span className="flex items-center gap-2 text-lg font-medium text-vtherm-primary dark:text-vtherm-light">
+                                {t(`tools.${tool.key}.title`)}
+                                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </span>
+                            <span className="block leading-relaxed dark:text-vtherm-light/70">{t(`tools.${tool.key}.desc`)}</span>
+                        </span>
+                    </LinkLocale>)}
                 </div>
             </section>
+
+            <CtaSection title={t('cta.title')} description={t('cta.desc')}>
+                <LinkLocale href="/quick-start/">
+                    <Button variant="primary" size="lg">
+                        <span>{t('cta.quickstart')}</span>
+                        <ArrowRightIcon className="w-5 h-5 ml-2" />
+                    </Button>
+                </LinkLocale>
+                <LinkLocale href="/docs/installation/">
+                    <Button variant="secondary" size="lg">{t('install-guide')}</Button>
+                </LinkLocale>
+            </CtaSection>
 
             {/* Back to Top */}
             <div className="flex justify-center pt-8">
@@ -242,23 +222,29 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
     );
 }
 
-// Composant Feature Card
 interface FeatureCardProps {
+    href: string;
     icon: React.ReactNode;
     title: string;
     description: string;
+    /** Label of the "learn more" link */
+    more: string;
 }
 
-function FeatureCard({ icon, title, description }: FeatureCardProps) {
+/** Feature tile linking to its documentation page */
+function FeatureCard({ href, icon, title, description, more }: FeatureCardProps) {
     return (
-        <div className="group p-6 rounded-xl bg-vtherm-quaternary/70 dark:bg-vtherm-tertiary/50 hover:border-vtherm-secondary/30 transition-all duration-300 hover:shadow-lg hover:shadow-[#7CFC00]/5">
-            <div className="mb-4 text-vtherm-secondary">{icon}</div>
-            <h3 className="text-xl font-medium dark:text-vtherm-light text-vtherm-primary mb-2 transition-colors">
-                {title}
-            </h3>
-            <p className=" leading-relaxed dark:text-vtherm-light/70">
-                {description}
-            </p>
-        </div>
+        <LinkLocale
+            href={href}
+            className="group flex flex-col gap-3 p-6 rounded-xl bg-white dark:bg-vtherm-dark/40 border border-zinc-200 dark:border-vtherm-tertiary/60 hover:border-vtherm-secondary/60 hover:shadow-lg transition-all duration-300"
+        >
+            <span className="inline-flex w-11 h-11 items-center justify-center rounded-lg bg-vtherm-secondary/10 text-vtherm-secondary">{icon}</span>
+            <h3 className="py-0 text-xl font-medium text-vtherm-primary dark:text-vtherm-light">{title}</h3>
+            <p className="leading-relaxed dark:text-vtherm-light/70">{description}</p>
+            <span className="mt-auto inline-flex items-center gap-1 text-sm text-cyan-600 group-hover:text-cyan-400 transition-colors">
+                {more}
+                <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </span>
+        </LinkLocale>
     );
 }
