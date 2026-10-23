@@ -109,7 +109,7 @@
         "strengths": {
             "pilot_wire": {
                 "title": "Alle Steuerleitungsmodule",
-                "desc": "Nodon, Heatzy, eCosy oder Relais + Diode: Die benutzerdefinierten Befehle senden den passenden Befehl (Komfort / Frostschutz), und die Option „Befehl invertieren“ deckt Schaltungen mit Diode ab."
+                "desc": "Nodon, Heatzy oder Relais + Diode: Die benutzerdefinierten Befehle senden den passenden Befehl (Komfort / Frostschutz), und die Option „Befehl invertieren“ deckt Schaltungen mit Diode ab."
             },
             "tpi": {
                 "title": "TPI-Algorithmus",

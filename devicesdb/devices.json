@@ -41,34 +41,25 @@
     },
     {
         "img": "https://www.zigbee2mqtt.io/images/devices/CoZB_dha.png",
-        "manufacturer": "Eutronic",
+        "manufacturer": "Eurotronic",
         "model": "CoZB_dha",
         "slug": "over-climate-valve",
         "state": "community",
-        "title": "Eutronic Comet",
+        "title": "Eurotronic Comet",
         "type": "trv"
     },
     {
         "img": "https://www.zigbee2mqtt.io/images/devices/COZB0001.png",
-        "manufacturer": "Eutronic",
+        "manufacturer": "Eurotronic",
         "model": "COZB0001",
         "slug": "over-climate-valve",
         "state": "community",
         "type": "trv"
     },
     {
-        "img": "https://www.zigbee2mqtt.io/images/devices/014G2461.png",
-        "manufacturer": "Danfoss",
-        "model": "014G2461",
-        "slug": "over-climate",
-        "state": "partially",
-        "title": "Danfoss Ally",
-        "type": "trv"
-    },
-    {
-        "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-20.png",
+        "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-21.png",
         "manufacturer": "NodOn",
-        "model": "SIN-4-FP-20",
+        "model": "SIN-4-FP-20 / SIN-4-FP-21",
         "slug": "over-switch",
         "state": "supported",
         "type": "electric",
@@ -212,19 +203,6 @@
         }
     },
     {
-        "img": "https://www.zigbee2mqtt.io/images/devices/S26R2ZB.png",
-        "manufacturer": "Sonoff",
-        "model": "S26R2ZBTPE",
-        "slug": "over-switch",
-        "state": "community",
-        "type": "electric",
-        "affiliate": {
-            "fr": "https://www.domadoo.fr/fr/peripheriques/5880-sonoff-prise-intelligente-16a-zigbee-30-version-fr.html?domid=97",
-            "en": "https://www.domadoo.fr/en/peripheriques/5880-sonoff-prise-intelligente-16a-zigbee-30-version-fr.html?domid=97",
-            "de": "https://www.domadoo.fr/de/peripheriques/5880-sonoff-prise-intelligente-16a-zigbee-30-version-fr.html?domid=97"
-        }
-    },
-    {
         "img": "https://www.zigbee2mqtt.io/images/devices/SSM-U02.png",
         "manufacturer": "Aqara",
         "model": "",
@@ -248,19 +226,6 @@
         "slug": "over-switch",
         "state": "community",
         "type": "electric"
-    },
-    {
-        "img": "https://www.zigbee2mqtt.io/images/devices/SIN-4-FP-21.png",
-        "manufacturer": "NodOn",
-        "model": "SIN-4-FP-21",
-        "slug": "over-switch",
-        "state": "supported",
-        "type": "electric",
-        "affiliate": {
-            "fr": "https://www.domadoo.fr/fr/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=97",
-            "en": "https://www.domadoo.fr/en/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=97",
-            "de": "https://www.domadoo.fr/de/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=97"
-        }
     },
     {
         "img": "https://www.domadoo.fr/31597-large_default/shelly-bluetooth-thermostatic-radiator-valve-shelly-blu-trv.jpg",
@@ -320,12 +285,12 @@
         "type": "climate"
     },
     {
-        "img": "/img/ecosy.png",
-        "manufacturer": "eCosy",
+        "img": "/img/midea.png",
+        "manufacturer": "Midea",
         "model": "",
-        "title": "eCosy",
-        "slug": "ecosy",
-        "state": "community",
+        "title": "Midea",
+        "slug": "over-climate",
+        "state": "supported",
         "type": "climate"
     },
     {
@@ -363,14 +328,6 @@
         "slug": "incompatible",
         "state": "partially",
         "type": "climate"
-    },
-    {
-        "img": "https://www.zigbee2mqtt.io/images/devices/SRTS-A01.png",
-        "manufacturer": "Aqara",
-        "model": "SRTS-A01",
-        "slug": "incompatible",
-        "state": "partially",
-        "type": "trv"
     },
     {
         "img": "https://www.zigbee2mqtt.io/images/devices/TV01-ZB.png",

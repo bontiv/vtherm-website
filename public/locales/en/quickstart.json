@@ -109,7 +109,7 @@
         "strengths": {
             "pilot_wire": {
                 "title": "Every pilot wire module",
-                "desc": "Nodon, Heatzy, eCosy or relay + diode: custom commands send the right order (Comfort / Frost protection) and the “Invert command” option handles diode wiring."
+                "desc": "Nodon, Heatzy or relay + diode: custom commands send the right order (Comfort / Frost protection) and the “Invert command” option handles diode wiring."
             },
             "tpi": {
                 "title": "TPI algorithm",
