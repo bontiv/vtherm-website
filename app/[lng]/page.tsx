@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { WindowIcon } from "@/components/icons/WindowIcon";
 import { HacsInstallBadge } from "@/components/HacsInstallBadge";
+import { HacsDownloadAlert } from "@/components/HacsDownloadAlert";
 import { LinkLocale } from "@/components/LinkLocale";
 import { getAlternatesMetadata, getT } from "../i18n";
 import Image from "next/image";
@@ -112,6 +113,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         {t('subtitle')}
                     </p>
                     <HacsInstallBadge className="inline-block mx-auto" />
+                    <HacsDownloadAlert className="max-w-3xl mx-auto mt-4" />
                 </div>
             </section>
 

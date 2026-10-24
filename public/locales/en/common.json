@@ -55,5 +55,9 @@
         "tuning-examples": "Tuning examples"
     },
     "footer_versus": "Comparisons",
-    "footer_versus_link": "VTherm vs {{competitor}}"
+    "footer_versus_link": "VTherm vs {{competitor}}",
+    "hacs_alert": {
+        "title": "HACS installations and updates currently disrupted",
+        "text": "Since October 23, 2026, a change on GitHub's side makes HACS fail when downloading release files (error \"400 - Got more than 8190 bytes when reading\"). Installing or updating Versatile Thermostat and its plugins through HACS may fail until HACS ships a fix. Follow the <0>HACS issue #5643</0> for details and workarounds."
+    }
 }
