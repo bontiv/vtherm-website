@@ -54,5 +54,9 @@
         "tuning-examples": "Einstellungsbeispiele"
     },
     "footer_versus": "Vergleiche",
-    "footer_versus_link": "VTherm vs {{competitor}}"
+    "footer_versus_link": "VTherm vs {{competitor}}",
+    "hacs_alert": {
+        "title": "HACS-Installationen und -Updates derzeit gestört",
+        "text": "Seit dem 23. Oktober 2026 führt eine Änderung bei GitHub dazu, dass HACS beim Herunterladen von Release-Dateien fehlschlägt (Fehler „400 - Got more than 8190 bytes when reading“). Die Installation oder Aktualisierung von Versatile Thermostat und seinen Plugins über HACS kann fehlschlagen, bis HACS eine Korrektur veröffentlicht. Details und Workarounds im <0>HACS-Issue #5643</0>."
+    }
 }
