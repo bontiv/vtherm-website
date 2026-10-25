@@ -127,8 +127,6 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
 
     const deviceEntries = devices.filter(device => device.slug === slug);
     const deviceStates = [...new Set(deviceEntries.map(device => device.state))];
-    const deviceEntry = deviceEntries.find(device => device.affiliate);
-    const affiliateUrl = deviceEntry?.affiliate?.[lng as 'fr' | 'de' | 'en'];
 
     return <>
         <Semantic id={`devices-${lng}-${slug}`} data={{
@@ -166,18 +164,29 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
         <div className='main-content device-doc' lang={lng} data-pagefind-body>
             <div className='text-blue-900 flex flex-wrap items-start gap-3'>
                 <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
-                {affiliateUrl && <a href={affiliateUrl} target='_blank' rel='noopener noreferrer' className='rounded-full no-underline border-2 border-sky-600 text-sky-600 px-4 py-3 inline-block hover:bg-sky-600 hover:text-white transition-colors'>{t('buy')} <ShoppingCartIcon className='h-lh inline' /></a>}
             </div>
             <section className='my-6 flex flex-col gap-3' aria-label={t('status.title')}>
                 {deviceStates.map(state => {
-                    const stateReferences = deviceEntries
-                        .filter(device => device.state === state)
-                        .map(device => device.title ?? [device.manufacturer, device.model].filter(Boolean).join(' - '));
+                    const stateDevices = deviceEntries.filter(device => device.state === state);
 
                     return <div key={state} className={`alert-box ${state} flex flex-col items-start gap-1 rounded border-l-4 border-solid px-4 py-3`}>
                         <span className={`badge ${state} shrink-0 rounded px-3 py-1 font-semibold`}>{t('states.' + state)}</span>
                         <p className='m-0'>{t('status.descriptions.' + state)}</p>
-                        <p className='m-0 text-sm italic'><strong className='font-bold not-italic'>{t('status.devices')} </strong>{stateReferences.join(', ')}</p>
+                        <p className='m-0 text-sm italic'>
+                            <strong className='font-bold not-italic'>{t('status.devices')} </strong>
+                            {stateDevices.map((device, index) => {
+                                const deviceName = device.title ?? [device.manufacturer, device.model].filter(Boolean).join(' - ');
+                                const affiliateUrl = device.affiliate?.[lng as 'fr' | 'de' | 'en'];
+
+                                return <span key={`${device.manufacturer}-${device.model}-${index}`}>
+                                    {index > 0 && ', '}
+                                    {affiliateUrl ? <a href={affiliateUrl} target='_blank' rel='noopener noreferrer' className='inline-flex items-center gap-1 hover:underline'>
+                                        <ShoppingCartIcon className='h-4 w-4 shrink-0' aria-hidden='true' />
+                                        {deviceName}
+                                    </a> : deviceName}
+                                </span>
+                            })}
+                        </p>
                     </div>
                 })}
             </section>
