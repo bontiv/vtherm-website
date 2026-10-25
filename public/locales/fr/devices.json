@@ -11,6 +11,7 @@
     "contributing": "Ajouter un appareil",
     "buy": "Acheter",
     "references": "Références communautaires",
+    "references_disclaimer": "Les références complémentaires peuvent être vieilles. Un bug reporté sur une ancienne version de VTherm peut avoir été corrigé sur une version plus récente.",
     "types": {
         "electric": "Chauffage électrique",
         "trv": "Vannes TRV",

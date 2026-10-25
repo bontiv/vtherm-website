@@ -169,6 +169,9 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
             {config.config.thermostat_type && <DeviceConfig config={config.config} lng={lng} />}
             {references && <section>
                 <h2>{t('references')}</h2>
+                <div className=''>
+                    {t('references_disclaimer')}
+                </div>
                 <div lang='en'>
                     <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{references}</Markdown>
                 </div>

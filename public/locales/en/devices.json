@@ -11,6 +11,7 @@
     "contributing": "Add a device",
     "buy": "Buy",
     "references": "Community references",
+    "references_disclaimer": "Additional references may be old. A bug reported on an old version of VTherm may have been corrected on a more recent version.",
     "types": {
         "electric": "Electric heater",
         "trv": "Valves TRV",
