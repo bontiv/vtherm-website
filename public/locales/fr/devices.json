@@ -28,7 +28,7 @@
         "title": "État de compatibilité",
         "devices": "Appareils :",
         "descriptions": {
-            "supported": "Cet appareil est reconnu comme entièrement compatible avec toutes les fonctionnalités de Versatile Thermostat.",
+            "supported": "Cet appareil est utilisé directement par le mainteneur ou un contributeur de Versatile Thermostat, ou a fait l’objet de tests approfondis.",
             "partially": "Cet appareil est pris en charge par Versatile Thermostat, mais certaines fonctionnalités avancées peuvent ne pas être prises en charge.",
             "community": "Cet appareil a été rapporté comme entièrement fonctionnel par la communauté.",
             "unsupported": "Il y a des problèmes connus avec cet appareil qui empêchent son fonctionnement avec Versatile Thermostat."
