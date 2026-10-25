@@ -20,9 +20,19 @@
     },
     "states": {
         "supported": "Supporté",
-        "unsupported": "Non supporté",
+        "unsupported": "Incompatible",
         "community": "Communautaire",
         "partially": "Partiel"
+    },
+    "status": {
+        "title": "État de compatibilité",
+        "devices": "Appareils :",
+        "descriptions": {
+            "supported": "Cet appareil est reconnu comme entièrement compatible avec toutes les fonctionnalités de Versatile Thermostat.",
+            "partially": "Cet appareil est pris en charge par Versatile Thermostat, mais certaines fonctionnalités avancées peuvent ne pas être prises en charge.",
+            "community": "Cet appareil a été rapporté comme entièrement fonctionnel par la communauté.",
+            "unsupported": "Il y a des problèmes connus avec cet appareil qui empêchent son fonctionnement avec Versatile Thermostat."
+        }
     },
     "details": {
         "title": "Utiliser et configurer votre {{device}}"

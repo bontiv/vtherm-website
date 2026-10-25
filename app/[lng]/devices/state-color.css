@@ -4,14 +4,30 @@
     @apply bg-green-500/40;
 }
 
+.supported.alert-box {
+    @apply bg-green-500/10 border-green-500;
+}
+
 .unsupported.badge {
     @apply bg-red-500/40;
+}
+
+.unsupported.alert-box {
+    @apply bg-red-500/10 border-red-500;
 }
 
 .partially.badge {
     @apply bg-yellow-500/40;
 }
 
+.partially.alert-box {
+    @apply bg-yellow-500/10 border-yellow-500;
+}
+
 .community.badge {
     @apply bg-blue-500/40;
+}
+
+.community.alert-box {
+    @apply bg-blue-500/10 border-blue-500;
 }

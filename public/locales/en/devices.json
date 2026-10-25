@@ -22,7 +22,17 @@
         "supported": "Supported",
         "unsupported": "Unsupported",
         "community": "Community",
-        "partially": "Partially"
+        "partially": "Partial"
+    },
+    "status": {
+        "title": "Compatibility status",
+        "devices": "Devices:",
+        "descriptions": {
+            "supported": "This device is recognized as fully compatible with all Versatile Thermostat features.",
+            "partially": "This device is supported by Versatile Thermostat, but some advanced features may not be supported.",
+            "community": "This device has been reported as fully functional by the community.",
+            "unsupported": "Known issues with this device prevent it from working with Versatile Thermostat."
+        }
     },
     "details": {
         "title": "Configure and use your {{device}}"
