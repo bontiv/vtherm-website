@@ -4,7 +4,6 @@ import { Suspense, useEffect, useMemo, useState, useSyncExternalStore } from 're
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react';
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { PluginCard } from './card';
-import { HacsDownloadAlert } from '@/components/HacsDownloadAlert';
 import { useT } from '@/app/i18n/client';
 import { certConfig, familyConfig, pluginAnchor, typeConfig, VTCertificationLevel, VTPlugin, VTPluginFamily, VTPluginType } from '@/lib/plugindb';
 import { Trans } from 'react-i18next';
@@ -204,7 +203,6 @@ const PluginTable: React.FC<{ plugins: VTPlugin[] }> = ({ plugins }) => {
                             <a key="0" href='https://github.com/bontiv/vtherm-website/issues/new?template=new_plugin.yml' className='underline' />
                         ]} />
                     </p>
-                    <HacsDownloadAlert className="mt-6 max-w-3xl" />
                 </div>
 
                 {/* Search and sort */}
