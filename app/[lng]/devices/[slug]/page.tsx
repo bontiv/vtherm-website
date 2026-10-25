@@ -16,6 +16,7 @@ import Semantic from '@/components/Semantic';
 
 import remarkNotes from 'remark-github-blockquote-alert';
 import './markdown.css';
+import '../state-color.css';
 import 'remark-github-blockquote-alert/alert.css';
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, slug: string }> }): Promise<Metadata> {
@@ -124,8 +125,8 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
     const references = readSlugFile(slug, 'REFERENCES.md');
     const t_opts = { device: config.title ?? slug }
 
-    const deviceEntry = devices.find(device => device.slug === slug && device.affiliate);
-    const affiliateUrl = deviceEntry?.affiliate?.[lng as 'fr' | 'de' | 'en'];
+    const deviceEntries = devices.filter(device => device.slug === slug);
+    const deviceStates = [...new Set(deviceEntries.map(device => device.state))];
 
     return <>
         <Semantic id={`devices-${lng}-${slug}`} data={{
@@ -163,12 +164,39 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
         <div className='main-content device-doc' lang={lng} data-pagefind-body>
             <div className='text-blue-900 flex flex-wrap items-start gap-3'>
                 <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
-                {affiliateUrl && <a href={affiliateUrl} target='_blank' rel='noopener noreferrer' className='rounded-full no-underline border-2 border-sky-600 text-sky-600 px-4 py-3 inline-block hover:bg-sky-600 hover:text-white transition-colors'>{t('buy')} <ShoppingCartIcon className='h-lh inline' /></a>}
             </div>
+            <section className='my-6 flex flex-col gap-3' aria-label={t('status.title')}>
+                {deviceStates.map(state => {
+                    const stateDevices = deviceEntries.filter(device => device.state === state);
+
+                    return <div key={state} className={`alert-box ${state} flex flex-col items-start gap-1 rounded border-l-4 border-solid px-4 py-3`}>
+                        <span className={`badge ${state} shrink-0 rounded px-3 py-1 font-semibold`}>{t('states.' + state)}</span>
+                        <p className='m-0'>{t('status.descriptions.' + state)}</p>
+                        <p className='m-0 text-sm italic'>
+                            <strong className='font-bold not-italic'>{t('status.devices')} </strong>
+                            {stateDevices.map((device, index) => {
+                                const deviceName = device.title ?? [device.manufacturer, device.model].filter(Boolean).join(' - ');
+                                const affiliateUrl = device.affiliate?.[lng as 'fr' | 'de' | 'en'];
+
+                                return <span key={`${device.manufacturer}-${device.model}-${index}`}>
+                                    {index > 0 && ', '}
+                                    {affiliateUrl ? <a href={affiliateUrl} target='_blank' rel='noopener noreferrer' className='inline-flex items-center gap-1 hover:underline'>
+                                        <ShoppingCartIcon className='h-4 w-4 shrink-0' aria-hidden='true' />
+                                        {deviceName}
+                                    </a> : deviceName}
+                                </span>
+                            })}
+                        </p>
+                    </div>
+                })}
+            </section>
             {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
             {config.config.thermostat_type && <DeviceConfig config={config.config} lng={lng} />}
             {references && <section>
                 <h2>{t('references')}</h2>
+                <div className=''>
+                    {t('references_disclaimer')}
+                </div>
                 <div lang='en'>
                     <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{references}</Markdown>
                 </div>

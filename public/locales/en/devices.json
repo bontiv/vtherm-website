@@ -11,6 +11,7 @@
     "contributing": "Add a device",
     "buy": "Buy",
     "references": "Community references",
+    "references_disclaimer": "Additional references may be old. A bug reported on an old version of VTherm may have been corrected on a more recent version.",
     "types": {
         "electric": "Electric heater",
         "trv": "Valves TRV",
@@ -21,7 +22,17 @@
         "supported": "Supported",
         "unsupported": "Unsupported",
         "community": "Community",
-        "partially": "Partially"
+        "partially": "Partial"
+    },
+    "status": {
+        "title": "Compatibility status",
+        "devices": "Devices:",
+        "descriptions": {
+            "supported": "This device is used directly by the Versatile Thermostat maintainer or a contributor, or has been extensively tested.",
+            "partially": "This device is supported by Versatile Thermostat, but some advanced features may not be supported.",
+            "community": "This device has been reported as fully functional by the community.",
+            "unsupported": "Known issues with this device prevent it from working with Versatile Thermostat."
+        }
     },
     "details": {
         "title": "Configure and use your {{device}}"

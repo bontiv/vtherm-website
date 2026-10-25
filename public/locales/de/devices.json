@@ -10,6 +10,7 @@
     "notice": "Dies ist keine vollständige Liste der mit Versatile Thermostat kompatiblen Geräte. Wenn ein Gerät nicht aufgeführt ist, wurde es möglicherweise noch nicht hinzugefügt. Wie man ein Gerät hinzufügen kann, wird in der Dokumentation leicht erklärt.",
     "buy": "Kaufen",
     "references": "Community-Referenzen",
+    "references_disclaimer":"Zusätzliche Referenzen können alt sein. Ein in einer alten Version von VTherm gemeldeter Fehler wurde möglicherweise in einer neueren Version behoben.",
     "types": {
         "electric": "Elektrische Heizung",
         "trv": "TRVs (Heizköperventile)",
@@ -18,9 +19,19 @@
     },
     "states": {
         "supported": "Unterstützt",
-        "unsupported": "Nicht unterstützt",
+        "unsupported": "Inkompatibel",
         "community": "Community",
         "partially": "Teilweise"
+    },
+    "status": {
+        "title": "Kompatibilitätsstatus",
+        "devices": "Geräte:",
+        "descriptions": {
+            "supported": "Dieses Gerät wird direkt vom Maintainer oder einem Mitwirkenden von Versatile Thermostat verwendet oder wurde ausführlich getestet.",
+            "partially": "Dieses Gerät wird von Versatile Thermostat unterstützt, jedoch werden möglicherweise einige erweiterte Funktionen nicht unterstützt.",
+            "community": "Die Community hat gemeldet, dass dieses Gerät vollständig funktioniert.",
+            "unsupported": "Bekannte Probleme mit diesem Gerät verhindern den Betrieb mit Versatile Thermostat."
+        }
     },
     "details": {
         "title": "Konfigurieren und verwenden von {{Gerät}}"

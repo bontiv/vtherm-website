@@ -11,6 +11,7 @@
     "contributing": "Ajouter un appareil",
     "buy": "Acheter",
     "references": "Références communautaires",
+    "references_disclaimer": "Les références complémentaires peuvent être vieilles. Un bug reporté sur une ancienne version de VTherm peut avoir été corrigé sur une version plus récente.",
     "types": {
         "electric": "Chauffage électrique",
         "trv": "Vannes TRV",
@@ -19,9 +20,19 @@
     },
     "states": {
         "supported": "Supporté",
-        "unsupported": "Non supporté",
+        "unsupported": "Incompatible",
         "community": "Communautaire",
         "partially": "Partiel"
+    },
+    "status": {
+        "title": "État de compatibilité",
+        "devices": "Appareils :",
+        "descriptions": {
+            "supported": "Cet appareil est utilisé directement par le mainteneur ou un contributeur de Versatile Thermostat, ou a fait l’objet de tests approfondis.",
+            "partially": "Cet appareil est pris en charge par Versatile Thermostat, mais certaines fonctionnalités avancées peuvent ne pas être prises en charge.",
+            "community": "Cet appareil a été rapporté comme entièrement fonctionnel par la communauté.",
+            "unsupported": "Il y a des problèmes connus avec cet appareil qui empêchent son fonctionnement avec Versatile Thermostat."
+        }
     },
     "details": {
         "title": "Utiliser et configurer votre {{device}}"
