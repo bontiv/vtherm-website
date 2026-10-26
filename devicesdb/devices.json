@@ -6,7 +6,12 @@
         "slug": "aqara-w100",
         "state": "supported",
         "title": "Aqara W100",
-        "type": "sensor"
+        "type": "sensor",
+        "affiliate": {
+            "fr": "https://www.domadoo.fr/fr/produits-matter/7852-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-et-thread-aqara-climate-sensor-w100-6975833357260.html?domid=97",
+            "en": "https://www.domadoo.fr/en/produits-matter/7852-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-et-thread-aqara-climate-sensor-w100-6975833357260.html?domid=97",
+            "de": "https://www.domadoo.fr/de/produits-matter/7852-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-et-thread-aqara-climate-sensor-w100-6975833357260.html?domid=97"
+        }
     },
     {
         "img": "https://images.squarespace-cdn.com/content/v1/57d112cb9f7456d72f62cd0f/1937c67e-c931-40b9-a66c-ae0fea0a4d43/heatzy-pilote-co%CC%82te%CC%81.jpg",
