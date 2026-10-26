@@ -1,8 +1,11 @@
 import { GitHubAPI } from "@/lib/github";
 
+/** First documentation page, target of the "Documentation" breadcrumb level */
+export const DOC_ENTRY_PAGE = 'presentation';
+
 /** Reading order of the documentation pages. Pages missing from this list come after, in repository order. */
 const DOC_ORDERING = [
-    'presentation',
+    DOC_ENTRY_PAGE,
     'installation',
     'quick-start',
     'creation',

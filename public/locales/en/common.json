@@ -2,6 +2,7 @@
     "title": "The smart thermostat for your home",
     "title_doc": "{{- title}}",
     "description": "Versatile Thermostat is an advanced thermostat integration for Home Assistant. It offers smart calibration, boiler control and TPI Algorithm for optimal comfort and energy savings.",
+    "breadcrumb": "Breadcrumb",
     "menu": {
         "home": "Home",
         "devices": "Devices compatibility",
