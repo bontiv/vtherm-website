@@ -14,6 +14,7 @@
     "lint": "eslint",
     "add-plugin": "node scripts/add-plugin-from-issue.mjs",
     "sort-devices": "node scripts/sort-devices.mjs",
+    "sort-plugins": "node scripts/sort-plugins.mjs",
     "test": "vitest run"
   },
   "dependencies": {

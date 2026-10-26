@@ -3,6 +3,8 @@
         "slug": "jmcollin78/versatile-thermostat-ui-card",
         "name": "Versatile Card UI",
         "description": "Versatile thermostat control dashboard card.",
+        "description_fr": "Carte de tableau de bord pour piloter le Versatile Thermostat.",
+        "description_de": "Dashboard-Karte zur Steuerung von Versatile Thermostat.",
         "type": "interface",
         "certification": "official",
         "family": "interface"
@@ -10,6 +12,8 @@
     {
         "name": "VTherm climate replication",
         "description": "<p>VTherm Climate Replication is a Home Assistant custom integration for Versatile Thermostat.</p><p>It links a physical thermostat entity to a Versatile Thermostat climate entity and forwards the physical thermostat state changes to the target VTherm. The goal is to use a real thermostat as a physical remote control for a VTherm.</p>",
+        "description_fr": "<p>VTherm Climate Replication est une intégration personnalisée de Home Assistant pour Versatile Thermostat.</p><p>Elle relie une entité de thermostat physique à une entité climat Versatile Thermostat et transmet les changements d'état du thermostat physique au VTherm cible. L'objectif est d'utiliser un vrai thermostat comme télécommande physique d'un VTherm.</p>",
+        "description_de": "<p>VTherm Climate Replication ist eine benutzerdefinierte Home-Assistant-Integration für Versatile Thermostat.</p><p>Sie verknüpft eine physische Thermostat-Entität mit einer Versatile-Thermostat-Klima-Entität und leitet die Zustandsänderungen des physischen Thermostats an den Ziel-VTherm weiter. Ziel ist es, ein echtes Thermostat als physische Fernbedienung für einen VTherm zu nutzen.</p>",
         "certification": "official",
         "type": "integration",
         "slug": "jmcollin78/vtherm_climate_replication",
@@ -19,6 +23,8 @@
     {
         "name": "VTherm Heating Failure Detection",
         "description": "<p>Home Assistant plugin for heating and cooling failure detection with Versatile Thermostat.</p><p>It monitors how temperature responds to commands from the thermostat's proportional algorithm. When an abnormal condition persists, it publishes a Versatile Thermostat-compatible event and exposes a binary sensor for automations.</p>",
+        "description_fr": "<p>Plugin Home Assistant de détection des défaillances de chauffage et de refroidissement avec Versatile Thermostat.</p><p>Il surveille la réponse de la température aux commandes de l'algorithme proportionnel du thermostat. Lorsqu'une condition anormale persiste, il publie un événement compatible Versatile Thermostat et expose un capteur binaire pour vos automatisations.</p>",
+        "description_de": "<p>Home-Assistant-Plugin zur Erkennung von Heiz- und Kühlungsausfällen mit Versatile Thermostat.</p><p>Es überwacht, wie die Temperatur auf die Befehle des Proportionalalgorithmus des Thermostats reagiert. Hält ein abnormaler Zustand an, veröffentlicht es ein Versatile-Thermostat-kompatibles Ereignis und stellt einen binären Sensor für Automatisierungen bereit.</p>",
         "certification": "official",
         "type": "integration",
         "family": "feature",
@@ -28,6 +34,8 @@
     {
         "name": "VTherm Pellet stove",
         "description": "<p>This plugin for Home Assistant is designed to control your pellet stove. Create an <code>over_switch</code> VTherm and link it to this integration to have special regulation algorithm specially designed for pellet stove.</p>",
+        "description_fr": "<p>Ce plugin pour Home Assistant est conçu pour piloter votre poêle à granulés. Créez un VTherm <code>over_switch</code> et reliez-le à cette intégration pour bénéficier d'un algorithme de régulation spécialement conçu pour les poêles à granulés.</p>",
+        "description_de": "<p>Dieses Plugin für Home Assistant wurde entwickelt, um Ihren Pelletofen zu steuern. Erstellen Sie ein <code>over_switch</code>-VTherm und verknüpfen Sie es mit dieser Integration, um einen Regelungsalgorithmus zu nutzen, der speziell für Pelletofen entwickelt wurde.</p>",
         "certification": "official",
         "type": "integration",
         "family": "algorithm",
@@ -37,6 +45,8 @@
     {
         "name": "VTherm SmartPI",
         "description": "<p>SmartPI is an advanced PI-based thermal control algorithm built around a first-order thermal model (1R1C) rather than a classic PID loop.</p>\n<p>It learns your room's heating capability, heat loss rate and dead time, then uses that model to compute a much more accurate heating command than fixed-time proportional controllers.</p>\n<p><a href=\"https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md\">Documentation</a></p>",
+        "description_fr": "<p>SmartPI est un algorithme avancé de régulation thermique basé sur un PI et construit autour d'un modèle thermique du premier ordre (1R1C) plutôt que d'une boucle PID classique.</p>\n<p>Il apprend la capacité de chauffe de votre pièce, son taux de déperdition thermique et son temps mort, puis utilise ce modèle pour calculer une commande de chauffage bien plus précise que celle des régulateurs proportionnels à temps fixe.</p>\n<p><a href=\"https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md\">Documentation</a></p>",
+        "description_de": "<p>SmartPI ist ein fortschrittlicher PI-basierter Regelungsalgorithmus, der auf einem thermischen Modell erster Ordnung (1R1C) aufbaut statt auf einer klassischen PID-Schleife.</p>\n<p>Er erlernt die Heizleistung Ihres Raums, die Wärmeverlustrate und die Totzeit und nutzt dieses Modell, um einen deutlich genaueren Heizbefehl zu berechnen, als es bei Proportionalreglern mit fester Zeit möglich ist.</p>\n<p><a href=\"https://github.com/KipK/vtherm_smartpi/blob/master/documentation/en/vtherm_smartpi.md\">Dokumentation</a></p>",
         "certification": "official",
         "type": "integration",
         "family": "algorithm",
@@ -44,8 +54,32 @@
         "author": "kipk"
     },
     {
+        "name": "A graphical Scheduler",
+        "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
+        "description_fr": "<p>Programmations hebdomadaires du chauffage pour les thermostats Home Assistant : thermostats sans préréglages, avec préréglages, ou Versatile Thermostat (projet indépendant, non affilié à Versatile Thermostat) :</p>\n<p>des programmations que vous créez, dupliquez et nommez (Normal, Télétravail, Vacances, Absent…), avec chacune une semaine de 7 jours par thermostat ; une seule est active, basculée depuis la carte ou par des automatisations ;\ncarte d'édition visuelle Lovelace (custom:chauffage-programme-card) : faites glisser les plages horaires, copiez / collez des jours, gérez plusieurs thermostats par jour et ouvrez le dialogue d'information d'un thermostat depuis la programmation ;\najustements temporaires : une consigne modifiée à la main devient temporaire (2 h par défaut), affichée et ajustable sur la carte et dans le dialogue d'information du thermostat, puis le thermostat revient à sa programmation.</p>",
+        "description_de": "<p>Wöchentliche Heizpläne für Home-Assistant-Thermostate: Thermostate ohne Voreinstellungen, mit Voreinstellungen oder Versatile Thermostat (unabhängiges Projekt, nicht mit Versatile Thermostat verbunden):</p>\n<p>Pläne, die Sie erstellen, duplizieren und benennen (Normal, Homeoffice, Urlaub, Abwesend…), jeder mit einer 7-Tage-Woche pro Thermostat; einer davon ist aktiv, umgeschaltet über die Karte oder per Automatisierung;\nvisuelle Lovelace-Editor-Karte (custom:chauffage-programme-card): Zeitfenster ziehen, Tage kopieren / einfügen, mehrere Thermostate pro Tag verwalten und den Info-Dialog eines Thermostats direkt aus dem Plan öffnen;\ntemporäre Überschreibungen: ein manuell geänderter Sollwert wird temporär (standardmäßig 2 h), auf der Karte und im Info-Dialog des Thermostats angezeigt und anpassbar; danach fällt das Thermostat auf seinen Plan zurück.</p>",
+        "certification": "recommended",
+        "type": "integration",
+        "family": "feature",
+        "slug": "armellarcier/ha-chauffage",
+        "author": "armellarcier"
+    },
+    {
+        "name": "Equinox",
+        "description": "<p>Equinox is a custom Lovelace card for Home Assistant. It is designed for Versatile Thermostat while keeping compatibility with standard climate entities.</p>",
+        "description_fr": "<p>Equinox est une carte Lovelace personnalisée pour Home Assistant. Elle est conçue pour Versatile Thermostat tout en restant compatible avec les entités climat standard.</p>",
+        "description_de": "<p>Equinox ist eine benutzerdefinierte Lovelace-Karte für Home Assistant. Sie wurde für Versatile Thermostat entwickelt und bleibt gleichzeitig mit Standard-Klima-Entitäten kompatibel.</p>",
+        "certification": "recommended",
+        "type": "interface",
+        "family": "interface",
+        "slug": "KipK/equinox",
+        "author": "KipK"
+    },
+    {
         "name": "HA Entity Explorer",
         "description": "<p>A standalone web application to explore and visualize data history of any Home Assistant entity and its attributes</p>\n<p>Features:</p>\n<p>Entity Browser: Search and select any entity from your Home Assistant instance\nInteractive Charts: Zoom, pan, and explore entity history with ECharts\nAttribute Explorer: Click on chart points to view all entity attributes\nCustom Date Range: Select the time period you want to analyze\nData Export: Export entity or attribute history to JSON for external analysis\nMulti-language: Available in English and French\nEntity Filtering: Whitelist/blacklist entities for security</p>",
+        "description_fr": "<p>Une application web autonome pour explorer et visualiser l'historique des données de n'importe quelle entité Home Assistant et de ses attributs</p>\n<p>Fonctionnalités :</p>\n<p>Navigateur d'entités : recherchez et sélectionnez n'importe quelle entité de votre instance Home Assistant\nGraphiques interactifs : zoomez, déplacez-vous et explorez l'historique des entités avec ECharts\nExplorateur d'attributs : cliquez sur les points du graphique pour afficher tous les attributs d'une entité\nPlage de dates personnalisée : sélectionnez la période que vous souhaitez analyser\nExport de données : exportez l'historique d'une entité ou d'un attribut en JSON pour une analyse externe\nMultilingue : disponible en anglais et en français\nFiltrage des entités : listes blanche / noire d'entités pour plus de sécurité</p>",
+        "description_de": "<p>Eine eigenständige Webanwendung zum Erkunden und Visualisieren der Datenhistorie beliebiger Home-Assistant-Entitäten und ihrer Attribute</p>\n<p>Funktionen:</p>\n<p>Entitäts-Browser: Beliebige Entitäten Ihrer Home-Assistant-Instanz suchen und auswählen\nInteraktive Diagramme: Entitätshistorie mit ECharts zoomen, schwenken und erkunden\nAttribut-Explorer: Per Klick auf Diagrammpunkte alle Attribute einer Entität ansehen\nEigener Zeitraum: Den zu analysierenden Zeitraum frei wählen\nDatenexport: Entitäts- oder Attribut-Historie als JSON für externe Analysen exportieren\nMehrsprachig: auf Englisch und Französisch verfügbar\nEntitätsfilter: Entitäten aus Sicherheitsgründen per Whitelist / Blacklist filtern</p>",
         "certification": "recommended",
         "type": "addon",
         "family": "interface",
@@ -56,6 +90,8 @@
         "name": "Sonoff TRVZB linearity",
         "author": "Caius",
         "description": "Blueprint for fine-tuning TRVZB valves and adjusting the opening to the valve linearity, which is often non-linear. This blueprint allows you to create a linear relationship between the valve opening and the actual flow, improving the performance of the heating system.",
+        "description_fr": "Blueprint pour affiner le réglage des vannes TRVZB et ajuster l'ouverture en fonction de la linéarité de la vanne, souvent non linéaire. Ce blueprint permet d'établir une relation linéaire entre l'ouverture de la vanne et le débit réel, améliorant ainsi les performances du système de chauffage.",
+        "description_de": "Blueprint zur Feinabstimmung von TRVZB-Ventilen und zur Anpassung der Öffnung an die Ventil-Linearität, die häufig nicht linear ist. Dieser Blueprint schafft eine lineare Beziehung zwischen Ventilöffnung und tatsächlichem Durchfluss und verbessert so die Leistung des Heizsystems.",
         "type": "blueprint",
         "certification": "recommended",
         "url": "https://gist.githubusercontent.com/caiusseverus/abe064b3f8d96896ab377766916e456a/raw/LinearTRV.yaml",
@@ -73,24 +109,6 @@
         "family": "device-helper"
     },
     {
-        "name": "A graphical Scheduler",
-        "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
-        "certification": "community",
-        "type": "integration",
-        "family": "feature",
-        "slug": "armellarcier/ha-chauffage",
-        "author": "armellarcier"
-    },
-    {
-        "name": "Equinox",
-        "description": "<p>Equinox is a custom Lovelace card for Home Assistant. It is designed for Versatile Thermostat while keeping compatibility with standard climate entities.</p>",
-        "certification": "community",
-        "type": "interface",
-        "family": "interface",
-        "slug": "KipK/equinox",
-        "author": "KipK"
-    },
-    {
         "name": "Météo-France Observation",
         "description": "<p>Real-time measurements of Météo-France ground stations (France and overseas territories), updated every 6 minutes. Provides an accurate outdoor temperature sensor for Versatile Thermostat, plus humidity, pressure, wind and precipitation.</p><p>Credentials are stored in Home Assistant application credentials and tokens are renewed automatically. The station is found around a point on the map, by department or by ID.</p>",
         "description_fr": "<p>Mesures en temps réel des stations au sol de Météo-France (métropole et outre-mer), mises à jour toutes les 6 minutes. Fournit à Versatile Thermostat un capteur de température extérieure précis, ainsi que l'humidité, la pression, le vent et les précipitations.</p><p>Les identifiants sont stockés dans les identifiants d'application de Home Assistant et les jetons sont renouvelés automatiquement. La station se choisit autour d'un point sur la carte, par département ou par identifiant.</p>",
@@ -104,6 +122,8 @@
     {
         "name": "The Holm Climate Card",
         "description": "<p>A compact, dynamic AC/heating card: see instantly if it's heating or cooling, and adjust the target temperature with a single swipe.</p>\n<p>HOLM Climate Card replaces the default thermostat card for your climate entities (air conditioners, heat pumps, smart radiators, etc.). It fits two-side-by-side on a smartphone screen, expands beautifully full-width, and its visual atmosphere changes based on what the device is doing: rising embers when heating, snowflakes when cooling, and a softly breathing grey mist when turned off.</p>",
+        "description_fr": "<p>Une carte compacte et dynamique pour le chauffage et la climatisation : voyez en un instant si l'appareil chauffe ou refroidit, et ajustez la température cible d'un simple glissement.</p>\n<p>HOLM Climate Card remplace la carte de thermostat par défaut pour vos entités climat (climatiseurs, pompes à chaleur, radiateurs connectés, etc.). Deux cartes tiennent côte à côte sur l'écran d'un smartphone, elle s'étend avec élégance sur toute la largeur, et son ambiance visuelle évolue selon l'état de l'appareil : braises qui s'élèvent en chauffage, flocons de neige en refroidissement, et une brume grise qui respire doucement à l'arrêt.</p>",
+        "description_de": "<p>Eine kompakte, dynamische Klima-/Heizkarte: Sofort erkennen, ob geheizt oder gekühlt wird, und die Zieltemperatur mit einem einzigen Wisch anpassen.</p>\n<p>HOLM Climate Card ersetzt die Standard-Thermostatkarte für Ihre Klima-Entitäten (Klimageräte, Wärmepumpen, smarte Heizkörper usw.). Zwei Karten passen nebeneinander auf ein Smartphone-Display, sie erweitert sich elegant auf volle Breite, und ihre visuelle Atmosphäre wandelt sich je nachdem, was das Gerät tut: aufsteigende Glut beim Heizen, Schneeflocken beim Kühlen und ein sanft pulsierender grauer Nebel im ausgeschalteten Zustand.</p>",
         "certification": "community",
         "type": "interface",
         "family": "interface",
@@ -113,6 +133,8 @@
     {
         "name": "VTherm auto fan extended",
         "description": "<p>For every over_climate VTherm exposing fan_modes, the plugin creates a set of configuration entities and, at each control cycle:</p>\n<ol>\n<li>Computes the temperature gap dtemp = target − current.\n2; Selects the underlying fan_mode whose activation threshold is the greatest one that is > 0 and ≤ |dtemp|, provided it is coherent with the current HVAC mode (heating/cooling/off).</li>\n<li>Otherwise it applies the configured rest fan_mode.</li>\n<li>The chosen fan_mode is only sent to the underlying when it actually changes.</li>\n</ol>\n<p>Each fan_mode gets its own user-configurable threshold (a threshold of 0 means the fan_mode never participates), so non-normalized fan_modes (e.g. on_low / on_high / auto_low / off) are supported out of the box.</p>",
+        "description_fr": "<p>Pour chaque VTherm over_climate exposant des fan_modes, le plugin crée un ensemble d'entités de configuration et, à chaque cycle de contrôle :</p>\n<ol>\n<li>Calcule l'écart de température dtemp = consigne − température courante.</li>\n<li>Sélectionne le fan_mode sous-jacent dont le seuil d'activation est le plus élevé parmi ceux > 0 et ≤ |dtemp|, à condition qu'il soit cohérent avec le mode HVAC courant (chauffage / refroidissement / arrêt).</li>\n<li>Sinon, applique le fan_mode de repos configuré.</li>\n<li>Le fan_mode choisi n'est envoyé au sous-jacent que lorsqu'il change réellement.</li>\n</ol>\n<p>Chaque fan_mode possède son propre seuil configurable par l'utilisateur (un seuil de 0 signifie que le fan_mode ne participe jamais), de sorte que les fan_modes non normalisés (par ex. on_low / on_high / auto_low / off) sont pris en charge nativement.</p>",
+        "description_de": "<p>Für jedes over_climate-VTherm, das fan_modes bereitstellt, erstellt das Plugin eine Reihe von Konfigurations-Entitäten und führt bei jedem Regelzyklus Folgendes aus:</p>\n<ol>\n<li>Berechnet die Temperaturdifferenz dtemp = Sollwert − Istwert.</li>\n<li>Wählt den zugrunde liegenden fan_mode mit dem höchsten Aktivierungsschwellenwert, der > 0 und ≤ |dtemp| ist, sofern er zum aktuellen HVAC-Modus passt (Heizen / Kühlen / Aus).</li>\n<li>Wendet andernfalls den konfigurierten Ruhe-fan_mode an.</li>\n<li>Sendet den gewählten fan_mode nur dann an die zugrunde liegende Entität, wenn er sich tatsächlich ändert.</li>\n</ol>\n<p>Jeder fan_mode erhält einen eigenen, vom Nutzer konfigurierbaren Schwellenwert (ein Schwellenwert von 0 bedeutet, dass der fan_mode nie beteiligt ist), sodass nicht normalisierte fan_modes (z. B. on_low / on_high / auto_low / off) ohne Weiteres unterstützt werden.</p>",
         "certification": "community",
         "type": "integration",
         "family": "feature",
@@ -122,6 +144,8 @@
     {
         "name": "VTherm Hysteresis",
         "description": "<p>This integration provides a simple hysteresis-based heating algorithm packaged as an external integration for Versatile Thermostat.</p>\n<p>This repository also serve as project scaffold for Vtherm plugins development.</p>",
+        "description_fr": "<p>Cette intégration fournit un algorithme de chauffage simple à base d'hystérésis, sous forme d'intégration externe pour Versatile Thermostat.</p>\n<p>Ce dépôt sert également de gabarit de projet pour le développement de plugins VTherm.</p>",
+        "description_de": "<p>Diese Integration stellt einen einfachen, auf Hysterese basierenden Heizalgorithmus als externe Integration für Versatile Thermostat bereit.</p>\n<p>Dieses Repository dient zudem als Projektvorlage für die Entwicklung von VTherm-Plugins.</p>",
         "certification": "community",
         "type": "integration",
         "family": "algorithm",
@@ -131,6 +155,8 @@
     {
         "name": "VTherm inhibition",
         "description": "<p>Home Assistant plugin that lets a Versatile Thermostat (VTherm) step back while another device takes over the room: an electric heater running on PV surplus, an air conditioner heating or cooling, a person heating manually at the valve...</p>\n<p>It can also be used to prevent VTherm from controlling its underlying devices, allowing the user to control them directly without any VTherm interaction.</p>",
+        "description_fr": "<p>Plugin Home Assistant qui permet à un Versatile Thermostat (VTherm) de s'effacer pendant qu'un autre équipement prend la main sur la pièce : un radiateur électrique alimenté par le surplus photovoltaïque, une climatisation qui chauffe ou refroidit, une personne qui chauffe manuellement au niveau de la vanne…</p>\n<p>Il peut aussi servir à empêcher le VTherm de contrôler ses équipements sous-jacents, permettant ainsi à l'utilisateur de les piloter directement, sans aucune interaction du VTherm.</p>",
+        "description_de": "<p>Home-Assistant-Plugin, das einen Versatile Thermostat (VTherm) zurücktreten lässt, während ein anderes Gerät den Raum übernimmt: ein elektrisches Heizgerät, das mit PV-Überschuss läuft, eine Klimaanlage, die heizt oder kühlt, eine Person, die manuell am Ventil heizt…</p>\n<p>Es kann auch genutzt werden, um den VTherm von der Steuerung seiner zugrunde liegenden Geräte abzuhalten, sodass der Nutzer sie direkt und ohne jedes Zutun des VTherm steuern kann.</p>",
         "certification": "community",
         "type": "integration",
         "family": "feature",
