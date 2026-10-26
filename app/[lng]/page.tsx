@@ -22,6 +22,7 @@ import Semantic from "@/components/Semantic";
 import { HeatingTypeCard } from "@/components/HeatingTypeCard";
 import { HeatingIcon } from "@/components/icons/HeatingIcon";
 import { QUICKSTART_PAGES } from "@/lib/pages";
+import { breadcrumb } from "@/lib/semantic";
 
 /// Last stable release pattern
 const stable_release = "9.3.*";
@@ -79,17 +80,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                 name: common_t('title'),
                 description: common_t('description'),
                 url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
-                breadcrumb: {
-                    "@type": "BreadcrumbList",
-                    itemListElement: [
-                        {
-                            "@type": "ListItem",
-                            name: "Home",
-                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
-                            position: 1
-                        }
-                    ]
-                }
+                breadcrumb: breadcrumb(lng, common_t('menu.home'), []),
             }} />
             {/* Hero Section */}
             <section className="pt-8 pb-12 text-center">

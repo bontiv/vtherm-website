@@ -5,6 +5,8 @@ import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
 import { opengraph_defaults } from "@/lib/opengraph";
 import Semantic from "@/components/Semantic";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { breadcrumb } from "@/lib/semantic";
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
     const { t } = await getT('devices', { lng });
@@ -28,7 +30,9 @@ const DevicesPage: React.FC<{ params: Promise<{ lng: string }> }> = async ({ par
     const { lng } = await params;
     const { t } = await getT('devices', { lng });
     const { t: commont } = await getT('common', { lng });
+    const crumbs = [{ name: commont('menu.devices'), path: '/devices/' }];
     return <>
+        <Breadcrumbs lng={lng} items={crumbs} />
         <h1 className="hidden">{t('title')}</h1>
         <Semantic id={`devices-${lng}`} data={{
             "@context": "https://schema.org",
@@ -38,23 +42,7 @@ const DevicesPage: React.FC<{ params: Promise<{ lng: string }> }> = async ({ par
             url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/`,
             name: t('title'),
             description: t('description'),
-            breadcrumb: {
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                    {
-                        "@type": "ListItem",
-                        "name": commont('menu.home'),
-                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
-                        position: 1
-                    },
-                    {
-                        "@type": "ListItem",
-                        "name": commont('menu.devices'),
-                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/`,
-                        position: 2
-                    }
-                ]
-            }
+            breadcrumb: breadcrumb(lng, commont('menu.home'), crumbs),
         }} />
         <ListDevices devices={devices_list} />
     </>

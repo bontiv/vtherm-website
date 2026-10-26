@@ -6,6 +6,9 @@ import { getAlternatesMetadata, getT } from "@/app/i18n";
 import { Metadata } from "next";
 import { opengraph_defaults } from "@/lib/opengraph";
 import Semantic from "@/components/Semantic";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { DOC_ENTRY_PAGE } from "@/lib/docs";
+import { breadcrumb } from "@/lib/semantic";
 
 const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
 
@@ -39,46 +42,32 @@ const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docCon
     const title = content.match(/^# (.*)\n/)
     const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
 
+    const crumbs = [
+        { name: t('menu.docs'), path: `/docs/${DOC_ENTRY_PAGE}/` },
+        { name: web_title, path: `/docs/${docFile}/` },
+    ];
+
     return (
-        <div className="space-y-12" lang={lng}>
-            <Semantic id={`doc-${docFile}-${lng}`} data={{
-                "@context": "https://schema.org",
-                "@type": "WebPage",
-                mainEntity: {
-                    "@type": "TechArticle",
+        <>
+            <Breadcrumbs lng={lng} items={crumbs} />
+            <div className="space-y-12" lang={lng}>
+                <Semantic id={`doc-${docFile}-${lng}`} data={{
+                    "@context": "https://schema.org",
+                    "@type": "WebPage",
+                    mainEntity: {
+                        "@type": "TechArticle",
+                        name: web_title,
+                        about: { "@id": "https://www.versatile-thermostat.org/#software" }
+                    },
+                    inLanguage: lng,
                     name: web_title,
-                    about: { "@id": "https://www.versatile-thermostat.org/#software" }
-                },
-                inLanguage: lng,
-                name: web_title,
-                isPartOf: { "@id": "https://www.versatile-thermostat.org/#website" },
-                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${docFile}/`,
-                breadcrumb: {
-                    "@type": "BreadcrumbList",
-                    itemListElement: [
-                        {
-                            "@type": "ListItem",
-                            name: t('menu.home'),
-                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
-                            position: 1,
-                        },
-                        {
-                            "@type": "ListItem",
-                            name: t('menu.docs'),
-                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/#docs`,
-                            position: 2,
-                        },
-                        {
-                            "@type": "ListItem",
-                            name: web_title,
-                            item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${docFile}/`,
-                            position: 3,
-                        }
-                    ]
-                }
-            }} />
-            <MarkDownPage lng={lng} version={'main'} file={`/documentation/${lng}/${docFile}.md`} default_page={content} />
-        </div>
+                    isPartOf: { "@id": "https://www.versatile-thermostat.org/#website" },
+                    url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/docs/${docFile}/`,
+                    breadcrumb: breadcrumb(lng, t('menu.home'), crumbs),
+                }} />
+                <MarkDownPage lng={lng} version={'main'} file={`/documentation/${lng}/${docFile}.md`} default_page={content} />
+            </div>
+        </>
     )
 }
 

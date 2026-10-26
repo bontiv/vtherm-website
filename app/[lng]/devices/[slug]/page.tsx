@@ -1,6 +1,5 @@
 import { getAlternatesMetadata, getT } from '@/app/i18n';
-import { LinkLocale } from '@/components/LinkLocale';
-import { ArrowUturnLeftIcon, ShoppingCartIcon } from '@heroicons/react/16/solid';
+import { ShoppingCartIcon } from '@heroicons/react/16/solid';
 import type { DeviceDefinition } from '@/lib/devicedb';
 import { deviceConfigSections, deviceName, getDeviceDefinition, getDeviceEntries, getDeviceSlugs, readDeviceReadme, readSlugFile } from '@/lib/devicecontent';
 import React from 'react';
@@ -11,6 +10,8 @@ import { Metadata } from 'next';
 import { opengraph_defaults } from '@/lib/opengraph';
 import rehypeExternalLinks from 'rehype-external-links'
 import Semantic from '@/components/Semantic';
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
+import { breadcrumb } from '@/lib/semantic';
 
 import remarkNotes from 'remark-github-blockquote-alert';
 import './markdown.css';
@@ -71,7 +72,13 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
     const deviceEntries = getDeviceEntries(slug);
     const deviceStates = [...new Set(deviceEntries.map(device => device.state))];
 
+    const crumbs = [
+        { name: commont('menu.devices'), path: '/devices/' },
+        { name: config.title ?? slug, path: `/devices/${slug}/` },
+    ];
+
     return <>
+        <Breadcrumbs lng={lng} items={crumbs} />
         <Semantic id={`devices-${lng}-${slug}`} data={{
             "@context": "https://schema.org",
             "@type": "WebPage",
@@ -80,35 +87,10 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
             url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/${slug}/`,
             name: t('title_details', t_opts),
             description: t('description_details', t_opts),
-            breadcrumb: {
-                "@type": "BreadcrumbList",
-                itemListElement: [
-                    {
-                        "@type": "ListItem",
-                        "name": commont('menu.home'),
-                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/`,
-                        position: 1
-                    },
-                    {
-                        "@type": "ListItem",
-                        "name": commont('menu.devices'),
-                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/`,
-                        position: 2
-                    },
-                    {
-                        "@type": "ListItem",
-                        "name": t('title_details', t_opts),
-                        item: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/${slug}/`,
-                        position: 3
-                    }
-                ]
-            }
+            breadcrumb: breadcrumb(lng, commont('menu.home'), crumbs),
         }} />
         <div className='main-content device-doc' lang={lng} data-pagefind-body>
-            <div className='text-blue-900 flex flex-wrap items-start gap-3'>
-                <LinkLocale href={'/devices'} className='rounded-full bg-sky-200 px-4 py-3 inline-block'>Retour <ArrowUturnLeftIcon className='h-lh inline' /></LinkLocale>
-            </div>
-            <section className='my-6 flex flex-col gap-3' aria-label={t('status.title')}>
+            <section className='mb-6 flex flex-col gap-3' aria-label={t('status.title')}>
                 {deviceStates.map(state => {
                     const stateDevices = deviceEntries.filter(device => device.state === state);
 
