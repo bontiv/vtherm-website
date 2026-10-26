@@ -29,6 +29,7 @@ import remarkParse from 'remark-parse';
 import remarkGfm from 'remark-gfm';
 import remarkRehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import { sortPlugins } from './sort-plugins.mjs';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -37,9 +38,6 @@ import rehypeStringify from 'rehype-stringify';
 const ALLOWED_BRANCHES = ['stable', 'latest'];
 const DEFAULT_BRANCH = 'stable';
 const PLUGINS_PATH = 'pluginsdb/plugins.json';
-
-/** Certification sort order – lower index = higher priority */
-const CERT_ORDER = ['official', 'recommended', 'community'];
 
 /** Maps the issue form field labels to internal keys */
 const FIELD_MAP = {
@@ -154,21 +152,6 @@ async function markdownToHtml(markdown) {
         .use(rehypeStringify)
         .process(markdown);
     return String(file).trim();
-}
-
-/**
- * Sort a plugin array: official → recommended → community, then a-z by name.
- *
- * @param {object[]} plugins
- * @returns {object[]}
- */
-function sortPlugins(plugins) {
-    return [...plugins].sort((a, b) => {
-        const certA = CERT_ORDER.indexOf(a.certification);
-        const certB = CERT_ORDER.indexOf(b.certification);
-        if (certA !== certB) return certA - certB;
-        return (a.name ?? '').localeCompare(b.name ?? '', undefined, { sensitivity: 'base' });
-    });
 }
 
 // ---------------------------------------------------------------------------

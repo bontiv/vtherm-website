@@ -54,6 +54,28 @@
         "author": "kipk"
     },
     {
+        "name": "A graphical Scheduler",
+        "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
+        "description_fr": "<p>Programmations hebdomadaires du chauffage pour les thermostats Home Assistant : thermostats sans préréglages, avec préréglages, ou Versatile Thermostat (projet indépendant, non affilié à Versatile Thermostat) :</p>\n<p>des programmations que vous créez, dupliquez et nommez (Normal, Télétravail, Vacances, Absent…), avec chacune une semaine de 7 jours par thermostat ; une seule est active, basculée depuis la carte ou par des automatisations ;\ncarte d'édition visuelle Lovelace (custom:chauffage-programme-card) : faites glisser les plages horaires, copiez / collez des jours, gérez plusieurs thermostats par jour et ouvrez le dialogue d'information d'un thermostat depuis la programmation ;\najustements temporaires : une consigne modifiée à la main devient temporaire (2 h par défaut), affichée et ajustable sur la carte et dans le dialogue d'information du thermostat, puis le thermostat revient à sa programmation.</p>",
+        "description_de": "<p>Wöchentliche Heizpläne für Home-Assistant-Thermostate: Thermostate ohne Voreinstellungen, mit Voreinstellungen oder Versatile Thermostat (unabhängiges Projekt, nicht mit Versatile Thermostat verbunden):</p>\n<p>Pläne, die Sie erstellen, duplizieren und benennen (Normal, Homeoffice, Urlaub, Abwesend…), jeder mit einer 7-Tage-Woche pro Thermostat; einer davon ist aktiv, umgeschaltet über die Karte oder per Automatisierung;\nvisuelle Lovelace-Editor-Karte (custom:chauffage-programme-card): Zeitfenster ziehen, Tage kopieren / einfügen, mehrere Thermostate pro Tag verwalten und den Info-Dialog eines Thermostats direkt aus dem Plan öffnen;\ntemporäre Überschreibungen: ein manuell geänderter Sollwert wird temporär (standardmäßig 2 h), auf der Karte und im Info-Dialog des Thermostats angezeigt und anpassbar; danach fällt das Thermostat auf seinen Plan zurück.</p>",
+        "certification": "recommended",
+        "type": "integration",
+        "family": "feature",
+        "slug": "armellarcier/ha-chauffage",
+        "author": "armellarcier"
+    },
+    {
+        "name": "Equinox",
+        "description": "<p>Equinox is a custom Lovelace card for Home Assistant. It is designed for Versatile Thermostat while keeping compatibility with standard climate entities.</p>",
+        "description_fr": "<p>Equinox est une carte Lovelace personnalisée pour Home Assistant. Elle est conçue pour Versatile Thermostat tout en restant compatible avec les entités climat standard.</p>",
+        "description_de": "<p>Equinox ist eine benutzerdefinierte Lovelace-Karte für Home Assistant. Sie wurde für Versatile Thermostat entwickelt und bleibt gleichzeitig mit Standard-Klima-Entitäten kompatibel.</p>",
+        "certification": "recommended",
+        "type": "interface",
+        "family": "interface",
+        "slug": "KipK/equinox",
+        "author": "KipK"
+    },
+    {
         "name": "HA Entity Explorer",
         "description": "<p>A standalone web application to explore and visualize data history of any Home Assistant entity and its attributes</p>\n<p>Features:</p>\n<p>Entity Browser: Search and select any entity from your Home Assistant instance\nInteractive Charts: Zoom, pan, and explore entity history with ECharts\nAttribute Explorer: Click on chart points to view all entity attributes\nCustom Date Range: Select the time period you want to analyze\nData Export: Export entity or attribute history to JSON for external analysis\nMulti-language: Available in English and French\nEntity Filtering: Whitelist/blacklist entities for security</p>",
         "description_fr": "<p>Une application web autonome pour explorer et visualiser l'historique des données de n'importe quelle entité Home Assistant et de ses attributs</p>\n<p>Fonctionnalités :</p>\n<p>Navigateur d'entités : recherchez et sélectionnez n'importe quelle entité de votre instance Home Assistant\nGraphiques interactifs : zoomez, déplacez-vous et explorez l'historique des entités avec ECharts\nExplorateur d'attributs : cliquez sur les points du graphique pour afficher tous les attributs d'une entité\nPlage de dates personnalisée : sélectionnez la période que vous souhaitez analyser\nExport de données : exportez l'historique d'une entité ou d'un attribut en JSON pour une analyse externe\nMultilingue : disponible en anglais et en français\nFiltrage des entités : listes blanche / noire d'entités pour plus de sécurité</p>",
@@ -85,28 +107,6 @@
         "certification": "community",
         "url": "https://gist.githubusercontent.com/bontiv/af2d59adb15bf3d522282edd662a75e4/raw/sonoff_trv_zbt_vtherm.yaml",
         "family": "device-helper"
-    },
-    {
-        "name": "A graphical Scheduler",
-        "description": "<p>Weekly heating schedules for Home Assistant thermostats: thermostats without presets, with presets, or Versatile Thermostat (independent project, not affiliated with Versatile Thermostat):</p>\n<p>schedules you create, duplicate and name (Normal, Remote work, Holidays, Away…), each with a 7-day week per thermostat; one is active, switched from the card or by automations;\nvisual Lovelace editor card (custom:chauffage-programme-card): drag time slots, copy / paste days, several thermostats per day, open a thermostat's more-info dialog from the schedule;\ntemporary overrides: a setpoint changed by hand becomes temporary (2 h by default), shown and adjustable on the card and in the thermostat's more-info dialog, then the thermostat falls back to its schedule.</p>",
-        "description_fr": "<p>Programmations hebdomadaires du chauffage pour les thermostats Home Assistant : thermostats sans préréglages, avec préréglages, ou Versatile Thermostat (projet indépendant, non affilié à Versatile Thermostat) :</p>\n<p>des programmations que vous créez, dupliquez et nommez (Normal, Télétravail, Vacances, Absent…), avec chacune une semaine de 7 jours par thermostat ; une seule est active, basculée depuis la carte ou par des automatisations ;\ncarte d'édition visuelle Lovelace (custom:chauffage-programme-card) : faites glisser les plages horaires, copiez / collez des jours, gérez plusieurs thermostats par jour et ouvrez le dialogue d'information d'un thermostat depuis la programmation ;\najustements temporaires : une consigne modifiée à la main devient temporaire (2 h par défaut), affichée et ajustable sur la carte et dans le dialogue d'information du thermostat, puis le thermostat revient à sa programmation.</p>",
-        "description_de": "<p>Wöchentliche Heizpläne für Home-Assistant-Thermostate: Thermostate ohne Voreinstellungen, mit Voreinstellungen oder Versatile Thermostat (unabhängiges Projekt, nicht mit Versatile Thermostat verbunden):</p>\n<p>Pläne, die Sie erstellen, duplizieren und benennen (Normal, Homeoffice, Urlaub, Abwesend…), jeder mit einer 7-Tage-Woche pro Thermostat; einer davon ist aktiv, umgeschaltet über die Karte oder per Automatisierung;\nvisuelle Lovelace-Editor-Karte (custom:chauffage-programme-card): Zeitfenster ziehen, Tage kopieren / einfügen, mehrere Thermostate pro Tag verwalten und den Info-Dialog eines Thermostats direkt aus dem Plan öffnen;\ntemporäre Überschreibungen: ein manuell geänderter Sollwert wird temporär (standardmäßig 2 h), auf der Karte und im Info-Dialog des Thermostats angezeigt und anpassbar; danach fällt das Thermostat auf seinen Plan zurück.</p>",
-        "certification": "recommended",
-        "type": "integration",
-        "family": "feature",
-        "slug": "armellarcier/ha-chauffage",
-        "author": "armellarcier"
-    },
-    {
-        "name": "Equinox",
-        "description": "<p>Equinox is a custom Lovelace card for Home Assistant. It is designed for Versatile Thermostat while keeping compatibility with standard climate entities.</p>",
-        "description_fr": "<p>Equinox est une carte Lovelace personnalisée pour Home Assistant. Elle est conçue pour Versatile Thermostat tout en restant compatible avec les entités climat standard.</p>",
-        "description_de": "<p>Equinox ist eine benutzerdefinierte Lovelace-Karte für Home Assistant. Sie wurde für Versatile Thermostat entwickelt und bleibt gleichzeitig mit Standard-Klima-Entitäten kompatibel.</p>",
-        "certification": "recommended",
-        "type": "interface",
-        "family": "interface",
-        "slug": "KipK/equinox",
-        "author": "KipK"
     },
     {
         "name": "Météo-France Observation",
