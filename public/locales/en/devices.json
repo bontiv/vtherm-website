@@ -1,6 +1,6 @@
 {
     "title": "Device Compatibility",
-    "description": "List of compatible Versatile Thermostat devices",
+    "description": "List of devices compatible with Versatile Thermostat: thermostatic valves, pilot wire modules, heat pumps, switches and sensors, with setup guides.",
     "title_details": "Compatibility of {{device}}",
     "description_details": "How to configure {{device}} with Versatile Thermostat. Manual and explanation.",
     "manufacturer": "Manufacturer",

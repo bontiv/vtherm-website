@@ -25,7 +25,7 @@ const STRENGTHS = ['valve_regulation', 'external_sensor', 'auto_tpi', 'window', 
 /** Keys of `quickstart.<page>.tutorial.steps` */
 const STEPS = ['pair', 'install', 'create', 'underlying', 'regulation', 'presets', 'features'];
 const DOCS = ['over-climate', 'self-regulation', 'feature-autotpi', 'feature-recalibrate-valves', 'feature-central-boiler'];
-const DEVICES = ['sonoff-trvzb', 'sonoff-trv-zbt', 'aqara-w600', 'tuya-trv602', 'over-climate-valve'];
+const DEVICES = ['sonoff-trvzb', 'sonoff-trv-zbt', 'aqara-w600', 'tuya-trv602', 'eurotronic-comet'];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;

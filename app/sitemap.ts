@@ -15,19 +15,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency?: "monthly",
         lastModified?: Date | string
     } = {}) {
-        sitemap.push({
-            url: `${process.env.NEXT_PUBLIC_SITE_URL}/${fallbackLng}${path}`,
-            changeFrequency: opts.changeFrequency ?? 'monthly',
-            priority: opts.priority ?? 0.7,
-            lastModified: opts.lastModified,
-            alternates: {
-                languages: Object.fromEntries(languages.map(lng => [lng, `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`]))
+        const alternates = {
+            languages: {
+                ...Object.fromEntries(languages.map(lng => [lng, `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`])),
+                // Same x-default as the pages metadata: the home page has a language-neutral root
+                'x-default': `${process.env.NEXT_PUBLIC_SITE_URL}${path === '/' ? '' : `/${fallbackLng}`}${path}`,
             }
-        })
+        }
+
+        // One entry per language, each one listing all the alternates
+        for (const lng of languages) {
+            sitemap.push({
+                url: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`,
+                changeFrequency: opts.changeFrequency ?? 'monthly',
+                priority: opts.priority ?? 0.7,
+                lastModified: opts.lastModified,
+                alternates,
+            })
+        }
     }
 
     addPage('/', { priority: 1 });
     addPage('/devices/', { priority: 0.8 });
+    addPage('/plugins/', { priority: 0.6 });
 
     addPage('/quick-start/', { priority: 0.9 });
     for (const page of QUICKSTART_PAGES) {

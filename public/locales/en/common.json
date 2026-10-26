@@ -1,7 +1,7 @@
 {
     "title": "The smart thermostat for your home",
     "title_doc": "{{- title}}",
-    "description": "Versatile Thermostat is an advanced thermostat integration for Home Assistant. It offers smart calibration, boiler control and TPI Algorithm for optimal comfort and energy savings.",
+    "description": "Versatile Thermostat: advanced thermostat integration for Home Assistant with smart calibration, boiler control and TPI algorithm for comfort and savings.",
     "breadcrumb": "Breadcrumb",
     "menu": {
         "home": "Home",
@@ -23,7 +23,7 @@
     "backtotop": "Back to top",
     "docs": {
         "quick-start": "Quick start",
-        "additions": "Additons",
+        "additions": "Additions",
         "algorithms": "Algorithms",
         "base-attributes": "Base attributes",
         "creation": "Creation",
@@ -33,7 +33,8 @@
         "feature-autotpi": "AutoTPI",
         "feature-central-boiler": "Central boiler",
         "feature-central-mode": "Central configuration",
-        "feature-heating-failure-detection": "Heating failure dectection",
+        "feature-heating-failure-detection": "Heating failure detection",
+        "feature-humidity": "Humidity",
         "feature-lock": "Lock feature",
         "feature-logs-collector": "Log collector",
         "feature-motion": "Motion feature",
@@ -57,6 +58,7 @@
     },
     "footer_versus": "Comparisons",
     "footer_versus_link": "VTherm vs {{competitor}}",
+    "footer_languages": "Languages",
     "hacs_alert": {
         "title": "HACS installations and updates currently disrupted",
         "text": "Since October 23, 2026, a change on GitHub's side makes HACS fail when downloading release files (error \"400 - Got more than 8190 bytes when reading\"). Installing or updating Versatile Thermostat and its plugins through HACS may fail until HACS ships a fix. Follow the <0>HACS issue #5643</0> for details and workarounds."

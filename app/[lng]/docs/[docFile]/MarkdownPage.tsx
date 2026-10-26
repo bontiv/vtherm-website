@@ -11,9 +11,10 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkNotes from 'remark-github-blockquote-alert';
 import 'remark-github-blockquote-alert/alert.css';
+import { rehypeSingleH1 } from '@/lib/markdown';
 
 
-const rehypePlugins: object[] = [rehypeKatex, rehypeSlug, rehypeExternalLinks]
+const rehypePlugins: object[] = [rehypeKatex, rehypeSlug, rehypeExternalLinks, rehypeSingleH1]
 
 const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, default_page?: string }> = ({ file, lng, version, default_page }) => {
     const [content, setContent] = useState<string | undefined>(default_page)

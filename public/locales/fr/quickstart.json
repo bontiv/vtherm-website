@@ -2,7 +2,7 @@
     "index": {
         "meta": {
             "title": "Démarrage rapide par type de chauffage",
-            "description": "Vanne thermostatique, radiateur électrique fil pilote, pompe à chaleur ou poêle à granulés : configurez Versatile Thermostat pour votre chauffage avec un tutoriel pas à pas."
+            "description": "Vanne thermostatique, radiateur fil pilote, pompe à chaleur ou poêle à granulés : configurez Versatile Thermostat avec un tutoriel pas à pas."
         },
         "title": "Démarrage rapide",
         "intro": "Choisissez votre type de chauffage : vous y trouverez les points forts de Versatile Thermostat et un tutoriel pas à pas pour créer votre premier thermostat.",
@@ -25,7 +25,7 @@
     "trv": {
         "meta": {
             "title": "Vanne thermostatique (TRV) : démarrage rapide",
-            "description": "Pilotez vos têtes thermostatiques Zigbee (Sonoff TRVZB…) avec Versatile Thermostat : contrôle direct de la vanne, sonde externe, Auto-TPI et chaudière centrale.",
+            "description": "Pilotez vos têtes thermostatiques Zigbee (Sonoff TRVZB…) avec Versatile Thermostat : contrôle direct de la vanne, sonde externe, Auto-TPI, chaudière.",
             "keywords": "vanne thermostatique,TRV,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
         },
         "name": "Vanne thermostatique",
@@ -171,7 +171,7 @@
     "heat_pump": {
         "meta": {
             "title": "Pompe à chaleur et climatisation : démarrage rapide",
-            "description": "Régulez votre pompe à chaleur air/air ou votre climatisation avec Versatile Thermostat : auto-régulation, arrêt et relance automatiques, chauffage et climatisation.",
+            "description": "Régulez votre pompe à chaleur air/air ou votre climatisation avec Versatile Thermostat : auto-régulation, arrêt et relance automatiques.",
             "keywords": "pompe à chaleur,PAC,climatisation,auto start stop,Home Assistant,Versatile Thermostat"
         },
         "name": "Pompe à chaleur",

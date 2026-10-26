@@ -110,7 +110,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             <section className="space-y-6 rounded-2xl p-6 md:p-10 bg-blue-50 dark:bg-sky-950/60 border border-blue-200 dark:border-vtherm-tertiary/60">
                 <div className="text-center space-y-2">
                     <h2 className="text-3xl md:text-4xl font-normal py-0">{t('heating.title')}</h2>
-                    <p className="text-lg text-[#71717a] dark:text-[#a1a1aa]">{t('heating.desc')}</p>
+                    <p className="text-lg text-[#52525b] dark:text-[#a1a1aa]">{t('heating.desc')}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {QUICKSTART_PAGES.map(page => <HeatingTypeCard
@@ -127,7 +127,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             <section className="space-y-8">
                 <div className="text-center space-y-2">
                     <h2 className="text-3xl md:text-4xl font-normal py-0">{t('main-features')}</h2>
-                    <p className="text-lg text-[#71717a] dark:text-[#a1a1aa]">{t('main-features-desc')}</p>
+                    <p className="text-lg text-[#52525b] dark:text-[#a1a1aa]">{t('main-features-desc')}</p>
                 </div>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {FEATURES.map(feature => <FeatureCard
@@ -142,7 +142,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                 <div className="text-center">
                     <LinkLocale
                         href="/versus/"
-                        className="inline-flex items-center gap-2 text-lg text-cyan-600 hover:text-cyan-400 transition-colors"
+                        className="inline-flex items-center gap-2 text-lg text-cyan-700 hover:text-cyan-500 transition-colors"
                     >
                         {t('versus-link')}
                         <ArrowRightIcon className="w-4 h-4" />
@@ -161,7 +161,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                     <p className="text-lg leading-relaxed">{t('easy-install-explain')}</p>
                     <LinkLocale
                         href="/docs/creation/"
-                        className="inline-flex items-center gap-2 text-cyan-600 hover:text-cyan-400 transition-colors"
+                        className="inline-flex items-center gap-2 text-cyan-700 hover:text-cyan-500 transition-colors"
                     >
                         {t('config-guide')}
                         <ArrowRightIcon className="w-4 h-4" />
@@ -173,7 +173,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             <section className="space-y-6">
                 <div className="text-center space-y-2">
                     <h2 className="text-3xl md:text-4xl font-normal py-0">{t('tools.title')}</h2>
-                    <p className="text-lg text-[#71717a] dark:text-[#a1a1aa]">{t('tools.desc')}</p>
+                    <p className="text-lg text-[#52525b] dark:text-[#a1a1aa]">{t('tools.desc')}</p>
                 </div>
                 <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                     {TOOLS.map(tool => <LinkLocale
@@ -232,7 +232,7 @@ function FeatureCard({ href, icon, title, description, more }: FeatureCardProps)
             <span className="inline-flex w-11 h-11 items-center justify-center rounded-lg bg-vtherm-secondary/10 text-vtherm-secondary">{icon}</span>
             <h3 className="py-0 text-xl font-medium text-vtherm-primary dark:text-vtherm-light">{title}</h3>
             <p className="leading-relaxed dark:text-vtherm-light/70">{description}</p>
-            <span className="mt-auto inline-flex items-center gap-1 text-sm text-cyan-600 group-hover:text-cyan-400 transition-colors">
+            <span className="mt-auto inline-flex items-center gap-1 text-sm text-cyan-700 group-hover:text-cyan-500 transition-colors">
                 {more}
                 <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </span>

@@ -2,7 +2,7 @@
     "index": {
         "meta": {
             "title": "Versatile Thermostat im Vergleich zu Alternativen",
-            "description": "Vergleichen Sie Versatile Thermostat mit Better Thermostat, Smart Autotune Thermostat (SAT) und dem Generic Thermostat von Home Assistant: Funktionen, Algorithmen und Anwendungsfälle."
+            "description": "Versatile Thermostat im Vergleich mit Better Thermostat, Smart Autotune Thermostat (SAT) und Generic Thermostat: Funktionen und Algorithmen."
         },
         "title": "Versatile Thermostat im Vergleich zu Alternativen",
         "intro": "Mehrere Integrationen ermöglichen die Heizungsregelung in Home Assistant. Diese Vergleiche zeigen Punkt für Punkt, was jede Lösung kann und in welchen Fällen Versatile Thermostat weiter geht."
@@ -73,7 +73,7 @@
         "name_note": "„Better Thermostat“ ist der Eigenname einer anderen Home-Assistant-Integration (https://github.com/KartoffelToby/better_thermostat). „Better“ („besser“ auf Englisch) ist Teil dieses Namens: Es bedeutet nicht, dass dieses Thermostat besser als Versatile Thermostat oder eine andere Lösung ist.",
         "meta": {
             "title": "Versatile Thermostat vs Better Thermostat: Vergleich",
-            "description": "Versatile Thermostat oder Better Thermostat? Thermostatköpfe, Elektroheizkörper, Wärmepumpen, Anwesenheit, Lastabwurf: detaillierter Vergleich für Home Assistant."
+            "description": "Versatile Thermostat oder Better Thermostat? Thermostatköpfe, Heizkörper, Wärmepumpen, Anwesenheit, Lastabwurf: detaillierter Vergleich."
         },
         "title": "Versatile Thermostat vs Better Thermostat",
         "intro": "Better Thermostat überzeugt bei Thermostatköpfen. Versatile Thermostat steht dem in nichts nach und deckt zusätzlich Elektroheizkörper, Wärmepumpen und das Management des gesamten Hauses ab.",
@@ -125,8 +125,8 @@
     },
     "smart_autotune_thermostat": {
         "meta": {
-            "title": "Versatile Thermostat vs Smart Autotune Thermostat (SAT): Vergleich",
-            "description": "Versatile Thermostat oder Smart Autotune Thermostat (SAT)? Raumweise Regelung oder OpenTherm-Heizkessel: der Vergleich für die richtige Wahl in Home Assistant."
+            "title": "Versatile Thermostat vs Smart Autotune Thermostat (SAT)",
+            "description": "Versatile Thermostat oder Smart Autotune Thermostat (SAT)? Raumweise Regelung oder OpenTherm-Heizkessel: der Vergleich für Home Assistant."
         },
         "title": "Versatile Thermostat vs Smart Autotune Thermostat",
         "intro": "SAT ist auf OpenTherm-Heizkessel zugeschnitten. Versatile Thermostat regelt jeden Raum, unabhängig vom Wärmeerzeuger, und kümmert sich um den Alltag im Haus.",
@@ -172,7 +172,7 @@
     "generic_thermostat": {
         "meta": {
             "title": "Versatile Thermostat vs Generic Thermostat: Vergleich",
-            "description": "Generic Thermostat oder Versatile Thermostat? Hysterese gegen TPI, Anwesenheit, Fenster, Lastabwurf: warum sich der Umstieg auf das erweiterte Thermostat für Home Assistant lohnt."
+            "description": "Generic Thermostat oder Versatile Thermostat? Hysterese gegen TPI, Anwesenheit, Fenster, Lastabwurf: warum sich der Umstieg lohnt."
         },
         "title": "Versatile Thermostat vs Generic Thermostat",
         "intro": "Der Generic Thermostat ist der Ausgangspunkt in Home Assistant. Versatile Thermostat behält dessen einfache Konfiguration bei und ergänzt eine echte Regelung sowie das Management des gesamten Hauses.",
