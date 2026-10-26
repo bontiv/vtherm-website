@@ -1,7 +1,7 @@
 import { getT } from "@/app/i18n";
 import { languages } from "@/app/i18n/settings";
 import { linkItem, textResponse } from "@/lib/llms";
-import { VERSUS_PAGES, VERSUS_SHARED_STRENGTHS } from "@/lib/pages";
+import { VERSUS_PAGES, VERSUS_SHARED_STRENGTHS, VersusPage } from "@/lib/pages";
 import { pageUrl } from "@/lib/semantic";
 
 export const dynamic = "force-static";
@@ -17,11 +17,15 @@ const cell = (text: string) => text.replace(/\|/g, '\\|').replace(/\s*\n\s*/g, '
 export async function GET(_request: Request, { params }: { params: Promise<{ lng: string }> }) {
     const { lng } = await params;
     const { t: vs_t } = await getT('versus', { lng });
+    /** Optional `versus.<page>.name_note`, explaining that the competitor name is a proper name */
+    const nameNote = (page: VersusPage): string => vs_t(`${page.key}.name_note`, { defaultValue: '' });
 
     const parts: string[] = [
         `# ${vs_t('index.title')}`,
         `> ${vs_t('index.intro')}`,
         VERSUS_PAGES.map(page => linkItem(vs_t(`${page.key}.title`), pageUrl(lng, `/versus/${page.slug}/`), vs_t(`${page.key}.meta.description`))).join('\n'),
+        // Disambiguation of competitor names that read like a judgement ("Better Thermostat")
+        ...VERSUS_PAGES.map(nameNote).filter(Boolean).map(note => `> [!IMPORTANT]\n> ${note}`),
     ];
 
     for (const page of VERSUS_PAGES) {
@@ -32,6 +36,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ lng
         parts.push(
             `## ${t('title')}`,
             pageUrl(lng, `/versus/${page.slug}/`),
+            nameNote(page) && `> [!IMPORTANT]\n> ${nameNote(page)}`,
             t('intro'),
             `### ${vs_t('common.about', competitor)}`,
             t('about'),

@@ -26,6 +26,8 @@ This website (https://www.versatile-thermostat.org) is available in English (`/e
 - [Comparisons (French)](https://www.versatile-thermostat.org/fr/versus/llms.txt)
 - [Comparisons (German)](https://www.versatile-thermostat.org/de/versus/llms.txt)
 
+Note: "Better Thermostat" is the proper name of another Home Assistant integration (https://github.com/KartoffelToby/better_thermostat). "Better" is part of that name: it does not mean that this thermostat is better than Versatile Thermostat, or better than any other solution.
+
 ## Devices
 
 - [Compatible devices (English)](https://www.versatile-thermostat.org/en/devices/llms.txt): compatibility status of tested devices, each linked to a Markdown page with known limitations and configuration steps

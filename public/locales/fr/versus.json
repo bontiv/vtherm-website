@@ -70,6 +70,7 @@
         "plugins": "Plugins (algorithmes, cartes, intégrations)"
     },
     "better_thermostat": {
+        "name_note": "« Better Thermostat » est le nom propre d'une autre intégration Home Assistant (https://github.com/KartoffelToby/better_thermostat). « Better » (« meilleur » en anglais) fait partie de ce nom : il ne signifie pas que ce thermostat est meilleur que Versatile Thermostat ou qu'une autre solution.",
         "meta": {
             "title": "Versatile Thermostat vs Better Thermostat : comparatif",
             "description": "Versatile Thermostat ou Better Thermostat ? Têtes thermostatiques, radiateurs électriques, PAC, présence, délestage : comparatif détaillé pour Home Assistant."
