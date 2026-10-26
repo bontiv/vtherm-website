@@ -19,7 +19,7 @@ const PagefindSearch = dynamic(
 );
 
 const LANGUAGES = [
-    { value: 'en', label: <span className="fi fi-gb"></span> },
+    { value: 'en', label: <span className="fi fi-us"></span> },
     { value: 'fr', label: <span className="fi fi-fr"></span> },
     { value: 'de', label: <span className="fi fi-de"></span> },
 ];
