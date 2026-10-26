@@ -21,6 +21,7 @@ This website (https://www.versatile-thermostat.org) is available in English (`/e
 - [Versatile Thermostat vs Better Thermostat](https://www.versatile-thermostat.org/en/versus/better-thermostat/): thermostatic valves, electric radiators, heat pumps, presence and power shedding compared with the Better Thermostat integration
 - [Versatile Thermostat vs Smart Autotune Thermostat (SAT)](https://www.versatile-thermostat.org/en/versus/smart-autotune-thermostat/): room-by-room regulation compared with SAT, built for OpenTherm boilers
 - [Versatile Thermostat vs Generic Thermostat](https://www.versatile-thermostat.org/en/versus/generic-thermostat/): TPI regulation and home features compared with the native on/off Generic Thermostat of Home Assistant
+- [Versatile Thermostat vs HASmartThermostat](https://www.versatile-thermostat.org/en/versus/hasmartthermostat/): self-learning TPI and home features compared with the hand-tuned PID controller of HASmartThermostat
 - [All comparisons](https://www.versatile-thermostat.org/en/versus/)
 - [Full comparisons as text (English)](https://www.versatile-thermostat.org/en/versus/llms.txt): every comparison with its feature table, notes and when the other integration remains a good choice
 - [Full comparisons as text (French)](https://www.versatile-thermostat.org/fr/versus/llms.txt)

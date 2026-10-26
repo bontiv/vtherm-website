@@ -2,7 +2,7 @@
     "index": {
         "meta": {
             "title": "Versatile Thermostat im Vergleich zu Alternativen",
-            "description": "Versatile Thermostat im Vergleich mit Better Thermostat, Smart Autotune Thermostat (SAT) und Generic Thermostat: Funktionen und Algorithmen."
+            "description": "Versatile Thermostat im Vergleich mit Better Thermostat, Smart Autotune Thermostat (SAT), Generic Thermostat und HASmartThermostat: Funktionen und Algorithmen."
         },
         "title": "Versatile Thermostat im Vergleich zu Alternativen",
         "intro": "Mehrere Integrationen ermöglichen die Heizungsregelung in Home Assistant. Diese Vergleiche zeigen Punkt für Punkt, was jede Lösung kann und in welchen Fällen Versatile Thermostat weiter geht."
@@ -49,6 +49,8 @@
         "trv_calibration": "Kalibrierung / Synchronisierung des Ventilsensors",
         "multi": "Mehrere Geräte pro Thermostat",
         "proportional": "Proportionale Regelung (TPI) statt Ein/Aus",
+        "pid": "PID-Regelung mit Integralanteil",
+        "cascade": "Kaskadierter PID (Raum, dann Fußbodenheizung)",
         "learning": "Selbstlernende Koeffizienten",
         "outdoor": "Berücksichtigung der Außentemperatur",
         "presets": "Voreinstellungen (Eco, Komfort, Boost, Frostschutz …)",
@@ -215,5 +217,59 @@
             "low_inertia": "Ihre Heizung hat sehr wenig Trägheit (Zusatzheizung) und eine feine Regelung bringt nichts."
         },
         "migration": "Versatile Thermostat wird wie der Generic Thermostat konfiguriert, vollständig in der Oberfläche.\n1. Installieren Sie Versatile Thermostat über HACS.\n2. Erstellen Sie ein Thermostat „auf einem switch“ mit demselben Schalter und demselben Sensor.\n3. Behalten Sie die TPI-Standardkoeffizienten bei oder aktivieren Sie Auto-TPI.\n4. Ersetzen Sie die alte Entität in Ihren Dashboards und Automatisierungen und löschen Sie dann den Generic Thermostat."
+    },
+    "hasmartthermostat": {
+        "meta": {
+            "title": "Versatile Thermostat vs HASmartThermostat (PID): Vergleich",
+            "description": "Versatile Thermostat oder HASmartThermostat? Selbstlernender TPI gegen einen einzustellenden PID, Anwesenheit, Fenster, Lastabwurf: der Vergleich."
+        },
+        "title": "Versatile Thermostat vs HASmartThermostat",
+        "intro": "HASmartThermostat ist ein präziser PID-Regler für alle, die ihn einstellen können. Versatile Thermostat lernt seine Koeffizienten selbst und kümmert sich zusätzlich um den Alltag im Haus: Anwesenheit, Fenster, Lastabwurf und Heizkessel.",
+        "about": "HASmartThermostat (von ScratMan), auch Smart Thermostat (PID) genannt, ist eine HACS-Integration, die ein Thermostat mit einem klassischen PID-Regler (Proportional-, Integral- und Differentialanteil) erstellt, ergänzt um einen Faktor für die Außentemperatur. Ihr Ausgang von 0 bis 100 % steuert einen Schalter per Pulsweitenmodulation (PWM) oder ein Ventil, eine number-Entität oder eine climate-Entität mit einem stetigen Wert. Sie unterstützt Heizen und Kühlen, Voreinstellungen und einen Sicherheitsmodus, wenn der Sensor nicht mehr antwortet. Die Parameter Kp, Ki, Kd und Ke werden von Hand eingestellt, optional mit einem Autotune. Die Konfiguration erfolgt in der Oberfläche oder in YAML.",
+        "notes": {
+            "climate_devices": "HASmartThermostat sendet seinen Ausgang als Sollwert an eine climate-Entität, vor allem für die PID-Kaskade. Es bietet weder Selbstregelung noch Kalibrierung.",
+            "multi": "HASmartThermostat wendet denselben Ausgang auf alle Geräte an.",
+            "proportional": "Versatile Thermostat nutzt TPI, HASmartThermostat einen PID mit PWM.",
+            "pid": "Versatile Thermostat regelt per TPI. Das offizielle Plugin SmartPI ergänzt eine PI-Regelung auf Basis eines gelernten Wärmemodells.",
+            "cascade": "Ein Regelkreis für den Raum gibt den Sollwert eines Regelkreises für den Boden vor, damit dieser nicht überhitzt.",
+            "learning": "HASmartThermostat bietet ein Autotune nach der Relaismethode, von dem seine eigene Dokumentation abrät. Auto-TPI von Versatile Thermostat lernt im normalen Betrieb.",
+            "outdoor": "HASmartThermostat addiert einen festen Ke-Anteil zum Ausgang. Auto-TPI von Versatile Thermostat lernt diesen Koeffizienten.",
+            "presets": "HASmartThermostat kann eine Voreinstellung aktivieren, wenn der eingegebene Sollwert ihrer Temperatur entspricht.",
+            "power": "HASmartThermostat kann seinen Ausgang nur begrenzen, ohne den Verbrauch des Hauses zu berücksichtigen.",
+            "heat_cool": "HASmartThermostat nutzt ein Heiz- und ein Kühlgerät oder ein einziges Gerät im AC-Modus.",
+            "safety": "HASmartThermostat setzt einen festen Ausgang (standardmäßig 5 %), wenn der Sensor länger als 6 Stunden schweigt."
+        },
+        "strengths": {
+            "no_tuning": {
+                "title": "Kein PID einzustellen",
+                "desc": "TPI hat nur zwei Koeffizienten, und Auto-TPI lernt sie über die Zyklen. Kp, Ki und Kd müssen nicht von Hand ermittelt und tagelange Versuche nicht überwacht werden."
+            },
+            "presence": {
+                "title": "Automatische Anwesenheits- und Bewegungserkennung",
+                "desc": "Versatile Thermostat wechselt dank eines Anwesenheitssensors selbstständig in den Abwesenheitsmodus und schaltet bei Bewegung wieder auf Komfort, ganz ohne selbst geschriebene Automatisierung."
+            },
+            "window": {
+                "title": "Offene Fenster",
+                "desc": "Die Heizung schaltet sich ab, wenn ein Fenster geöffnet wird, mit oder ohne Sensor, und läuft beim Schließen weiter. Mit HASmartThermostat muss dafür eine Automatisierung geschrieben werden."
+            },
+            "power": {
+                "title": "Lastabwurf und Zentralheizkessel",
+                "desc": "Lastabwurf nach Priorität, damit Ihr Anschlusswert nicht überschritten wird, und Einschalten des Heizkessels, sobald ein Raum Wärme anfordert."
+            },
+            "all_heating": {
+                "title": "Thermostatköpfe und Wärmepumpen",
+                "desc": "Selbstregelung und Kalibrierung der Ventile, automatisches Ausschalten und Wiedereinschalten von Wärmepumpen: Versatile Thermostat nutzt jeden Gerätetyp optimal."
+            },
+            "safety": {
+                "title": "Sicherheit und Diagnose",
+                "desc": "Sicherheitsmodus, wenn der Sensor nicht mehr antwortet, Erkennung von Heizungsausfällen und Sperre per Code."
+            }
+        },
+        "when_competitor": {
+            "pid_expert": "Sie beherrschen die Einstellung eines PID-Reglers und möchten jeden Parameter selbst festlegen, mit einem Integralanteil, der die bleibende Regelabweichung beseitigt.",
+            "cascade": "Sie haben eine Fußbodenheizung und möchten eine Kaskadenregelung über die Estrichtemperatur.",
+            "loop_only": "Sie brauchen nur einen Regelkreis und steuern Anwesenheit, Fenster und Lastabwurf bereits mit eigenen Automatisierungen."
+        },
+        "migration": "Beide Integrationen steuern dieselben Schalter und Ventile mit demselben Sensor: Für die Migration ist keine neue Hardware nötig.\n1. Installieren Sie Versatile Thermostat über HACS.\n2. Erstellen Sie ein Thermostat „auf einem switch“ mit demselben Schalter und Sensor oder „auf einem Ventil“, wenn HASmartThermostat eine Ventilöffnung gesteuert hat.\n3. Fügen Sie den Außensensor hinzu und aktivieren Sie Auto-TPI: Ihre PID-Parameter lassen sich nicht in TPI-Koeffizienten übertragen.\n4. Ersetzen Sie die alte Entität in Ihren Dashboards und Automatisierungen und löschen Sie dann das HASmartThermostat-Thermostat."
     }
 }
