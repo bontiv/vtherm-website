@@ -55,6 +55,10 @@
                 "type": "string",
                 "description": "The Github slug of the plugin"
             },
+            "ha_domain": {
+                "type": "string",
+                "description": "The Home Assistant domain of the integration (its manifest domain), used to look up active install statistics in Home Assistant Analytics. Only relevant for integrations."
+            },
             "author": {
                 "type": "string",
                 "description": "The author of the plugin"

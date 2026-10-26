@@ -17,6 +17,7 @@
         "certification": "official",
         "type": "integration",
         "slug": "jmcollin78/vtherm_climate_replication",
+        "ha_domain": "vtherm_climate_replication",
         "author": "jmcollin78",
         "family": "device-helper"
     },
@@ -29,6 +30,7 @@
         "type": "integration",
         "family": "feature",
         "slug": "jmcollin78/vtherm_heating_failure_detection",
+        "ha_domain": "vtherm_heating_failure_detection",
         "author": "jmcollin78"
     },
     {
@@ -40,6 +42,7 @@
         "type": "integration",
         "family": "algorithm",
         "slug": "jmcollin78/vtherm_pellet_stove",
+        "ha_domain": "vtherm_pellet_stove",
         "author": "jmcollin78"
     },
     {
@@ -51,6 +54,7 @@
         "type": "integration",
         "family": "algorithm",
         "slug": "kipk/vtherm_smartpi",
+        "ha_domain": "vtherm_smartpi",
         "author": "kipk"
     },
     {
@@ -62,6 +66,7 @@
         "type": "integration",
         "family": "feature",
         "slug": "armellarcier/ha-chauffage",
+        "ha_domain": "chauffage",
         "author": "armellarcier"
     },
     {
@@ -129,6 +134,7 @@
         "type": "integration",
         "family": "device-helper",
         "slug": "bontiv/ha-meteofrance-observation",
+        "ha_domain": "meteofrance_observation",
         "author": "bontiv"
     },
     {
@@ -151,6 +157,7 @@
         "type": "integration",
         "family": "feature",
         "slug": "jmcollin78/vtherm_auto_fan_extended",
+        "ha_domain": "vtherm_auto_fan_extended",
         "author": "jmcollin78"
     },
     {
@@ -162,6 +169,7 @@
         "type": "integration",
         "family": "algorithm",
         "slug": "KipK/vtherm_hysteresis",
+        "ha_domain": "vtherm_hysteresis",
         "author": "KipK"
     },
     {
@@ -173,6 +181,7 @@
         "type": "integration",
         "family": "feature",
         "slug": "alexlenk/vtherm_inhibition",
+        "ha_domain": "vtherm_inhibition",
         "author": "alexlenk"
     }
 ]

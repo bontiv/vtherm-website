@@ -182,3 +182,27 @@ export async function getRepoStars(slug: string): Promise<number | undefined> {
         return undefined;
     }
 }
+
+/**
+ * Returns the total download count of the assets of the latest stable release of a GitHub repository ("owner/repo"), or 0 if it cannot be fetched.
+ */
+export async function getRepoLatestReleaseDownloads(slug: string): Promise<number> {
+    try {
+        const response = await cachedFetch(`https://api.github.com/repos/${slug}/releases?per_page=100`, {
+            headers: process.env.GITHUB_TOKEN ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` } : undefined,
+            signal: AbortSignal.timeout(5000),
+        });
+        if (!response?.ok) {
+            return 0;
+        }
+        const releases = await response.json() as { prerelease: boolean; assets?: { download_count?: number }[] }[];
+        const latest = releases.find((release) => release.prerelease === false);
+        if (!latest?.assets) {
+            return 0;
+        }
+        return latest.assets.reduce((sum, asset) => sum + (asset.download_count ?? 0), 0);
+    } catch (error) {
+        console.warn(`Error fetching latest release downloads for ${slug}:`, error);
+        return 0;
+    }
+}
