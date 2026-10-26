@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getT } from '@/app/i18n';
 import { VERSUS_PAGES } from '@/lib/pages';
+import { LanguageLinks } from './LanguageLinks';
 
 export const Footer: React.FC<{ lng: string }> = async ({ lng }) => {
     const currentYear = new Date().getFullYear();
@@ -22,6 +23,7 @@ export const Footer: React.FC<{ lng: string }> = async ({ lng }) => {
                             </Link>
                         </React.Fragment>)}
                     </nav>
+                    <LanguageLinks lng={lng} label={t('footer_languages')} />
                     <div className="flex flex-wrap items-center gap-4 mx-auto">
                         © {currentYear} Remi BONNET
                         <span className="hidden sm:inline">•</span>

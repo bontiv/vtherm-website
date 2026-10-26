@@ -2,7 +2,7 @@
     "index": {
         "meta": {
             "title": "Schnellstart nach Heizungsart",
-            "description": "Thermostatventil, Elektroheizkörper mit Steuerleitung, Wärmepumpe oder Pelletofen: Konfigurieren Sie Versatile Thermostat für Ihre Heizung mit einer Schritt-für-Schritt-Anleitung."
+            "description": "Thermostatventil, Heizkörper mit Steuerleitung, Wärmepumpe oder Pelletofen: Versatile Thermostat mit einer Schritt-für-Schritt-Anleitung einrichten."
         },
         "title": "Schnellstart",
         "intro": "Wählen Sie Ihre Heizungsart: Dort finden Sie die Stärken von Versatile Thermostat und eine Schritt-für-Schritt-Anleitung, um Ihr erstes Thermostat zu erstellen.",
@@ -25,7 +25,7 @@
     "trv": {
         "meta": {
             "title": "Thermostatventil (TRV): Schnellstart",
-            "description": "Steuern Sie Ihre Zigbee-Thermostatköpfe (Sonoff TRVZB …) mit Versatile Thermostat: direkte Ventilsteuerung, externer Sensor, Auto-TPI und Zentralheizkessel.",
+            "description": "Steuern Sie Zigbee-Thermostatköpfe (Sonoff TRVZB …) mit Versatile Thermostat: direkte Ventilsteuerung, externer Sensor, Auto-TPI und Heizkessel.",
             "keywords": "Thermostatventil,Thermostatkopf,TRV,Heizkörperthermostat,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
         },
         "name": "Thermostatventil",
@@ -98,7 +98,7 @@
     "pilot_wire": {
         "meta": {
             "title": "Elektroheizung mit Steuerleitung: Schnellstart",
-            "description": "Steuern Sie Ihre Elektroheizkörper mit Steuerleitung (Fil Pilote: Nodon, Heatzy, Relais + Diode) mit Versatile Thermostat: TPI-Algorithmus, Lastabwurf, Anwesenheit und Fenster.",
+            "description": "Elektroheizkörper mit Steuerleitung (Nodon, Heatzy, Relais + Diode) mit Versatile Thermostat steuern: TPI, Lastabwurf, Anwesenheit und Fenster.",
             "keywords": "Steuerleitung,Fil Pilote,Elektroheizung,Elektroheizkörper,Nodon,Heatzy,Lastabwurf,Home Assistant,Versatile Thermostat"
         },
         "name": "Elektroheizung mit Steuerleitung",
@@ -171,7 +171,7 @@
     "heat_pump": {
         "meta": {
             "title": "Wärmepumpe und Klimaanlage: Schnellstart",
-            "description": "Regeln Sie Ihre Luft-Luft-Wärmepumpe oder Klimaanlage mit Versatile Thermostat: Selbstregelung, automatisches Ausschalten und Wiedereinschalten, Heizen und Kühlen.",
+            "description": "Regeln Sie Ihre Luft-Luft-Wärmepumpe oder Klimaanlage mit Versatile Thermostat: Selbstregelung, automatisches Aus- und Wiedereinschalten.",
             "keywords": "Wärmepumpe,Luft-Luft-Wärmepumpe,Klimaanlage,Auto Start Stop,Home Assistant,Versatile Thermostat"
         },
         "name": "Wärmepumpe",
@@ -244,7 +244,7 @@
     "pellet_stove": {
         "meta": {
             "title": "Pelletofen: Schnellstart",
-            "description": "Regeln Sie Ihren Pelletofen mit Versatile Thermostat: potentialfreier Kontakt oder Integration, passende lange Zyklen, Anwesenheit, Fenster und Störungserkennung.",
+            "description": "Regeln Sie Ihren Pelletofen mit Versatile Thermostat: potentialfreier Kontakt oder Integration, lange Zyklen, Anwesenheit und Störungserkennung.",
             "keywords": "Pelletofen,Pellet-Ofen,Pelletheizung,potentialfreier Kontakt,Home Assistant,Versatile Thermostat"
         },
         "name": "Pelletofen",

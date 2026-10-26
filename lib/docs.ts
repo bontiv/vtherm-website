@@ -23,6 +23,7 @@ const DOC_ORDERING = [
     'feature-central-boiler',
     'feature-advanced',
     'feature-heating-failure-detection',
+    'feature-humidity',
     'self-regulation',
     'feature-autotpi',
     'feature-lock',

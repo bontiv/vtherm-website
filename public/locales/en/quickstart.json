@@ -2,7 +2,7 @@
     "index": {
         "meta": {
             "title": "Quick start by heating type",
-            "description": "Thermostatic valve, pilot wire (fil pilote) electric radiator, heat pump or pellet stove: set up Versatile Thermostat for your heating with a step-by-step tutorial."
+            "description": "Thermostatic valve, pilot wire radiator, heat pump or pellet stove: set up Versatile Thermostat for your heating with a step-by-step tutorial."
         },
         "title": "Quick start",
         "intro": "Pick your heating type: you'll find Versatile Thermostat's strengths and a step-by-step tutorial to create your first thermostat.",
@@ -98,7 +98,7 @@
     "pilot_wire": {
         "meta": {
             "title": "Pilot wire electric radiator: quick start",
-            "description": "Control your pilot wire (fil pilote) electric radiators (Nodon, Heatzy, relay + diode) with Versatile Thermostat: TPI algorithm, power shedding, presence and windows.",
+            "description": "Control pilot wire electric radiators (Nodon, Heatzy, relay + diode) with Versatile Thermostat: TPI algorithm, power shedding, presence and windows.",
             "keywords": "pilot wire,fil pilote,electric radiator,Nodon,Heatzy,power shedding,Home Assistant,Versatile Thermostat"
         },
         "name": "Electric pilot wire",

@@ -1,7 +1,7 @@
 {
     "title": "Der intelligente Thermostat für Ihr Zuhause",
     "title_doc": "{{- title}}",
-    "description": "Versatile Thermostat ist eine erweiterte Thermostat-Integration für Home Assistant, die mit jeder vorhandenen Klima-, Schalter- oder Ventilentität funktioniert. Es bietet intelligente Kalibrierung, Kesselsteuerung und einen TPI-Algorithmus für optimalen Komfort und Energieeinsparungen.",
+    "description": "Versatile Thermostat: erweiterte Thermostat-Integration für Home Assistant mit intelligenter Kalibrierung, Kesselsteuerung und TPI-Algorithmus.",
     "breadcrumb": "Brotkrümelnavigation",
     "menu": {
         "home": "Startseite",
@@ -33,7 +33,8 @@
         "feature-autotpi": "AutoTPI",
         "feature-central-boiler": "Zentralheizkessel",
         "feature-central-mode": "Zentrale Konfiguration",
-        "feature-heating-failure-detection": "Störungserkennung",
+        "feature-heating-failure-detection": "Störungserkennung",
+        "feature-humidity": "Luftfeuchtigkeit",
         "feature-lock": "Sperrfunktion",
         "feature-logs-collector": "Log collector",
         "feature-motion": "Bewegungserkennung",
@@ -56,6 +57,7 @@
     },
     "footer_versus": "Vergleiche",
     "footer_versus_link": "VTherm vs {{competitor}}",
+    "footer_languages": "Sprachen",
     "hacs_alert": {
         "title": "HACS-Installationen und -Updates derzeit gestört",
         "text": "Seit dem 23. Oktober 2026 führt eine Änderung bei GitHub dazu, dass HACS beim Herunterladen von Release-Dateien fehlschlägt (Fehler „400 - Got more than 8190 bytes when reading“). Die Installation oder Aktualisierung von Versatile Thermostat und seinen Plugins über HACS kann fehlschlagen, bis HACS eine Korrektur veröffentlicht. Details und Workarounds im <0>HACS-Issue #5643</0>."

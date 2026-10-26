@@ -12,6 +12,8 @@ import rehypeExternalLinks from 'rehype-external-links'
 import Semantic from '@/components/Semantic';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { breadcrumb } from '@/lib/semantic';
+import { pageTitle } from '@/lib/metadata';
+import { markdownTitle } from '@/lib/markdown';
 
 import remarkNotes from 'remark-github-blockquote-alert';
 import './markdown.css';
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const t_opts = { device: config.title ?? slug }
 
     return {
-        title: t('title_details', t_opts),
+        title: pageTitle(t('title_details', t_opts)),
         description: t('description_details', t_opts),
         openGraph: {
             title: t('title_details', t_opts),
@@ -115,7 +117,8 @@ const DevicePage: React.FC<{ params: Promise<{ slug: string, lng: string }> }> =
                     </div>
                 })}
             </section>
-            {readme ? <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown> : <h1>{t('details.title', { device: config.title })}</h1>}
+            {!(readme && markdownTitle(readme)) && <h1>{t('details.title', { device: config.title })}</h1>}
+            {readme && <Markdown rehypePlugins={[rehypeSlug, rehypeExternalLinks]} remarkPlugins={[remarkGfm, remarkNotes]}>{readme}</Markdown>}
             {config.config.thermostat_type && <DeviceConfig config={config.config} lng={lng} />}
             {references && <section>
                 <h2>{t('references')}</h2>

@@ -57,18 +57,17 @@ export const NavAccordion: React.FC<NavAccordionProps> = ({
                 />
             </button>
 
-            {isOpen && (
-                <div className="mt-1 ml-2 space-y-1 accordion-enter">
-                    {subItems.map((item) => (
-                        <NavItem
-                            key={item.href}
-                            href={item.href}
-                            label={t(`docs.${item.label}`)}
-                            onClick={onClick}
-                        />
-                    ))}
-                </div>
-            )}
+            {/* Always rendered, so that crawlers find the links even when the menu is closed */}
+            <div className="mt-1 ml-2 space-y-1 accordion-enter" hidden={!isOpen}>
+                {subItems.map((item) => (
+                    <NavItem
+                        key={item.href}
+                        href={item.href}
+                        label={t(`docs.${item.label}`)}
+                        onClick={onClick}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

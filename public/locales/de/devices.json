@@ -1,6 +1,6 @@
 {
     "title": "Gerätekompotibilität",
-    "description": "Liste kompatibler Versatile Thermostat-Geräte",
+    "description": "Liste der mit Versatile Thermostat kompatiblen Geräte: Thermostatköpfe, Steuerleitungsmodule, Wärmepumpen, Schalter und Sensoren mit Anleitungen.",
     "title_details": "Kompatibilität von {{device}}",
     "description_details": "So wird {{device}} mit Versatile Thermostat konfiguriert. Anleitung und Erläuterung",
     "manufacturer": "Marke",

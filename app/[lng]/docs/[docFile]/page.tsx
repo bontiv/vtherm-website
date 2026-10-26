@@ -9,23 +9,27 @@ import Semantic from "@/components/Semantic";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { DOC_ENTRY_PAGE } from "@/lib/docs";
 import { breadcrumb } from "@/lib/semantic";
+import { markdownDescription, markdownTitle } from "@/lib/markdown";
+import { pageTitle } from "@/lib/metadata";
 
 const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => String.fromCharCode(dec));
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, docFile: string }> }): Promise<Metadata> {
     const { lng, docFile } = await params
     const { t } = await getT('common', { lng })
-    const content = await fetch(docSourceUrl(lng, docFile))
+    const content = await (await fetch(docSourceUrl(lng, docFile))).text()
 
-    const title = (await content.text()).match(/^# (.*)\n/)
-    const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
+    const web_title = decodeEntity(t('title_doc', { title: markdownTitle(content) ?? docFile }))
+    const description = markdownDescription(content) ?? t('description')
     const path = `/docs/${docFile}/`
     const alternates = getAlternatesMetadata(path, lng, { markdown: docSourceUrl(lng, docFile) });
 
     return {
-        title: web_title,
+        title: pageTitle(web_title),
+        description,
         openGraph: {
             title: web_title,
+            description,
             type: "website",
             siteName: "Versatile Thermostat",
             url: `/${lng}${path}`,
@@ -39,8 +43,7 @@ const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docCon
     const { lng, docFile } = await params;
     const { t } = await getT('common', { lng })
     const content = await (await fetch(docSourceUrl(lng, docFile))).text()
-    const title = content.match(/^# (.*)\n/)
-    const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
+    const web_title = decodeEntity(t('title_doc', { title: markdownTitle(content) ?? docFile }))
 
     const crumbs = [
         { name: t('menu.docs'), path: `/docs/${DOC_ENTRY_PAGE}/` },

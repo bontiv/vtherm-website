@@ -1,6 +1,6 @@
 {
     "title": "Appareils compatibles",
-    "description": "Liste des appareils compatibles avec Versatile Thermostat.",
+    "description": "Liste des appareils compatibles avec Versatile Thermostat : têtes thermostatiques, modules fil pilote, PAC, interrupteurs et sondes, avec guides.",
     "title_details": "Configuration de {{device}}",
     "description_details": "Comment configurer {{device}} avec Versatile Thermostat. Manuel et explications.",
     "manufacturer": "Marque",

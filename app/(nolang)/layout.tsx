@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { getT } from "../i18n";
 import { opengraph_defaults } from "@/lib/opengraph";
 
-const GlobalLayout: React.FC<PropsWithChildren<object>> = async ({ children }) => <html><body>
+const GlobalLayout: React.FC<PropsWithChildren<object>> = async ({ children }) => <html lang={fallbackLng}><body>
     {children}
     <Suspense fallback={null}>
         <Statistics />

@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 
     return {
         title: {
-            template: "%s - Versatile Thermostat",
+            template: "%s - Versatile Thermostat", // keep in sync with TITLE_SUFFIX in lib/metadata.ts
             default: t('title')
         },
         description: t('description'),
