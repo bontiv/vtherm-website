@@ -9,10 +9,16 @@ export function markdownTitle(md: string): string | undefined {
 
 /** Removes inline Markdown/HTML formatting from a line of text */
 function stripInline(text: string): string {
+    // Repeat until stable, so that nested fragments such as `<scr<b>ipt>` cannot rebuild a tag
+    let previous: string;
+    do {
+        previous = text;
+        text = text.replace(/<[^>]*>/g, '');
+    } while (text !== previous);
+
     return text
         .replace(/!\[[^\]]*\]\([^)]*\)/g, '')       // images
         .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')    // links
-        .replace(/<[^>]+>/g, '')                     // html tags
         .replace(/`([^`]*)`/g, '$1')                 // inline code
         .replace(/(\*\*|__)(.+?)\1/g, '$2')          // strong emphasis
         .replace(/(^|\W)([*_])(\S(?:.*?\S)?)\2(?!\w)/g, '$1$3') // emphasis, keeping snake_case words

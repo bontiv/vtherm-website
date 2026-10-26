@@ -26,6 +26,11 @@ describe('markdownDescription', () => {
             .toBe('The over_climate type is very useful with any thermostat_over_switch device you already own at home.');
     });
 
+    it('removes nested tags', () => {
+        expect(markdownDescription('Some text <scr<b>ipt>alert(1)<</b>/script> long enough to be kept as the description of the page.'))
+            .not.toMatch(/<\/?[a-z]/i);
+    });
+
     it('joins short paragraphs until the description is long enough', () => {
         expect(markdownDescription('Short one.\n\nSecond paragraph with enough words to reach the minimum length of a description.'))
             .toBe('Short one. Second paragraph with enough words to reach the minimum length of a description.');
