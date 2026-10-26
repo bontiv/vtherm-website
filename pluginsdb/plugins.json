@@ -109,6 +109,18 @@
         "family": "device-helper"
     },
     {
+        "name": "Aqara W100 Thermostat Synchronization",
+        "author": "KipK",
+        "description": "<p>Turns the Aqara W100 into a wall-mounted remote for a Versatile Thermostat. The blueprint synchronizes the HVAC mode, setpoint and fan mode both ways between the W100 virtual thermostat and the VTherm, and can optionally show an external temperature and humidity on the W100 display.</p><p>Requires Zigbee2MQTT 2.7.0 or later and the W100 thermostat mode switch turned on. The W100 only handles whole-degree setpoints.</p>",
+        "description_fr": "<p>Transforme l'Aqara W100 en télécommande murale d'un Versatile Thermostat. Le blueprint synchronise dans les deux sens le mode HVAC, la consigne et le mode de ventilation entre le thermostat virtuel du W100 et le VTherm, et peut afficher en option une température et une humidité externes sur l'écran du W100.</p><p>Nécessite Zigbee2MQTT 2.7.0 ou plus récent et l'interrupteur de mode thermostat du W100 activé. Le W100 ne gère que des consignes au degré entier.</p>",
+        "description_de": "<p>Macht den Aqara W100 zu einer Wandfernbedienung für einen Versatile Thermostat. Der Blueprint synchronisiert HVAC-Modus, Sollwert und Lüftermodus in beide Richtungen zwischen dem virtuellen Thermostat des W100 und dem VTherm und kann optional eine externe Temperatur und Luftfeuchtigkeit auf dem Display des W100 anzeigen.</p><p>Erfordert Zigbee2MQTT 2.7.0 oder neuer und einen eingeschalteten Thermostatmodus-Schalter am W100. Der W100 unterstützt nur Sollwerte in ganzen Grad.</p>",
+        "type": "blueprint",
+        "certification": "community",
+        "url": "https://raw.githubusercontent.com/KipK/aqara-w100-z2m-converter/main/w100-blueprint.yaml",
+        "slug": "KipK/aqara-w100-z2m-converter",
+        "family": "device-helper"
+    },
+    {
         "name": "Météo-France Observation",
         "description": "<p>Real-time measurements of Météo-France ground stations (France and overseas territories), updated every 6 minutes. Provides an accurate outdoor temperature sensor for Versatile Thermostat, plus humidity, pressure, wind and precipitation.</p><p>Credentials are stored in Home Assistant application credentials and tokens are renewed automatically. The station is found around a point on the map, by department or by ID.</p>",
         "description_fr": "<p>Mesures en temps réel des stations au sol de Météo-France (métropole et outre-mer), mises à jour toutes les 6 minutes. Fournit à Versatile Thermostat un capteur de température extérieure précis, ainsi que l'humidité, la pression, le vent et les précipitations.</p><p>Les identifiants sont stockés dans les identifiants d'application de Home Assistant et les jetons sont renouvelés automatiquement. La station se choisit autour d'un point sur la carte, par département ou par identifiant.</p>",

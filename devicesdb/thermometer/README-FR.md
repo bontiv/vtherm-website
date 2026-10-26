@@ -9,6 +9,7 @@ Les capteurs de température suivants sont couramment utilisés avec Versatile T
 - [Moes ZSS-KB-TH-LF-C Tuya Zigbee](https://www.domadoo.fr/fr/domotique/6667-moes-capteur-de-temperature-et-humidite-avec-ecran-zigbee-tuya.html?domid=97),
 - [Sonoff SNZB-02P Zigbee](https://www.domadoo.fr/fr/chauffage-connecte/6732-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-support.html?domid=97),
 - [Aqara T1 Zigbee](https://www.domadoo.fr/fr/thermometre-connecte/6705-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-t1-th-s02d-6975833352159.html?domid=97),
+- [Aqara W100 Zigbee](/fr/devices/aqara-w100/) — sert aussi de télécommande murale du _VTherm_,
 - Station météo Netatmo (intégration cloud).
 
 Configurez le capteur de température de la pièce dans les attributs principaux du _VTherm_ (voir [attributs de base](/fr/docs/base-attributes/)).
