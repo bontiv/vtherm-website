@@ -25,6 +25,10 @@ describe('htmlToText', () => {
         expect(htmlToText('<p>First sentence.</p><p>Second &amp; last.</p>')).toBe('First sentence. Second & last.');
     });
 
+    it('removes nested and escaped tags', () => {
+        expect(htmlToText('<<b>script>alert(1)<</b>/script> &lt;i&gt;text')).not.toMatch(/<\/?[a-z]/i);
+    });
+
     it('removes i18next Trans placeholders', () => {
         expect(htmlToText('by <0>jmcollin78</0>')).toBe('by jmcollin78');
     });

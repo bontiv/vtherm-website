@@ -10,18 +10,24 @@ export function absolutizeLinks(markdown: string, siteUrl: string = process.env.
 
 /** Convert a short HTML description (plugins database) to plain text */
 export function htmlToText(html: string): string {
-    return html
+    let text = html
         .replace(/<br\s*\/?>/gi, ' ')
         .replace(/<\/(p|li|div)>/gi, ' ')
-        .replace(/<[^>]+>/g, '')
         .replace(/&nbsp;/g, ' ')
         .replace(/&lt;/g, '<')
         .replace(/&gt;/g, '>')
         .replace(/&quot;/g, '"')
         .replace(/&#39;/g, "'")
-        .replace(/&amp;/g, '&')
-        .replace(/\s+/g, ' ')
-        .trim();
+        .replace(/&amp;/g, '&');
+
+    // Repeat until stable, so that nested fragments such as `<scr<b>ipt>` cannot rebuild a tag
+    let previous: string;
+    do {
+        previous = text;
+        text = text.replace(/<[^>]*>/g, '');
+    } while (text !== previous);
+
+    return text.replace(/\s+/g, ' ').trim();
 }
 
 /** Markdown list item `- [title](url): notes` */
