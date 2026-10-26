@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
     const { lng } = await params;
     const { t } = await getT('versus', { lng });
     return pageMetadata(PATH, lng, t('index.meta.title'), t('index.meta.description'),
-        ['Home Assistant', 'thermostat', ...VERSUS_PAGES.map(page => page.competitor)]);
+        ['Home Assistant', 'thermostat', ...VERSUS_PAGES.map(page => page.competitor)], pageUrl(lng, '/versus/llms.txt'));
 }
 
 export default async function VersusIndexPage({ params }: { params: Promise<{ lng: string }> }) {

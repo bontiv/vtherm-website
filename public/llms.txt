@@ -1,0 +1,49 @@
+# Versatile Thermostat
+
+> Versatile Thermostat (VTherm) is a free, open-source custom integration for Home Assistant that turns any heating or cooling device into a smart thermostat. It controls switches and pilot-wire electric radiators (over_switch), existing climate entities such as thermostatic valves, heat pumps and air conditioners (over_climate), and valve openings directly (over_valve), with a TPI proportional algorithm, Auto-TPI learning, self-regulation, presets, presence and motion detection, open-window detection, power shedding and central boiler control.
+
+This website (https://www.versatile-thermostat.org) is available in English (`/en/`), French (`/fr/`) and German (`/de/`). The integration installs from HACS and is configured in the Home Assistant UI, without YAML. Each section below links to a generated index in every language; the English one is listed first.
+
+## Documentation
+
+- [Documentation index (English)](https://www.versatile-thermostat.org/en/docs/llms.txt): every documentation page, linked to its Markdown source on GitHub
+- [Documentation index (French)](https://www.versatile-thermostat.org/fr/docs/llms.txt)
+- [Documentation index (German)](https://www.versatile-thermostat.org/de/docs/llms.txt)
+- [Installation](https://www.versatile-thermostat.org/en/docs/installation/): install the integration with HACS
+- [Presentation](https://www.versatile-thermostat.org/en/docs/presentation/): what Versatile Thermostat does and how it is organized
+
+## Quick start
+
+- [Quick start by heating type](https://www.versatile-thermostat.org/en/quick-start/): step-by-step tutorials to set up a first thermostat
+- [Thermostatic valve (TRV)](https://www.versatile-thermostat.org/en/quick-start/trv/): Zigbee valves (Sonoff TRVZB...), direct valve control, external sensor, Auto-TPI and central boiler
+- [Pilot wire electric radiator](https://www.versatile-thermostat.org/en/quick-start/pilot-wire/): pilot wire (fil pilote) radiators (Nodon, Heatzy, relay + diode), TPI algorithm, power shedding, presence and windows
+- [Heat pump and air conditioning](https://www.versatile-thermostat.org/en/quick-start/heat-pump/): air-to-air heat pumps and air conditioners, self-regulation, automatic stop and restart, heating and cooling
+- [Pellet stove](https://www.versatile-thermostat.org/en/quick-start/pellet-stove/): dry contact or integration, long cycles, presence, windows and failure detection
+
+## Comparisons
+
+- [Comparisons (English)](https://www.versatile-thermostat.org/en/versus/llms.txt): full comparisons with Better Thermostat, Smart Autotune Thermostat (SAT) and Home Assistant Generic Thermostat, feature tables included
+- [Comparisons (French)](https://www.versatile-thermostat.org/fr/versus/llms.txt)
+- [Comparisons (German)](https://www.versatile-thermostat.org/de/versus/llms.txt)
+
+## Devices
+
+- [Compatible devices (English)](https://www.versatile-thermostat.org/en/devices/llms.txt): compatibility status of tested devices, each linked to a Markdown page with known limitations and configuration steps
+- [Compatible devices (French)](https://www.versatile-thermostat.org/fr/devices/llms.txt)
+- [Compatible devices (German)](https://www.versatile-thermostat.org/de/devices/llms.txt)
+
+## Plugins
+
+- [Plugins (English)](https://www.versatile-thermostat.org/en/plugins/llms.txt): official and community regulation algorithms, dashboard cards, blueprints and integrations that extend Versatile Thermostat
+- [Plugins (French)](https://www.versatile-thermostat.org/fr/plugins/llms.txt)
+- [Plugins (German)](https://www.versatile-thermostat.org/de/plugins/llms.txt)
+
+## Tools
+
+- [Log analyzer](https://www.versatile-thermostat.org/en/debugger/): load Versatile Thermostat logs and see temperatures, setpoints and triggers on a chart; everything stays in the browser
+
+## Optional
+
+- [Integration source code](https://github.com/jmcollin78/versatile_thermostat): GitHub repository of the Home Assistant integration, issues and discussions
+- [Website source code](https://github.com/bontiv/vtherm-website): GitHub repository of this website, device and plugin databases
+- [Usage statistics](https://www.versatile-thermostat.org/stats/): installed versions reported by Home Assistant analytics
