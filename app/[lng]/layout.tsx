@@ -3,7 +3,7 @@ import { getT } from '@/app/i18n'
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { GitHubAPI } from '@/lib/github';
+import { getOrderedDocFiles } from '@/lib/docs';
 import Statistics from '@/components/Statisctics';
 import { Suspense } from 'react';
 import { Metadata } from 'next';
@@ -41,50 +41,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 }
 
 export default async function Layout({ children, params }: { children: React.ReactNode, params: Promise<{ lng: string }> }) {
-    const githubapi = GitHubAPI.getInstance();
     const { lng } = await params;
-    const filesDir = (await githubapi.getGitTreePath(`main/documentation/${lng}`))?.sha;
-    const files = filesDir ? (await githubapi.getGitTree(filesDir))?.tree.filter((x) => x.type === 'blob' && x.path.endsWith('.md')).map((item) => item.path.split('/').pop()?.slice(0, -3)) : undefined;
+    const docFiles = await getOrderedDocFiles(lng);
     const { i18n } = await getT('common', { lng })
-
-    const page_ordering: (string | undefined)[] = [
-        'presentation',
-        'installation',
-        'quick-start',
-        'creation',
-        'base-attributes',
-        'over-switch',
-        'over-climate',
-        'over-valve',
-        'feature-presets',
-        'feature-window',
-        'feature-presence',
-        'feature-motion',
-        'feature-power',
-        'feature-auto-start-stop',
-        'feature-central-mode',
-        'feature-central-boiler',
-        'feature-advanced',
-        'feature-heating-failure-detection',
-        'self-regulation',
-        'feature-autotpi',
-        'feature-lock',
-        'feature-sync_device_temp',
-        'feature-timed-preset',
-        'tuning-examples',
-        'algorithms',
-        'reference',
-        'troubleshooting',
-        'releases'
-    ].filter(x => {
-        if (files) {
-            const idx = files.indexOf(x)
-            if (idx >= 0) {
-                files.splice(idx, 1);
-                return true;
-            }
-        }
-    })
 
     return <html className="" lang={i18n.resolvedLanguage} data-scroll-behavior="smooth">
         <body className="antialiased">
@@ -92,7 +51,7 @@ export default async function Layout({ children, params }: { children: React.Rea
             {/* Layout principal: Sidebar fixe + Contenu principal */}
             <div className="flex min-h-screen">
                 {/* Sidebar - 247px fixe sur desktop */}
-                <Sidebar docfiles={page_ordering.concat(files)} />
+                <Sidebar docfiles={docFiles} />
 
                 {/* Contenu principal */}
                 <div className="flex flex-col flex-1 min-w-0">

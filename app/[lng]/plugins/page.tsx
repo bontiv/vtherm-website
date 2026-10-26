@@ -9,7 +9,7 @@ import { getRepoStars } from '@/lib/github';
 export const generateMetadata = async ({ params }: { params: Promise<{ lng: string, plugins: VTPlugin[] }> }): Promise<Metadata> => {
     const { lng } = await params;
     const { t } = await getT('plugins', { lng });
-    const alternates = getAlternatesMetadata('/plugins', lng);
+    const alternates = getAlternatesMetadata('/plugins/', lng, { markdown: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/plugins/llms.txt` });
 
     return {
         title: t('title'),

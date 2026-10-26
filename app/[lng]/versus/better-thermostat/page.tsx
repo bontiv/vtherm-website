@@ -6,7 +6,7 @@ import { LinkLocale } from "@/components/LinkLocale";
 import { Button } from "@/components/ui/Button";
 import { CtaSection } from "@/components/ui/CtaSection";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { ComparisonTable, Support } from "@/components/versus/ComparisonTable";
+import { ComparisonTable } from "@/components/versus/ComparisonTable";
 import { StrengthList } from "@/components/versus/StrengthList";
 import { pageMetadata } from "@/lib/metadata";
 import { getVersusPage, VERSUS_SHARED_STRENGTHS } from "@/lib/pages";
@@ -15,41 +15,11 @@ import { breadcrumb, pageUrl, SITE_ID, SOFTWARE_ID } from "@/lib/semantic";
 const PAGE = getVersusPage('better-thermostat');
 const PATH = `/versus/${PAGE.slug}/`;
 
-/** Rows of the comparison table. Labels are `versus.features.<key>`, optional notes `versus.<page>.notes.<key>` */
-const FEATURES: { key: string, vtherm: Support, competitor: Support }[] = [
-    { key: 'switch_devices', vtherm: 'yes', competitor: 'no' },
-    { key: 'climate_devices', vtherm: 'yes', competitor: 'yes' },
-    { key: 'valve', vtherm: 'yes', competitor: 'yes' },
-    { key: 'trv_calibration', vtherm: 'yes', competitor: 'yes' },
-    { key: 'learning', vtherm: 'yes', competitor: 'yes' },
-    { key: 'outdoor', vtherm: 'yes', competitor: 'yes' },
-    { key: 'presence', vtherm: 'yes', competitor: 'no' },
-    { key: 'motion', vtherm: 'yes', competitor: 'no' },
-    { key: 'window', vtherm: 'yes', competitor: 'yes' },
-    { key: 'window_auto', vtherm: 'yes', competitor: 'no' },
-    { key: 'power', vtherm: 'yes', competitor: 'no' },
-    { key: 'central_boiler', vtherm: 'yes', competitor: 'no' },
-    { key: 'central_mode', vtherm: 'yes', competitor: 'no' },
-    { key: 'auto_start_stop', vtherm: 'yes', competitor: 'no' },
-    { key: 'heat_cool', vtherm: 'yes', competitor: 'partial' },
-    { key: 'failure', vtherm: 'yes', competitor: 'no' },
-    { key: 'safety', vtherm: 'yes', competitor: 'yes' },
-    { key: 'lock', vtherm: 'yes', competitor: 'partial' },
-    { key: 'valve_maintenance', vtherm: 'no', competitor: 'yes' },
-    { key: 'ui_card', vtherm: 'yes', competitor: 'yes' },
-    { key: 'log_analyzer', vtherm: 'yes', competitor: 'no' },
-    { key: 'plugins', vtherm: 'yes', competitor: 'no' },
-];
-/** Keys of `versus.<page>.strengths` */
-const STRENGTHS = ['all_heating', 'presence', 'power', 'central', 'auto_tpi', 'safety'];
-/** Keys of `versus.<page>.when_competitor` */
-const WHEN_COMPETITOR = ['trv_only', 'homematic', 'maintenance', 'google'];
-
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
     const { t } = await getT('versus', { lng, keyPrefix: PAGE.key });
     return pageMetadata(PATH, lng, t('meta.title'), t('meta.description'),
-        ['Versatile Thermostat', PAGE.competitor, 'Home Assistant', 'thermostat']);
+        ['Versatile Thermostat', PAGE.competitor, 'Home Assistant', 'thermostat'], pageUrl(lng, '/versus/llms.txt'));
 }
 
 export default async function BetterThermostatVersusPage({ params }: { params: Promise<{ lng: string }> }) {
@@ -106,7 +76,7 @@ export default async function BetterThermostatVersusPage({ params }: { params: P
                 featureLabel={vs_t('common.feature')}
                 competitorLabel={PAGE.competitor}
                 supportLabels={{ yes: vs_t('common.support.yes'), partial: vs_t('common.support.partial'), no: vs_t('common.support.no') }}
-                rows={FEATURES.map(row => ({
+                rows={PAGE.features.map(row => ({
                     feature: vs_t(`features.${row.key}`),
                     note: t(`notes.${row.key}`, { defaultValue: '' }) || undefined,
                     vtherm: row.vtherm,
@@ -119,7 +89,7 @@ export default async function BetterThermostatVersusPage({ params }: { params: P
         <section className="space-y-6">
             <h2 className="text-3xl font-normal">{vs_t('common.strengths_title')}</h2>
             <StrengthList moreLabel={vs_t('common.strengths.learn_more')} items={[
-                ...STRENGTHS.map(key => ({
+                ...PAGE.strengths.map(key => ({
                     title: t(`strengths.${key}.title`),
                     description: t(`strengths.${key}.desc`),
                 })),
@@ -134,7 +104,7 @@ export default async function BetterThermostatVersusPage({ params }: { params: P
         <section className="space-y-4">
             <h2 className="text-3xl font-normal">{vs_t('common.when_competitor', competitor)}</h2>
             <ul className="list-disc pl-6 space-y-2 text-lg leading-relaxed">
-                {WHEN_COMPETITOR.map(key => <li key={key}>{t(`when_competitor.${key}`)}</li>)}
+                {PAGE.whenCompetitor.map(key => <li key={key}>{t(`when_competitor.${key}`)}</li>)}
             </ul>
         </section>
 

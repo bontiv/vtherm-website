@@ -27,6 +27,8 @@ export async function getT(ns: string, options: { keyPrefix?: string, lng?: stri
 export function getAlternatesMetadata(path: string, lng?: string, params: {
     canonical?: string,
     x_default?: string,
+    /** URL of the Markdown version of the page, exposed as `<link rel="alternate" type="text/markdown">` */
+    markdown?: string,
 } = {}): Metadata['alternates'] {
     const lang_pages = Object.fromEntries(languages.map(lng => [lng, `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}${path}`]))
 
@@ -35,7 +37,8 @@ export function getAlternatesMetadata(path: string, lng?: string, params: {
         languages: {
             ...lang_pages,
             'x-default': params.x_default ?? `${process.env.NEXT_PUBLIC_SITE_URL}/${fallbackLng}${path}`
-        }
+        },
+        types: params.markdown ? { 'text/markdown': params.markdown } : undefined,
     }
 }
 

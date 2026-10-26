@@ -8,7 +8,7 @@ import Semantic from "@/components/Semantic";
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
     const { t } = await getT('devices', { lng });
-    const alternates = getAlternatesMetadata('/devices/', lng);
+    const alternates = getAlternatesMetadata('/devices/', lng, { markdown: `${process.env.NEXT_PUBLIC_SITE_URL}/${lng}/devices/llms.txt` });
     return {
         title: t('title'),
         description: t('description'),

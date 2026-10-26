@@ -1,7 +1,9 @@
 import React from 'react';
 import { CheckCircleIcon, MinusCircleIcon, XCircleIcon } from '@heroicons/react/24/solid';
 
-export type Support = 'yes' | 'partial' | 'no';
+import type { Support } from '@/lib/pages';
+
+export type { Support };
 
 export interface ComparisonRow {
     feature: string;

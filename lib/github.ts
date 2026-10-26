@@ -157,6 +157,11 @@ export class GitHubAPI {
     }
 }
 
+/** Raw Markdown source of a documentation page, in the `main` branch of the integration repository */
+export function docSourceUrl(lng: string, docFile: string): string {
+    return `https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`;
+}
+
 /**
  * Returns the stargazers count of a GitHub repository ("owner/repo"), or undefined if it cannot be fetched.
  * Called at build time, so the value is a snapshot refreshed on each deployment.

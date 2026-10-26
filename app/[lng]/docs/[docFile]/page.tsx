@@ -1,4 +1,4 @@
-import { GitHubAPI } from "@/lib/github";
+import { docSourceUrl, GitHubAPI } from "@/lib/github";
 import React from "react";
 import MarkDownPage from "./MarkdownPage";
 
@@ -12,12 +12,12 @@ const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => S
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, docFile: string }> }): Promise<Metadata> {
     const { lng, docFile } = await params
     const { t } = await getT('common', { lng })
-    const content = await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)
+    const content = await fetch(docSourceUrl(lng, docFile))
 
     const title = (await content.text()).match(/^# (.*)\n/)
     const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
     const path = `/docs/${docFile}/`
-    const alternates = getAlternatesMetadata(path, lng);
+    const alternates = getAlternatesMetadata(path, lng, { markdown: docSourceUrl(lng, docFile) });
 
     return {
         title: web_title,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docContent: string }> }> = async ({ params }) => {
     const { lng, docFile } = await params;
     const { t } = await getT('common', { lng })
-    const content = await (await fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/${lng}/${docFile}.md`)).text()
+    const content = await (await fetch(docSourceUrl(lng, docFile))).text()
     const title = content.match(/^# (.*)\n/)
     const web_title = decodeEntity(t('title_doc', { title: title ? title[1] : docFile }))
 
