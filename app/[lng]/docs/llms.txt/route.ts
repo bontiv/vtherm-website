@@ -11,7 +11,7 @@ export async function generateStaticParams() {
     return languages.map((lng) => ({ lng }))
 }
 
-/** Index of the documentation pages, linked to their Markdown source on GitHub */
+/** Index of the documentation pages, with their Markdown source on GitHub */
 export async function GET(_request: Request, { params }: { params: Promise<{ lng: string }> }) {
     const { lng } = await params;
     const { t } = await getT('common', { lng });
@@ -21,6 +21,6 @@ export async function GET(_request: Request, { params }: { params: Promise<{ lng
         `# Versatile Thermostat - ${t('menu.docs')}`,
         `> ${t('description')}`,
         `## ${t('menu.docs')}`,
-        docFiles.map(doc => linkItem(t(`docs.${doc}`, { defaultValue: doc }), docSourceUrl(lng, doc), pageUrl(lng, `/docs/${doc}/`))).join('\n'),
+        docFiles.map(doc => linkItem(t(`docs.${doc}`, { defaultValue: doc }), pageUrl(lng, `/docs/${doc}/`), `Markdown source: ${docSourceUrl(lng, doc)}`)).join('\n'),
     ].join('\n\n'));
 }

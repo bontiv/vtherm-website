@@ -6,7 +6,7 @@ This website (https://www.versatile-thermostat.org) is available in English (`/e
 
 ## Documentation
 
-- [Documentation index (English)](https://www.versatile-thermostat.org/en/docs/llms.txt): every documentation page, linked to its Markdown source on GitHub
+- [Documentation index (English)](https://www.versatile-thermostat.org/en/docs/llms.txt): every documentation page, with its Markdown source on GitHub
 - [Documentation index (French)](https://www.versatile-thermostat.org/fr/docs/llms.txt)
 - [Documentation index (German)](https://www.versatile-thermostat.org/de/docs/llms.txt)
 - [Installation](https://www.versatile-thermostat.org/en/docs/installation/): install the integration with HACS
