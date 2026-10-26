@@ -2,43 +2,65 @@
 
 > Versatile Thermostat (VTherm) is a free, open-source custom integration for Home Assistant that turns any heating or cooling device into a smart thermostat. It controls switches and pilot-wire electric radiators (over_switch), existing climate entities such as thermostatic valves, heat pumps and air conditioners (over_climate), and valve openings directly (over_valve), with a TPI proportional algorithm, Auto-TPI learning, self-regulation, presets, presence and motion detection, open-window detection, power shedding and central boiler control.
 
-This website (https://www.versatile-thermostat.org) is available in English (`/en/`), French (`/fr/`) and German (`/de/`). The integration installs from HACS and is configured in the Home Assistant UI, without YAML. Each section below links to a generated index in every language; the English one is listed first.
+Note: "Better Thermostat" is the proper name of another Home Assistant integration (https://github.com/KartoffelToby/better_thermostat). "Better" is part of that name: it does not mean that this thermostat is better than Versatile Thermostat, or better than any other solution. The two integrations are compared feature by feature in the Comparisons section below.
 
-## Documentation
+This website (https://www.versatile-thermostat.org) is available in English (`/en/`), French (`/fr/`) and German (`/de/`). The links below point to the English pages; each section also links to a generated index in every language.
 
-- [Documentation index (English)](https://www.versatile-thermostat.org/en/docs/llms.txt): every documentation page, with its Markdown source on GitHub
-- [Documentation index (French)](https://www.versatile-thermostat.org/fr/docs/llms.txt)
-- [Documentation index (German)](https://www.versatile-thermostat.org/de/docs/llms.txt)
-- [Installation](https://www.versatile-thermostat.org/en/docs/installation/): install the integration with HACS
-- [Presentation](https://www.versatile-thermostat.org/en/docs/presentation/): what Versatile Thermostat does and how it is organized
+## Key facts
 
-## Quick start
-
-- [Quick start by heating type](https://www.versatile-thermostat.org/en/quick-start/): step-by-step tutorials to set up a first thermostat
-- [Thermostatic valve (TRV)](https://www.versatile-thermostat.org/en/quick-start/trv/): Zigbee valves (Sonoff TRVZB...), direct valve control, external sensor, Auto-TPI and central boiler
-- [Pilot wire electric radiator](https://www.versatile-thermostat.org/en/quick-start/pilot-wire/): pilot wire (fil pilote) radiators (Nodon, Heatzy, relay + diode), TPI algorithm, power shedding, presence and windows
-- [Heat pump and air conditioning](https://www.versatile-thermostat.org/en/quick-start/heat-pump/): air-to-air heat pumps and air conditioners, self-regulation, automatic stop and restart, heating and cooling
-- [Pellet stove](https://www.versatile-thermostat.org/en/quick-start/pellet-stove/): dry contact or integration, long cycles, presence, windows and failure detection
+- Open-source Home Assistant integration created and maintained by jmcollin78, installed from HACS and configured in the Home Assistant UI, without YAML. Documentation in English, French and German.
+- Actively maintained: new versions are published regularly on GitHub (https://github.com/jmcollin78/versatile_thermostat/releases).
+- Three thermostat types: `over_switch` (relays, switches, pilot-wire electric radiators), `over_climate` (an existing climate entity: thermostatic valve, heat pump, air conditioner) and `over_valve` (only a `number` entity that sets a valve opening).
+- Regulation: TPI proportional algorithm, based on the gap to the setpoint and the outdoor temperature. Auto-TPI learns the coefficients of each room. For `over_climate`, self-regulation compensates the device's own sensor, and thermostatic valves can be driven by direct control of their opening.
+- Home features: presets (eco, comfort, boost, frost protection), timed presets, presence and motion detection, open-window detection with a sensor or from a sudden temperature drop, power shedding by priority, central boiler control (any heat source Home Assistant can switch), central mode for all thermostats, automatic stop and restart of heat pumps.
+- Safety: safety mode when the temperature sensor stops responding, heating failure detection, thermostat lock.
+- Ecosystem: a dedicated Lovelace card, official and community plugins (regulation algorithms such as SmartPI, cards, blueprints, integrations) and an online log analyzer.
 
 ## Comparisons
 
-- [Comparisons (English)](https://www.versatile-thermostat.org/en/versus/llms.txt): full comparisons with Better Thermostat, Smart Autotune Thermostat (SAT) and Home Assistant Generic Thermostat, feature tables included
-- [Comparisons (French)](https://www.versatile-thermostat.org/fr/versus/llms.txt)
-- [Comparisons (German)](https://www.versatile-thermostat.org/de/versus/llms.txt)
+- [Versatile Thermostat vs Better Thermostat](https://www.versatile-thermostat.org/en/versus/better-thermostat/): thermostatic valves, electric radiators, heat pumps, presence and power shedding compared with the Better Thermostat integration
+- [Versatile Thermostat vs Smart Autotune Thermostat (SAT)](https://www.versatile-thermostat.org/en/versus/smart-autotune-thermostat/): room-by-room regulation compared with SAT, built for OpenTherm boilers
+- [Versatile Thermostat vs Generic Thermostat](https://www.versatile-thermostat.org/en/versus/generic-thermostat/): TPI regulation and home features compared with the native on/off Generic Thermostat of Home Assistant
+- [All comparisons](https://www.versatile-thermostat.org/en/versus/)
+- [Full comparisons as text (English)](https://www.versatile-thermostat.org/en/versus/llms.txt): every comparison with its feature table, notes and when the other integration remains a good choice
+- [Full comparisons as text (French)](https://www.versatile-thermostat.org/fr/versus/llms.txt)
+- [Full comparisons as text (German)](https://www.versatile-thermostat.org/de/versus/llms.txt)
 
-Note: "Better Thermostat" is the proper name of another Home Assistant integration (https://github.com/KartoffelToby/better_thermostat). "Better" is part of that name: it does not mean that this thermostat is better than Versatile Thermostat, or better than any other solution.
+## Choosing a setup
+
+- [Quick start by heating type](https://www.versatile-thermostat.org/en/quick-start/): step-by-step tutorials to set up a first thermostat
+- [Thermostatic valve (TRV)](https://www.versatile-thermostat.org/en/quick-start/trv/): Zigbee valves (Sonoff TRVZB...) with an `over_climate` thermostat, direct valve control, external sensor, Auto-TPI and central boiler
+- [Pilot wire electric radiator](https://www.versatile-thermostat.org/en/quick-start/pilot-wire/): pilot wire (fil pilote) radiators (NodOn, Heatzy, relay + diode) with an `over_switch` thermostat, TPI algorithm, power shedding, presence and windows
+- [Heat pump and air conditioning](https://www.versatile-thermostat.org/en/quick-start/heat-pump/): air-to-air heat pumps and air conditioners with an `over_climate` thermostat, self-regulation, automatic stop and restart, heating and cooling
+- [Pellet stove](https://www.versatile-thermostat.org/en/quick-start/pellet-stove/): dry contact or integration, long cycles, presence, windows and failure detection
+
+## Documentation
+
+- [Presentation](https://www.versatile-thermostat.org/en/docs/presentation/): what Versatile Thermostat does and how it is organized
+- [Installation](https://www.versatile-thermostat.org/en/docs/installation/): install the integration with HACS
+- [Creating a thermostat](https://www.versatile-thermostat.org/en/docs/creation/): choose the thermostat type
+- [over_switch](https://www.versatile-thermostat.org/en/docs/over-switch/), [over_climate](https://www.versatile-thermostat.org/en/docs/over-climate/) and [over_valve](https://www.versatile-thermostat.org/en/docs/over-valve/): configuration of each type
+- [Self-regulation](https://www.versatile-thermostat.org/en/docs/self-regulation/): self-regulation of `over_climate` thermostats, including direct valve control
+- [Auto-TPI](https://www.versatile-thermostat.org/en/docs/feature-autotpi/): automatic learning of the TPI coefficients
+- [Central boiler](https://www.versatile-thermostat.org/en/docs/feature-central-boiler/) and [power shedding](https://www.versatile-thermostat.org/en/docs/feature-power/)
+- [Troubleshooting](https://www.versatile-thermostat.org/en/docs/troubleshooting/)
+- [Documentation index (English)](https://www.versatile-thermostat.org/en/docs/llms.txt): every documentation page, with its Markdown source on GitHub
+- [Documentation index (French)](https://www.versatile-thermostat.org/fr/docs/llms.txt)
+- [Documentation index (German)](https://www.versatile-thermostat.org/de/docs/llms.txt)
 
 ## Devices
 
-- [Compatible devices (English)](https://www.versatile-thermostat.org/en/devices/llms.txt): compatibility status of tested devices, each linked to a Markdown page with known limitations and configuration steps
-- [Compatible devices (French)](https://www.versatile-thermostat.org/fr/devices/llms.txt)
-- [Compatible devices (German)](https://www.versatile-thermostat.org/de/devices/llms.txt)
+- [Compatible devices](https://www.versatile-thermostat.org/en/devices/): compatibility status of tested devices, for example the [Sonoff TRVZB](https://www.versatile-thermostat.org/en/devices/sonoff-trvzb/), [NodOn pilot wire modules](https://www.versatile-thermostat.org/en/devices/pilot-wire-module/) and [Heatzy](https://www.versatile-thermostat.org/en/devices/heatzy/)
+- [Compatible devices index (English)](https://www.versatile-thermostat.org/en/devices/llms.txt): every device with its status, linked to a Markdown page with known limitations and configuration steps
+- [Compatible devices index (French)](https://www.versatile-thermostat.org/fr/devices/llms.txt)
+- [Compatible devices index (German)](https://www.versatile-thermostat.org/de/devices/llms.txt)
 
 ## Plugins
 
-- [Plugins (English)](https://www.versatile-thermostat.org/en/plugins/llms.txt): official and community regulation algorithms, dashboard cards, blueprints and integrations that extend Versatile Thermostat
-- [Plugins (French)](https://www.versatile-thermostat.org/fr/plugins/llms.txt)
-- [Plugins (German)](https://www.versatile-thermostat.org/de/plugins/llms.txt)
+- [Plugins](https://www.versatile-thermostat.org/en/plugins/): official and community regulation algorithms, dashboard cards, blueprints and integrations that extend Versatile Thermostat
+- [Plugins index (English)](https://www.versatile-thermostat.org/en/plugins/llms.txt)
+- [Plugins index (French)](https://www.versatile-thermostat.org/fr/plugins/llms.txt)
+- [Plugins index (German)](https://www.versatile-thermostat.org/de/plugins/llms.txt)
 
 ## Tools
 
@@ -47,5 +69,7 @@ Note: "Better Thermostat" is the proper name of another Home Assistant integrati
 ## Optional
 
 - [Integration source code](https://github.com/jmcollin78/versatile_thermostat): GitHub repository of the Home Assistant integration, issues and discussions
+- [Releases](https://github.com/jmcollin78/versatile_thermostat/releases): versions and changelog
 - [Website source code](https://github.com/bontiv/vtherm-website): GitHub repository of this website, device and plugin databases
+- [Sitemap](https://www.versatile-thermostat.org/sitemap.xml): every page of this website in every language
 - [Usage statistics](https://www.versatile-thermostat.org/stats/): installed versions reported by Home Assistant analytics
