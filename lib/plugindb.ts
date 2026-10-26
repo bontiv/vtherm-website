@@ -45,6 +45,11 @@ export interface VTPlugin {
     slug: string;
 
     /**
+     * The Home Assistant domain of the integration (its manifest domain), used to look up active install statistics in Home Assistant Analytics. Only relevant for integrations; falls back to the repository name when absent.
+     */
+    ha_domain?: string;
+
+    /**
      * The author or maintainer of the plugin, which can be a person or an organization. This is optional but can provide useful context and credibility for users interested in the plugin.
      */
     author?: string;

@@ -10,8 +10,18 @@ export type ReleaseInfos = {
     prerelease: boolean,
 }
 
-const StatsPageDetails: React.FC = () => {
+export type PluginStat = {
+    name: string,
+    type: 'integration' | 'addon',
+    stars: number,
+    downloads: number,
+    actives: number,
+    percent: number,
+}
+
+const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: number }> = ({ pluginStats, vthermTotal }) => {
     const formater = new Intl.NumberFormat('fr', {})
+    const percentFormater = new Intl.NumberFormat('fr', { style: 'percent', maximumFractionDigits: 1 })
 
     const [isDark, setDark] = useState<boolean>(() => {
         if (typeof window === 'undefined') return false
@@ -158,6 +168,100 @@ const StatsPageDetails: React.FC = () => {
                 </tr>
             </tfoot>
         </table>
+        <h2>Statistiques des plugins</h2>
+        <table border={1} className="border">
+            <thead>
+                <tr>
+                    <th className="px-4">Plugin</th>
+                    <th className="px-4">Type</th>
+                    <th className="px-4">Étoiles</th>
+                    <th className="px-4">Nb. Téléchargements</th>
+                    <th className="px-4">Nb. Actifs</th>
+                    <th className="px-4">Pourcentage</th>
+                </tr>
+            </thead>
+            <tbody>
+                {pluginStats.map((plugin) =>
+                    <tr className="border-t" key={plugin.name}>
+                        <td className="px-4">{plugin.name}</td>
+                        <td className="px-4">{plugin.type === 'integration' ? 'Intégration' : 'Add-on'}</td>
+                        <td className="px-4 text-right">{formater.format(plugin.stars)}</td>
+                        <td className="px-4 text-right">{formater.format(plugin.downloads)}</td>
+                        <td className="px-4 text-right">{formater.format(plugin.actives)}</td>
+                        <td className="px-4 text-right">{percentFormater.format(plugin.percent)}</td>
+                    </tr>
+                )}
+            </tbody>
+        </table>
+        <Chart
+            series={[
+                {
+                    name: 'Installations actives',
+                    data: pluginStats.map((plugin) => plugin.actives),
+                },
+                {
+                    name: 'Reste',
+                    data: pluginStats.map((plugin) => Math.max(vthermTotal - plugin.actives, 0)),
+                },
+            ]}
+            type="bar"
+            height={400}
+            options={{
+                chart: {
+                    id: 'pluginschart',
+                    stacked: true,
+                    stackType: '100%',
+                },
+                theme: {
+                    mode: isDark ? 'dark' : 'light',
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                    }
+                },
+                colors: ['#059669', '#9CA3AF'],
+                xaxis: {
+                    categories: pluginStats.map((plugin) => plugin.name),
+                    max: 100,
+                    labels: {
+                        formatter: (val) => `${val} %`,
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                    formatter: (val, { seriesIndex }) => seriesIndex === 0 ? `${Number(val).toFixed(1).replace('.', ',')} %` : '',
+                    style: {
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        // With background enabled, ApexCharts uses style.colors as the badge fill and background.foreColor as the text color
+                        colors: ['#1F2937'],
+                    },
+                    background: {
+                        enabled: true,
+                        foreColor: '#FFFFFF',
+                        borderColor: '#1F2937',
+                        borderRadius: 5,
+                        opacity: 0.9,
+                        dropShadow: { enabled: false },
+                    },
+                    dropShadow: { enabled: false },
+                },
+                tooltip: {
+                    y: {
+                        formatter: (val, { seriesIndex, dataPointIndex }) => {
+                            const percent = seriesIndex === 0 ? pluginStats[dataPointIndex].percent : 1 - pluginStats[dataPointIndex].percent
+                            return seriesIndex === 0
+                                ? `${formater.format(val)} actifs / ${formater.format(vthermTotal)} VTherm (${percentFormater.format(percent)})`
+                                : `${formater.format(val)} (${percentFormater.format(percent)})`
+                        },
+                    },
+                },
+                legend: {
+                    position: 'top',
+                },
+            }}
+        />
     </div>
 }
 
