@@ -1,0 +1,2 @@
+- [KipK/aqara-w100-z2m-converter – Aqara W100 converter and Home Assistant blueprint](https://github.com/KipK/aqara-w100-z2m-converter)
+- [Koenkk/zigbee-herdsman-converters#10787 – Aqara W100 thermostat support in Zigbee2MQTT](https://github.com/Koenkk/zigbee-herdsman-converters/pull/10787)

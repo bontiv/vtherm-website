@@ -9,6 +9,7 @@ The following temperature sensors are commonly used with Versatile Thermostat an
 - [Moes ZSS-KB-TH-LF-C Tuya Zigbee](https://www.domadoo.fr/en/domotique/6667-moes-capteur-de-temperature-et-humidite-avec-ecran-zigbee-tuya.html?domid=97),
 - [Sonoff SNZB-02P Zigbee](https://www.domadoo.fr/en/chauffage-connecte/6732-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-support.html?domid=97),
 - [Aqara T1 Zigbee](https://www.domadoo.fr/en/thermometre-connecte/6705-aqara-capteur-de-temperature-et-d-humidite-zigbee-30-t1-th-s02d-6975833352159.html?domid=97),
+- [Aqara W100 Zigbee](/en/devices/aqara-w100/) — also a wall-mounted remote for the _VTherm_,
 - Netatmo Weather Station (cloud integration).
 
 Configure the room temperature sensor in the _VTherm_ main attributes (see [base attributes](/en/docs/base-attributes/)).
