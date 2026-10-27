@@ -1,0 +1,17 @@
+{
+    "title": "Cette pièce n'a pas de thermostat",
+    "desc": "La page que vous cherchez n'existe pas ou a été déplacée. Retournons au chaud.",
+    "home": "Retour à l'accueil",
+    "docs": "Lire la documentation",
+    "explore": "Ou explorez",
+    "links": {
+        "quickstart": "Démarrage rapide",
+        "quickstart-desc": "Configurez votre premier VTherm en quelques minutes.",
+        "devices": "Compatibilité des appareils",
+        "devices-desc": "Vérifiez si votre thermostat ou votre vanne est compatible.",
+        "plugins": "Compléments",
+        "plugins-desc": "Étendez Versatile Thermostat avec les compléments de la communauté.",
+        "debugger": "Analyseur de logs",
+        "debugger-desc": "Comprenez ce que fait votre thermostat."
+    }
+}

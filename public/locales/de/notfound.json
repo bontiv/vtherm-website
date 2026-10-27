@@ -1,0 +1,17 @@
+{
+    "title": "Dieser Raum hat kein Thermostat",
+    "desc": "Die gesuchte Seite existiert nicht oder wurde verschoben. Bringen wir Sie zurück ins Warme.",
+    "home": "Zurück zur Startseite",
+    "docs": "Dokumentation lesen",
+    "explore": "Oder entdecken Sie",
+    "links": {
+        "quickstart": "Schnellstart",
+        "quickstart-desc": "Richten Sie Ihr erstes VTherm in wenigen Minuten ein.",
+        "devices": "Gerätekompatibilität",
+        "devices-desc": "Prüfen Sie, ob Ihr Thermostat oder Ventil unterstützt wird.",
+        "plugins": "Erweiterungen",
+        "plugins-desc": "Erweitern Sie Versatile Thermostat mit Community-Erweiterungen.",
+        "debugger": "Log-Analyser",
+        "debugger-desc": "Verstehen Sie, was Ihr Thermostat tut."
+    }
+}
