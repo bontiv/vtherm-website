@@ -11,7 +11,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkNotes from 'remark-github-blockquote-alert';
 import 'remark-github-blockquote-alert/alert.css';
-import { rehypeSingleH1 } from '@/lib/markdown';
+import { docUrlTransform, rehypeSingleH1 } from '@/lib/markdown';
 
 
 const rehypePlugins: object[] = [rehypeKatex, rehypeSlug, rehypeExternalLinks, rehypeSingleH1]
@@ -26,34 +26,22 @@ const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, d
         return document.documentElement.classList.contains('dark') || mq.matches
     });
 
+    const source = `https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/${version}${file}`
+
     function urlTransform(url: string): string {
-        if (url.startsWith('http')) {
-            return url
-        }
-
-        if (url.startsWith('#')) {
-            return url
-        }
-
-        const page = url.match(/^([\w-]+)\.md(#.*)?$/)
-        if (page) {
-            return `/${lng}/docs/${page[1]}/${page.length > 1 && page[2] ? page[2] : ''}`
-        }
-
-
-        return `https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/fr/${url}`
+        return docUrlTransform(url, lng, source)
     }
 
     useEffect(() => {
         if (!initialized.current) {
             initialized.current = true
-            fetch(`https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/${version}${file}`,
+            fetch(source,
                 {
                     cache: "force-cache"
                 }
             ).then(x => x.text().then(x => setContent(x)))
         }
-    }, [file, version])
+    }, [source])
 
     useEffect(() => {
         async function init() {
