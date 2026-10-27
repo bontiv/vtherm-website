@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRightIcon, BookOpenIcon, CpuChipIcon, PresentationChartLineIcon, PuzzlePieceIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
@@ -21,7 +21,7 @@ const FLAGS: Record<string, string> = { en: 'us', fr: 'fr', de: 'de' };
 type Icon = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
 /** Quick links (`notfound.links.<key>`) */
-const LINKS: { key: keyof typeof en.links, icon: Icon, href: string }[] = [
+const LINKS: { key: 'quickstart' | 'devices' | 'plugins' | 'debugger', icon: Icon, href: string }[] = [
     { key: 'quickstart', icon: RocketLaunchIcon, href: '/quick-start/' },
     { key: 'devices', icon: CpuChipIcon, href: '/devices/' },
     { key: 'plugins', icon: PuzzlePieceIcon, href: '/plugins/' },
@@ -37,15 +37,17 @@ function detectLanguage(): string {
     return fallbackLng;
 }
 
+const subscribeNothing = () => () => { };
+
 export const NotFoundContent: React.FC = () => {
-    // Start with the fallback language so the static HTML and the first client render match
-    const [lng, setLng] = useState(fallbackLng);
+    // The static HTML is rendered with the fallback language, the client then switches to the detected one
+    const detected = useSyncExternalStore(subscribeNothing, detectLanguage, () => fallbackLng);
+    const [chosen, setLng] = useState<string>();
+    const lng = chosen ?? detected;
 
     useEffect(() => {
-        const detected = detectLanguage();
-        setLng(detected);
-        document.documentElement.lang = detected;
-    }, []);
+        document.documentElement.lang = lng;
+    }, [lng]);
 
     const t = TRANSLATIONS[lng] ?? en;
 
