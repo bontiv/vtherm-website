@@ -5,6 +5,7 @@ import {
     AdjustmentsHorizontalIcon,
     ArrowRightIcon,
     BoltIcon,
+    ChevronDownIcon,
     FireIcon,
     PresentationChartLineIcon,
     PuzzlePieceIcon,
@@ -23,6 +24,10 @@ import { HeatingTypeCard } from "@/components/HeatingTypeCard";
 import { HeatingIcon } from "@/components/icons/HeatingIcon";
 import { QUICKSTART_PAGES } from "@/lib/pages";
 import { breadcrumb } from "@/lib/semantic";
+import { getPressReferences, PressReference } from "@/lib/press";
+import { PressReferenceCard } from "@/components/PressReferenceCard";
+import { languages } from "../i18n/settings";
+import "flag-icons/css/flag-icons.min.css";
 
 /// Last stable release pattern
 const stable_release = "9.3.*";
@@ -44,6 +49,9 @@ const TOOLS: { key: string, icon: Icon, href: string }[] = [
     { key: 'debugger', icon: PresentationChartLineIcon, href: '/debugger/' },
     { key: 'plugins', icon: PuzzlePieceIcon, href: '/plugins/' },
 ];
+
+/** Flag shown for each content language of the press references */
+const FLAGS: Record<string, string> = { en: 'us', fr: 'fr', de: 'de' };
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
     const { lng } = await params;
@@ -69,6 +77,18 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
     const { lng } = await params
     const { t } = await getT('home', { lng })
     const { t: common_t } = await getT('common', { lng })
+
+    const press = getPressReferences(lng);
+    const otherPress: { lang: string, references: PressReference[] }[] = languages
+        .filter(lang => lang !== lng)
+        .map(lang => ({ lang, references: getPressReferences(lang) }))
+        .filter(group => group.references.length > 0);
+    const pressCard = (reference: PressReference) => <PressReferenceCard
+        key={reference.url}
+        reference={reference}
+        typeLabel={t(`press.types.${reference.type}`)}
+        lng={lng}
+    />;
 
     return (
         <div className="space-y-16">
@@ -193,6 +213,34 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         </span>
                     </LinkLocale>)}
                 </div>
+            </section>
+
+            {/* Press references */}
+            <section className="space-y-6">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl md:text-4xl font-normal py-0">{t('press.title')}</h2>
+                    <p className="text-lg text-[#52525b] dark:text-[#a1a1aa]">{t('press.desc')}</p>
+                </div>
+                {press.length > 0 && <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+                    {press.map(pressCard)}
+                </div>}
+                {otherPress.length > 0 && <details className="group/press max-w-5xl mx-auto">
+                    <summary className="cursor-pointer list-none flex items-center justify-center gap-2 text-lg text-cyan-700 hover:text-cyan-500 transition-colors">
+                        {t('press.other-languages')}
+                        <ChevronDownIcon className="w-4 h-4 group-open/press:rotate-180 transition-transform" aria-hidden="true" />
+                    </summary>
+                    <div className="space-y-6 pt-6">
+                        {otherPress.map(group => <div key={group.lang} className="space-y-3">
+                            <h3 className="flex items-center gap-2 py-0 text-xl font-medium">
+                                <span className={`fi fi-${FLAGS[group.lang]}`} aria-hidden="true"></span>
+                                {t(`press.languages.${group.lang}`)}
+                            </h3>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                {group.references.map(pressCard)}
+                            </div>
+                        </div>)}
+                    </div>
+                </details>}
             </section>
 
             <CtaSection title={t('cta.title')} description={t('cta.desc')}>

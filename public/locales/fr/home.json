@@ -72,5 +72,20 @@
             "title": "Plugins",
             "desc": "Algorithmes de régulation, cartes, blueprints et intégrations, officiels ou communautaires."
         }
+    },
+    "press": {
+        "title": "Ils parlent de Versatile Thermostat",
+        "desc": "Articles, vidéos et podcasts de la communauté et de la presse.",
+        "other-languages": "Dans d’autres langues",
+        "types": {
+            "video": "Vidéo",
+            "article": "Article",
+            "podcast": "Podcast"
+        },
+        "languages": {
+            "en": "Anglais",
+            "fr": "Français",
+            "de": "Allemand"
+        }
     }
 }
