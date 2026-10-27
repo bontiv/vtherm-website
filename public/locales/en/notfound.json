@@ -1,0 +1,17 @@
+{
+    "title": "This room has no thermostat",
+    "desc": "The page you are looking for does not exist or has been moved. Let's get you back somewhere warm.",
+    "home": "Back to home",
+    "docs": "Read the documentation",
+    "explore": "Or explore",
+    "links": {
+        "quickstart": "Quick start",
+        "quickstart-desc": "Set up your first VTherm in a few minutes.",
+        "devices": "Devices compatibility",
+        "devices-desc": "Check if your thermostat or valve is supported.",
+        "plugins": "Plugins",
+        "plugins-desc": "Extend Versatile Thermostat with community add-ons.",
+        "debugger": "Log analyzer",
+        "debugger-desc": "Understand what your thermostat is doing."
+    }
+}
