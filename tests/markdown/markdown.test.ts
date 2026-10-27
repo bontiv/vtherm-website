@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { markdownDescription, markdownTitle, rehypeSingleH1 } from '@/lib/markdown';
+import { docUrlTransform, markdownDescription, markdownTitle, rehypeSingleH1 } from '@/lib/markdown';
 
 describe('markdownTitle', () => {
     it('finds the first level 1 heading after a table of contents', () => {
@@ -59,5 +59,28 @@ describe('rehypeSingleH1', () => {
         rehypeSingleH1()(tree);
         expect(tree.children.map(x => x.tagName)).toEqual(['h1', 'div', 'h2']);
         expect(tree.children[1].children![0].tagName).toBe('h2');
+    });
+});
+
+describe('docUrlTransform', () => {
+    const source = 'https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/en/creation.md';
+    const raw = 'https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/documentation/en/';
+
+    it('maps sibling documentation pages, with or without ./', () => {
+        expect(docUrlTransform('base-attributes.md', 'en', source)).toBe('/en/docs/base-attributes/');
+        expect(docUrlTransform('./base-attributes.md', 'en', source)).toBe('/en/docs/base-attributes/');
+        expect(docUrlTransform('./feature-advanced.md#la-mise-en-sécurité', 'fr', source)).toBe('/fr/docs/feature-advanced/#la-mise-en-sécurité');
+    });
+
+    it('resolves other relative links against the source file', () => {
+        expect(docUrlTransform('images/tips.png', 'en', source)).toBe(`${raw}images/tips.png`);
+        expect(docUrlTransform('./images/tips.png', 'en', source)).toBe(`${raw}images/tips.png`);
+        expect(docUrlTransform('../../README.md', 'en', source)).toBe('https://raw.githubusercontent.com/jmcollin78/versatile_thermostat/main/README.md');
+    });
+
+    it('keeps anchors and absolute URLs', () => {
+        expect(docUrlTransform('#configuration', 'en', source)).toBe('#configuration');
+        expect(docUrlTransform('https://example.com/a.md', 'en', source)).toBe('https://example.com/a.md');
+        expect(docUrlTransform('mailto:a@b.c', 'en', source)).toBe('mailto:a@b.c');
     });
 });

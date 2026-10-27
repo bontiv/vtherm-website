@@ -87,3 +87,29 @@ export function rehypeSingleH1() {
         walk(tree);
     };
 }
+
+/**
+ * Rewrites a link of a documentation Markdown file.
+ * Links to sibling `.md` files (`page.md`, `./page.md`) target the matching site page,
+ * other relative links (images…) are resolved against the source file on GitHub.
+ * @param url link found in the Markdown document
+ * @param lng language of the site page
+ * @param source raw URL of the Markdown document
+ */
+export function docUrlTransform(url: string, lng: string, source: string): string {
+    if (url.startsWith('#') || /^[a-z][a-z\d+.-]*:/i.test(url)) {
+        return url
+    }
+
+    const resolved = new URL(url, source)
+    const directory = new URL('.', source)
+    if (resolved.origin === directory.origin && resolved.pathname.startsWith(directory.pathname)) {
+        const page = resolved.pathname.slice(directory.pathname.length).match(/^([\w-]+)\.md$/)
+        if (page) {
+            // Keep the anchor as written: URL would percent-encode accented anchors
+            return `/${lng}/docs/${page[1]}/${url.match(/#.*$/)?.[0] ?? ''}`
+        }
+    }
+
+    return resolved.href
+}
