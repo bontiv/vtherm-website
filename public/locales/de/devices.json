@@ -37,7 +37,7 @@
         "title": "Konfigurieren und verwenden von {{Gerät}}"
     },
     "conf": {
-        "title": "Gerätekonfiguration",
+        "title": "VTherm-Konfiguration",
         "finnaly": "Eingabe bestätigen und zum Konfigurationsmenü zurückkehren.",
         "step1": {
             "title": "Initialisierung",

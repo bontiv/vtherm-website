@@ -38,7 +38,7 @@
         "title": "Configure and use your {{device}}"
     },
     "conf": {
-        "title": "Device configuration",
+        "title": "VTherm configuration",
         "finnaly": "You can validate and return to the configuration menu.",
         "step1": {
             "title": "Initialization",

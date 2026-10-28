@@ -8,6 +8,10 @@ Ces vannes thermostatiques (TRV) ne permettent pas à Home Assistant de régler 
 2. Désactivez la détection de fenêtre et le hors-gel du TRV lui-même : ils entrent en conflit avec _VTherm_.
 3. À l'arrêt, beaucoup de TRV appliquent leur propre consigne hors-gel (5 à 7 °C). Avec `follow_underlying_temp_change`, _VTherm_ reprend cette consigne.
 4. Avec la [chaudière centrale](/fr/docs/feature-central-boiler/), vérifiez que le TRV remonte `hvac_action`. Sans cela, _VTherm_ ne sait pas si le radiateur chauffe et la chaudière n'est pas déclenchée correctement.
+5. Démarrez l'[auto-régulation](/fr/docs/self-regulation/#autres-auto-régulation) au niveau `Légère` ou `Moyenne`, en gardant le seuil et la période minimale de régulation par défaut. Laissez décochée l'option `Compenser la température interne du sous-jacent`.
+6. Désactivez le planning hebdomadaire interne du TRV et n'utilisez pas son mode `auto` : gardez-le en `heat`, _VTherm_ gère les plannings avec ses [presets](/fr/docs/feature-presets/).
+7. N'utilisez pas les presets internes du TRV (eco, confort, boost, vacances...) : _VTherm_ envoie directement la consigne.
+8. Si besoin, activez le verrouillage enfant du TRV pour éviter les changements manuels sur l'appareil.
 
 ## Appareils connus
 
