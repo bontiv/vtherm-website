@@ -38,7 +38,7 @@
         "title": "Utiliser et configurer votre {{device}}"
     },
     "conf": {
-        "title": "Configuration de l'appareil",
+        "title": "Configuration VTherm",
         "finnaly": "Vous pouvez valider et revenir au menu de configuration.",
         "step1": {
             "title": "Initialisation",

@@ -8,6 +8,10 @@ Bei diesen Heizkörperthermostaten (TRV) kann Home Assistant die Ventilöffnung 
 2. Deaktivieren Sie die Fenstererkennung und den Frostschutz des TRV selbst: Sie stehen im Konflikt mit _VTherm_.
 3. Beim Ausschalten setzen viele TRV ihren eigenen Frostschutz-Sollwert (5 bis 7 °C). Mit `follow_underlying_temp_change` übernimmt _VTherm_ diesen Sollwert.
 4. Prüfen Sie bei Verwendung des [zentralen Heizkessels](/de/docs/feature-central-boiler/), ob der TRV `hvac_action` meldet. Ohne diese Angabe weiß _VTherm_ nicht, ob der Heizkörper heizt, und der Kessel wird nicht korrekt angesteuert.
+5. Starten Sie die [Selbstregulierung](/de/docs/self-regulation/#andere-selbsregulierung) mit der Stufe `Leicht` oder `Mittel` und behalten Sie die Standardwerte für Regelungsschwelle und Mindestzeitraum bei. Lassen Sie die Option `Interne Bezugstemperatur ausgleichen` deaktiviert.
+6. Deaktivieren Sie den internen Wochenplan des TRV und verwenden Sie nicht seinen Modus `auto`: Lassen Sie ihn auf `heat`, _VTherm_ verwaltet die Zeitpläne mit seinen [Voreinstellungen](/de/docs/feature-presets/).
+7. Verwenden Sie nicht die internen Voreinstellungen des TRV (Eco, Komfort, Boost, Urlaub...): _VTherm_ sendet den Sollwert direkt.
+8. Aktivieren Sie bei Bedarf die Kindersicherung des TRV, um manuelle Änderungen am Gerät zu verhindern.
 
 ## Bekannte Geräte
 

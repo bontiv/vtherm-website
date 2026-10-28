@@ -8,6 +8,10 @@ These thermostatic radiator valves (TRV) do not let Home Assistant set the valve
 2. Disable the window detection and the frost protection of the TRV itself: they conflict with _VTherm_.
 3. When turned off, many TRVs set their own frost setpoint (5 to 7 °C). With `follow_underlying_temp_change`, _VTherm_ takes over this setpoint.
 4. With the [central boiler](/en/docs/feature-central-boiler/), check that the TRV reports `hvac_action`. Without it, _VTherm_ cannot know if the radiator is heating and the boiler is not triggered correctly.
+5. Start the [self-regulation](/en/docs/self-regulation/#other-self-regulation) with the `Light` or `Medium` level, keeping the default regulation threshold and minimum period. Leave the option `Use internal temperature of the underlying` unchecked.
+6. Disable the internal weekly schedule of the TRV and do not use its `auto` mode: keep it in `heat`, _VTherm_ handles the schedules with its [presets](/en/docs/feature-presets/).
+7. Do not use the internal presets of the TRV (eco, comfort, boost, holiday...): _VTherm_ sends the setpoint directly.
+8. Optionally, enable the child lock of the TRV to avoid manual changes on the device.
 
 ## Known devices
 

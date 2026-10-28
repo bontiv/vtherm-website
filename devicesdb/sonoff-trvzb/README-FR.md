@@ -4,7 +4,16 @@
 
 Cette vanne thermostatique est la vanne recommandée pour Versatile Thermostat. Nous recommandons de l'utiliser avec Zigbee2MQTT.
 
-## Calibrage avec le contrôle direct de la vanne
+## Contrôle direct de la vanne
+
+### Configuration de l'appareil
+
+1. Créez un _VTherm_ `over_climate` sur l'entité `climate` du TRV, avec l'auto-régulation [`Contrôle direct de la vanne`](/fr/docs/self-regulation/#auto-régulation-par-contrôle-direct-de-la-vanne). Laissez décochée l'option `Compenser la température interne du sous-jacent`.
+2. Dans la configuration de la régulation par vanne, sélectionnez les entités `number` du TRV : `opening_degree` pour l'ouverture et `closing_degree` pour la fermeture. Ces entités peuvent être masquées ou désactivées par défaut dans Zigbee2MQTT ou ZHA : activez-les d'abord.
+3. Pour aligner le thermomètre interne du TRV sur la température de la pièce, activez la [synchronisation de la température de l'appareil](/fr/docs/feature-sync_device_temp/), avec son entité de calibrage ou son entité `external_temperature_input`.
+4. N'activez l'entité `Follow underlying temp change` du _VTherm_ qu'après avoir vérifié que cette configuration de base fonctionne (voir [suivre les changements de température du sous-jacent](/fr/docs/over-climate/#suivre-les-changements-de-température-du-sous-jacent)).
+
+### Calibrage
 
 Avec le contrôle direct de la vanne (`over_valve` ou `over_climate` avec `auto_regulation_valve`), le *Seuil de régulation* doit être spécifié **en pourcentage** et **ne doit pas être inférieur à 3 %** :
 
