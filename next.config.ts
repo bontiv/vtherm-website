@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   output: "export",
   distDir: process.env.DIST_DIR ?? "out",
   trailingSlash: true,
+  assetPrefix: process.env.ASSET_PREFIX ?? undefined,
   images: {
     unoptimized: true,
     remotePatterns: [
