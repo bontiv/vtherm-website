@@ -9,7 +9,11 @@ import Semantic from "@/components/Semantic";
 
 export default function Home() {
   useEffect(() => {
-    const browser_lng = i18n.resolvedLanguage ?? fallbackLng;
+    // Ask the detector directly: resolvedLanguage is only set once translations are loaded (async)
+    const detected = i18n.services.languageDetector?.detect();
+    const browser_lng = i18n.services.languageUtils.getBestMatchFromCodes(
+      Array.isArray(detected) ? detected : detected ? [detected] : []
+    ) ?? fallbackLng;
     console.log("Detected browser language:", browser_lng);
     window.location.replace(`/${browser_lng}/`);
   }, []);
