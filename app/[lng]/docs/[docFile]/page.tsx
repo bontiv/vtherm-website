@@ -17,7 +17,7 @@ const decodeEntity = (str: string) => str.replace(/&#(\d+);/g, (match, dec) => S
 export async function generateMetadata({ params }: { params: Promise<{ lng: string, docFile: string }> }): Promise<Metadata> {
     const { lng, docFile } = await params
     const { t } = await getT('common', { lng })
-    const content = await (await fetch(docSourceUrl(lng, docFile))).text()
+    const content = await (await fetch(docSourceUrl(lng, docFile), { next: { revalidate: 3600 } })).text()
 
     const web_title = decodeEntity(t('title_doc', { title: markdownTitle(content) ?? docFile }))
     const description = markdownDescription(content) ?? t('description')
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lng: stri
 const DocPage: React.FC<{ params: Promise<{ lng: string, docFile: string, docContent: string }> }> = async ({ params }) => {
     const { lng, docFile } = await params;
     const { t } = await getT('common', { lng })
-    const content = await (await fetch(docSourceUrl(lng, docFile))).text()
+    const content = await (await fetch(docSourceUrl(lng, docFile), { next: { revalidate: 3600 } })).text()
     const web_title = decodeEntity(t('title_doc', { title: markdownTitle(content) ?? docFile }))
 
     const crumbs = [
