@@ -30,7 +30,7 @@ i18next
     fallbackNS: defaultNS,
     defaultNS,
     detection: {
-      order: ['path', 'htmlTag', 'cookie', 'navigator'],
+      order: ['path', 'cookie', 'navigator', 'htmlTag'],
       convertDetectedLanguage: 'Iso15897',
     },
     preload: runsOnServerSide ? languages : [],
