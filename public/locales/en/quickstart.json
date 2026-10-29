@@ -17,15 +17,14 @@
         "docs_quickstart": "the quick start in the documentation",
         "cta": {
             "title": "What's next?",
-            "desc": "Install Versatile Thermostat and find out why it outperforms the alternatives.",
-            "install": "Installation guide",
-            "versus": "See the comparisons"
+            "desc": "Install Versatile Thermostat, then follow the documentation to go further.",
+            "install": "Installation guide"
         }
     },
     "trv": {
         "meta": {
             "title": "Thermostatic valve (TRV): quick start",
-            "description": "Control your Zigbee thermostatic valves (Sonoff TRVZB...) with Versatile Thermostat: direct valve control, external sensor, Auto-TPI and central boiler.",
+            "description": "Control your Zigbee thermostatic valves (Sonoff TRVZB...) with Versatile Thermostat: direct valve control, external sensor, recalibration and central boiler.",
             "keywords": "thermostatic valve,TRV,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
         },
         "name": "Thermostatic valve",
@@ -42,9 +41,9 @@
                 "title": "Room sensor and calibration",
                 "desc": "The room temperature comes from a real sensor. It can be copied into the valve (calibration offset or external temperature)."
             },
-            "auto_tpi": {
-                "title": "Auto-TPI",
-                "desc": "Regulation coefficients are learned automatically over successive cycles, room by room."
+            "recalibrate": {
+                "title": "Valve recalibration",
+                "desc": "A service forces the valves fully open then fully closed to trigger their calibration again, for example when a radiator heats while its valve is closed."
             },
             "window": {
                 "title": "Open windows",
@@ -74,7 +73,7 @@
                 },
                 "create": {
                     "title": "Create the thermostat",
-                    "text": "Settings > Devices & services > Add integration > Versatile Thermostat. Choose “Thermostat over a climate”, name it “Living room” and select the temperature sensor."
+                    "text": "Settings > Devices & services > Add integration > Versatile Thermostat. Choose “Thermostat over a climate”, name it “Living room” and select the temperature sensor and the outdoor sensor."
                 },
                 "underlying": {
                     "title": "Add the valves",
@@ -82,15 +81,15 @@
                 },
                 "regulation": {
                     "title": "Enable direct valve control",
-                    "text": "In “Self-regulation”, choose direct valve control. For each valve, fill in the opening, closing and calibration entities. Leave the TPI coefficients at their defaults: Auto-TPI will tune them."
+                    "text": "In “Self-regulation”, choose direct valve control. On the “Valve regulation configuration” page, fill in the opening entity of each valve and, if it exists, its closing entity. Keep the default TPI coefficients."
                 },
                 "presets": {
                     "title": "Set the presets",
-                    "text": "Define the Eco, Comfort, Boost and Frost protection temperatures, for example 18, 20, 21 and 7 °C."
+                    "text": "Once the thermostat is created, set the Eco, Comfort, Boost and Frost protection temperatures with its preset entities, for example 18, 20, 21 and 7 °C."
                 },
                 "features": {
                     "title": "Windows and boiler",
-                    "text": "Enable open window detection (sensor or automatic). If a boiler feeds the radiators, declare it in the central configuration so it follows the valves' demand."
+                    "text": "Once the thermostat works, enable open window detection (sensor or automatic) in the “Features” menu. If a boiler feeds the radiators, declare it in the central configuration so it follows the valves' demand."
                 }
             }
         }
@@ -155,15 +154,15 @@
                 },
                 "tpi": {
                     "title": "Set the cycle",
-                    "text": "Choose a cycle of 5 to 10 minutes and a minimum activation delay of 30 seconds. Keep the default TPI coefficients or enable Auto-TPI."
+                    "text": "In “Main attributes”, choose a cycle of 5 to 10 minutes. In “TPI parameters”, keep the default coefficients (or enable Auto-TPI) and set a minimum activation delay of 30 seconds."
                 },
                 "presets": {
                     "title": "Set the presets",
-                    "text": "Define the Eco, Comfort, Boost and Frost protection temperatures, for example 17, 19, 20 and 7 °C."
+                    "text": "Once the thermostat is created, set the Eco, Comfort, Boost and Frost protection temperatures with its preset entities, for example 17, 19, 20 and 7 °C."
                 },
                 "features": {
                     "title": "Window and power shedding",
-                    "text": "Link the window opening sensor. In the central configuration, declare the home's power sensor and the maximum power to enable power shedding."
+                    "text": "Once the thermostat works, enable open window detection in the “Features” menu and link the window sensor. In the central configuration, declare the home's power sensor and the maximum power to enable power shedding."
                 }
             }
         }
@@ -232,11 +231,11 @@
                 },
                 "auto_start_stop": {
                     "title": "Enable automatic stop and restart",
-                    "text": "Choose the responsiveness (slow for a living room, fast for a small room) and the stop action: turn off, fan only or dehumidification."
+                    "text": "In the “Features” menu, tick automatic start/stop, then choose the responsiveness (slow for a living room, fast for a small room). After creation, the stop mode entity lets you choose between turning off, fan only or dehumidification."
                 },
                 "presets": {
                     "title": "Set the presets",
-                    "text": "Define the heating temperatures (for example 18 / 20 / 21 °C) and the cooling temperatures (for example 26 / 25 / 24 °C)."
+                    "text": "Once the thermostat is created, use its preset entities to set the heating temperatures (for example 18 / 20 / 21 °C) and the cooling temperatures (for example 26 / 25 / 24 °C)."
                 }
             }
         }
@@ -244,26 +243,30 @@
     "pellet_stove": {
         "meta": {
             "title": "Pellet stove: quick start",
-            "description": "Regulate your pellet stove with Versatile Thermostat: dry contact or integration, suitable long cycles, presence, windows and failure detection.",
-            "keywords": "pellet stove,pellet heater,dry contact,Home Assistant,Versatile Thermostat"
+            "description": "Regulate your pellet stove with Versatile Thermostat and the Pellet stove plugin: protection against repeated ignitions, power levels, presence and windows.",
+            "keywords": "pellet stove,pellet heater,pellet stove plugin,Home Assistant,Versatile Thermostat"
         },
         "name": "Pellet stove",
-        "tagline": "Stove driven by dry contact, relay or dedicated integration.",
+        "tagline": "Stove integrated in Home Assistant, regulated by the Pellet stove plugin.",
         "title": "Pellet stove",
-        "intro": "A pellet stove doesn't tolerate repeated ignitions well: each start-up uses electricity and fouls the burn pot. Versatile Thermostat drives it with long cycles for stable comfort without multiplying ignitions.",
-        "vtherm_type": "“Thermostat over a switch” (over_switch) if the stove is controlled through its room thermostat dry contact via a relay. “Thermostat over a climate” (over_climate) if a Home Assistant integration exposes the stove as a climate.",
+        "intro": "A pellet stove doesn't tolerate repeated ignitions well: each start-up uses electricity and fouls the burn pot. With the VTherm Pellet stove plugin, Versatile Thermostat drives it with a dedicated algorithm that respects its ignition and cooling times.",
+        "vtherm_type": "“Thermostat over a switch” (over_switch) with the VTherm Pellet stove plugin. The underlying entity is the stove's climate entity, provided by its integration (Duepi EVO, MCZ, EdilKamin, ESPHome…) and driven by custom commands.",
         "strengths": {
-            "long_cycle": {
-                "title": "Long cycles",
-                "desc": "The cycle duration and the minimum on and off delays can be set to respect the stove's start-up time."
+            "pellet_plugin": {
+                "title": "Dedicated algorithm",
+                "desc": "The Pellet stove plugin replaces TPI with a hysteresis regulation designed for stoves: it switches on or off decisively, with no half measures."
+            },
+            "anti_short_cycle": {
+                "title": "No repeated ignitions",
+                "desc": "Minimum on and off durations plus a cooldown delay: every start-up runs to completion and the igniter is spared."
+            },
+            "power_level": {
+                "title": "Power levels",
+                "desc": "Optionally, the plugin adapts the stove's power or fan to the gap with the setpoint, with a boost after a setpoint increase."
             },
             "external_sensor": {
                 "title": "Room sensor",
                 "desc": "Temperature is measured where you live, not next to the stove, which would otherwise overheat the main room."
-            },
-            "auto_start_stop": {
-                "title": "Automatic stop and restart",
-                "desc": "With a stove exposed as a climate, automatic stop and restart avoid leaving it idling when the room is at temperature."
             },
             "presence": {
                 "title": "Presence",
@@ -272,44 +275,44 @@
             "window": {
                 "title": "Open windows",
                 "desc": "The stove switches off when a window stays open."
-            },
-            "failure_detection": {
-                "title": "Failure detection",
-                "desc": "If the temperature doesn't rise while the stove is supposed to be heating (empty hopper, ignition fault), Versatile Thermostat flags it."
             }
         },
         "tutorial": {
-            "title": "Tutorial: a stove controlled by dry contact",
-            "example": "Example: a pellet stove with a “room thermostat” input (dry contact), wired to a Zigbee relay module, with a temperature sensor in the living room.",
-            "tip": "The pellet stove doesn't have a dedicated profile in the documentation yet: these settings are inspired by high-inertia heating. Adjust the cycle duration to your stove's manual and share your settings with the community.",
+            "title": "Tutorial: a stove integrated in Home Assistant",
+            "example": "Example: a pellet stove exposed as a climate entity by its Home Assistant integration, with a temperature sensor in the living room.",
+            "tip": "The thermostat's minimum delays must match the plugin's: minimum on time on one side, minimum off time plus cooldown on the other. Adapt them to your stove's manual in the plugin options, for all stoves or stove by stove.",
             "steps": {
-                "control": {
-                    "title": "Wire the dry contact",
-                    "text": "Wire the stove's room thermostat input to a relay integrated in Home Assistant, following the stove's manual. Configure the stove to obey this contact."
+                "integration": {
+                    "title": "Integrate the stove",
+                    "text": "Add your stove's integration (Duepi EVO, MCZ, EdilKamin, ESPHome…) and check that its climate entity turns on and off from Home Assistant."
                 },
                 "install": {
                     "title": "Install Versatile Thermostat",
                     "text": "Install the integration from HACS, then restart Home Assistant."
                 },
+                "plugin": {
+                    "title": "Install the Pellet stove plugin",
+                    "text": "Install “Versatile Thermostat Pellet Stove” from HACS, restart Home Assistant, then add the integration: it creates a default configuration shared by all your stoves."
+                },
                 "create": {
                     "title": "Create the thermostat",
-                    "text": "Add the Versatile Thermostat integration, choose “Thermostat over a switch”, name it “Stove” and select the temperature sensor and the outdoor sensor."
+                    "text": "Add the Versatile Thermostat integration, choose “Thermostat over a switch”, name it “Stove”, select the temperature sensor and the outdoor sensor, and set the cycle duration to 60 minutes."
                 },
                 "underlying": {
-                    "title": "Add the relay",
-                    "text": "In “Underlyings”, select the relay's switch entity."
+                    "title": "Add the stove",
+                    "text": "In “Underlyings”, select the stove's climate entity. Turn-on command: set_hvac_mode/hvac_mode:heat. Turn-off command: set_hvac_mode/hvac_mode:off."
                 },
-                "cycle": {
-                    "title": "Set a long cycle",
-                    "text": "Choose a long cycle (30 to 60 minutes) and minimum on and off delays of several minutes, so a start-up always runs to completion."
+                "algorithm": {
+                    "title": "Choose the stove algorithm",
+                    "text": "Choose the pellet_regulation algorithm provided by the plugin. Set a minimum activation delay of 1800 s (30 min) and a minimum deactivation delay of 1500 s (25 min)."
                 },
                 "presets": {
                     "title": "Set the presets",
-                    "text": "Define the Eco, Comfort, Boost and Frost protection temperatures, for example 18, 20, 21 and 10 °C."
+                    "text": "Once the thermostat is created, set the Eco, Comfort, Boost and Frost protection temperatures with its preset entities, for example 18, 20, 21 and 10 °C."
                 },
                 "features": {
-                    "title": "Presence, windows and failure",
-                    "text": "Link the presence sensor and the window opening sensors, then enable heating failure detection to be alerted if the stove doesn't start."
+                    "title": "Presence and windows",
+                    "text": "Once the stove is driven correctly, enable presence management and open window detection in the “Features” menu, then link the sensors."
                 }
             }
         }

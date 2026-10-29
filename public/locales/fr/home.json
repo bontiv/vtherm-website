@@ -55,7 +55,7 @@
         },
         "pellet_stove": {
             "title": "Poêle à granulés",
-            "desc": "Poêle piloté par contact sec, relais ou intégration dédiée."
+            "desc": "Poêle intégré à Home Assistant, régulé par le plugin Pellet stove."
         }
     },
     "main-features-desc": "Ce qui distingue Versatile Thermostat des autres thermostats de Home Assistant.",

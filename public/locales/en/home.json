@@ -55,7 +55,7 @@
         },
         "pellet_stove": {
             "title": "Pellet stove",
-            "desc": "Stove driven by dry contact, relay or a dedicated integration."
+            "desc": "Stove integrated in Home Assistant, regulated by the Pellet stove plugin."
         }
     },
     "main-features-desc": "What sets Versatile Thermostat apart from other Home Assistant thermostats.",

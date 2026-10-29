@@ -17,15 +17,14 @@
         "docs_quickstart": "le démarrage rapide de la documentation",
         "cta": {
             "title": "Et maintenant ?",
-            "desc": "Installez Versatile Thermostat et découvrez pourquoi il fait mieux que les alternatives.",
-            "install": "Guide d'installation",
-            "versus": "Voir les comparatifs"
+            "desc": "Installez Versatile Thermostat, puis suivez la documentation pour aller plus loin.",
+            "install": "Guide d'installation"
         }
     },
     "trv": {
         "meta": {
             "title": "Vanne thermostatique (TRV) : démarrage rapide",
-            "description": "Pilotez vos têtes thermostatiques Zigbee (Sonoff TRVZB…) avec Versatile Thermostat : contrôle direct de la vanne, sonde externe, Auto-TPI, chaudière.",
+            "description": "Pilotez vos têtes thermostatiques Zigbee (Sonoff TRVZB…) avec Versatile Thermostat : contrôle direct de la vanne, sonde externe, recalibrage, chaudière.",
             "keywords": "vanne thermostatique,TRV,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
         },
         "name": "Vanne thermostatique",
@@ -42,9 +41,9 @@
                 "title": "Sonde d'ambiance et calibration",
                 "desc": "La température de la pièce vient d'une vraie sonde. Elle peut être recopiée dans la vanne (offset de calibration ou température externe)."
             },
-            "auto_tpi": {
-                "title": "Auto-TPI",
-                "desc": "Les coefficients de régulation s'apprennent automatiquement au fil des cycles, pièce par pièce."
+            "recalibrate": {
+                "title": "Recalibrage des vannes",
+                "desc": "Un service force l'ouverture puis la fermeture complète des vannes pour relancer leur calibrage, par exemple quand un radiateur chauffe alors que sa vanne est fermée."
             },
             "window": {
                 "title": "Fenêtres ouvertes",
@@ -74,7 +73,7 @@
                 },
                 "create": {
                     "title": "Créer le thermostat",
-                    "text": "Paramètres > Appareils et services > Ajouter une intégration > Versatile Thermostat. Choisissez « Thermostat sur un climate », nommez-le « Salon » et sélectionnez la sonde de température."
+                    "text": "Paramètres > Appareils et services > Ajouter une intégration > Versatile Thermostat. Choisissez « Thermostat sur un climate », nommez-le « Salon » et sélectionnez la sonde de température et la sonde extérieure."
                 },
                 "underlying": {
                     "title": "Ajouter les vannes",
@@ -82,15 +81,15 @@
                 },
                 "regulation": {
                     "title": "Activer le contrôle direct de la vanne",
-                    "text": "Dans « Auto-régulation », choisissez le contrôle direct de la vanne. Renseignez pour chaque vanne les entités d'ouverture, de fermeture et de calibration. Laissez les coefficients TPI par défaut : l'Auto-TPI les ajustera."
+                    "text": "Dans « Auto-régulation », choisissez le contrôle direct de la vanne. Sur la page « Configuration de la régulation par vanne », renseignez pour chaque vanne l'entité d'ouverture et, si elle existe, celle de fermeture. Gardez les coefficients TPI par défaut."
                 },
                 "presets": {
                     "title": "Régler les préréglages",
-                    "text": "Définissez les températures Éco, Confort, Boost et Hors-gel, par exemple 18, 20, 21 et 7 °C."
+                    "text": "Une fois le thermostat créé, réglez les températures Éco, Confort, Boost et Hors-gel avec ses entités de préréglage, par exemple 18, 20, 21 et 7 °C."
                 },
                 "features": {
                     "title": "Fenêtres et chaudière",
-                    "text": "Activez la détection d'ouverture (capteur ou automatique). Si une chaudière alimente les radiateurs, déclarez-la dans la configuration centrale pour qu'elle suive la demande des vannes."
+                    "text": "Une fois le thermostat vérifié, activez la détection d'ouverture (capteur ou automatique) dans le menu « Fonctions ». Si une chaudière alimente les radiateurs, déclarez-la dans la configuration centrale pour qu'elle suive la demande des vannes."
                 }
             }
         }
@@ -155,15 +154,15 @@
                 },
                 "tpi": {
                     "title": "Régler le cycle",
-                    "text": "Choisissez un cycle de 5 à 10 minutes et un délai minimal d'activation de 30 secondes. Gardez les coefficients TPI par défaut ou activez l'Auto-TPI."
+                    "text": "Dans « Principaux attributs », choisissez un cycle de 5 à 10 minutes. Dans « Paramètres TPI », gardez les coefficients par défaut (ou activez l'Auto-TPI) et réglez un délai minimal d'activation de 30 secondes."
                 },
                 "presets": {
                     "title": "Régler les préréglages",
-                    "text": "Définissez les températures Éco, Confort, Boost et Hors-gel, par exemple 17, 19, 20 et 7 °C."
+                    "text": "Une fois le thermostat créé, réglez les températures Éco, Confort, Boost et Hors-gel avec ses entités de préréglage, par exemple 17, 19, 20 et 7 °C."
                 },
                 "features": {
                     "title": "Fenêtre et délestage",
-                    "text": "Associez le capteur d'ouverture de la fenêtre. Dans la configuration centrale, déclarez le capteur de puissance de la maison et la puissance maximale pour activer le délestage."
+                    "text": "Une fois le thermostat vérifié, activez la détection d'ouverture dans le menu « Fonctions » et associez le capteur de la fenêtre. Dans la configuration centrale, déclarez le capteur de puissance de la maison et la puissance maximale pour activer le délestage."
                 }
             }
         }
@@ -232,11 +231,11 @@
                 },
                 "auto_start_stop": {
                     "title": "Activer l'arrêt et la relance automatiques",
-                    "text": "Choisissez la réactivité (lente pour un séjour, rapide pour une petite pièce) et l'action d'arrêt : éteindre, ventilation seule ou déshumidification."
+                    "text": "Dans le menu « Fonctions », cochez l'arrêt/démarrage automatique, puis choisissez la réactivité (lente pour un séjour, rapide pour une petite pièce). Après la création, l'entité de mode d'arrêt permet de choisir entre éteindre, ventilation seule ou déshumidification."
                 },
                 "presets": {
                     "title": "Régler les préréglages",
-                    "text": "Définissez les températures de chauffage (par exemple 18 / 20 / 21 °C) et de climatisation (par exemple 26 / 25 / 24 °C)."
+                    "text": "Une fois le thermostat créé, réglez avec ses entités de préréglage les températures de chauffage (par exemple 18 / 20 / 21 °C) et de climatisation (par exemple 26 / 25 / 24 °C)."
                 }
             }
         }
@@ -244,26 +243,30 @@
     "pellet_stove": {
         "meta": {
             "title": "Poêle à granulés : démarrage rapide",
-            "description": "Régulez votre poêle à granulés avec Versatile Thermostat : contact sec ou intégration, cycles longs adaptés, présence, fenêtres et détection de panne.",
-            "keywords": "poêle à granulés,poêle à pellets,contact sec,Home Assistant,Versatile Thermostat"
+            "description": "Régulez votre poêle à granulés avec Versatile Thermostat et le plugin Pellet stove : protection contre les allumages répétés, niveaux de puissance, présence et fenêtres.",
+            "keywords": "poêle à granulés,poêle à pellets,plugin pellet stove,Home Assistant,Versatile Thermostat"
         },
         "name": "Poêle à granulés",
-        "tagline": "Poêle piloté par contact sec, relais ou intégration dédiée.",
+        "tagline": "Poêle intégré à Home Assistant, régulé par le plugin Pellet stove.",
         "title": "Poêle à granulés",
-        "intro": "Un poêle à granulés supporte mal les allumages répétés : chaque démarrage consomme de l'électricité et encrasse le foyer. Versatile Thermostat le pilote avec des cycles longs pour un confort stable sans multiplier les allumages.",
-        "vtherm_type": "« Sur un switch » (over_switch) si le poêle est commandé par son contact sec de thermostat d'ambiance via un relais. « Sur un climate » (over_climate) si une intégration Home Assistant expose le poêle comme un climate.",
+        "intro": "Un poêle à granulés supporte mal les allumages répétés : chaque démarrage consomme de l'électricité et encrasse le foyer. Avec le plugin VTherm Pellet stove, Versatile Thermostat le pilote avec un algorithme dédié qui respecte ses temps d'allumage et de refroidissement.",
+        "vtherm_type": "« Sur un switch » (over_switch) avec le plugin VTherm Pellet stove. Le sous-jacent est l'entité climate du poêle, fournie par son intégration (Duepi EVO, MCZ, EdilKamin, ESPHome…) et commandée par des ordres personnalisés.",
         "strengths": {
-            "long_cycle": {
-                "title": "Cycles longs",
-                "desc": "La durée du cycle et les délais minimaux d'allumage et d'extinction se règlent pour respecter le temps de démarrage du poêle."
+            "pellet_plugin": {
+                "title": "Algorithme dédié",
+                "desc": "Le plugin Pellet stove remplace le TPI par une régulation à hystérésis pensée pour le poêle : il s'allume ou s'éteint franchement, sans demi-mesure."
+            },
+            "anti_short_cycle": {
+                "title": "Pas d'allumages répétés",
+                "desc": "Durées minimales de marche et d'arrêt et délai de refroidissement : chaque démarrage va à son terme et l'allumeur est préservé."
+            },
+            "power_level": {
+                "title": "Niveaux de puissance",
+                "desc": "En option, le plugin adapte la puissance ou la ventilation du poêle à l'écart avec la consigne, avec un boost après une hausse de consigne."
             },
             "external_sensor": {
                 "title": "Sonde d'ambiance",
                 "desc": "La température est mesurée là où vous vivez, pas à côté du poêle, qui surchaufferait sinon la pièce principale."
-            },
-            "auto_start_stop": {
-                "title": "Arrêt et relance automatiques",
-                "desc": "Avec un poêle exposé en climate, l'arrêt et la relance automatiques évitent de le laisser tourner au ralenti quand la pièce est à température."
             },
             "presence": {
                 "title": "Présence",
@@ -272,44 +275,44 @@
             "window": {
                 "title": "Fenêtres ouvertes",
                 "desc": "Le poêle se coupe quand une fenêtre reste ouverte."
-            },
-            "failure_detection": {
-                "title": "Détection de panne",
-                "desc": "Si la température ne monte pas alors que le poêle est censé chauffer (réservoir vide, défaut d'allumage), Versatile Thermostat le signale."
             }
         },
         "tutorial": {
-            "title": "Tutoriel : un poêle commandé par contact sec",
-            "example": "Exemple : un poêle à granulés doté d'une entrée « thermostat d'ambiance » (contact sec), raccordée à un module relais Zigbee, avec une sonde de température dans la pièce de vie.",
-            "tip": "Le poêle à granulés n'a pas encore de profil dédié dans la documentation : ces réglages s'inspirent des chauffages à forte inertie. Ajustez la durée de cycle à la notice de votre poêle et partagez vos réglages avec la communauté.",
+            "title": "Tutoriel : un poêle intégré à Home Assistant",
+            "example": "Exemple : un poêle à granulés exposé comme entité climate par son intégration Home Assistant, avec une sonde de température dans la pièce de vie.",
+            "tip": "Les délais minimaux du thermostat doivent correspondre à ceux du plugin : marche minimale d'un côté, arrêt minimal plus refroidissement de l'autre. Adaptez-les à la notice de votre poêle dans les options du plugin, pour tous les poêles ou poêle par poêle.",
             "steps": {
-                "control": {
-                    "title": "Raccorder le contact sec",
-                    "text": "Raccordez l'entrée thermostat d'ambiance du poêle à un relais intégré à Home Assistant, en suivant la notice du poêle. Réglez le poêle pour qu'il obéisse à ce contact."
+                "integration": {
+                    "title": "Intégrer le poêle",
+                    "text": "Ajoutez l'intégration de votre poêle (Duepi EVO, MCZ, EdilKamin, ESPHome…) et vérifiez que son entité climate s'allume et s'éteint depuis Home Assistant."
                 },
                 "install": {
                     "title": "Installer Versatile Thermostat",
                     "text": "Installez l'intégration depuis HACS puis redémarrez Home Assistant."
                 },
+                "plugin": {
+                    "title": "Installer le plugin Pellet stove",
+                    "text": "Installez « Versatile Thermostat Pellet Stove » depuis HACS, redémarrez Home Assistant puis ajoutez l'intégration : elle crée une configuration par défaut commune à tous vos poêles."
+                },
                 "create": {
                     "title": "Créer le thermostat",
-                    "text": "Ajoutez l'intégration Versatile Thermostat, choisissez « Thermostat sur un switch », nommez-le « Poêle » et sélectionnez la sonde de température et la sonde extérieure."
+                    "text": "Ajoutez l'intégration Versatile Thermostat, choisissez « Thermostat sur un switch », nommez-le « Poêle », sélectionnez la sonde de température et la sonde extérieure, et réglez la durée de cycle à 60 minutes."
                 },
                 "underlying": {
-                    "title": "Ajouter le relais",
-                    "text": "Dans « Sous-jacents », sélectionnez l'entité switch du relais."
+                    "title": "Ajouter le poêle",
+                    "text": "Dans « Sous-jacents », sélectionnez l'entité climate du poêle. Commande d'allumage : set_hvac_mode/hvac_mode:heat. Commande d'arrêt : set_hvac_mode/hvac_mode:off."
                 },
-                "cycle": {
-                    "title": "Régler un cycle long",
-                    "text": "Choisissez un cycle long (30 à 60 minutes) et des délais minimaux d'allumage et d'extinction de plusieurs minutes, pour qu'un démarrage aille toujours à son terme."
+                "algorithm": {
+                    "title": "Choisir l'algorithme du poêle",
+                    "text": "Choisissez l'algorithme pellet_regulation fourni par le plugin. Réglez un délai minimal d'activation de 1800 s (30 min) et un délai minimal d'extinction de 1500 s (25 min)."
                 },
                 "presets": {
                     "title": "Régler les préréglages",
-                    "text": "Définissez les températures Éco, Confort, Boost et Hors-gel, par exemple 18, 20, 21 et 10 °C."
+                    "text": "Une fois le thermostat créé, réglez les températures Éco, Confort, Boost et Hors-gel avec ses entités de préréglage, par exemple 18, 20, 21 et 10 °C."
                 },
                 "features": {
-                    "title": "Présence, fenêtres et panne",
-                    "text": "Associez le capteur de présence et les capteurs d'ouverture, puis activez la détection de panne de chauffage pour être alerté si le poêle ne démarre pas."
+                    "title": "Présence et fenêtres",
+                    "text": "Une fois le poêle piloté correctement, activez la gestion de la présence et la détection d'ouverture dans le menu « Fonctions », puis associez les capteurs."
                 }
             }
         }

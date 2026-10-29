@@ -24,7 +24,7 @@ const PATH = `/quick-start/${PAGE.slug}/`;
 const STRENGTHS = ['pilot_wire', 'tpi', 'power_shedding', 'presence_motion', 'window', 'central_mode'];
 /** Keys of `quickstart.<page>.tutorial.steps` */
 const STEPS = ['wiring', 'install', 'create', 'underlying', 'tpi', 'presets', 'features'];
-const DOCS = ['over-switch', 'algorithms', 'feature-power', 'feature-presence', 'feature-window'];
+const DOCS = ['quick-start', 'over-switch', 'algorithms', 'feature-power', 'feature-presence', 'feature-window'];
 const DEVICES: string[] = ['heatzy', 'over-switch'];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
@@ -126,9 +126,6 @@ export default async function PilotWireQuickStartPage({ params }: { params: Prom
                         <span>{qs_t('cta.install')}</span>
                         <ArrowRightIcon className="w-5 h-5 ml-2" />
                     </Button>
-                </LinkLocale>
-                <LinkLocale href="/versus/">
-                    <Button variant="secondary" size="lg">{qs_t('cta.versus')}</Button>
                 </LinkLocale>
             </CtaSection>
         </article>
