@@ -21,10 +21,10 @@ const PAGE = getQuickStartPage('pellet-stove');
 const PATH = `/quick-start/${PAGE.slug}/`;
 
 /** Keys of `quickstart.<page>.strengths` */
-const STRENGTHS = ['long_cycle', 'external_sensor', 'auto_start_stop', 'presence', 'window', 'failure_detection'];
+const STRENGTHS = ['pellet_plugin', 'anti_short_cycle', 'power_level', 'external_sensor', 'presence', 'window'];
 /** Keys of `quickstart.<page>.tutorial.steps` */
-const STEPS = ['control', 'install', 'create', 'underlying', 'cycle', 'presets', 'features'];
-const DOCS = ['over-switch', 'over-climate', 'feature-auto-start-stop', 'feature-heating-failure-detection', 'feature-presence'];
+const STEPS = ['integration', 'install', 'plugin', 'create', 'underlying', 'algorithm', 'presets', 'features'];
+const DOCS = ['quick-start', 'over-switch', 'algorithms', 'feature-presets', 'feature-presence', 'feature-window'];
 const DEVICES: string[] = [];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
@@ -42,7 +42,9 @@ export default async function PelletStoveQuickStartPage({ params }: { params: Pr
     const steps = STEPS.map(key => ({
         title: t(`tutorial.steps.${key}.title`),
         text: t(`tutorial.steps.${key}.text`),
-        action: key === 'install' ? <HacsInstallBadge className="inline-block" /> : undefined,
+        action: key === 'install' ? <HacsInstallBadge className="inline-block" />
+            : key === 'plugin' ? <HacsInstallBadge className="inline-block" repository="vtherm_pellet_stove" />
+            : undefined,
     }));
 
     const crumbs = [
@@ -126,9 +128,6 @@ export default async function PelletStoveQuickStartPage({ params }: { params: Pr
                         <span>{qs_t('cta.install')}</span>
                         <ArrowRightIcon className="w-5 h-5 ml-2" />
                     </Button>
-                </LinkLocale>
-                <LinkLocale href="/versus/">
-                    <Button variant="secondary" size="lg">{qs_t('cta.versus')}</Button>
                 </LinkLocale>
             </CtaSection>
         </article>

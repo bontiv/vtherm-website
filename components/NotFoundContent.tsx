@@ -6,7 +6,7 @@ import { ArrowRightIcon, BookOpenIcon, CpuChipIcon, PresentationChartLineIcon, P
 import i18n from '@/app/i18n/i18next';
 import { fallbackLng, languages } from '@/app/i18n/settings';
 import { Button } from '@/components/ui/Button';
-import logo from '@/public/logo.webp';
+import logo from '@/public/logo-nav.webp';
 import en from '@/public/locales/en/notfound.json';
 import fr from '@/public/locales/fr/notfound.json';
 import de from '@/public/locales/de/notfound.json';

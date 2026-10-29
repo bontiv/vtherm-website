@@ -6,7 +6,7 @@ import { NavItem } from '../navigation/NavItem';
 import { NavAccordion } from '../navigation/NavAccordion';
 import Image from 'next/image';
 import { useT } from '@/app/i18n/client';
-import logo from '@/public/logo.webp';
+import logo from '@/public/logo-nav.webp';
 
 export const Sidebar: React.FC<{ docfiles?: (string | undefined)[] }> = ({ docfiles }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

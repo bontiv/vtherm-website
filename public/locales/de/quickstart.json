@@ -17,15 +17,14 @@
         "docs_quickstart": "den Schnellstart in der Dokumentation",
         "cta": {
             "title": "Und jetzt?",
-            "desc": "Installieren Sie Versatile Thermostat und entdecken Sie, warum es besser ist als die Alternativen.",
-            "install": "Installationsanleitung",
-            "versus": "Vergleiche ansehen"
+            "desc": "Installieren Sie Versatile Thermostat und folgen Sie dann der Dokumentation, um weiterzugehen.",
+            "install": "Installationsanleitung"
         }
     },
     "trv": {
         "meta": {
             "title": "Thermostatventil (TRV): Schnellstart",
-            "description": "Steuern Sie Zigbee-Thermostatköpfe (Sonoff TRVZB …) mit Versatile Thermostat: direkte Ventilsteuerung, externer Sensor, Auto-TPI und Heizkessel.",
+            "description": "Steuern Sie Zigbee-Thermostatköpfe (Sonoff TRVZB …) mit Versatile Thermostat: direkte Ventilsteuerung, externer Sensor, Neukalibrierung und Heizkessel.",
             "keywords": "Thermostatventil,Thermostatkopf,TRV,Heizkörperthermostat,Sonoff TRVZB,Home Assistant,Versatile Thermostat,Zigbee"
         },
         "name": "Thermostatventil",
@@ -42,9 +41,9 @@
                 "title": "Raumsensor und Kalibrierung",
                 "desc": "Die Raumtemperatur stammt von einem echten Sensor. Sie kann ans Ventil übertragen werden (Kalibrierungs-Offset oder externe Temperatur)."
             },
-            "auto_tpi": {
-                "title": "Auto-TPI",
-                "desc": "Die Regelkoeffizienten werden automatisch über die Zyklen hinweg gelernt, Raum für Raum."
+            "recalibrate": {
+                "title": "Ventil-Neukalibrierung",
+                "desc": "Ein Dienst öffnet und schließt die Ventile vollständig, um ihre Kalibrierung neu auszulösen, zum Beispiel wenn ein Heizkörper heizt, obwohl sein Ventil geschlossen ist."
             },
             "window": {
                 "title": "Offene Fenster",
@@ -74,7 +73,7 @@
                 },
                 "create": {
                     "title": "Thermostat erstellen",
-                    "text": "Einstellungen > Geräte & Dienste > Integration hinzufügen > Versatile Thermostat. Wählen Sie „Thermostat auf einem climate“, nennen Sie es „Wohnzimmer“ und wählen Sie den Temperatursensor aus."
+                    "text": "Einstellungen > Geräte & Dienste > Integration hinzufügen > Versatile Thermostat. Wählen Sie „Thermostat auf einem climate“, nennen Sie es „Wohnzimmer“ und wählen Sie den Temperatursensor und den Außensensor aus."
                 },
                 "underlying": {
                     "title": "Ventile hinzufügen",
@@ -82,15 +81,15 @@
                 },
                 "regulation": {
                     "title": "Direkte Ventilsteuerung aktivieren",
-                    "text": "Wählen Sie unter „Selbstregelung“ die direkte Ventilsteuerung. Tragen Sie für jedes Ventil die Entitäten für Öffnung, Schließung und Kalibrierung ein. Lassen Sie die TPI-Koeffizienten auf den Standardwerten: Auto-TPI passt sie an."
+                    "text": "Wählen Sie unter „Selbstregelung“ die direkte Ventilsteuerung. Tragen Sie auf der Seite „Konfiguration der Ventilregelung“ für jedes Ventil die Entität für die Öffnung und, falls vorhanden, die für die Schließung ein. Behalten Sie die TPI-Standardkoeffizienten bei."
                 },
                 "presets": {
                     "title": "Voreinstellungen festlegen",
-                    "text": "Legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz fest, zum Beispiel 18, 20, 21 und 7 °C."
+                    "text": "Sobald das Thermostat erstellt ist, legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz über seine Voreinstellungs-Entitäten fest, zum Beispiel 18, 20, 21 und 7 °C."
                 },
                 "features": {
                     "title": "Fenster und Heizkessel",
-                    "text": "Aktivieren Sie die Öffnungserkennung (Sensor oder automatisch). Wenn ein Heizkessel die Heizkörper versorgt, deklarieren Sie ihn in der zentralen Konfiguration, damit er der Nachfrage der Ventile folgt."
+                    "text": "Sobald das Thermostat funktioniert, aktivieren Sie im Menü „Funktionen“ die Öffnungserkennung (Sensor oder automatisch). Wenn ein Heizkessel die Heizkörper versorgt, deklarieren Sie ihn in der zentralen Konfiguration, damit er der Nachfrage der Ventile folgt."
                 }
             }
         }
@@ -155,15 +154,15 @@
                 },
                 "tpi": {
                     "title": "Zyklus einstellen",
-                    "text": "Wählen Sie einen Zyklus von 5 bis 10 Minuten und eine minimale Aktivierungsdauer von 30 Sekunden. Behalten Sie die TPI-Standardkoeffizienten bei oder aktivieren Sie Auto-TPI."
+                    "text": "Wählen Sie unter „Hauptattribute“ einen Zyklus von 5 bis 10 Minuten. Behalten Sie unter „TPI-Parameter“ die Standardkoeffizienten bei (oder aktivieren Sie Auto-TPI) und stellen Sie eine minimale Aktivierungsdauer von 30 Sekunden ein."
                 },
                 "presets": {
                     "title": "Voreinstellungen festlegen",
-                    "text": "Legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz fest, zum Beispiel 17, 19, 20 und 7 °C."
+                    "text": "Sobald das Thermostat erstellt ist, legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz über seine Voreinstellungs-Entitäten fest, zum Beispiel 17, 19, 20 und 7 °C."
                 },
                 "features": {
                     "title": "Fenster und Lastabwurf",
-                    "text": "Verknüpfen Sie den Öffnungssensor des Fensters. Deklarieren Sie in der zentralen Konfiguration den Leistungssensor des Hauses und die maximale Leistung, um den Lastabwurf zu aktivieren."
+                    "text": "Sobald das Thermostat funktioniert, aktivieren Sie im Menü „Funktionen“ die Öffnungserkennung und verknüpfen Sie den Fenstersensor. Deklarieren Sie in der zentralen Konfiguration den Leistungssensor des Hauses und die maximale Leistung, um den Lastabwurf zu aktivieren."
                 }
             }
         }
@@ -232,11 +231,11 @@
                 },
                 "auto_start_stop": {
                     "title": "Automatisches Ausschalten und Wiedereinschalten aktivieren",
-                    "text": "Wählen Sie die Reaktionsgeschwindigkeit (langsam für ein Wohnzimmer, schnell für einen kleinen Raum) und die Ausschaltaktion: ausschalten, nur Lüftung oder Entfeuchtung."
+                    "text": "Aktivieren Sie im Menü „Funktionen“ das automatische Ein-/Ausschalten und wählen Sie die Reaktionsgeschwindigkeit (langsam für ein Wohnzimmer, schnell für einen kleinen Raum). Nach dem Erstellen wählen Sie mit der Entität für den Ausschaltmodus zwischen Ausschalten, nur Lüftung oder Entfeuchtung."
                 },
                 "presets": {
                     "title": "Voreinstellungen festlegen",
-                    "text": "Legen Sie die Temperaturen für das Heizen (zum Beispiel 18 / 20 / 21 °C) und das Kühlen (zum Beispiel 26 / 25 / 24 °C) fest."
+                    "text": "Sobald das Thermostat erstellt ist, legen Sie über seine Voreinstellungs-Entitäten die Temperaturen für das Heizen (zum Beispiel 18 / 20 / 21 °C) und das Kühlen (zum Beispiel 26 / 25 / 24 °C) fest."
                 }
             }
         }
@@ -244,26 +243,30 @@
     "pellet_stove": {
         "meta": {
             "title": "Pelletofen: Schnellstart",
-            "description": "Regeln Sie Ihren Pelletofen mit Versatile Thermostat: potentialfreier Kontakt oder Integration, lange Zyklen, Anwesenheit und Störungserkennung.",
-            "keywords": "Pelletofen,Pellet-Ofen,Pelletheizung,potentialfreier Kontakt,Home Assistant,Versatile Thermostat"
+            "description": "Regeln Sie Ihren Pelletofen mit Versatile Thermostat und dem Plugin Pellet stove: Schutz vor wiederholtem Anzünden, Leistungsstufen, Anwesenheit und Fenster.",
+            "keywords": "Pelletofen,Pellet-Ofen,Pelletheizung,Pellet-stove-Plugin,Home Assistant,Versatile Thermostat"
         },
         "name": "Pelletofen",
-        "tagline": "Ofen, gesteuert über potentialfreien Kontakt, Relais oder eine eigene Integration.",
+        "tagline": "In Home Assistant integrierter Ofen, geregelt durch das Plugin Pellet stove.",
         "title": "Pelletofen",
-        "intro": "Ein Pelletofen verträgt wiederholtes Anzünden schlecht: Jeder Start verbraucht Strom und verschmutzt den Brennraum. Versatile Thermostat steuert ihn mit langen Zyklen für stabilen Komfort, ohne die Zahl der Zündungen zu vervielfachen.",
-        "vtherm_type": "„Auf einem switch“ (over_switch), wenn der Ofen über seinen potentialfreien Raumthermostat-Kontakt per Relais gesteuert wird. „Auf einem climate“ (over_climate), wenn eine Home-Assistant-Integration den Ofen als climate bereitstellt.",
+        "intro": "Ein Pelletofen verträgt wiederholtes Anzünden schlecht: Jeder Start verbraucht Strom und verschmutzt den Brennraum. Mit dem Plugin VTherm Pellet stove steuert Versatile Thermostat ihn mit einem eigenen Algorithmus, der seine Zünd- und Abkühlzeiten einhält.",
+        "vtherm_type": "„Auf einem switch“ (over_switch) mit dem Plugin VTherm Pellet stove. Die zugrunde liegende Entität ist die climate-Entität des Ofens, bereitgestellt von seiner Integration (Duepi EVO, MCZ, EdilKamin, ESPHome…) und über benutzerdefinierte Befehle gesteuert.",
         "strengths": {
-            "long_cycle": {
-                "title": "Lange Zyklen",
-                "desc": "Zyklusdauer sowie minimale Ein- und Ausschaltzeiten lassen sich so einstellen, dass die Startzeit des Ofens eingehalten wird."
+            "pellet_plugin": {
+                "title": "Eigener Algorithmus",
+                "desc": "Das Plugin Pellet stove ersetzt TPI durch eine Hystereseregelung, die für Öfen gedacht ist: Er schaltet klar ein oder aus, ohne Zwischenlösungen."
+            },
+            "anti_short_cycle": {
+                "title": "Kein wiederholtes Anzünden",
+                "desc": "Minimale Lauf- und Pausenzeiten sowie eine Abkühlverzögerung: Jeder Start läuft vollständig durch und der Zünder wird geschont."
+            },
+            "power_level": {
+                "title": "Leistungsstufen",
+                "desc": "Optional passt das Plugin die Leistung oder Lüftung des Ofens an die Abweichung vom Sollwert an, mit einem Boost nach einer Sollwerterhöhung."
             },
             "external_sensor": {
                 "title": "Raumsensor",
                 "desc": "Die Temperatur wird dort gemessen, wo Sie sich aufhalten, nicht neben dem Ofen, der sonst den Hauptraum überhitzen würde."
-            },
-            "auto_start_stop": {
-                "title": "Automatisches Ausschalten und Wiedereinschalten",
-                "desc": "Bei einem als climate bereitgestellten Ofen verhindern das automatische Ausschalten und Wiedereinschalten, dass er im Leerlauf weiterläuft, wenn die Raumtemperatur erreicht ist."
             },
             "presence": {
                 "title": "Anwesenheit",
@@ -272,44 +275,44 @@
             "window": {
                 "title": "Offene Fenster",
                 "desc": "Der Ofen schaltet sich ab, wenn ein Fenster geöffnet bleibt."
-            },
-            "failure_detection": {
-                "title": "Störungserkennung",
-                "desc": "Steigt die Temperatur nicht, obwohl der Ofen heizen sollte (leerer Tank, Zündfehler), meldet Versatile Thermostat dies."
             }
         },
         "tutorial": {
-            "title": "Anleitung: ein Ofen, gesteuert über potentialfreien Kontakt",
-            "example": "Beispiel: ein Pelletofen mit einem Eingang „Raumthermostat“ (potentialfreier Kontakt), der an ein Zigbee-Relaismodul angeschlossen ist, mit einem Temperatursensor im Wohnraum.",
-            "tip": "Für den Pelletofen gibt es in der Dokumentation noch kein eigenes Profil: Diese Einstellungen orientieren sich an Heizungen mit hoher Trägheit. Passen Sie die Zyklusdauer an die Anleitung Ihres Ofens an und teilen Sie Ihre Einstellungen mit der Community.",
+            "title": "Anleitung: ein in Home Assistant integrierter Ofen",
+            "example": "Beispiel: ein Pelletofen, den seine Home-Assistant-Integration als climate-Entität bereitstellt, mit einem Temperatursensor im Wohnraum.",
+            "tip": "Die minimalen Verzögerungen des Thermostats müssen denen des Plugins entsprechen: minimale Laufzeit auf der einen Seite, minimale Pausenzeit plus Abkühlung auf der anderen. Passen Sie sie in den Optionen des Plugins an die Anleitung Ihres Ofens an, für alle Öfen oder für jeden Ofen einzeln.",
             "steps": {
-                "control": {
-                    "title": "Potentialfreien Kontakt anschließen",
-                    "text": "Schließen Sie den Raumthermostat-Eingang des Ofens gemäß der Ofenanleitung an ein in Home Assistant eingebundenes Relais an. Stellen Sie den Ofen so ein, dass er diesem Kontakt folgt."
+                "integration": {
+                    "title": "Ofen integrieren",
+                    "text": "Fügen Sie die Integration Ihres Ofens hinzu (Duepi EVO, MCZ, EdilKamin, ESPHome…) und prüfen Sie, dass sich seine climate-Entität aus Home Assistant ein- und ausschalten lässt."
                 },
                 "install": {
                     "title": "Versatile Thermostat installieren",
                     "text": "Installieren Sie die Integration über HACS und starten Sie anschließend Home Assistant neu."
                 },
+                "plugin": {
+                    "title": "Plugin Pellet stove installieren",
+                    "text": "Installieren Sie „Versatile Thermostat Pellet Stove“ über HACS, starten Sie Home Assistant neu und fügen Sie dann die Integration hinzu: Sie erstellt eine Standardkonfiguration für alle Ihre Öfen."
+                },
                 "create": {
                     "title": "Thermostat erstellen",
-                    "text": "Fügen Sie die Integration Versatile Thermostat hinzu, wählen Sie „Thermostat auf einem switch“, nennen Sie es „Ofen“ und wählen Sie den Temperatursensor und den Außensensor aus."
+                    "text": "Fügen Sie die Integration Versatile Thermostat hinzu, wählen Sie „Thermostat auf einem switch“, nennen Sie es „Ofen“, wählen Sie den Temperatursensor und den Außensensor aus und stellen Sie die Zyklusdauer auf 60 Minuten."
                 },
                 "underlying": {
-                    "title": "Relais hinzufügen",
-                    "text": "Wählen Sie unter „Zugrunde liegende Geräte“ die switch-Entität des Relais."
+                    "title": "Ofen hinzufügen",
+                    "text": "Wählen Sie unter „Zugrunde liegende Entitäten“ die climate-Entität des Ofens. Einschaltbefehl: set_hvac_mode/hvac_mode:heat. Ausschaltbefehl: set_hvac_mode/hvac_mode:off."
                 },
-                "cycle": {
-                    "title": "Langen Zyklus einstellen",
-                    "text": "Wählen Sie einen langen Zyklus (30 bis 60 Minuten) und minimale Ein- und Ausschaltzeiten von mehreren Minuten, damit ein Start immer vollständig durchläuft."
+                "algorithm": {
+                    "title": "Algorithmus des Ofens wählen",
+                    "text": "Wählen Sie den vom Plugin bereitgestellten Algorithmus pellet_regulation. Stellen Sie eine minimale Aktivierungsdauer von 1800 s (30 min) und eine minimale Deaktivierungsdauer von 1500 s (25 min) ein."
                 },
                 "presets": {
                     "title": "Voreinstellungen festlegen",
-                    "text": "Legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz fest, zum Beispiel 18, 20, 21 und 10 °C."
+                    "text": "Sobald das Thermostat erstellt ist, legen Sie die Temperaturen für Eco, Komfort, Boost und Frostschutz über seine Voreinstellungs-Entitäten fest, zum Beispiel 18, 20, 21 und 10 °C."
                 },
                 "features": {
-                    "title": "Anwesenheit, Fenster und Störung",
-                    "text": "Verknüpfen Sie den Anwesenheitssensor und die Öffnungssensoren und aktivieren Sie dann die Erkennung von Heizungsausfällen, um benachrichtigt zu werden, wenn der Ofen nicht startet."
+                    "title": "Anwesenheit und Fenster",
+                    "text": "Sobald der Ofen korrekt gesteuert wird, aktivieren Sie im Menü „Funktionen“ die Anwesenheitsverwaltung und die Öffnungserkennung und verknüpfen Sie dann die Sensoren."
                 }
             }
         }

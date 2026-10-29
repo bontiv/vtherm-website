@@ -55,7 +55,7 @@
         },
         "pellet_stove": {
             "title": "Pelletofen",
-            "desc": "Ofen über potentialfreien Kontakt, Relais oder eine eigene Integration."
+            "desc": "In Home Assistant integrierter Ofen, geregelt durch das Plugin Pellet stove."
         }
     },
     "main-features-desc": "Was Versatile Thermostat von anderen Thermostaten in Home Assistant unterscheidet.",

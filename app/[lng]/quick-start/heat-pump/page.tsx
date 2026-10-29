@@ -24,7 +24,7 @@ const PATH = `/quick-start/${PAGE.slug}/`;
 const STRENGTHS = ['self_regulation', 'auto_start_stop', 'heat_cool', 'window', 'presence', 'power'];
 /** Keys of `quickstart.<page>.tutorial.steps` */
 const STEPS = ['integration', 'install', 'create', 'underlying', 'regulation', 'auto_start_stop', 'presets'];
-const DOCS = ['over-climate', 'self-regulation', 'feature-auto-start-stop', 'feature-window', 'feature-presence'];
+const DOCS = ['quick-start', 'over-climate', 'self-regulation', 'feature-auto-start-stop', 'feature-window', 'feature-presence'];
 const DEVICES: string[] = ['MELCloud', 'smartir', 'tuya-wifi'];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
@@ -126,9 +126,6 @@ export default async function HeatPumpQuickStartPage({ params }: { params: Promi
                         <span>{qs_t('cta.install')}</span>
                         <ArrowRightIcon className="w-5 h-5 ml-2" />
                     </Button>
-                </LinkLocale>
-                <LinkLocale href="/versus/">
-                    <Button variant="secondary" size="lg">{qs_t('cta.versus')}</Button>
                 </LinkLocale>
             </CtaSection>
         </article>

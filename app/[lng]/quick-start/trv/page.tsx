@@ -21,10 +21,10 @@ const PAGE = getQuickStartPage('trv');
 const PATH = `/quick-start/${PAGE.slug}/`;
 
 /** Keys of `quickstart.<page>.strengths` */
-const STRENGTHS = ['valve_regulation', 'external_sensor', 'auto_tpi', 'window', 'central_boiler', 'multi'];
+const STRENGTHS = ['valve_regulation', 'external_sensor', 'recalibrate', 'window', 'central_boiler', 'multi'];
 /** Keys of `quickstart.<page>.tutorial.steps` */
 const STEPS = ['pair', 'install', 'create', 'underlying', 'regulation', 'presets', 'features'];
-const DOCS = ['over-climate', 'self-regulation', 'feature-autotpi', 'feature-recalibrate-valves', 'feature-central-boiler'];
+const DOCS = ['quick-start', 'over-climate', 'self-regulation', 'feature-sync_device_temp', 'feature-recalibrate-valves', 'feature-central-boiler'];
 const DEVICES = ['sonoff-trvzb', 'sonoff-trv-zbt', 'aqara-w600', 'tuya-trv602', 'eurotronic-comet'];
 
 export async function generateMetadata({ params }: { params: Promise<{ lng: string }> }): Promise<Metadata> {
@@ -126,9 +126,6 @@ export default async function TrvQuickStartPage({ params }: { params: Promise<{ 
                         <span>{qs_t('cta.install')}</span>
                         <ArrowRightIcon className="w-5 h-5 ml-2" />
                     </Button>
-                </LinkLocale>
-                <LinkLocale href="/versus/">
-                    <Button variant="secondary" size="lg">{qs_t('cta.versus')}</Button>
                 </LinkLocale>
             </CtaSection>
         </article>

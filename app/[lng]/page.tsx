@@ -72,6 +72,8 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
 
     return (
         <div className="space-y-16">
+            {/* Hero badges are loaded from shields.io: open the connection early (hoisted to <head>, no crossOrigin for plain <img>) */}
+            <link rel="preconnect" href="https://img.shields.io" />
             <Semantic id={`home-${lng}`} data={{
                 "@context": "https://schema.org",
                 "@type": "WebPage",
