@@ -7,7 +7,8 @@
   --color-forground: var(--color-slate-800);
 
   --color-vtherm-primary: #800000;
-  --color-vtherm-secondary: #E67249;
+  /* Assombri en clair pour un contraste AA (≥ 4.5:1 sur blanc et blue-50) ; #E67249 conservé en sombre */
+  --color-vtherm-secondary: #B9471E;
   --color-vtherm-tertiary: #306BE5;
   --color-vtherm-quaternary: #3EB0F2;
   --color-vtherm-light: #E7EFF9;
@@ -21,6 +22,7 @@
   --sidebar-width: 247px;
 
   @variant dark {
+    --color-vtherm-secondary: #E67249;
     --color-primary: var(--color-vtherm-primary);
     --color-secondary: var(--color-sky-500);
     --color-background: #0d1117;
