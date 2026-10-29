@@ -9,7 +9,7 @@ import Semantic from "@/components/Semantic";
 
 export default function Home() {
   useEffect(() => {
-    const browser_lng = i18n.language ?? fallbackLng;
+    const browser_lng = i18n.resolvedLanguage ?? fallbackLng;
     console.log("Detected browser language:", browser_lng);
     window.location.replace(`/${browser_lng}/`);
   }, []);
