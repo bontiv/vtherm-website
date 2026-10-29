@@ -17,7 +17,6 @@ import { LinkLocale } from "@/components/LinkLocale";
 import { getAlternatesMetadata, getT } from "../i18n";
 import Image from "next/image";
 import { Metadata } from "next";
-import { preconnect } from "react-dom";
 import { opengraph_defaults } from "@/lib/opengraph";
 import Semantic from "@/components/Semantic";
 import { HeatingTypeCard } from "@/components/HeatingTypeCard";
@@ -71,11 +70,10 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
     const { t } = await getT('home', { lng })
     const { t: common_t } = await getT('common', { lng })
 
-    // Hero badges are loaded from shields.io: open the connection early (no crossOrigin, plain <img>)
-    preconnect("https://img.shields.io");
-
     return (
         <div className="space-y-16">
+            {/* Hero badges are loaded from shields.io: open the connection early (hoisted to <head>, no crossOrigin for plain <img>) */}
+            <link rel="preconnect" href="https://img.shields.io" />
             <Semantic id={`home-${lng}`} data={{
                 "@context": "https://schema.org",
                 "@type": "WebPage",
