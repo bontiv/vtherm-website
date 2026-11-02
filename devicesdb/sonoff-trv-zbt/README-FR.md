@@ -19,6 +19,7 @@ Le blueprint [Sonoff TRV-ZBT valve kick](https://gist.github.com/bontiv/af2d59ad
 [![Ouvrez votre instance Home Assistant et affichez la boîte de dialogue d'import du blueprint pré-remplie.](https://my.home-assistant.io/badges/blueprint_import.svg)](https://my.home-assistant.io/redirect/blueprint_import/?blueprint_url=https%3A%2F%2Fgist.githubusercontent.com%2Fbontiv%2Faf2d59adb15bf3d522282edd662a75e4%2Fraw%2Fsonoff_trv_zbt_vtherm.yaml)
 
 - Dans VTherm, choisissez l'auto-régulation par contrôle direct de la vanne, avec `heating_valve_position` comme entité de degré d'ouverture et sans entité de degré de fermeture.
+- Avec ZHA, activez et utilisez « Valve opening degree » comme entité de degré d'ouverture. N'utilisez pas « Valve closing degree » comme entité de degré de fermeture : sur le TRV-ZBT, c'est l'ouverture de la vanne au repos.
 - Désactivez « Follow underlying temp change » et la synchronisation de la température de l'appareil dans VTherm.
 - Désactivez [`open_window`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#open-window-binary) sur la vanne.
 
