@@ -121,6 +121,16 @@
         "family": "device-helper"
     },
     {
+        "name": "Intelligent Heating Pilot",
+        "certification": "community",
+        "slug": "RastaChaum/Intelligent-Heating-Pilot",
+        "type": "integration",
+        "family": "feature",
+        "description": "IHP learns how fast each room actually heats up, from real heating cycles (dead time, time-of-day context, outdoor temperature). It then starts heating early enough to reach the next scheduled temperature on time. It reads the next slot from a scheduler (HACS Scheduler, Climate Scheduler switches or native schedule.* helpers) and works on top of VTherm, without replacing its regulation.",
+        "description_fr": "IHP apprend la vitesse réelle de montée en température de chaque pièce, en se basant sur des cycles de chauffe observés (temps de latence, moment de la journée, température extérieure). Il déclenche alors le chauffage suffisamment tôt pour atteindre la température programmée à l'heure prévue. Il récupère la prochaine plage horaire depuis un programmateur (HACS Scheduler, Climate Scheduler ou les entités natives de type « schedule »*) et fonctionne en complément de VTherm, sans pour autant remplacer son mécanisme de régulation.",
+        "description_de": "IHP lernt anhand tatsächlicher Heizzyklen (Totzeit, Tageszeit, Außentemperatur), wie schnell sich die einzelnen Räume tatsächlich aufheizen. Das System beginnt daraufhin früh genug mit dem Heizen, um die jeweils nächste geplante Zieltemperatur pünktlich zu erreichen. Es bezieht den nächsten Zeitplan aus einem entsprechenden Planer (etwa HACS Scheduler, Climate Scheduler oder native „Schedule“-Helfer) und setzt auf VTherm auf, ohne dessen eigene Regelungslogik zu ersetzen."
+    },
+    {
         "name": "Météo-France Observation",
         "description": "<p>Real-time measurements of Météo-France ground stations (France and overseas territories), updated every 6 minutes. Provides an accurate outdoor temperature sensor for Versatile Thermostat, plus humidity, pressure, wind and precipitation.</p><p>Credentials are stored in Home Assistant application credentials and tokens are renewed automatically. The station is found around a point on the map, by department or by ID.</p>",
         "description_fr": "<p>Mesures en temps réel des stations au sol de Météo-France (métropole et outre-mer), mises à jour toutes les 6 minutes. Fournit à Versatile Thermostat un capteur de température extérieure précis, ainsi que l'humidité, la pression, le vent et les précipitations.</p><p>Les identifiants sont stockés dans les identifiants d'application de Home Assistant et les jetons sont renouvelés automatiquement. La station se choisit autour d'un point sur la carte, par département ou par identifiant.</p>",
