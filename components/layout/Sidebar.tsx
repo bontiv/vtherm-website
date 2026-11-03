@@ -85,8 +85,8 @@ export const Sidebar: React.FC<{ docfiles?: (string | undefined)[] }> = ({ docfi
 
                 {/* External Links */}
                 <NavItem
-                    href="https://github.com/jmcollin78/versatile_thermostat"
-                    label={t('menu.github')}
+                    href="https://github.com/jmcollin78/versatile_thermostat/discussions"
+                    label={t('menu.support')}
                     isExternal
                 />
             </nav>
