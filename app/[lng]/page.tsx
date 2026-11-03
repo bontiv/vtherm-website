@@ -216,7 +216,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
             </section>
 
             {/* Press references */}
-            <section className="space-y-6">
+            {process.env.FEATURE_PRESS_REFERENCES === 'true' && <section className="space-y-6">
                 <div className="text-center space-y-2">
                     <h2 className="text-3xl md:text-4xl font-normal py-0">{t('press.title')}</h2>
                     <p className="text-lg text-[#52525b] dark:text-[#a1a1aa]">{t('press.desc')}</p>
@@ -241,7 +241,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                         </div>)}
                     </div>
                 </details>}
-            </section>
+            </section>}
 
             <CtaSection title={t('cta.title')} description={t('cta.desc')}>
                 <LinkLocale href="/quick-start/">
