@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#2563EB"/>
+  <g fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- House -->
+    <path d="M7 15l9-8 9 8"/>
+    <path d="M10 14v10h12V14"/>
+    <!-- WiFi arcs inside house -->
+    <path d="M13 21a4.5 4.5 0 0 1 6 0"/>
+    <path d="M15 19a1.5 1.5 0 0 1 2 0"/>
+    <circle cx="16" cy="22" r="1" fill="#fff" stroke="none"/>
+  </g>
+</svg>

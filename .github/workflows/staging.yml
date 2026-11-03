@@ -63,6 +63,9 @@ jobs:
             - name: Install dependencies
               run: ${{ steps.config-package-manager.outputs.manager }} ${{ steps.config-package-manager.outputs.command }}
 
+            - name: Use staging environment file
+              run: cp .env.staging .env.production.local
+
             - name: Build with Next.js
               run: ${{ steps.config-package-manager.outputs.runner }} next build
               env:
@@ -71,7 +74,6 @@ jobs:
                   NEXT_PUBLIC_MATOMO_SITE_ID: ${{ vars.MATOMO_SITE_ID }}
                   NEXT_PUBLIC_MATOMO_PROXY_JS_TRACKER_FILE: ${{ vars.MATOMO_PROXY_JS_TRACKER_FILE || '' }}
                   NEXT_PUBLIC_MATOMO_PROXY_PHP_TRACKER_FILE: ${{ vars.MATOMO_PROXY_PHP_TRACKER_FILE || '' }}
-                  APP_ENV: staging
                   NEXT_PUBLIC_SITE_URL: https://staging.versatile-thermostat.org
 
             - name: Build pagefind index
