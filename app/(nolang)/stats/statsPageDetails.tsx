@@ -13,11 +13,14 @@ export type ReleaseInfos = {
 export type PluginStat = {
     name: string,
     type: 'integration' | 'addon',
+    analyticsKey?: string,
     stars: number,
     downloads: number,
     actives: number,
     percent: number,
 }
+
+type HAStatsJson = Record<string, { total?: number; versions?: Record<string, number> }>
 
 const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: number }> = ({ pluginStats, vthermTotal }) => {
     const formater = new Intl.NumberFormat('fr', {})
@@ -33,9 +36,26 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
         fetcher: (url) => fetch(url).then(res => res.json()).then(releases => releases.filter((x: ReleaseInfos) => x.prerelease == false)),
     })
 
-    const ha_analytics = useSWR('/stats/ha_stats.json', {
-        fetcher: (url) => fetch(url).then(res => res.json()).then(json => json.ha_analytics.versatile_thermostat.versions),
+    const ha_stats = useSWR('/stats/ha_stats.json', {
+        fetcher: async (url): Promise<HAStatsJson> => {
+            const res = await fetch(url)
+            if (!res.ok) throw new Error(`HTTP ${res.status}`)
+            return res.json()
+        },
     })
+
+    const ha_analytics_versions = ha_stats.data?.versatile_thermostat?.versions ?? {}
+    const live_vtherm_total = ha_stats.data?.versatile_thermostat?.total ?? vthermTotal
+    const live_plugin_stats = pluginStats.map((plugin) => {
+        const actives = plugin.analyticsKey != null
+            ? ha_stats.data?.[plugin.analyticsKey]?.total ?? plugin.actives
+            : plugin.actives
+        return {
+            ...plugin,
+            actives,
+            percent: live_vtherm_total > 0 ? actives / live_vtherm_total : 0,
+        }
+    }).sort((a, b) => b.actives - a.actives)
 
     const github_assets = useSWR('github/assets', {
         fetcher: async () => {
@@ -70,7 +90,7 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
             name: 'Actives Installs',
             data: releases.data.map((release: ReleaseInfos) => ({
                 x: release.tag_name,
-                y: ha_analytics.data[release.tag_name] || 0
+                y: ha_analytics_versions[release.tag_name] || 0
             })).reverse()
         }
     ]
@@ -84,6 +104,9 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
 
     return <div className="container mx-auto">
         <h1>Statistiques Versatile Thermostat</h1>
+        {ha_stats.error && (
+            <p className="text-red-600">Impossible de charger les dernières statistiques ; valeurs issues du dernier build affichées.</p>
+        )}
         <Chart
             series={series}
             type="bar"
@@ -156,7 +179,7 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
                     <tr className="border-t" key={relinfo.tag_name}>
                         <td className="px-4">{relinfo.tag_name}</td>
                         <td className="px-4 text-right">{formater.format(github_assets.data[relinfo.tag_name] || 0)}</td>
-                        <td className="px-4 text-right">{formater.format(ha_analytics.data[relinfo.tag_name] || 0)}</td>
+                        <td className="px-4 text-right">{formater.format(ha_analytics_versions[relinfo.tag_name] || 0)}</td>
                     </tr>
                 )}
             </tbody>
@@ -164,7 +187,7 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
                 <tr className="border-t font-bold">
                     <td className="px-4">Total</td>
                     <td className="px-4 text-right">{formater.format((Object.values(github_assets.data) as number[]).reduce((a, b) => a + b, 0))}</td>
-                    <td className="px-4 text-right">{formater.format((Object.values(ha_analytics.data) as number[]).reduce((a, b) => a + b, 0))}</td>
+                    <td className="px-4 text-right">{formater.format((Object.values(ha_analytics_versions) as number[]).reduce((a, b) => a + b, 0))}</td>
                 </tr>
             </tfoot>
         </table>
@@ -181,7 +204,7 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
                 </tr>
             </thead>
             <tbody>
-                {pluginStats.map((plugin) =>
+                {live_plugin_stats.map((plugin) =>
                     <tr className="border-t" key={plugin.name}>
                         <td className="px-4">{plugin.name}</td>
                         <td className="px-4">{plugin.type === 'integration' ? 'Intégration' : 'Add-on'}</td>
@@ -197,11 +220,11 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
             series={[
                 {
                     name: 'Installations actives',
-                    data: pluginStats.map((plugin) => plugin.actives),
+                    data: live_plugin_stats.map((plugin) => plugin.actives),
                 },
                 {
                     name: 'Reste',
-                    data: pluginStats.map((plugin) => Math.max(vthermTotal - plugin.actives, 0)),
+                    data: live_plugin_stats.map((plugin) => Math.max(live_vtherm_total - plugin.actives, 0)),
                 },
             ]}
             type="bar"
@@ -222,7 +245,7 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
                 },
                 colors: ['#059669', '#9CA3AF'],
                 xaxis: {
-                    categories: pluginStats.map((plugin) => plugin.name),
+                    categories: live_plugin_stats.map((plugin) => plugin.name),
                     max: 100,
                     labels: {
                         formatter: (val) => `${val} %`,
@@ -250,9 +273,9 @@ const StatsPageDetails: React.FC<{ pluginStats: PluginStat[], vthermTotal: numbe
                 tooltip: {
                     y: {
                         formatter: (val, { seriesIndex, dataPointIndex }) => {
-                            const percent = seriesIndex === 0 ? pluginStats[dataPointIndex].percent : 1 - pluginStats[dataPointIndex].percent
+                            const percent = seriesIndex === 0 ? live_plugin_stats[dataPointIndex].percent : 1 - live_plugin_stats[dataPointIndex].percent
                             return seriesIndex === 0
-                                ? `${formater.format(val)} actifs / ${formater.format(vthermTotal)} VTherm (${percentFormater.format(percent)})`
+                                ? `${formater.format(val)} actifs / ${formater.format(live_vtherm_total)} VTherm (${percentFormater.format(percent)})`
                                 : `${formater.format(val)} (${percentFormater.format(percent)})`
                         },
                     },

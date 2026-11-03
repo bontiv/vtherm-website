@@ -44,6 +44,7 @@ const StatsPage: React.FC = async () => {
                 return {
                     name: plugin.name,
                     type: plugin.type,
+                    analyticsKey: plugin.type === 'integration' ? (plugin.ha_domain ?? repoName) : undefined,
                     stars,
                     downloads,
                     actives,
@@ -65,7 +66,12 @@ const StatsPage: React.FC = async () => {
     return <SWRConfig
         value={{
             fallback: {
-                '/stats/ha_stats.json': ha_analytics.versatile_thermostat.versions,
+                '/stats/ha_stats.json': {
+                    versatile_thermostat: {
+                        total: vthermTotal,
+                        versions: ha_analytics.versatile_thermostat.versions,
+                    },
+                },
                 'https://api.github.com/repos/jmcollin78/versatile_thermostat/releases': releases,
                 'github/assets': downloads_by_version,
             },
