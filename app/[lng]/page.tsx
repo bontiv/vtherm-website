@@ -224,7 +224,7 @@ export default async function Home({ params }: { params: Promise<{ lng: string }
                 {press.length > 0 && <div className="grid md:grid-cols-2 gap-4 max-w-5xl mx-auto">
                     {press.map(pressCard)}
                 </div>}
-                {otherPress.length > 0 && <details className="group/press max-w-5xl mx-auto">
+                {otherPress.length > 0 && <details open={press.length === 0} className="group/press max-w-5xl mx-auto">
                     <summary className="cursor-pointer list-none flex items-center justify-center gap-2 text-lg text-cyan-700 hover:text-cyan-500 transition-colors">
                         {t('press.other-languages')}
                         <ChevronDownIcon className="w-4 h-4 group-open/press:rotate-180 transition-transform" aria-hidden="true" />
