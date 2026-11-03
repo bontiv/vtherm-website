@@ -40,6 +40,15 @@ export const PRESS_REFERENCES: PressReference[] = [
         url: 'https://www.hacf.fr/optimisation-versatile-thermostat/',
         date: '2024-09-29',
     },
+    {
+        type: 'article',
+        lang: 'fr',
+        title: 'Home Assistant & Versatile thermostat',
+        source: 'My Canaletto',
+        logo: '/press/canaletto.jpg',
+        url: 'https://www.canaletto.fr/home-assistant-and-versatile-thermostat/',
+        date: '2024-01-02',
+    },
     // English
     {
         type: 'article',
@@ -49,6 +58,16 @@ export const PRESS_REFERENCES: PressReference[] = [
         logo: '/press/pro-it-rocks.png',
         url: 'https://pro-it.rocks/versatile-thermostat-vs-better-thermostat-10-days-of-data-changed-my-mind/',
         date: '2026-01-11',
+    },
+    // German
+    {
+        type: 'article',
+        lang: 'de',
+        title: 'Versatile Thermostat in Home Assistant: Heizung per TPI regeln',
+        source: 'Technikheim',
+        logo: '/press/technikheim.svg',
+        url: 'https://technikheim.de/artikel/versatile-thermostat-home-assistant-heizkoerper-regeln/',
+        date: '2026-10-19',
     },
 ];
 
