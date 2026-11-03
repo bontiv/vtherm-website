@@ -22,6 +22,7 @@ Der Blueprint [Sonoff TRV-ZBT valve kick](https://gist.github.com/bontiv/af2d59a
 - Mit ZHA „Valve opening degree“ aktivieren und als Entität für den Öffnungsgrad verwenden. „Valve closing degree“ nicht als Entität für den Schließgrad verwenden: Beim TRV-ZBT ist das die Ventilöffnung im Ruhezustand.
 - In VTherm „Follow underlying temp change“ und die Synchronisierung der Gerätetemperatur deaktivieren.
 - [`open_window`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#open-window-binary) am TRV deaktivieren.
+- [`idle_valve_position`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#idle-valve-position-numeric) (ZHA: „Valve closing degree“) auf 0 setzen. Sie wird nur verwendet, wenn das TRV ausgeschaltet ist: Ein höherer Wert lässt das Ventil offen, wenn VTherm das TRV ausschaltet.
 
 ## Temperaturschritte
 

@@ -22,6 +22,7 @@ The [Sonoff TRV-ZBT valve kick](https://gist.github.com/bontiv/af2d59adb15bf3d52
 - With ZHA, enable and use "Valve opening degree" as opening degree entity. Don't use "Valve closing degree" as closing degree entity: on the TRV-ZBT, it is the idle valve opening.
 - Disable "Follow underlying temp change" and the device temperature synchronization in VTherm.
 - Disable [`open_window`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#open-window-binary) on the TRV.
+- Set [`idle_valve_position`](https://www.zigbee2mqtt.io/devices/TRV-ZBT.html#idle-valve-position-numeric) (ZHA: "Valve closing degree") to 0. It's only used when the TRV is off: a higher value keeps the valve open when VTherm turns the TRV off.
 
 ## Temperature step
 
