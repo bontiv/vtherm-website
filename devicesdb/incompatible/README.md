@@ -8,3 +8,4 @@ The following devices are known not to work with Versatile Thermostat. Devices t
 4. **Tuya Wi-Fi Smart TRV**: when the room temperature is synchronized with the calibration offset, the offset drifts endlessly. The device cannot be regulated by _VTherm_.
 5. **MOES BHT-002** thermostats: the target temperature jumps to aberrant values. The BHT-006 model does not have this problem.
 6. Thermostats that only expose the `heat_cool` mode (for example some Beok or Tuya thermostats). _VTherm_ cannot know if the device is heating or cooling.
+7. **MOES TRV801** thermostats: the mode `heat` open the valve at 100% whatever is the setpoint.

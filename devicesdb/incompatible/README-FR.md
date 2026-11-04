@@ -8,3 +8,4 @@ Les appareils suivants sont connus pour ne pas fonctionner avec Versatile Thermo
 4. **Tuya Wi-Fi Smart TRV** : quand la température de la pièce est synchronisée par le décalage de calibration, ce décalage dérive sans fin. L'appareil ne peut pas être régulé par _VTherm_.
 5. Les thermostats **MOES BHT-002** : la consigne saute vers des valeurs aberrantes. Le modèle BHT-006 n'a pas ce problème.
 6. Les thermostats qui n'exposent que le mode `heat_cool` (par exemple certains thermostats Beok ou Tuya). _VTherm_ ne peut pas savoir si l'appareil chauffe ou refroidit.
+7. Les thermostats **MOES TRV801** : le mode `heat` ouvre la vanne à 100% sans prendre en compte la consigne de température.

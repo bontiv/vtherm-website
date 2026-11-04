@@ -665,6 +665,14 @@
         "type": "climate"
     },
     {
+        "img": "https://www.zigbee2mqtt.io/images/devices/TRV801_1.png",
+        "manufacturer": "Moes",
+        "model": "TRV801",
+        "slug": "incompatible",
+        "state": "unsupported",
+        "type": "trv"
+    },
+    {
         "img": "/img/overkiz.png",
         "manufacturer": "Overkiz",
         "model": "",
