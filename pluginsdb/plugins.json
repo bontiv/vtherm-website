@@ -103,6 +103,18 @@
         "family": "device-helper"
     },
     {
+        "name": "[ALPHA] Versatile Thermostat Quirks",
+        "description": "<p>Some devices do not behave the way a generic thermostat expects: a valve that ignores a new opening while idle, a TRV that goes to a fixed position when switched off, a setpoint that must be sent again after a mode change. This integration is a collection of quirks for Versatile Thermostat, plugged into VTherm through the underlying hooks of <code>vtherm_api</code>.</p>",
+        "description_fr": "<p>Certains appareils ne se comportent pas comme un thermostat générique l'attend : une vanne qui ignore une nouvelle ouverture tant qu'elle est au repos, une TRV qui se place sur une position fixe quand on l'éteint, une consigne à renvoyer après un changement de mode. Cette intégration est une collection de quirks pour Versatile Thermostat, branchés sur VTherm grâce aux hooks des sous-jacents de <code>vtherm_api</code>.</p>",
+        "description_de": "<p>Manche Geräte verhalten sich nicht so, wie ein generischer Thermostat es erwartet: ein Ventil, das eine neue Öffnung im Ruhezustand ignoriert, ein Thermostatventil (TRV), das beim Ausschalten in eine feste Position fährt, ein Sollwert, der nach einem Moduswechsel erneut gesendet werden muss. Diese Integration ist eine Sammlung von Quirks für Versatile Thermostat, die über die Hooks der zugrunde liegenden Entitäten von <code>vtherm_api</code> an VTherm angebunden sind.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "device-helper",
+        "slug": "bontiv/vtherm_quirks",
+        "ha_domain": "vtherm_quirks",
+        "author": "bontiv"
+    },
+    {
         "name": "[Experimental] Sonoff TRV-ZBT",
         "author": "bontiv",
         "description": "Experimental blueprint to use the direct valve control with the Sonoff TRV-ZBT (Gen2). The TRV only moves its motor when its internal thermostat changes state. On each valve opening change, the blueprint briefly sends a fake external temperature to force the motor to apply it, without changing the setpoint.",
