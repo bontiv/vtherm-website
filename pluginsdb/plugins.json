@@ -162,11 +162,13 @@
     },
     {
         "name": "Smartpi Dashboard",
-        "description": "<p>Panneau scientifique en lecture seule pour comprendre SmartPI dans Home Assistant.</p>",
+        "description": "<p>Read-only scientific panel for understanding SmartPI in Home Assistant.</p>",
+        "description_fr": "<p>Panneau scientifique en lecture seule pour comprendre SmartPI dans Home Assistant.</p>",
         "certification": "community",
-        "type": "interface",
+        "type": "integration",
         "family": "interface",
         "slug": "gael1980/smartpi-dashboard",
+        "ha_domain": "smartpi_dashboard",
         "author": "gael1980"
     },
     {
