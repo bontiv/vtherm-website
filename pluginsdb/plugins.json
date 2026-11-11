@@ -161,6 +161,17 @@
         "author": "bontiv"
     },
     {
+        "name": "Smartpi Dashboard",
+        "description": "<p>Read-only scientific panel for understanding SmartPI in Home Assistant.</p>",
+        "description_fr": "<p>Panneau scientifique en lecture seule pour comprendre SmartPI dans Home Assistant.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "interface",
+        "slug": "gael1980/smartpi-dashboard",
+        "ha_domain": "smartpi_dashboard",
+        "author": "gael1980"
+    },
+    {
         "name": "The Holm Climate Card",
         "description": "<p>A compact, dynamic AC/heating card: see instantly if it's heating or cooling, and adjust the target temperature with a single swipe.</p>\n<p>HOLM Climate Card replaces the default thermostat card for your climate entities (air conditioners, heat pumps, smart radiators, etc.). It fits two-side-by-side on a smartphone screen, expands beautifully full-width, and its visual atmosphere changes based on what the device is doing: rising embers when heating, snowflakes when cooling, and a softly breathing grey mist when turned off.</p>",
         "description_fr": "<p>Une carte compacte et dynamique pour le chauffage et la climatisation : voyez en un instant si l'appareil chauffe ou refroidit, et ajustez la température cible d'un simple glissement.</p>\n<p>HOLM Climate Card remplace la carte de thermostat par défaut pour vos entités climat (climatiseurs, pompes à chaleur, radiateurs connectés, etc.). Deux cartes tiennent côte à côte sur l'écran d'un smartphone, elle s'étend avec élégance sur toute la largeur, et son ambiance visuelle évolue selon l'état de l'appareil : braises qui s'élèvent en chauffage, flocons de neige en refroidissement, et une brume grise qui respire doucement à l'arrêt.</p>",
