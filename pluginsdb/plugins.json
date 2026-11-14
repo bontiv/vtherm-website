@@ -103,16 +103,13 @@
         "family": "device-helper"
     },
     {
-        "name": "Versatile Thermostat Quirks",
-        "description": "<p>Some devices do not behave the way a generic thermostat expects: a valve that ignores a new opening while idle, a TRV that goes to a fixed position when switched off, a setpoint that must be sent again after a mode change. This integration is a collection of quirks for Versatile Thermostat, plugged into VTherm through the underlying hooks of <code>vtherm_api</code>.</p>",
-        "description_fr": "<p>Certains appareils ne se comportent pas comme un thermostat générique l'attend : une vanne qui ignore une nouvelle ouverture tant qu'elle est au repos, une TRV qui se place sur une position fixe quand on l'éteint, une consigne à renvoyer après un changement de mode. Cette intégration est une collection de quirks pour Versatile Thermostat, branchés sur VTherm grâce aux hooks des sous-jacents de <code>vtherm_api</code>.</p>",
-        "description_de": "<p>Manche Geräte verhalten sich nicht so, wie ein generischer Thermostat es erwartet: ein Ventil, das eine neue Öffnung im Ruhezustand ignoriert, ein Thermostatventil (TRV), das beim Ausschalten in eine feste Position fährt, ein Sollwert, der nach einem Moduswechsel erneut gesendet werden muss. Diese Integration ist eine Sammlung von Quirks für Versatile Thermostat, die über die Hooks der zugrunde liegenden Entitäten von <code>vtherm_api</code> an VTherm angebunden sind.</p>",
+        "name": "An AI assistant to help with your VTherm",
+        "description": "<p>The assistant dynamically discovers all VTherm tools announced by the Home Assistant MCP server whose schemas it accepts, for both reads and writes. It explains the available data in natural language. Depending on the tools published by the installed versions, it can:</p>\n<p>summarize a thermostat's current state and diagnosis: temperatures, target temperature, mode, algorithm phase, action, hysteresis, modulation, and the reason reported by VTherm;\ninspect known VTherm plugins and their status when a plugin diagnostic tool is available;\ninspect a thermostat's history, technical logs, and the states of linked entities when the relevant tools and data are available;\nexplain a situation such as a thermostat that is not heating, compare available observations, or suggest checks;\nsearch the official online VTherm documentation at versatile-thermostat.org in French, English, or German, and cite useful source pages.</p>",
         "certification": "community",
-        "type": "integration",
-        "family": "device-helper",
-        "slug": "bontiv/vtherm_quirks",
-        "ha_domain": "vtherm_quirks",
-        "author": "bontiv"
+        "type": "addon",
+        "family": "feature",
+        "slug": "jmcollin78/vtherm_assistant",
+        "author": "jmcollin78"
     },
     {
         "name": "Aqara W100 Thermostat Synchronization",
@@ -170,6 +167,18 @@
         "family": "interface",
         "slug": "kaaribou/climate-card-holm",
         "author": "kaaribou"
+    },
+    {
+        "name": "Versatile Thermostat Quirks",
+        "description": "<p>Some devices do not behave the way a generic thermostat expects: a valve that ignores a new opening while idle, a TRV that goes to a fixed position when switched off, a setpoint that must be sent again after a mode change. This integration is a collection of quirks for Versatile Thermostat, plugged into VTherm through the underlying hooks of <code>vtherm_api</code>.</p>",
+        "description_fr": "<p>Certains appareils ne se comportent pas comme un thermostat générique l'attend : une vanne qui ignore une nouvelle ouverture tant qu'elle est au repos, une TRV qui se place sur une position fixe quand on l'éteint, une consigne à renvoyer après un changement de mode. Cette intégration est une collection de quirks pour Versatile Thermostat, branchés sur VTherm grâce aux hooks des sous-jacents de <code>vtherm_api</code>.</p>",
+        "description_de": "<p>Manche Geräte verhalten sich nicht so, wie ein generischer Thermostat es erwartet: ein Ventil, das eine neue Öffnung im Ruhezustand ignoriert, ein Thermostatventil (TRV), das beim Ausschalten in eine feste Position fährt, ein Sollwert, der nach einem Moduswechsel erneut gesendet werden muss. Diese Integration ist eine Sammlung von Quirks für Versatile Thermostat, die über die Hooks der zugrunde liegenden Entitäten von <code>vtherm_api</code> an VTherm angebunden sind.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "device-helper",
+        "slug": "bontiv/vtherm_quirks",
+        "ha_domain": "vtherm_quirks",
+        "author": "bontiv"
     },
     {
         "name": "VTherm auto fan extended",
