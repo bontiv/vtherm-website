@@ -11,10 +11,13 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkNotes from 'remark-github-blockquote-alert';
 import 'remark-github-blockquote-alert/alert.css';
-import { docUrlTransform, rehypeSingleH1 } from '@/lib/markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import { docSanitizeSchema, docUrlTransform, rehypeSingleH1 } from '@/lib/markdown';
 
 
-const rehypePlugins: object[] = [rehypeKatex, rehypeSlug, rehypeExternalLinks, rehypeSingleH1]
+// Raw HTML (e.g. `<img width="...">`) is parsed then sanitized before the other plugins add their own markup
+const rehypePlugins: object[] = [rehypeRaw, [rehypeSanitize, docSanitizeSchema], rehypeKatex, rehypeSlug, rehypeExternalLinks, rehypeSingleH1]
 
 const MarkdownPageBase: React.FC<{ file: string, lng: string, version: string, default_page?: string }> = ({ file, lng, version, default_page }) => {
     const [content, setContent] = useState<string | undefined>(default_page)
