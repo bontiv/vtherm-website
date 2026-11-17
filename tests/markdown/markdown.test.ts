@@ -84,3 +84,33 @@ describe('docUrlTransform', () => {
         expect(docUrlTransform('mailto:a@b.c', 'en', source)).toBe('mailto:a@b.c');
     });
 });
+
+describe('docSanitizeSchema', () => {
+    const render = async (md: string) => {
+        const { unified } = await import('unified');
+        const remarkParse = (await import('remark-parse')).default;
+        const remarkRehype = (await import('remark-rehype')).default;
+        const rehypeRaw = (await import('rehype-raw')).default;
+        const rehypeSanitize = (await import('rehype-sanitize')).default;
+        const rehypeStringify = (await import('rehype-stringify')).default;
+        const { docSanitizeSchema } = await import('@/lib/markdown');
+        return String(await unified().use(remarkParse).use(remarkRehype, { allowDangerousHtml: true })
+            .use(rehypeRaw).use(rehypeSanitize, docSanitizeSchema).use(rehypeStringify).process(md));
+    };
+
+    it('keeps raw img tags with their size', async () => {
+        expect(await render('<img src="../../images/graph.png" alt="graph" width="600">'))
+            .toContain('<img src="../../images/graph.png" alt="graph" width="600">');
+    });
+
+    it('removes scripts and event handlers', async () => {
+        const html = await render('<img src="a.png" onerror="alert(1)">\n\n<script>alert(1)</script>');
+        expect(html).not.toContain('onerror');
+        expect(html).not.toContain('<script');
+    });
+
+    it('keeps class names and ids', async () => {
+        expect(await render('<div class="markdown-alert" id="anchor">x</div>'))
+            .toContain('<div class="markdown-alert" id="anchor">');
+    });
+});

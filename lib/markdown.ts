@@ -2,6 +2,29 @@
  * Helpers extracting SEO metadata from the documentation Markdown sources.
  */
 
+import { defaultSchema, type Options as SanitizeSchema } from 'rehype-sanitize';
+
+/**
+ * Sanitize schema for the documentation rendered with raw HTML enabled.
+ * Extends the GitHub-like default schema so that the plugins output survives:
+ * - class names (GitHub alerts, KaTeX math, Mermaid code blocks),
+ * - the octicon SVG of the alerts,
+ * - image sizing attributes used by `<img width="...">` tags,
+ * - element ids kept as written, so that in-page anchors keep working.
+ */
+export const docSanitizeSchema: SanitizeSchema = {
+    ...defaultSchema,
+    clobber: [],
+    tagNames: [...(defaultSchema.tagNames ?? []), 'svg', 'path'],
+    attributes: {
+        ...defaultSchema.attributes,
+        '*': [...(defaultSchema.attributes?.['*'] ?? []), 'className'],
+        img: [...(defaultSchema.attributes?.img ?? []), 'width', 'height', 'align', 'alt', 'title'],
+        svg: ['viewBox', 'width', 'height', 'version', 'ariaHidden'],
+        path: ['d', 'fillRule'],
+    },
+};
+
 /** Returns the text of the first level 1 heading, if any */
 export function markdownTitle(md: string): string | undefined {
     return md.match(/^#[ \t]+(.+?)[ \t#]*$/m)?.[1].trim();
