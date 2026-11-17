@@ -136,6 +136,18 @@
         "family": "device-helper"
     },
     {
+        "name": "Gentle Start",
+        "description": "<p>For every <code>over_climate</code> VTherm it is attached to, the plugin ramps the setpoint sent to the unit on each switch-on:</p>\n<ol>\n<li>At switch-on it sends a start setpoint of the room temperature plus (heating) or minus (cooling) a configurable offset, before the unit leaves OFF.</li>\n<li>At each regulation cycle it raises or lowers the setpoint by at most a configurable maximum step, never beyond the regulated temperature of the thermostat.</li>\n<li>A slope guard uses the temperature slope of the room to hold the ramp back when the room is already warming quickly.</li>\n<li>It publishes a <code>gentle_start</code> attribute on the thermostat and an adjustment sensor.</li>\n</ol>\n<p>This avoids the unit running at full power when it starts, which suits inverter heat pumps, and keeps the number of cloud API calls predictable. Requires Versatile Thermostat 10.6.4 or later and <code>vtherm_api</code>.</p>",
+        "description_fr": "<p>Pour chaque VTherm <code>over_climate</code> auquel il est rattaché, le plugin fait monter progressivement la consigne envoyée à l'appareil à chaque mise en route :</p>\n<ol>\n<li>À la mise en route, il envoie une consigne de départ égale à la température de la pièce plus (chauffage) ou moins (refroidissement) un offset configurable, avant que l'appareil ne quitte l'état OFF.</li>\n<li>À chaque cycle de régulation, il augmente ou diminue la consigne d'au plus un pas maximum configurable, sans jamais dépasser la température régulée du thermostat.</li>\n<li>Un garde-fou de pente utilise la pente de température de la pièce pour retenir la rampe lorsque la pièce se réchauffe déjà rapidement.</li>\n<li>Il publie un attribut <code>gentle_start</code> sur le thermostat et un capteur d'ajustement.</li>\n</ol>\n<p>Cela évite à l'appareil de tourner à pleine puissance au démarrage, ce qui convient aux pompes à chaleur inverter, et rend le nombre d'appels API cloud prévisible. Nécessite Versatile Thermostat 10.6.4 ou plus récent et <code>vtherm_api</code>.</p>",
+        "description_de": "<p>Für jedes <code>over_climate</code>-VTherm, dem es zugeordnet ist, rampt das Plugin den an das Gerät gesendeten Sollwert bei jedem Einschalten:</p>\n<ol>\n<li>Beim Einschalten sendet es einen Startsollwert aus Raumtemperatur plus (Heizen) bzw. minus (Kühlen) einem konfigurierbaren Offset, bevor das Gerät den Zustand OFF verlässt.</li>\n<li>In jedem Regelzyklus erhöht oder senkt es den Sollwert um höchstens einen konfigurierbaren Maximalschritt, nie über die geregelte Temperatur des Thermostats hinaus.</li>\n<li>Eine Steigungsüberwachung nutzt die Temperatursteigung des Raums, um die Rampe zurückzuhalten, wenn sich der Raum bereits schnell erwärmt.</li>\n<li>Es veröffentlicht ein <code>gentle_start</code>-Attribut am Thermostat und einen Anpassungssensor.</li>\n</ol>\n<p>Dadurch läuft das Gerät beim Start nicht auf voller Leistung, was zu Inverter-Wärmepumpen passt, und die Zahl der Cloud-API-Aufrufe bleibt vorhersehbar. Erfordert Versatile Thermostat 10.6.4 oder neuer und <code>vtherm_api</code>.</p>",
+        "certification": "community",
+        "type": "integration",
+        "family": "feature",
+        "slug": "timothyjward/vtherm_gentle_start",
+        "ha_domain": "vtherm_gentle_start",
+        "author": "timothyjward"
+    },
+    {
         "name": "Intelligent Heating Pilot",
         "certification": "community",
         "slug": "RastaChaum/Intelligent-Heating-Pilot",
